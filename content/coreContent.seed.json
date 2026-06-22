@@ -1,0 +1,309 @@
+{
+  "eu_ai_act": {
+    "requirements": [
+      {
+        "code": "Art.4", "title": "AI literacy of staff",
+        "guidanceText": "Make sure the people who build or use your AI have enough training to understand what it does and where it can go wrong. Keep a short record of who was trained and when.",
+        "lawReferenceUrl": "https://eur-lex.europa.eu/eli/reg/2024/1689/oj", "lawReferenceLabel": "AI Act Art. 4",
+        "severity": "mandatory", "sortOrder": 1
+      },
+      {
+        "code": "Art.9", "title": "Risk management system",
+        "guidanceText": "For high-risk AI, run a risk management process across the whole life of the system. Identify the risks to health, safety and rights, decide how you reduce them, and review it regularly.",
+        "lawReferenceUrl": "https://eur-lex.europa.eu/eli/reg/2024/1689/oj", "lawReferenceLabel": "AI Act Art. 9",
+        "severity": "mandatory", "sortOrder": 2
+      },
+      {
+        "code": "Art.10", "title": "Data and data governance",
+        "guidanceText": "Use training and test data that is relevant and as free of errors and bias as reasonably possible. Write down where the data came from and how you checked its quality.",
+        "lawReferenceUrl": "https://eur-lex.europa.eu/eli/reg/2024/1689/oj", "lawReferenceLabel": "AI Act Art. 10",
+        "severity": "mandatory", "sortOrder": 3
+      },
+      {
+        "code": "Art.11", "title": "Technical documentation",
+        "guidanceText": "Keep technical documentation that shows how the system was built and tested, so an authority could check that it meets the rules.",
+        "lawReferenceUrl": "https://eur-lex.europa.eu/eli/reg/2024/1689/oj", "lawReferenceLabel": "AI Act Art. 11 and Annex IV",
+        "severity": "mandatory", "sortOrder": 4
+      },
+      {
+        "code": "Art.13", "title": "Transparency for users",
+        "guidanceText": "Give the people who operate the system clear instructions: what it does, its limits, and how to read its output. Make sure they can understand the results.",
+        "lawReferenceUrl": "https://eur-lex.europa.eu/eli/reg/2024/1689/oj", "lawReferenceLabel": "AI Act Art. 13",
+        "severity": "mandatory", "sortOrder": 5
+      },
+      {
+        "code": "Art.14", "title": "Human oversight",
+        "guidanceText": "A person must be able to understand, watch over, and if needed stop or override the AI. Decide who that person is and how they can intervene.",
+        "lawReferenceUrl": "https://eur-lex.europa.eu/eli/reg/2024/1689/oj", "lawReferenceLabel": "AI Act Art. 14",
+        "severity": "mandatory", "sortOrder": 6
+      },
+      {
+        "code": "Art.15", "title": "Accuracy, robustness and security",
+        "guidanceText": "Test that the system is accurate and stable enough for its purpose, and protect it against errors, misuse, and attacks. Record your test results.",
+        "lawReferenceUrl": "https://eur-lex.europa.eu/eli/reg/2024/1689/oj", "lawReferenceLabel": "AI Act Art. 15",
+        "severity": "mandatory", "sortOrder": 7
+      },
+      {
+        "code": "Art.50", "title": "Transparency about AI use",
+        "guidanceText": "Tell people when they are interacting with an AI, and clearly label AI-generated or manipulated content such as chatbots, synthetic media, and deepfakes.",
+        "lawReferenceUrl": "https://eur-lex.europa.eu/eli/reg/2024/1689/oj", "lawReferenceLabel": "AI Act Art. 50",
+        "severity": "mandatory", "sortOrder": 8
+      }
+    ],
+    "templates": [
+      {
+        "key": "ai_governance_baseline", "name": "AI Governance Baseline",
+        "description": "Foundational steps every organisation using AI should complete, whatever the risk level.",
+        "appliesToRiskCategory": null, "status": "published", "sortOrder": 1,
+        "items": [
+          { "title": "Record the AI system in your inventory", "requirementCode": "Art.4", "inputType": "longtext", "isRequired": true, "sortOrder": 1,
+            "guidanceText": "Describe what this AI system is, what it is used for, and who is responsible for it inside your company." },
+          { "title": "Confirm staff AI literacy and training", "requirementCode": "Art.4", "inputType": "longtext", "isRequired": false, "sortOrder": 2,
+            "guidanceText": "Note what training the people building or using this system have had, so they understand its abilities and limits." },
+          { "title": "Document transparency toward affected people", "requirementCode": "Art.50", "inputType": "longtext", "isRequired": false, "sortOrder": 3,
+            "guidanceText": "Explain how you tell people they are dealing with AI, and how you label AI-generated content." }
+        ]
+      },
+      {
+        "key": "ai_risk_assessment", "name": "AI Risk Assessment",
+        "description": "Write down the risks this AI creates and how you reduce them. This is your core documentation.",
+        "appliesToRiskCategory": null, "status": "published", "sortOrder": 2,
+        "items": [
+          { "title": "Describe the intended purpose and context", "requirementCode": "Art.9", "inputType": "longtext", "isRequired": true, "sortOrder": 1,
+            "guidanceText": "What is the system meant to do, who uses it, and who is affected by its decisions?" },
+          { "title": "Identify risks to health, safety and rights", "requirementCode": "Art.9", "inputType": "longtext", "isRequired": true, "sortOrder": 2,
+            "guidanceText": "List the things that could go wrong for people, for example unfair outcomes, errors, or safety issues." },
+          { "title": "Describe your risk mitigation measures", "requirementCode": "Art.9", "inputType": "longtext", "isRequired": true, "sortOrder": 3,
+            "guidanceText": "For each risk, write what you do to reduce it, such as testing, human checks, or limits on use." },
+          { "title": "Record data quality and bias checks", "requirementCode": "Art.10", "inputType": "longtext", "isRequired": false, "sortOrder": 4,
+            "guidanceText": "Note where your data comes from and how you checked it for errors and bias." }
+        ]
+      },
+      {
+        "key": "ai_high_risk_obligations", "name": "High-Risk AI Obligations",
+        "description": "The full set of duties that apply when an AI system is classified as high-risk.",
+        "appliesToRiskCategory": "high", "status": "published", "sortOrder": 3,
+        "items": [
+          { "title": "Maintain technical documentation", "requirementCode": "Art.11", "inputType": "longtext", "isRequired": true, "sortOrder": 1,
+            "guidanceText": "Confirm you keep documentation showing how the system was built and tested." },
+          { "title": "Provide clear instructions to operators", "requirementCode": "Art.13", "inputType": "longtext", "isRequired": true, "sortOrder": 2,
+            "guidanceText": "Describe the instructions and information you give to the people who run the system." },
+          { "title": "Set up human oversight", "requirementCode": "Art.14", "inputType": "longtext", "isRequired": true, "sortOrder": 3,
+            "guidanceText": "Name the person who can monitor and stop the system, and describe how they intervene." },
+          { "title": "Test accuracy, robustness and security", "requirementCode": "Art.15", "inputType": "longtext", "isRequired": true, "sortOrder": 4,
+            "guidanceText": "Summarise how you tested accuracy and protected the system against misuse and attacks." },
+          { "title": "Keep automatic logs", "requirementCode": "Art.15", "inputType": "boolean", "isRequired": false, "sortOrder": 5,
+            "guidanceText": "Confirm the system keeps logs of its operation so events can be traced." }
+        ]
+      },
+      {
+        "key": "ai_transparency_obligations", "name": "Transparency Obligations",
+        "description": "Duties for AI that interacts with people or generates content (limited-risk systems).",
+        "appliesToRiskCategory": "limited", "status": "published", "sortOrder": 4,
+        "items": [
+          { "title": "Tell users they are interacting with AI", "requirementCode": "Art.50", "inputType": "longtext", "isRequired": true, "sortOrder": 1,
+            "guidanceText": "Describe how you make clear to people that they are dealing with an AI, for example a chatbot notice." },
+          { "title": "Label AI-generated content", "requirementCode": "Art.50", "inputType": "longtext", "isRequired": true, "sortOrder": 2,
+            "guidanceText": "Explain how you label content the AI creates or changes, including synthetic media." }
+        ]
+      },
+      {
+        "key": "ai_prohibited_check", "name": "Prohibited Practice Review",
+        "description": "This system may fall under a banned AI practice. Review and document urgently.",
+        "appliesToRiskCategory": "prohibited", "status": "published", "sortOrder": 5,
+        "items": [
+          { "title": "Confirm the system is not a banned practice", "inputType": "longtext", "isRequired": true, "sortOrder": 1,
+            "guidanceText": "The classification suggests this system may be banned under Art. 5, for example social scoring or certain biometric uses. Document your review and get legal advice before any use." }
+        ]
+      }
+    ]
+  },
+  "gdpr": {
+    "requirements": [
+      {
+        "code": "Art.6", "title": "Lawful basis for processing",
+        "guidanceText": "Have a clear legal reason to use personal data in your AI, such as consent, a contract, or a legitimate interest. Write down which one you rely on.",
+        "lawReferenceUrl": "https://eur-lex.europa.eu/eli/reg/2016/679/oj", "lawReferenceLabel": "GDPR Art. 6",
+        "severity": "mandatory", "sortOrder": 1
+      },
+      {
+        "code": "Art.13", "title": "Transparency and information",
+        "guidanceText": "Tell people clearly how their data is used by the AI, in plain language, before or when you collect it.",
+        "lawReferenceUrl": "https://eur-lex.europa.eu/eli/reg/2016/679/oj", "lawReferenceLabel": "GDPR Art. 13 and 14",
+        "severity": "mandatory", "sortOrder": 2
+      },
+      {
+        "code": "Art.22", "title": "Automated decisions and profiling",
+        "guidanceText": "If the AI makes decisions about people with no human involved and a serious effect, you usually need extra safeguards, such as a right to human review.",
+        "lawReferenceUrl": "https://eur-lex.europa.eu/eli/reg/2016/679/oj", "lawReferenceLabel": "GDPR Art. 22",
+        "severity": "mandatory", "sortOrder": 3
+      },
+      {
+        "code": "Art.35", "title": "Data protection impact assessment",
+        "guidanceText": "For high-risk AI processing, carry out a data protection impact assessment that describes the processing, the risks to people, and how you reduce them.",
+        "lawReferenceUrl": "https://eur-lex.europa.eu/eli/reg/2016/679/oj", "lawReferenceLabel": "GDPR Art. 35",
+        "severity": "mandatory", "sortOrder": 4
+      },
+      {
+        "code": "Art.5", "title": "Data minimisation and accuracy",
+        "guidanceText": "Use only the personal data you really need, keep it accurate, and do not keep it longer than necessary.",
+        "lawReferenceUrl": "https://eur-lex.europa.eu/eli/reg/2016/679/oj", "lawReferenceLabel": "GDPR Art. 5",
+        "severity": "mandatory", "sortOrder": 5
+      }
+    ],
+    "templates": [
+      {
+        "key": "gdpr_ai_baseline", "name": "GDPR Baseline for AI",
+        "description": "Core data protection steps for any AI that uses personal data.",
+        "appliesToRiskCategory": null, "status": "published", "sortOrder": 1,
+        "items": [
+          { "title": "Record your lawful basis", "requirementCode": "Art.6", "inputType": "longtext", "isRequired": true, "sortOrder": 1,
+            "guidanceText": "State the legal reason you use personal data in this AI system." },
+          { "title": "Document how you inform people", "requirementCode": "Art.13", "inputType": "longtext", "isRequired": true, "sortOrder": 2,
+            "guidanceText": "Describe the privacy information you give to the people whose data is used." },
+          { "title": "Assess automated decision making", "requirementCode": "Art.22", "inputType": "longtext", "isRequired": false, "sortOrder": 3,
+            "guidanceText": "Note whether the AI makes decisions about people on its own, and what safeguards you provide." },
+          { "title": "Complete a data protection impact assessment", "requirementCode": "Art.35", "inputType": "longtext", "isRequired": false, "sortOrder": 4,
+            "guidanceText": "If the processing is high risk, summarise your impact assessment and its outcome." },
+          { "title": "Apply data minimisation", "requirementCode": "Art.5", "inputType": "longtext", "isRequired": false, "sortOrder": 5,
+            "guidanceText": "Explain how you limit the personal data used and how long you keep it." }
+        ]
+      }
+    ]
+  },
+  "dora": {
+    "requirements": [
+      { "code": "Art.5", "title": "ICT and AI risk management framework",
+        "guidanceText": "Put in place a documented framework to manage your technology and AI risks across the whole firm. The management body owns it and reviews it regularly.",
+        "lawReferenceUrl": "https://eur-lex.europa.eu/eli/reg/2022/2554/oj", "lawReferenceLabel": "DORA Art. 5 to 6", "severity": "mandatory", "sortOrder": 1 },
+      { "code": "Art.17", "title": "Incident management and reporting",
+        "guidanceText": "Detect, handle, classify and report major technology incidents to the competent authority within the set deadlines.",
+        "lawReferenceUrl": "https://eur-lex.europa.eu/eli/reg/2022/2554/oj", "lawReferenceLabel": "DORA Art. 17 to 19", "severity": "mandatory", "sortOrder": 2 },
+      { "code": "Art.24", "title": "Digital resilience testing",
+        "guidanceText": "Test the resilience of your critical technology and AI systems regularly, including advanced threat-led testing where it is required.",
+        "lawReferenceUrl": "https://eur-lex.europa.eu/eli/reg/2022/2554/oj", "lawReferenceLabel": "DORA Art. 24 to 26", "severity": "recommended", "sortOrder": 3 },
+      { "code": "Art.28", "title": "Third-party technology risk",
+        "guidanceText": "Manage and document the risks from outside technology and AI providers, with key contract safeguards and a clear exit plan.",
+        "lawReferenceUrl": "https://eur-lex.europa.eu/eli/reg/2022/2554/oj", "lawReferenceLabel": "DORA Art. 28 to 30", "severity": "mandatory", "sortOrder": 4 }
+    ],
+    "templates": [
+      { "key": "dora_resilience", "name": "DORA Operational Resilience", "appliesToRiskCategory": null, "autoActivate": false, "status": "published", "sortOrder": 1,
+        "description": "Operational resilience steps for financial entities using technology and AI.",
+        "items": [
+          { "title": "Document your ICT and AI risk management framework", "requirementCode": "Art.5", "inputType": "longtext", "isRequired": true, "sortOrder": 1, "guidanceText": "Describe how you identify, manage and review technology and AI risks, and who owns it." },
+          { "title": "Set up incident detection and reporting", "requirementCode": "Art.17", "inputType": "longtext", "isRequired": true, "sortOrder": 2, "guidanceText": "Explain how you detect, classify and report major ICT incidents on time." },
+          { "title": "Plan and run resilience testing", "requirementCode": "Art.24", "inputType": "longtext", "isRequired": false, "sortOrder": 3, "guidanceText": "Describe your testing programme for critical systems." },
+          { "title": "Manage third-party providers and exit strategy", "requirementCode": "Art.28", "inputType": "longtext", "isRequired": true, "sortOrder": 4, "guidanceText": "Record your key providers, contract safeguards and exit plan." }
+        ]
+      }
+    ]
+  },
+  "nis2": {
+    "requirements": [
+      { "code": "Art.21", "title": "Cybersecurity risk-management measures",
+        "guidanceText": "Adopt technical and organisational measures to manage the risks to your network and information systems, in proportion to the risk you face.",
+        "lawReferenceUrl": "https://eur-lex.europa.eu/eli/dir/2022/2555/oj", "lawReferenceLabel": "NIS2 Art. 21", "severity": "mandatory", "sortOrder": 1 },
+      { "code": "Art.20", "title": "Management accountability",
+        "guidanceText": "Your management body approves the cybersecurity measures, oversees them, and takes relevant training.",
+        "lawReferenceUrl": "https://eur-lex.europa.eu/eli/dir/2022/2555/oj", "lawReferenceLabel": "NIS2 Art. 20", "severity": "mandatory", "sortOrder": 2 },
+      { "code": "Art.23", "title": "Incident reporting to the BSI",
+        "guidanceText": "Report significant incidents to the BSI: an early warning within 24 hours, a notification within 72 hours, and a final report within one month.",
+        "lawReferenceUrl": "https://eur-lex.europa.eu/eli/dir/2022/2555/oj", "lawReferenceLabel": "NIS2 Art. 23", "severity": "mandatory", "sortOrder": 3 },
+      { "code": "Art.21d", "title": "Supply chain security",
+        "guidanceText": "Address security in your supply chain and in your relationships with direct suppliers and service providers.",
+        "lawReferenceUrl": "https://eur-lex.europa.eu/eli/dir/2022/2555/oj", "lawReferenceLabel": "NIS2 Art. 21(2)(d)", "severity": "recommended", "sortOrder": 4 }
+    ],
+    "templates": [
+      { "key": "nis2_security", "name": "NIS2 Cybersecurity Measures", "appliesToRiskCategory": null, "autoActivate": false, "status": "published", "sortOrder": 1,
+        "description": "Cybersecurity duties for essential and important entities.",
+        "items": [
+          { "title": "Implement risk-management measures", "requirementCode": "Art.21", "inputType": "longtext", "isRequired": true, "sortOrder": 1, "guidanceText": "List the technical and organisational measures you have in place." },
+          { "title": "Get management approval and training", "requirementCode": "Art.20", "inputType": "longtext", "isRequired": false, "sortOrder": 2, "guidanceText": "Record management sign-off and the training they received." },
+          { "title": "Set up incident reporting to the BSI", "requirementCode": "Art.23", "inputType": "longtext", "isRequired": true, "sortOrder": 3, "guidanceText": "Describe your process and deadlines for reporting significant incidents." },
+          { "title": "Address supply-chain security", "requirementCode": "Art.21d", "inputType": "longtext", "isRequired": false, "sortOrder": 4, "guidanceText": "Explain how you assess and manage supplier security." }
+        ]
+      }
+    ]
+  },
+  "eu_data_act": {
+    "requirements": [
+      { "code": "Art.3", "title": "Access by design",
+        "guidanceText": "Design connected products and related services so users can easily access the data they generate, by default and without undue effort.",
+        "lawReferenceUrl": "https://eur-lex.europa.eu/eli/reg/2023/2854/oj", "lawReferenceLabel": "Data Act Art. 3 to 4", "severity": "mandatory", "sortOrder": 1 },
+      { "code": "Art.5", "title": "Data sharing with third parties",
+        "guidanceText": "On the user's request, make the generated data available to a third party under fair, reasonable and non-discriminatory terms.",
+        "lawReferenceUrl": "https://eur-lex.europa.eu/eli/reg/2023/2854/oj", "lawReferenceLabel": "Data Act Art. 5", "severity": "recommended", "sortOrder": 2 },
+      { "code": "Art.13", "title": "No unfair contract terms",
+        "guidanceText": "Do not impose unfair terms about data access and use on smaller businesses.",
+        "lawReferenceUrl": "https://eur-lex.europa.eu/eli/reg/2023/2854/oj", "lawReferenceLabel": "Data Act Art. 13", "severity": "recommended", "sortOrder": 3 },
+      { "code": "Art.23", "title": "Cloud switching",
+        "guidanceText": "Let customers switch cloud and edge services by removing obstacles and excessive charges.",
+        "lawReferenceUrl": "https://eur-lex.europa.eu/eli/reg/2023/2854/oj", "lawReferenceLabel": "Data Act Art. 23 to 25", "severity": "recommended", "sortOrder": 4 }
+    ],
+    "templates": [
+      { "key": "data_act_access", "name": "Data Act Compliance", "appliesToRiskCategory": null, "autoActivate": false, "status": "published", "sortOrder": 1,
+        "description": "Fair data access and sharing for connected products and services.",
+        "items": [
+          { "title": "Provide user access to product data", "requirementCode": "Art.3", "inputType": "longtext", "isRequired": true, "sortOrder": 1, "guidanceText": "Describe how users can access the data their device or service produces." },
+          { "title": "Enable data sharing with third parties on request", "requirementCode": "Art.5", "inputType": "longtext", "isRequired": false, "sortOrder": 2, "guidanceText": "Explain how you share data with a third party when the user asks." },
+          { "title": "Review contracts for unfair data terms", "requirementCode": "Art.13", "inputType": "longtext", "isRequired": false, "sortOrder": 3, "guidanceText": "Note how you checked your contracts for unfair data clauses." },
+          { "title": "Support cloud switching", "requirementCode": "Art.23", "inputType": "longtext", "isRequired": false, "sortOrder": 4, "guidanceText": "Describe how customers can move to another cloud or edge provider." }
+        ]
+      }
+    ]
+  },
+  "cra": {
+    "requirements": [
+      { "code": "SecureDesign", "title": "Secure by design",
+        "guidanceText": "Design and build your product with digital elements to be secure, with no known exploitable vulnerabilities when you release it.",
+        "lawReferenceUrl": "https://eur-lex.europa.eu/eli/reg/2024/2847/oj", "lawReferenceLabel": "CRA Annex I, Part I", "severity": "mandatory", "sortOrder": 1 },
+      { "code": "VulnHandling", "title": "Vulnerability handling and updates",
+        "guidanceText": "Identify, document and fix vulnerabilities, and provide security updates for the product's support period.",
+        "lawReferenceUrl": "https://eur-lex.europa.eu/eli/reg/2024/2847/oj", "lawReferenceLabel": "CRA Annex I, Part II", "severity": "mandatory", "sortOrder": 2 },
+      { "code": "Reporting", "title": "Report exploited vulnerabilities",
+        "guidanceText": "Report actively exploited vulnerabilities and severe incidents to the authority within the set deadlines.",
+        "lawReferenceUrl": "https://eur-lex.europa.eu/eli/reg/2024/2847/oj", "lawReferenceLabel": "CRA Art. 14", "severity": "mandatory", "sortOrder": 3 },
+      { "code": "Conformity", "title": "Conformity assessment and CE marking",
+        "guidanceText": "Carry out a conformity assessment and affix the CE marking before placing the product on the market.",
+        "lawReferenceUrl": "https://eur-lex.europa.eu/eli/reg/2024/2847/oj", "lawReferenceLabel": "CRA Art. 13 and 28", "severity": "recommended", "sortOrder": 4 }
+    ],
+    "templates": [
+      { "key": "cra_product_security", "name": "Cyber Resilience Act Compliance", "appliesToRiskCategory": null, "autoActivate": false, "status": "published", "sortOrder": 1,
+        "description": "Cybersecurity duties for products with digital elements, including AI-enabled ones.",
+        "items": [
+          { "title": "Apply secure-by-design requirements", "requirementCode": "SecureDesign", "inputType": "longtext", "isRequired": true, "sortOrder": 1, "guidanceText": "Describe the security measures built into the product." },
+          { "title": "Set up vulnerability handling and updates", "requirementCode": "VulnHandling", "inputType": "longtext", "isRequired": true, "sortOrder": 2, "guidanceText": "Explain how you find, fix and patch vulnerabilities over the support period." },
+          { "title": "Set up exploited-vulnerability reporting", "requirementCode": "Reporting", "inputType": "longtext", "isRequired": true, "sortOrder": 3, "guidanceText": "Describe your process for reporting exploited vulnerabilities on time." },
+          { "title": "Complete conformity assessment and CE marking", "requirementCode": "Conformity", "inputType": "longtext", "isRequired": false, "sortOrder": 4, "guidanceText": "Record your conformity assessment and CE marking." }
+        ]
+      }
+    ]
+  },
+  "bafin_ki": {
+    "requirements": [
+      { "code": "Resp", "title": "Clear responsibility and governance",
+        "guidanceText": "Keep clear human responsibility for AI-driven decisions. The management body stays accountable and cannot delegate this to the algorithm.",
+        "lawReferenceUrl": "https://www.bafin.de", "lawReferenceLabel": "BaFin AI principles", "severity": "mandatory", "sortOrder": 1 },
+      { "code": "Data", "title": "Data quality and bias",
+        "guidanceText": "Use appropriate, representative data for your models and check for bias and data-quality problems.",
+        "lawReferenceUrl": "https://www.bafin.de", "lawReferenceLabel": "BaFin AI principles", "severity": "mandatory", "sortOrder": 2 },
+      { "code": "Validation", "title": "Model validation",
+        "guidanceText": "Validate models before you use them and re-validate them regularly, keeping documentation of the results.",
+        "lawReferenceUrl": "https://www.bafin.de", "lawReferenceLabel": "BaFin AI principles", "severity": "mandatory", "sortOrder": 3 },
+      { "code": "Oversight", "title": "Ongoing monitoring and human oversight",
+        "guidanceText": "Continuously monitor model performance and keep meaningful human oversight of the outcomes.",
+        "lawReferenceUrl": "https://www.bafin.de", "lawReferenceLabel": "BaFin AI principles", "severity": "mandatory", "sortOrder": 4 }
+    ],
+    "templates": [
+      { "key": "bafin_ai_governance", "name": "BaFin AI Governance", "appliesToRiskCategory": null, "autoActivate": false, "status": "published", "sortOrder": 1,
+        "description": "BaFin's expectations for AI used by supervised financial firms.",
+        "items": [
+          { "title": "Assign clear responsibility for AI decisions", "requirementCode": "Resp", "inputType": "longtext", "isRequired": true, "sortOrder": 1, "guidanceText": "Name who is accountable for the AI system and its decisions." },
+          { "title": "Document data quality and bias checks", "requirementCode": "Data", "inputType": "longtext", "isRequired": true, "sortOrder": 2, "guidanceText": "Describe your data sources and how you checked them for quality and bias." },
+          { "title": "Validate and re-validate models", "requirementCode": "Validation", "inputType": "longtext", "isRequired": true, "sortOrder": 3, "guidanceText": "Summarise your validation approach and schedule." },
+          { "title": "Monitor performance and keep human oversight", "requirementCode": "Oversight", "inputType": "longtext", "isRequired": true, "sortOrder": 4, "guidanceText": "Explain how you monitor the model and how a person oversees the outcomes." }
+        ]
+      }
+    ]
+  }
+}

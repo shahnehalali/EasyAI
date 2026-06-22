@@ -1,0 +1,201 @@
+{
+  "categories": [
+    { "key": "data", "label": "Data and privacy" },
+    { "key": "people", "label": "People and work" },
+    { "key": "content", "label": "Content and AI building" },
+    { "key": "platform", "label": "Platforms and markets" },
+    { "key": "products", "label": "Products and safety" },
+    { "key": "sector", "label": "Your sector" }
+  ],
+  "functions": [
+    {
+      "key": "personal_data", "category": "data",
+      "label": "We process personal data with AI",
+      "description": "Your AI uses any information about identifiable people.",
+      "frameworks": ["gdpr", "bdsg", "tdddg", "eu_ai_act"]
+    },
+    {
+      "key": "automated_decisions", "category": "data",
+      "label": "We make automated decisions about people",
+      "description": "The AI decides or strongly influences outcomes for individuals.",
+      "frameworks": ["gdpr", "eu_ai_act", "agg"]
+    },
+    {
+      "key": "biometric_data", "category": "data",
+      "label": "We use biometric data or facial recognition",
+      "description": "Identifying people from their face, voice, or other biometric features.",
+      "frameworks": ["eu_ai_act", "gdpr", "bdsg"]
+    },
+    {
+      "key": "profiling_prediction", "category": "data",
+      "label": "We profile or predict things about people",
+      "description": "Scoring, ranking, or forecasting behaviour or characteristics of individuals.",
+      "frameworks": ["gdpr", "eu_ai_act", "agg", "bdsg"]
+    },
+    {
+      "key": "tracking_cookies", "category": "data",
+      "label": "We track users with cookies or pixels",
+      "description": "Online tracking, ad-tech, or AI-driven personalisation on websites and apps.",
+      "frameworks": ["tdddg", "gdpr", "dsa"]
+    },
+    {
+      "key": "childrens_data", "category": "data",
+      "label": "We process data about children",
+      "description": "Your AI handles information about people under 18.",
+      "frameworks": ["gdpr", "bdsg", "tdddg"]
+    },
+    {
+      "key": "cross_border", "category": "data",
+      "label": "We transfer personal data outside the EU",
+      "description": "Personal data leaves the EU or EEA, for example to a US cloud provider.",
+      "frameworks": ["gdpr", "bdsg"]
+    },
+    {
+      "key": "hr_recruitment", "category": "people",
+      "label": "We use AI in HR or recruitment",
+      "description": "Hiring, screening, or workforce management with AI.",
+      "frameworks": ["agg", "betrvg", "arbschg", "bdsg", "eu_ai_act", "hinschg"]
+    },
+    {
+      "key": "workplace_monitoring", "category": "people",
+      "label": "We monitor or evaluate employees with AI",
+      "description": "Performance monitoring, productivity scoring, or algorithmic management of staff.",
+      "frameworks": ["arbschg", "betrvg", "bdsg", "agg", "gdpr"]
+    },
+    {
+      "key": "fifty_plus_staff", "category": "people",
+      "label": "We have 50 or more employees",
+      "description": "Larger employers have extra duties, such as a whistleblowing channel.",
+      "frameworks": ["hinschg", "betrvg"]
+    },
+    {
+      "key": "training_data", "category": "content",
+      "label": "We train AI models on existing content",
+      "description": "Using text, images, or other works to train or fine-tune AI.",
+      "frameworks": ["urhg", "geschgehg", "eu_data_act", "dga"]
+    },
+    {
+      "key": "foundation_models", "category": "content",
+      "label": "We build or fine-tune general-purpose AI models",
+      "description": "Developing large or foundation models that others can build on.",
+      "frameworks": ["eu_ai_act", "urhg", "geschgehg", "dga"]
+    },
+    {
+      "key": "generative_media", "category": "content",
+      "label": "We generate content or deepfakes",
+      "description": "AI that creates or edits text, images, audio, or video.",
+      "frameworks": ["eu_ai_act", "stgb", "bgb", "mstv", "urhg"]
+    },
+    {
+      "key": "customer_chatbot", "category": "content",
+      "label": "We run an AI chatbot or assistant",
+      "description": "AI that talks to customers or users directly.",
+      "frameworks": ["eu_ai_act", "gdpr", "uwg"]
+    },
+    {
+      "key": "third_party_ai", "category": "content",
+      "label": "We use third-party or SaaS AI tools",
+      "description": "You rely on outside AI services rather than building your own.",
+      "frameworks": ["eu_ai_act", "gdpr", "geschgehg"]
+    },
+    {
+      "key": "online_platform", "category": "platform",
+      "label": "We run an online platform or search service",
+      "description": "Marketplaces, social networks, recommenders, or search.",
+      "frameworks": ["dsa", "dma", "gdpr", "tdddg"]
+    },
+    {
+      "key": "content_moderation", "category": "platform",
+      "label": "We moderate user content with AI",
+      "description": "Automated filtering, ranking, or removal of user-generated content.",
+      "frameworks": ["dsa", "eu_ai_act", "gdpr"]
+    },
+    {
+      "key": "marketing", "category": "platform",
+      "label": "We use AI in marketing or advertising",
+      "description": "Recommendations, targeting, or AI-generated ads.",
+      "frameworks": ["uwg", "gdpr", "tdddg", "gwb", "mstv"]
+    },
+    {
+      "key": "pricing_algorithms", "category": "platform",
+      "label": "We set prices with algorithms",
+      "description": "Dynamic or personalised pricing driven by AI.",
+      "frameworks": ["uwg", "gwb", "gdpr", "bgb"]
+    },
+    {
+      "key": "connected_products", "category": "products",
+      "label": "We build connected or IoT products",
+      "description": "Devices and services that generate data.",
+      "frameworks": ["eu_data_act", "dga", "machinery", "cra"]
+    },
+    {
+      "key": "software_products", "category": "products",
+      "label": "We sell AI-enabled software or hardware",
+      "description": "Products with digital or AI elements placed on the market.",
+      "frameworks": ["cra", "pld", "prodhaftg", "machinery", "eu_ai_act"]
+    },
+    {
+      "key": "machinery_robotics", "category": "products",
+      "label": "We build machinery or robots with AI",
+      "description": "Industrial AI, robots, or cobots with self-learning behaviour.",
+      "frameworks": ["machinery", "eu_ai_act", "pld", "prodhaftg"]
+    },
+    {
+      "key": "critical_infrastructure", "category": "products",
+      "label": "We operate essential or critical services",
+      "description": "Energy, transport, health, water, or digital infrastructure.",
+      "frameworks": ["nis2", "cra", "dora"]
+    },
+    {
+      "key": "identity_verification", "category": "products",
+      "label": "We do identity verification or KYC",
+      "description": "Electronic identity, onboarding, or fraud checks.",
+      "frameworks": ["eidas", "gdpr", "eu_ai_act"]
+    },
+    {
+      "key": "financial_services", "category": "sector",
+      "label": "We are a financial services firm",
+      "description": "Banking, payments, crypto, or investment.",
+      "frameworks": ["dora", "kwg", "eu_ai_act", "gdpr", "bafin_ki"]
+    },
+    {
+      "key": "credit_scoring", "category": "sector",
+      "label": "We score creditworthiness",
+      "description": "AI used to decide loans, limits, or credit risk.",
+      "frameworks": ["eu_ai_act", "gdpr", "kwg", "agg", "bafin_ki"]
+    },
+    {
+      "key": "insurance", "category": "sector",
+      "label": "We are an insurer",
+      "description": "Underwriting, claims, or risk scoring with AI.",
+      "frameworks": ["vag", "eu_ai_act", "gdpr", "bafin_ki"]
+    },
+    {
+      "key": "medical_ai", "category": "sector",
+      "label": "We build medical or diagnostic AI",
+      "description": "AI used for diagnosis, monitoring, or treatment.",
+      "frameworks": ["mdr", "sgbv_diga", "ehds", "eu_ai_act", "gdpr"]
+    },
+    {
+      "key": "autonomous_vehicles", "category": "sector",
+      "label": "We build automated or autonomous vehicles",
+      "description": "Self-driving or driver-assistance systems.",
+      "frameworks": ["stvg_autonomous", "eu_ai_act", "machinery"]
+    },
+    {
+      "key": "public_sector", "category": "sector",
+      "label": "We sell AI to public authorities",
+      "description": "GovTech and software used for government decisions.",
+      "frameworks": ["vwvfg", "eu_ai_act", "gdpr", "agg"]
+    }
+  ],
+  "sectors": [
+    { "key": "all", "label": "All sectors" },
+    { "key": "financial", "label": "Finance" },
+    { "key": "insurance", "label": "Insurance" },
+    { "key": "health", "label": "Healthcare and medical" },
+    { "key": "mobility", "label": "Mobility and automotive" },
+    { "key": "public", "label": "Public sector" },
+    { "key": "media", "label": "Media and platforms" }
+  ]
+}

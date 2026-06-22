@@ -1,0 +1,371 @@
+[
+  {
+    "key": "eu_ai_act", "name": "EU AI Act", "shortName": "EU AI Act", "tier": 1,
+    "jurisdiction": "EU", "category": "ai", "reference": "Regulation (EU) 2024/1689",
+    "regulator": "Federal Network Agency (BNetzA) as lead, with BaFin, BfArM and the EU AI Office",
+    "lawReferenceUrl": "https://eur-lex.europa.eu/eli/reg/2024/1689/oj",
+    "shortDescription": "The main AI law. It sorts AI systems into risk levels (banned, high, limited, minimal) and sets rules for each level, such as documentation, human oversight and transparency.",
+    "appliesTo": "Any company that builds, sells, or uses an AI system that affects people in the EU. Extra rules apply to providers of general-purpose AI models.",
+    "keySections": "Art. 5 (banned uses), Art. 6 and Annex III (high-risk), Art. 9 to 15 (requirements), Art. 50 (transparency), Art. 51 to 56 (general-purpose AI)",
+    "sortOrder": 1
+  },
+  {
+    "key": "gdpr", "name": "General Data Protection Regulation", "shortName": "GDPR", "tier": 1,
+    "jurisdiction": "EU", "category": "data_protection", "reference": "Regulation (EU) 2016/679",
+    "regulator": "Federal and 16 State Data Protection Authorities (BfDI and the Landesbehoerden)",
+    "lawReferenceUrl": "https://eur-lex.europa.eu/eli/reg/2016/679/oj",
+    "shortDescription": "The core data protection law. It controls how AI uses personal data, limits fully automated decisions about people, and requires a data protection impact assessment for high-risk AI.",
+    "appliesTo": "Every company that processes personal data of people in the EU using AI.",
+    "keySections": "Art. 5 (principles), Art. 6 and 9 (legal basis), Art. 22 (automated decisions), Art. 35 (impact assessment)",
+    "sortOrder": 2
+  },
+  {
+    "key": "eu_data_act", "name": "EU Data Act", "shortName": "Data Act", "tier": 1,
+    "jurisdiction": "EU", "category": "data", "reference": "Regulation (EU) 2023/2854",
+    "regulator": "Federal Network Agency (BNetzA)",
+    "lawReferenceUrl": "https://eur-lex.europa.eu/eli/reg/2023/2854/oj",
+    "shortDescription": "Sets fair rules for who can access and use the data produced by connected products and AI-enabled services. It also makes switching cloud providers easier.",
+    "appliesTo": "Companies whose AI uses or generates data from connected devices or related services, and cloud providers.",
+    "keySections": "Chapters II to IV (data access and fair terms), Chapter VI (cloud switching)",
+    "sortOrder": 3
+  },
+  {
+    "key": "dga", "name": "Data Governance Act", "shortName": "DGA", "tier": 1,
+    "jurisdiction": "EU", "category": "data", "reference": "Regulation (EU) 2022/868",
+    "regulator": "Federal Ministry for Digital Transformation and BNetzA",
+    "lawReferenceUrl": "https://eur-lex.europa.eu/eli/reg/2022/868/oj",
+    "shortDescription": "Creates trusted ways to share data that AI can use, including reuse of public-sector data and registration of data-sharing services.",
+    "appliesTo": "Data intermediaries, data-sharing platforms, and anyone reusing protected public data to train AI.",
+    "keySections": "Chapter II (public data reuse), Chapter III (data intermediation), Chapter IV (data altruism)",
+    "sortOrder": 4
+  },
+  {
+    "key": "dora", "name": "Digital Operational Resilience Act", "shortName": "DORA", "tier": 1,
+    "jurisdiction": "EU", "category": "financial", "reference": "Regulation (EU) 2022/2554",
+    "regulator": "Federal Financial Supervisory Authority (BaFin) with the Bundesbank",
+    "lawReferenceUrl": "https://eur-lex.europa.eu/eli/reg/2022/2554/oj",
+    "shortDescription": "Requires financial firms to manage their technology and AI risks, report incidents, and oversee outside IT and AI suppliers.",
+    "appliesTo": "Banks, insurers, investment firms, payment and crypto providers, pension funds, and other BaFin-regulated entities.",
+    "keySections": "Art. 5 to 16 (IT risk), Art. 17 to 23 (incident reporting), Art. 28 to 44 (third-party risk)",
+    "sortOrder": 5
+  },
+  {
+    "key": "nis2", "name": "NIS2 Directive and German NIS2 Act", "shortName": "NIS2", "tier": 1,
+    "jurisdiction": "EU", "category": "security", "reference": "Directive (EU) 2022/2555",
+    "regulator": "Federal Office for Information Security (BSI)",
+    "lawReferenceUrl": "https://eur-lex.europa.eu/eli/dir/2022/2555/oj",
+    "shortDescription": "Sets cybersecurity duties for important and essential service operators, including AI-powered infrastructure, and requires reporting incidents to the BSI.",
+    "appliesTo": "Operators in energy, transport, health, water, digital infrastructure, and other essential or important sectors above size thresholds.",
+    "keySections": "Art. 21 (security measures), Art. 23 (incident reporting), German transposition in the BSIG",
+    "sortOrder": 6
+  },
+  {
+    "key": "cra", "name": "Cyber Resilience Act", "shortName": "CRA", "tier": 1,
+    "jurisdiction": "EU", "category": "security", "reference": "Regulation (EU) 2024/2847",
+    "regulator": "Federal Office for Information Security (BSI) and market-surveillance authorities",
+    "lawReferenceUrl": "https://eur-lex.europa.eu/eli/reg/2024/2847/oj",
+    "shortDescription": "Requires products with digital parts, including AI software and hardware, to be secure by design, get security updates, and report exploited weaknesses.",
+    "appliesTo": "Makers, importers, and distributors of AI-enabled products sold in the EU.",
+    "keySections": "Annex I (security requirements), Art. 13 to 14 (maker duties and reporting)",
+    "sortOrder": 7
+  },
+  {
+    "key": "pld", "name": "Product Liability Directive (new)", "shortName": "Product Liability Directive", "tier": 1,
+    "jurisdiction": "EU", "category": "liability", "reference": "Directive (EU) 2024/2853",
+    "regulator": "Civil courts, transposed by the Federal Ministry of Justice",
+    "lawReferenceUrl": "https://eur-lex.europa.eu/eli/dir/2024/2853/oj",
+    "shortDescription": "Updates liability rules so that defective software and AI are clearly covered, and makes it easier for harmed people to claim compensation.",
+    "appliesTo": "Makers and importers of AI-powered products and software. Germany must adopt it by December 2026.",
+    "keySections": "Art. 4 (software and AI), Art. 7 (defect), Art. 9 to 10 (proof and disclosure)",
+    "sortOrder": 8
+  },
+  {
+    "key": "machinery", "name": "Machinery Regulation", "shortName": "Machinery Regulation", "tier": 1,
+    "jurisdiction": "EU", "category": "product_safety", "reference": "Regulation (EU) 2023/1230",
+    "regulator": "State market-surveillance authorities, with BAuA guidance",
+    "lawReferenceUrl": "https://eur-lex.europa.eu/eli/reg/2023/1230/oj",
+    "shortDescription": "Sets safety rules for AI-powered machines and robots, and specifically requires a risk assessment for self-learning behaviour.",
+    "appliesTo": "Makers of industrial AI, robotics, and automated production systems. Applies from January 2027.",
+    "keySections": "Annex III (health and safety, including self-evolving AI), Art. 6 (high-risk machinery)",
+    "sortOrder": 9
+  },
+  {
+    "key": "dsa", "name": "Digital Services Act", "shortName": "DSA", "tier": 1,
+    "jurisdiction": "EU", "category": "platform", "reference": "Regulation (EU) 2022/2065",
+    "regulator": "Federal Network Agency (BNetzA) as Digital Services Coordinator; EU Commission for very large platforms",
+    "lawReferenceUrl": "https://eur-lex.europa.eu/eli/reg/2022/2065/oj",
+    "shortDescription": "Makes online platforms explain how their AI ranks and recommends content, be transparent about moderation, and assess risks from their algorithms.",
+    "appliesTo": "Online platforms, marketplaces, search engines, and social networks operating in the EU.",
+    "keySections": "Art. 14 to 17 (terms and reasons), Art. 27 and 38 (recommender transparency), Art. 34 to 35 (systemic risk)",
+    "sortOrder": 10
+  },
+  {
+    "key": "dma", "name": "Digital Markets Act", "shortName": "DMA", "tier": 1,
+    "jurisdiction": "EU", "category": "competition", "reference": "Regulation (EU) 2022/1925",
+    "regulator": "European Commission, supported by the Federal Cartel Office",
+    "lawReferenceUrl": "https://eur-lex.europa.eu/eli/reg/2022/1925/oj",
+    "shortDescription": "Stops the largest gatekeeper platforms from using AI ranking to favour their own services or from misusing business users' data.",
+    "appliesTo": "Designated gatekeeper platforms and the businesses that depend on them.",
+    "keySections": "Art. 5 to 6 (gatekeeper duties), Art. 6(5) (ranking), Art. 6(11) (search data)",
+    "sortOrder": 11
+  },
+  {
+    "key": "eidas", "name": "eIDAS and eIDAS 2.0", "shortName": "eIDAS", "tier": 1,
+    "jurisdiction": "EU", "category": "identity", "reference": "Regulation (EU) 910/2014 and 2024/1183",
+    "regulator": "Federal Network Agency (BNetzA) and BSI",
+    "lawReferenceUrl": "https://eur-lex.europa.eu/eli/reg/2014/910/oj",
+    "shortDescription": "Sets rules for electronic identity and trust services such as e-signatures, and adds the EU Digital Identity Wallet. It matters for AI identity checks and fraud prevention.",
+    "appliesTo": "Providers of identity and trust services and companies that rely on electronic identity or the EU wallet.",
+    "keySections": "Trust services (signatures, seals, timestamps) and the EU Digital Identity Wallet framework",
+    "sortOrder": 12
+  },
+  {
+    "key": "ki_mig", "name": "KI-MIG (German AI Market Surveillance Act)", "shortName": "KI-MIG", "tier": 2,
+    "jurisdiction": "DE", "category": "ai", "reference": "Regierungsentwurf 2026 (draft)", "status": "draft",
+    "regulator": "Names BNetzA as lead, plus BaFin, BfArM and BAuA",
+    "lawReferenceUrl": "https://www.bmds.bund.de",
+    "shortDescription": "The German law that puts the EU AI Act into practice. It names which German authorities supervise AI, sets penalty procedures, and provides regulatory sandboxes.",
+    "appliesTo": "All companies subject to the EU AI Act operating in Germany. Still a draft as of 2026.",
+    "keySections": "Authority designation, market-surveillance powers, penalty procedure, sandbox rules",
+    "sortOrder": 13
+  },
+  {
+    "key": "bdsg", "name": "Federal Data Protection Act", "shortName": "BDSG", "tier": 2,
+    "jurisdiction": "DE", "category": "data_protection", "reference": "Bundesdatenschutzgesetz",
+    "regulator": "Federal and State Data Protection Authorities",
+    "lawReferenceUrl": "https://www.gesetze-im-internet.de/bdsg_2018/",
+    "shortDescription": "Adds German-specific data rules on top of the GDPR, especially for handling employee data and AI profiling at work.",
+    "appliesTo": "All companies that process personal data in Germany.",
+    "keySections": "Section 26 (employee data), Section 22 (special data), Section 42 (offences)",
+    "sortOrder": 14
+  },
+  {
+    "key": "tdddg", "name": "Telecom Digital Services Data Protection Act", "shortName": "TDDDG", "tier": 2,
+    "jurisdiction": "DE", "category": "data_protection", "reference": "TDDDG (renamed from TTDSG, May 2024)",
+    "regulator": "Federal and State Data Protection Authorities, and BNetzA",
+    "lawReferenceUrl": "https://www.gesetze-im-internet.de/tdddg/",
+    "shortDescription": "Controls cookies, tracking, and consent on websites and apps. This directly affects AI that profiles users for ads or personalisation.",
+    "appliesTo": "Any company running AI-powered websites, apps, or services that use cookies, tracking, or profiling.",
+    "keySections": "Section 25 (consent for cookies and tracking), Section 19 (confidentiality)",
+    "sortOrder": 15
+  },
+  {
+    "key": "geschgehg", "name": "Trade Secrets Act", "shortName": "GeschGehG", "tier": 2,
+    "jurisdiction": "DE", "category": "ip", "reference": "Gesetz zum Schutz von Geschaeftsgeheimnissen",
+    "regulator": "Civil courts",
+    "lawReferenceUrl": "https://www.gesetze-im-internet.de/geschgehg/",
+    "shortDescription": "Protects confidential business information such as AI model weights, datasets, and prompts as trade secrets, as long as you take reasonable steps to keep them secret.",
+    "appliesTo": "Companies whose AI models, training data, or algorithms are valuable secrets, and those handling others' confidential data.",
+    "keySections": "Section 2 (definition), Section 4 (prohibited acts), Sections 6 to 14 (claims)",
+    "sortOrder": 16
+  },
+  {
+    "key": "urhg", "name": "Copyright Act", "shortName": "UrhG", "tier": 2,
+    "jurisdiction": "DE", "category": "ip", "reference": "Urheberrechtsgesetz",
+    "regulator": "Civil courts and collecting societies",
+    "lawReferenceUrl": "https://www.gesetze-im-internet.de/urhg/",
+    "shortDescription": "Governs AI training data through text and data mining rules, the protection of AI output, and responsibility for copyright infringement.",
+    "appliesTo": "Companies that train AI on copyrighted material or generate AI content for business.",
+    "keySections": "Section 44b (general text and data mining with opt-out), Section 60d (research mining)",
+    "sortOrder": 17
+  },
+  {
+    "key": "uwg", "name": "Act Against Unfair Competition", "shortName": "UWG", "tier": 2,
+    "jurisdiction": "DE", "category": "competition", "reference": "Gesetz gegen den unlauteren Wettbewerb",
+    "regulator": "Civil courts, competitors, and consumer associations",
+    "lawReferenceUrl": "https://www.gesetze-im-internet.de/uwg_2004/",
+    "shortDescription": "AI-made advertising must not mislead people. Competitors can also act against AI Act breaches as unfair competition.",
+    "appliesTo": "All companies using AI in marketing, advertising, pricing, or recommendations.",
+    "keySections": "Section 3a (breach of a statutory duty), Sections 5 and 5a (misleading acts)",
+    "sortOrder": 18
+  },
+  {
+    "key": "gwb", "name": "Act Against Restraints of Competition", "shortName": "GWB", "tier": 2,
+    "jurisdiction": "DE", "category": "competition", "reference": "Gesetz gegen Wettbewerbsbeschraenkungen",
+    "regulator": "Federal Cartel Office (Bundeskartellamt)",
+    "lawReferenceUrl": "https://www.gesetze-im-internet.de/gwb/",
+    "shortDescription": "The German antitrust law. It checks market power including data power, and lets the Cartel Office stop self-preferencing and data-driven obstruction by very large firms.",
+    "appliesTo": "Any company whose AI could affect competition, market dominance, or data access.",
+    "keySections": "Section 18 (dominance and data power), Section 19 (abuse), Section 19a (firms of paramount significance)",
+    "sortOrder": 19
+  },
+  {
+    "key": "bgb", "name": "German Civil Code", "shortName": "BGB", "tier": 2,
+    "jurisdiction": "DE", "category": "liability", "reference": "Buergerliches Gesetzbuch",
+    "regulator": "Civil courts",
+    "lawReferenceUrl": "https://www.gesetze-im-internet.de/bgb/",
+    "shortDescription": "Covers contract and fault liability when an AI system fails, protection against AI deepfakes, and the duty to tell consumers about AI-set prices.",
+    "appliesTo": "All companies that use AI in customer-facing or contract settings.",
+    "keySections": "Sections 280 and 823 (liability), Section 1004 analog (personality rights), Section 312d (consumer info)",
+    "sortOrder": 20
+  },
+  {
+    "key": "agg", "name": "General Equal Treatment Act", "shortName": "AGG", "tier": 2,
+    "jurisdiction": "DE", "category": "employment", "reference": "Allgemeines Gleichbehandlungsgesetz",
+    "regulator": "Federal Anti-Discrimination Agency and the courts",
+    "lawReferenceUrl": "https://www.gesetze-im-internet.de/agg/",
+    "shortDescription": "Forbids AI systems from discriminating in hiring, employment, or access to services based on protected traits such as gender, age, or origin.",
+    "appliesTo": "All companies using AI in HR, recruitment, or customer decisions.",
+    "keySections": "Section 1 (protected grounds), Sections 7 to 10 (employment), Section 22 (burden of proof)",
+    "sortOrder": 21
+  },
+  {
+    "key": "betrvg", "name": "Works Constitution Act", "shortName": "BetrVG", "tier": 2,
+    "jurisdiction": "DE", "category": "employment", "reference": "Betriebsverfassungsgesetz",
+    "regulator": "Works councils and labour courts",
+    "lawReferenceUrl": "https://www.gesetze-im-internet.de/betrvg/",
+    "shortDescription": "The works council must be involved before you introduce AI tools that can monitor staff or affect their work.",
+    "appliesTo": "Any company with a works council that deploys AI affecting employees.",
+    "keySections": "Section 87(1) no. 6 (monitoring tech), Section 80(3) (AI experts), Section 95(2a) (AI selection rules)",
+    "sortOrder": 22
+  },
+  {
+    "key": "arbschg", "name": "Occupational Health and Safety Act", "shortName": "ArbSchG", "tier": 2,
+    "jurisdiction": "DE", "category": "employment", "reference": "Arbeitsschutzgesetz",
+    "regulator": "Federal Institute for Occupational Safety (BAuA) and state authorities",
+    "lawReferenceUrl": "https://www.gesetze-im-internet.de/arbschg/",
+    "shortDescription": "Employers must assess all workplace risks, including stress from AI monitoring and automated performance management.",
+    "appliesTo": "All employers using AI that affects working conditions, monitoring, or task allocation.",
+    "keySections": "Section 5 (risk assessment), Section 3 (employer duties)",
+    "sortOrder": 23
+  },
+  {
+    "key": "stgb", "name": "Criminal Code", "shortName": "StGB", "tier": 2,
+    "jurisdiction": "DE", "category": "criminal", "reference": "Strafgesetzbuch",
+    "regulator": "Public prosecutors and criminal courts",
+    "lawReferenceUrl": "https://www.gesetze-im-internet.de/stgb/",
+    "shortDescription": "AI deepfakes and synthetic media can be crimes, for example insult, defamation, incitement, or privacy violations. A dedicated deepfake offence is being prepared.",
+    "appliesTo": "Anyone creating or deploying AI that can produce harmful synthetic media or enable fraud.",
+    "keySections": "Sections 185 to 187, Section 130, Section 201a, Section 263",
+    "sortOrder": 24
+  },
+  {
+    "key": "mstv", "name": "State Media Treaty", "shortName": "MStV", "tier": 2,
+    "jurisdiction": "DE", "category": "media", "reference": "Medienstaatsvertrag der Laender",
+    "regulator": "State media authorities (Landesmedienanstalten)",
+    "lawReferenceUrl": "https://www.die-medienanstalten.de",
+    "shortDescription": "You must disclose when content or an account is automated, for example a bot that looks like a real person, and recommendation systems must be transparent.",
+    "appliesTo": "Companies using AI-generated content, bots, or recommendations on social media and media platforms.",
+    "keySections": "Section 18(3) (bot labelling), Sections 91 to 96 (media intermediaries)",
+    "sortOrder": 25
+  },
+  {
+    "key": "kwg", "name": "Banking Act", "shortName": "KWG", "tier": 3,
+    "jurisdiction": "DE", "category": "financial", "reference": "Kreditwesengesetz",
+    "regulator": "Federal Financial Supervisory Authority (BaFin) and the Bundesbank",
+    "lawReferenceUrl": "https://www.gesetze-im-internet.de/kredwg/",
+    "shortDescription": "Governs AI in banking such as credit scoring and automated trading under BaFin's risk and organisation rules.",
+    "appliesTo": "Banks, credit institutions, and payment service providers using AI.",
+    "keySections": "Section 25a (risk management and algorithms), Section 25b (outsourcing)",
+    "sortOrder": 26
+  },
+  {
+    "key": "vag", "name": "Insurance Supervision Act", "shortName": "VAG", "tier": 3,
+    "jurisdiction": "DE", "category": "insurance", "reference": "Versicherungsaufsichtsgesetz",
+    "regulator": "Federal Financial Supervisory Authority (BaFin)",
+    "lawReferenceUrl": "https://www.gesetze-im-internet.de/vag_2016/",
+    "shortDescription": "BaFin oversees AI used in insurance underwriting, automated claims, and risk scoring.",
+    "appliesTo": "Insurance and reinsurance firms using AI in underwriting or claims.",
+    "keySections": "Section 23 (governance), Sections 26 to 32 (risk management)",
+    "sortOrder": 27
+  },
+  {
+    "key": "sgbv_diga", "name": "SGB V and Digital Health Apps (DiGA)", "shortName": "SGB V + DiGAV", "tier": 3,
+    "jurisdiction": "DE", "category": "health", "reference": "Sozialgesetzbuch V and DiGAV",
+    "regulator": "Federal Institute for Drugs and Medical Devices (BfArM)",
+    "lawReferenceUrl": "https://www.gesetze-im-internet.de/sgb_5/",
+    "shortDescription": "AI-based medical apps must be approved by BfArM, show a real health benefit, and meet data and device rules to be paid for by statutory health insurance.",
+    "appliesTo": "Health technology companies and medical AI developers seeking reimbursement.",
+    "keySections": "Section 33a and Section 139e SGB V, plus the DiGAV ordinance",
+    "sortOrder": 28
+  },
+  {
+    "key": "mdr", "name": "Medical Device Regulation", "shortName": "MDR", "tier": 3,
+    "jurisdiction": "EU", "category": "health", "reference": "Regulation (EU) 2017/745",
+    "regulator": "Federal Institute for Drugs and Medical Devices (BfArM) and notified bodies",
+    "lawReferenceUrl": "https://eur-lex.europa.eu/eli/reg/2017/745/oj",
+    "shortDescription": "AI that counts as a medical device, such as diagnostic AI, must pass a conformity assessment, carry a CE mark, and be monitored after sale.",
+    "appliesTo": "Medical technology companies with AI diagnostic or therapeutic tools.",
+    "keySections": "Art. 10 (maker duties), Annex I (safety), Rule 11 (software classification)",
+    "sortOrder": 29
+  },
+  {
+    "key": "stvg_autonomous", "name": "Road Traffic Act and Autonomous Driving Act", "shortName": "StVG + Autonomous Driving", "tier": 3,
+    "jurisdiction": "DE", "category": "mobility", "reference": "Straßenverkehrsgesetz and the 2021 amendment",
+    "regulator": "Federal Motor Transport Authority (KBA)",
+    "lawReferenceUrl": "https://www.gesetze-im-internet.de/stvg/",
+    "shortDescription": "Sets the legal framework for Level 3 and Level 4 self-driving vehicles on public roads, including approval and the technical-supervisor role.",
+    "appliesTo": "Carmakers, mobility-as-a-service providers, and logistics AI developers.",
+    "keySections": "Sections 1e to 1h StVG (automated and autonomous functions) and the AFGBV ordinance",
+    "sortOrder": 30
+  },
+  {
+    "key": "vwvfg", "name": "Administrative Procedure Act", "shortName": "VwVfG", "tier": 3,
+    "jurisdiction": "DE", "category": "public", "reference": "Verwaltungsverfahrensgesetz",
+    "regulator": "Administrative courts and public authorities",
+    "lawReferenceUrl": "https://www.gesetze-im-internet.de/vwvfg/",
+    "shortDescription": "Allows fully automated government decisions only where a law permits it, and those decisions must be explainable and open to challenge.",
+    "appliesTo": "GovTech companies and vendors selling AI software to public authorities.",
+    "keySections": "Section 35a (automated administrative act), Section 39 (reasons)",
+    "sortOrder": 31
+  },
+  {
+    "key": "prodhaftg", "name": "Product Liability Act", "shortName": "ProdHaftG", "tier": 3,
+    "jurisdiction": "DE", "category": "liability", "reference": "Produkthaftungsgesetz",
+    "regulator": "Civil courts and the Federal Ministry of Justice",
+    "lawReferenceUrl": "https://www.gesetze-im-internet.de/prodhaftg/",
+    "shortDescription": "Gives no-fault liability for damage caused by defective products, including AI-integrated goods. It will be widened once the new EU directive is adopted by December 2026.",
+    "appliesTo": "Makers and distributors of AI-integrated products.",
+    "keySections": "Section 1 (strict liability), Section 3 (defect), Section 4 (producer)",
+    "sortOrder": 32
+  },
+  {
+    "key": "ehds", "name": "European Health Data Space", "shortName": "EHDS", "tier": 3,
+    "jurisdiction": "EU", "category": "health", "reference": "Regulation (EU) 2025/327",
+    "regulator": "BfArM and national health data access bodies, with data protection authorities",
+    "lawReferenceUrl": "https://eur-lex.europa.eu/eli/reg/2025/327/oj",
+    "shortDescription": "Creates EU rules for using electronic health data both for patient care and, importantly for AI, for research and training through national health data access bodies. It sits alongside the GDPR and the Data Governance Act.",
+    "appliesTo": "Health AI developers, digital health providers, and anyone reusing EU electronic health data to build or train medical AI.",
+    "keySections": "Chapter II (primary use), Chapter IV (secondary use and data permits)",
+    "sortOrder": 33
+  },
+  {
+    "key": "hinschg", "name": "Whistleblower Protection Act", "shortName": "HinSchG", "tier": 2,
+    "jurisdiction": "DE", "category": "governance", "reference": "Hinweisgeberschutzgesetz",
+    "regulator": "Federal Office of Justice (external reporting office)",
+    "lawReferenceUrl": "https://www.gesetze-im-internet.de/hinschg/",
+    "shortDescription": "Companies with 50 or more staff must run internal reporting channels and protect people who report legal violations. This includes employees who flag unlawful or unsafe AI use, so your AI governance should route such concerns through these channels.",
+    "appliesTo": "Employers with 50 or more employees.",
+    "keySections": "Sections 12 to 18 (internal reporting channels), Sections 33 to 37 (protection from retaliation)",
+    "sortOrder": 34
+  },
+  {
+    "key": "bafin_ki", "name": "BaFin Supervisory Principles for AI in Finance", "shortName": "BaFin AI", "tier": 3,
+    "jurisdiction": "DE", "category": "financial", "reference": "BaFin guidance on Big Data and AI (2021)",
+    "regulator": "Federal Financial Supervisory Authority (BaFin)",
+    "lawReferenceUrl": "https://www.bafin.de",
+    "shortDescription": "BaFin's expectations for using AI and machine learning in financial services. The focus is clear human responsibility, sound data, model validation, and ongoing oversight of algorithmic decisions.",
+    "appliesTo": "Banks, insurers, asset managers and other BaFin-supervised firms that use AI in decisions such as scoring, pricing, or trading.",
+    "keySections": "Responsibility and governance, data quality, model validation, ongoing monitoring, human oversight",
+    "sourceNote": "Based on BaFin's supervisory principles for the use of algorithms and AI in decision-making (2021). Verify the current BaFin guidance before relying on it.",
+    "sortOrder": 35
+  },
+  {
+    "key": "deepfake_law", "name": "Deepfake and Digital Violence Law (in development)", "shortName": "Deepfake law", "tier": 2,
+    "jurisdiction": "DE", "category": "criminal", "reference": "BMJ legislative initiative", "status": "draft",
+    "regulator": "Federal Ministry of Justice (proposed); public prosecutors",
+    "shortDescription": "A planned German law that would create dedicated criminal offences for harmful deepfakes and digital violence. It is not yet in force, so watch it rather than act on it.",
+    "appliesTo": "Anyone creating or sharing AI-generated synthetic media that could harm people.",
+    "keySections": "Proposed additions to the Criminal Code (StGB)",
+    "sortOrder": 36
+  },
+  {
+    "key": "besch_datengesetz", "name": "Employee Data Protection Act (draft)", "shortName": "Employee Data Act", "tier": 2,
+    "jurisdiction": "DE", "category": "employment", "reference": "Beschaeftigtendatengesetz (draft)", "status": "draft",
+    "regulator": "Federal and State Data Protection Authorities (proposed)",
+    "shortDescription": "A planned standalone German law for handling employee data, including AI monitoring and decisions at work. It would go beyond the current BDSG rules. Still a draft.",
+    "appliesTo": "All employers that process employee data, especially with AI.",
+    "keySections": "Proposed standalone statute supplementing BDSG Section 26",
+    "sortOrder": 37
+  }
+]

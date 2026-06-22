@@ -1,0 +1,16 @@
+services:
+  db:
+    image: postgres:16-alpine
+    container_name: aicompliance_db
+    restart: unless-stopped
+    environment:
+      POSTGRES_USER: aicompliance
+      POSTGRES_PASSWORD: aicompliance
+      POSTGRES_DB: aicompliance
+    ports:
+      - "5433:5432"
+    volumes:
+      - aicompliance_pgdata:/var/lib/postgresql/data
+
+volumes:
+  aicompliance_pgdata:

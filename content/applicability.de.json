@@ -1,0 +1,42 @@
+{
+  "categories": {
+    "data": "Daten und Datenschutz",
+    "people": "Personal und Arbeit",
+    "content": "Inhalte und KI-Entwicklung",
+    "platform": "Plattformen und Maerkte",
+    "products": "Produkte und Sicherheit",
+    "sector": "Ihre Branche"
+  },
+  "functions": {
+    "personal_data": { "label": "Wir verarbeiten personenbezogene Daten mit KI", "description": "Ihre KI nutzt Informationen ueber identifizierbare Personen." },
+    "automated_decisions": { "label": "Wir treffen automatisierte Entscheidungen ueber Menschen", "description": "Die KI entscheidet oder beeinflusst Ergebnisse fuer Einzelne stark." },
+    "biometric_data": { "label": "Wir nutzen biometrische Daten oder Gesichtserkennung", "description": "Personen anhand von Gesicht, Stimme oder anderen Merkmalen erkennen." },
+    "profiling_prediction": { "label": "Wir profilieren oder prognostizieren etwas ueber Menschen", "description": "Scoring, Ranking oder Vorhersagen ueber Verhalten oder Merkmale." },
+    "tracking_cookies": { "label": "Wir tracken Nutzer mit Cookies oder Pixeln", "description": "Online-Tracking, Ad-Tech oder KI-gestuetzte Personalisierung." },
+    "childrens_data": { "label": "Wir verarbeiten Daten von Kindern", "description": "Ihre KI nutzt Informationen ueber unter 18-Jaehrige." },
+    "cross_border": { "label": "Wir uebermitteln Daten ausserhalb der EU", "description": "Daten verlassen die EU oder den EWR, etwa zu einem US-Cloud-Anbieter." },
+    "hr_recruitment": { "label": "Wir nutzen KI in HR oder Personalauswahl", "description": "Einstellung, Screening oder Personalmanagement mit KI." },
+    "workplace_monitoring": { "label": "Wir ueberwachen oder bewerten Mitarbeitende mit KI", "description": "Leistungsueberwachung oder algorithmisches Management." },
+    "fifty_plus_staff": { "label": "Wir haben 50 oder mehr Beschaeftigte", "description": "Groessere Arbeitgeber haben zusaetzliche Pflichten, etwa eine Meldestelle." },
+    "training_data": { "label": "Wir trainieren KI-Modelle mit vorhandenen Inhalten", "description": "Texte, Bilder oder andere Werke zum Training nutzen." },
+    "foundation_models": { "label": "Wir entwickeln KI-Modelle mit allgemeinem Verwendungszweck", "description": "Grosse oder Basismodelle, auf denen andere aufbauen." },
+    "generative_media": { "label": "Wir erzeugen Inhalte oder Deepfakes", "description": "KI, die Text, Bild, Audio oder Video erstellt oder bearbeitet." },
+    "customer_chatbot": { "label": "Wir betreiben einen KI-Chatbot oder Assistenten", "description": "KI, die direkt mit Kunden oder Nutzern spricht." },
+    "third_party_ai": { "label": "Wir nutzen KI-Werkzeuge von Dritten oder als SaaS", "description": "Sie nutzen externe KI-Dienste statt eigener." },
+    "online_platform": { "label": "Wir betreiben eine Online-Plattform oder Suche", "description": "Marktplaetze, soziale Netzwerke, Empfehlungen oder Suche." },
+    "content_moderation": { "label": "Wir moderieren Nutzerinhalte mit KI", "description": "Automatisches Filtern, Ranking oder Entfernen von Inhalten." },
+    "marketing": { "label": "Wir nutzen KI in Marketing oder Werbung", "description": "Empfehlungen, Targeting oder KI-erzeugte Werbung." },
+    "pricing_algorithms": { "label": "Wir setzen Preise mit Algorithmen", "description": "Dynamische oder personalisierte Preise durch KI." },
+    "connected_products": { "label": "Wir bauen vernetzte oder IoT-Produkte", "description": "Geraete und Dienste, die Daten erzeugen." },
+    "software_products": { "label": "Wir verkaufen KI-faehige Software oder Hardware", "description": "Produkte mit digitalen oder KI-Bestandteilen am Markt." },
+    "machinery_robotics": { "label": "Wir bauen Maschinen oder Roboter mit KI", "description": "Industrie-KI, Roboter oder Cobots mit selbstlernendem Verhalten." },
+    "critical_infrastructure": { "label": "Wir betreiben wichtige oder kritische Dienste", "description": "Energie, Verkehr, Gesundheit, Wasser oder digitale Infrastruktur." },
+    "identity_verification": { "label": "Wir machen Identitaetspruefung oder KYC", "description": "Elektronische Identitaet, Onboarding oder Betrugspruefung." },
+    "financial_services": { "label": "Wir sind ein Finanzdienstleister", "description": "Bankwesen, Zahlungen, Krypto oder Investment." },
+    "credit_scoring": { "label": "Wir bewerten Kreditwuerdigkeit", "description": "KI zur Entscheidung ueber Kredite, Limits oder Kreditrisiko." },
+    "insurance": { "label": "Wir sind ein Versicherer", "description": "Zeichnung, Schaden oder Risikobewertung mit KI." },
+    "medical_ai": { "label": "Wir bauen medizinische oder Diagnose-KI", "description": "KI fuer Diagnose, Ueberwachung oder Behandlung." },
+    "autonomous_vehicles": { "label": "Wir bauen automatisierte oder autonome Fahrzeuge", "description": "Selbstfahrende oder Fahrerassistenzsysteme." },
+    "public_sector": { "label": "Wir verkaufen KI an Behoerden", "description": "GovTech und Software fuer behoerdliche Entscheidungen." }
+  }
+}

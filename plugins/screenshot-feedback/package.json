@@ -1,0 +1,19 @@
+{
+  "name": "@ritjira/screenshot-feedback",
+  "private": true,
+  "version": "0.1.0",
+  "description": "Drop-in screenshot + annotation feedback plugin for any React + Express app. Captures full-page screenshots (including off-screen scroll), lets users annotate, and emails the result to a configured recipient list.",
+  "workspaces": [
+    "react",
+    "server"
+  ],
+  "keywords": [
+    "feedback",
+    "screenshot",
+    "annotation",
+    "react",
+    "express",
+    "plugin"
+  ],
+  "license": "UNLICENSED"
+}

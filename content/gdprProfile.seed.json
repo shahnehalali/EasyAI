@@ -1,0 +1,302 @@
+{
+  "key": "gdpr_dpa_profile",
+  "name": "Data protection profile (GDPR & DPA)",
+  "description": "A detailed profile of how this AI system handles personal data. Based on your answers we show which GDPR and Data Processing Agreement obligations apply, the specific thresholds and figures involved, where each rule does NOT apply, and what to do.",
+  "gate": "processes_personal_data",
+  "penaltiesNote": "Infringements can be fined up to €20 million or 4% of total worldwide annual turnover, whichever is higher (GDPR Art. 83(5)); lesser breaches up to €10 million or 2% (Art. 83(4)).",
+  "sections": [
+    { "key": "basics", "title": "Personal data" },
+    { "key": "role", "title": "Your role & size" },
+    { "key": "basis", "title": "Lawful basis & use" },
+    { "key": "processors", "title": "Processors & contracts" },
+    { "key": "transfers", "title": "International transfers" },
+    { "key": "highrisk", "title": "Sensitive & high-risk processing" },
+    { "key": "governance", "title": "Accountability & governance" }
+  ],
+  "questions": [
+    { "section": "basics", "code": "processes_personal_data", "type": "boolean", "prompt": "Does the system process any personal data (names, emails, IDs, location, behaviour, photos, etc.)?", "helpText": "If it never touches personal data, most of the GDPR does not apply." },
+    { "section": "basics", "code": "subject_volume", "type": "single", "prompt": "Roughly how many people's data does it process?", "helpText": "Scale drives whether processing is 'large-scale' for DPIA and DPO purposes.",
+      "options": [
+        { "value": "under_1k", "label": "Fewer than 1,000" },
+        { "value": "k1_100k", "label": "1,000 – 100,000" },
+        { "value": "over_100k", "label": "More than 100,000" },
+        { "value": "unsure", "label": "Not sure" }
+      ] },
+    { "section": "basics", "code": "special_categories", "type": "multi", "prompt": "Which sensitive categories of data does it process, if any?", "helpText": "Health, biometric, genetic, racial/ethnic, religious, political, sexual, trade-union are 'special category' (Art. 9). Criminal-offence data is Art. 10.",
+      "options": [
+        { "value": "health", "label": "Health" },
+        { "value": "biometric", "label": "Biometric (ID)" },
+        { "value": "genetic", "label": "Genetic" },
+        { "value": "racial", "label": "Racial / ethnic" },
+        { "value": "religious", "label": "Religious / belief" },
+        { "value": "political", "label": "Political opinions" },
+        { "value": "sexual", "label": "Sex life / orientation" },
+        { "value": "trade_union", "label": "Trade-union membership" },
+        { "value": "criminal", "label": "Criminal offences / convictions" }
+      ] },
+    { "section": "basics", "code": "pseudonymised", "type": "boolean", "prompt": "Is the personal data pseudonymised (direct identifiers replaced with keys) where possible?", "helpText": "Pseudonymisation is a recognised safeguard, though the data is still personal data." },
+    { "section": "basics", "code": "childrens_data", "type": "boolean", "prompt": "Does it process the personal data of children?", "helpText": "In Germany the digital age of consent is 16 (GDPR Art. 8 allows 13–16; Germany kept 16)." },
+
+    { "section": "role", "code": "org_size", "type": "single", "prompt": "How large is your organisation?", "helpText": "The 250-employee mark matters for the records exemption (Art. 30(5)).",
+      "options": [
+        { "value": "under_10", "label": "Under 10 staff" },
+        { "value": "s10_249", "label": "10 – 249 staff" },
+        { "value": "over_250", "label": "250 or more staff" }
+      ] },
+    { "section": "role", "code": "auto_processing_staff", "type": "number", "prompt": "How many of your staff are constantly engaged in the automated processing of personal data?", "helpText": "Germany (§38 BDSG) requires a Data Protection Officer once 20 or more people are.", "unit": "people" },
+    { "section": "role", "code": "acts_as_processor", "type": "boolean", "prompt": "Do you process this data on behalf of another organisation (you are a processor, not the controller)?", "helpText": "A processor follows the controller's instructions and has its own duties." },
+    { "section": "role", "code": "joint_controller", "type": "boolean", "prompt": "Do you decide the purposes and means of processing jointly with another organisation?", "helpText": "Two organisations deciding together are joint controllers (Art. 26)." },
+    { "section": "role", "code": "established_outside_eu", "type": "boolean", "prompt": "Is your organisation established outside the EU/EEA while offering this service to people in the EU?", "helpText": "Non-EU controllers offering to EU users must appoint an EU representative (Art. 27)." },
+
+    { "section": "basis", "code": "lawful_basis", "type": "single", "prompt": "Which lawful basis do you rely on for this processing?", "helpText": "Each Art. 6 basis carries different duties.",
+      "options": [
+        { "value": "consent", "label": "Consent" },
+        { "value": "contract", "label": "Performance of a contract" },
+        { "value": "legal_obligation", "label": "Legal obligation" },
+        { "value": "vital_interests", "label": "Vital interests" },
+        { "value": "public_task", "label": "Public task" },
+        { "value": "legitimate_interests", "label": "Legitimate interests" },
+        { "value": "unsure", "label": "Not sure yet" }
+      ] },
+    { "section": "basis", "code": "direct_marketing", "type": "boolean", "prompt": "Do you use the data for direct marketing or advertising profiling?", "helpText": "Marketing triggers an absolute right to object (Art. 21) and German ePrivacy rules (TDDDG)." },
+    { "section": "basis", "code": "automated_decisions", "type": "boolean", "prompt": "Does it make automated decisions with a legal or similarly significant effect on people (e.g. credit, hiring, benefits)?", "helpText": "Decisions made without meaningful human involvement trigger Art. 22." },
+
+    { "section": "processors", "code": "uses_third_party_processor", "type": "boolean", "prompt": "Do you use a third-party vendor or cloud/AI provider to process the data (e.g. AWS, Azure, Google Cloud, OpenAI)?", "helpText": "Anyone processing the data on your behalf is a 'processor'." },
+    { "section": "processors", "code": "has_dpa", "type": "boolean", "prompt": "Do you have a signed Data Processing Agreement (Art. 28) with each of those processors?", "helpText": "A DPA is the contract that lets a processor handle personal data for you lawfully." },
+    { "section": "processors", "code": "sub_processors", "type": "boolean", "prompt": "Do those processors use their own sub-processors (e.g. the AI vendor runs on another company's cloud)?", "helpText": "Sub-processors must be authorised and flowed-down the same obligations (Art. 28(2),(4))." },
+
+    { "section": "transfers", "code": "data_location", "type": "single", "prompt": "Where is the personal data stored or processed?", "helpText": "Anything other than EU/EEA-only is a restricted international transfer (Chapter V).",
+      "options": [
+        { "value": "eu_only", "label": "EU/EEA only" },
+        { "value": "us", "label": "United States" },
+        { "value": "other_third", "label": "Another country outside the EEA" },
+        { "value": "mixed", "label": "A mix of regions" },
+        { "value": "unsure", "label": "Not sure" }
+      ] },
+    { "section": "transfers", "code": "vendor_remote_access", "type": "boolean", "prompt": "Can anyone outside the EU/EEA access the data (e.g. remote support, an overseas team)?", "helpText": "Remote access from outside the EEA is itself a transfer, even if the servers are in the EU." },
+
+    { "section": "highrisk", "code": "large_scale_monitoring", "type": "boolean", "prompt": "Does it involve large-scale or systematic monitoring or profiling of people?", "helpText": "Systematic monitoring is a common DPIA and DPO trigger." },
+    { "section": "highrisk", "code": "trains_on_personal_data", "type": "boolean", "prompt": "Do you use personal data to train, fine-tune or improve the AI model?", "helpText": "Training on personal data raises purpose-limitation and erasure challenges." },
+
+    { "section": "governance", "code": "retention_status", "type": "single", "prompt": "Have you defined how long the data is kept and when it is deleted?", "helpText": "Personal data must not be kept longer than necessary (Art. 5(1)(e)).",
+      "options": [
+        { "value": "enforced", "label": "Defined and automatically enforced" },
+        { "value": "partial", "label": "Defined but not enforced" },
+        { "value": "none", "label": "Not defined" }
+      ] },
+    { "section": "governance", "code": "has_breach_process", "type": "boolean", "prompt": "Do you have a process to detect and report a personal-data breach within 72 hours?", "helpText": "Breaches must reach the regulator within 72 hours (Art. 33)." },
+    { "section": "governance", "code": "has_dpo", "type": "boolean", "prompt": "Have you appointed a Data Protection Officer (DPO)?", "helpText": "Mandatory for large-scale/special-category core activities, or 20+ staff in Germany." }
+  ],
+  "obligations": [
+    {
+      "id": "lawful_basis", "title": "Establish a lawful basis for processing", "law": "GDPR Art. 6", "severity": "mandatory",
+      "lawUrl": "https://eur-lex.europa.eu/eli/reg/2016/679/oj#d1e1888-1-1",
+      "lawExplanation": "Processing is lawful only if at least one of the six Art. 6 bases applies: consent, contract, legal obligation, vital interests, public task, or legitimate interests.",
+      "why": "Any processing of personal data needs a documented lawful basis before it starts.",
+      "solution": "Record the lawful basis for this system and the reasoning behind it.",
+      "when": { "all": ["processes_personal_data"] }
+    },
+    {
+      "id": "consent_conditions", "title": "Meet the conditions for valid consent", "law": "GDPR Art. 7", "severity": "mandatory",
+      "lawUrl": "https://eur-lex.europa.eu/eli/reg/2016/679/oj#d1e2079-1-1",
+      "lawExplanation": "Consent must be freely given, specific, informed and unambiguous, separable from other terms, and as easy to withdraw as to give.",
+      "why": "You rely on consent, so it must meet the Art. 7 standard or it is invalid.",
+      "solution": "Use an unticked, granular opt-in, log when/how consent was given, and offer one-click withdrawal that stops the processing.",
+      "exemptionNote": "Consent is generally NOT a valid basis where there is a power imbalance, e.g. between an employer and employees — use a different Art. 6 basis there.",
+      "when": { "all": [{ "eq": ["lawful_basis", "consent"] }] }
+    },
+    {
+      "id": "legitimate_interests_lia", "title": "Run a Legitimate Interests Assessment", "law": "GDPR Art. 6(1)(f)", "severity": "mandatory",
+      "lawUrl": "https://eur-lex.europa.eu/eli/reg/2016/679/oj#d1e1888-1-1",
+      "lawExplanation": "Legitimate interests requires a three-part test: a real interest, that the processing is necessary for it, and that it is not overridden by the individual's rights.",
+      "why": "You rely on legitimate interests, which is only valid once the balancing test is passed and recorded.",
+      "solution": "Document a Legitimate Interests Assessment (purpose, necessity, balancing) and keep it on file; tell people they can object.",
+      "exemptionNote": "This basis is not available to public authorities acting in their official tasks.",
+      "when": { "all": [{ "eq": ["lawful_basis", "legitimate_interests"] }] }
+    },
+    {
+      "id": "ropa_controller", "title": "Keep a Record of Processing Activities (controller)", "law": "GDPR Art. 30(1)", "severity": "mandatory",
+      "lawUrl": "https://eur-lex.europa.eu/eli/reg/2016/679/oj#d1e3393-1-1",
+      "lawExplanation": "Controllers must keep a written record of processing: purposes, data categories, recipients, transfers, retention and security measures.",
+      "why": "As the controller you must document this system's processing in your RoPA.",
+      "solution": "Add this AI system to your RoPA with purpose, data categories, recipients (incl. processors), transfers and retention.",
+      "exemptionNote": "Art. 30(5): organisations with fewer than 250 employees are exempt — BUT only if the processing is occasional, not risky, and has no special-category/criminal data. AI processing rarely meets all three, so the exemption usually does not help.",
+      "when": { "all": ["processes_personal_data"], "any": ["!acts_as_processor"] }
+    },
+    {
+      "id": "ropa_processor", "title": "Keep a processor's Record of Processing", "law": "GDPR Art. 30(2)", "severity": "mandatory",
+      "lawUrl": "https://eur-lex.europa.eu/eli/reg/2016/679/oj#d1e3393-1-1",
+      "lawExplanation": "Processors must record the categories of processing carried out for each controller, plus transfers and security measures.",
+      "why": "You act as a processor, so you keep a processor-side record.",
+      "solution": "Maintain a record listing each controller, the processing categories, transfers, and your security measures.",
+      "when": { "all": ["acts_as_processor"] }
+    },
+    {
+      "id": "transparency_notice", "title": "Provide a privacy notice", "law": "GDPR Arts. 13-14", "severity": "mandatory",
+      "lawUrl": "https://eur-lex.europa.eu/eli/reg/2016/679/oj#d1e2838-1-1",
+      "lawExplanation": "You must tell people who you are, why you process their data, the lawful basis, recipients, retention, their rights, and any automated decision-making — at collection (Art. 13) or within one month if obtained indirectly (Art. 14).",
+      "why": "People whose data this system uses must be informed about it.",
+      "solution": "Ensure your privacy notice covers this system, including AI-specific processing and any automated decisions.",
+      "when": { "all": ["processes_personal_data"] }
+    },
+    {
+      "id": "security", "title": "Implement appropriate security measures", "law": "GDPR Art. 32", "severity": "mandatory",
+      "lawUrl": "https://eur-lex.europa.eu/eli/reg/2016/679/oj#d1e3583-1-1",
+      "lawExplanation": "Technical and organisational measures must match the risk — e.g. encryption, pseudonymisation, access control, and the ability to restore data after an incident.",
+      "why": "All personal data must be protected with measures matched to the risk.",
+      "solution": "Document encryption in transit/at rest, access control for the AI provider, logging and backups for this system.",
+      "when": { "all": ["processes_personal_data"] }
+    },
+    {
+      "id": "data_subject_rights", "title": "Be able to honour data-subject rights", "law": "GDPR Arts. 15-22", "severity": "mandatory",
+      "lawUrl": "https://eur-lex.europa.eu/eli/reg/2016/679/oj",
+      "lawExplanation": "People have the right of access, rectification, erasure, restriction, portability and objection. You must respond within one month, extendable by two further months for complex requests.",
+      "why": "People can exercise these rights over data held in this system and its processors.",
+      "solution": "Confirm you can locate, export, correct and delete a person's data in this system and any processor within one month.",
+      "when": { "all": ["processes_personal_data"] }
+    },
+    {
+      "id": "storage_limitation", "title": "Define retention and deletion", "law": "GDPR Art. 5(1)(e)", "severity": "mandatory",
+      "lawUrl": "https://eur-lex.europa.eu/eli/reg/2016/679/oj#d1e1801-1-1",
+      "lawExplanation": "Personal data must be kept in identifiable form no longer than necessary for the purpose.",
+      "why": "Undefined or unenforced retention breaches the storage-limitation principle.",
+      "solution": "Set a retention period and an automatic deletion or review step when it expires.",
+      "when": { "all": ["processes_personal_data"] }, "gapWhen": { "any": [{ "eq": ["retention_status", "none"] }, { "eq": ["retention_status", "partial"] }] }
+    },
+    {
+      "id": "breach_process", "title": "Have a 72-hour breach process", "law": "GDPR Arts. 33-34", "severity": "mandatory",
+      "lawUrl": "https://eur-lex.europa.eu/eli/reg/2016/679/oj#d1e3664-1-1",
+      "lawExplanation": "Notify the supervisory authority within 72 hours of becoming aware of a breach (Art. 33); tell affected people without undue delay when the risk to them is high (Art. 34).",
+      "why": "You must be able to detect and report breaches involving this system in time.",
+      "solution": "Put a breach runbook in place: detection, escalation, a 72-hour authority notification path, and a breach register.",
+      "exemptionNote": "Individuals need not be notified if the data was unintelligible to outsiders (e.g. strongly encrypted) or you have since neutralised the risk.",
+      "when": { "all": ["processes_personal_data"] }, "gapWhen": { "all": ["!has_breach_process"] }
+    },
+    {
+      "id": "dpa", "title": "Sign a Data Processing Agreement with each processor", "law": "GDPR Art. 28", "severity": "mandatory",
+      "lawUrl": "https://eur-lex.europa.eu/eli/reg/2016/679/oj#d1e3251-1-1",
+      "lawExplanation": "A binding written contract is required whenever a processor handles personal data for you, covering the eight Art. 28(3) points: subject matter, duration, instructions, confidentiality, security, sub-processing, assistance, and deletion/return.",
+      "why": "You use a third-party processor, so an Art. 28 DPA is legally required.",
+      "solution": "Put a signed DPA in place with every processor covering all Art. 28(3) clauses, and keep a copy on file.",
+      "when": { "all": ["uses_third_party_processor"] }, "gapWhen": { "all": ["!has_dpa"] }
+    },
+    {
+      "id": "sub_processor_authorisation", "title": "Authorise and flow down to sub-processors", "law": "GDPR Art. 28(2),(4)", "severity": "mandatory",
+      "lawUrl": "https://eur-lex.europa.eu/eli/reg/2016/679/oj#d1e3251-1-1",
+      "lawExplanation": "A processor may only engage sub-processors with the controller's authorisation and must impose the same data-protection terms on them.",
+      "why": "Your processor uses sub-processors, so the chain must be authorised and flowed down.",
+      "solution": "Keep the sub-processor list, require prior notice of changes with a right to object, and confirm the same terms are flowed down.",
+      "when": { "all": ["uses_third_party_processor", "sub_processors"] }
+    },
+    {
+      "id": "processor_duties", "title": "Meet your duties as a processor", "law": "GDPR Art. 28(3)", "severity": "mandatory",
+      "lawUrl": "https://eur-lex.europa.eu/eli/reg/2016/679/oj#d1e3251-1-1",
+      "lawExplanation": "A processor must act only on documented instructions, keep data confidential, help the controller with security, breaches and requests, and delete or return data at the end.",
+      "why": "You act as a processor for another organisation.",
+      "solution": "Process only on the controller's documented instructions, assist with requests/breaches, and define deletion/return at contract end.",
+      "when": { "all": ["acts_as_processor"] }
+    },
+    {
+      "id": "joint_controller_arrangement", "title": "Put a joint-controller arrangement in place", "law": "GDPR Art. 26", "severity": "mandatory",
+      "lawUrl": "https://eur-lex.europa.eu/eli/reg/2016/679/oj#d1e3221-1-1",
+      "lawExplanation": "Where two parties jointly decide purposes and means, a transparent arrangement must allocate responsibilities, especially for transparency and rights.",
+      "why": "You decide purposes jointly with another organisation.",
+      "solution": "Agree and document who does what, and make the essence of the arrangement available to data subjects.",
+      "when": { "all": ["joint_controller"] }
+    },
+    {
+      "id": "intl_transfer", "title": "Cover international data transfers", "law": "GDPR Arts. 44-49 (Schrems II)", "severity": "mandatory",
+      "lawUrl": "https://eur-lex.europa.eu/eli/reg/2016/679/oj#d1e4683-1-1",
+      "lawExplanation": "Transfers outside the EEA need a safeguard: an adequacy decision (Art. 45), Standard Contractual Clauses (Decision 2021/914, Art. 46), or a narrow Art. 49 derogation. Schrems II adds a duty to assess the destination's laws.",
+      "why": "Data leaves the EEA or can be accessed from outside it, which is a restricted transfer.",
+      "solution": "Use the 2021 SCCs (or adequacy where it applies) and complete a Transfer Impact Assessment documenting the destination's risk and any extra safeguards.",
+      "exemptionNote": "Does NOT apply where everything stays inside the EU/EEA, or the destination has an adequacy decision (e.g. Switzerland, UK, Japan, and US firms under the Data Privacy Framework).",
+      "when": { "any": [{ "in": ["data_location", ["us", "other_third", "mixed", "unsure"]] }, "vendor_remote_access"] }
+    },
+    {
+      "id": "us_dpf", "title": "Check US Data Privacy Framework coverage", "law": "GDPR Art. 45 (adequacy)", "severity": "recommended",
+      "lawUrl": "https://commission.europa.eu/law/law-topic/data-protection/international-dimension-data-protection/eu-us-data-privacy-framework_en",
+      "lawExplanation": "Since July 2023 the EU-US Data Privacy Framework is an adequacy decision: transfers to a US company that self-certifies to the DPF need no SCCs.",
+      "why": "You use a US provider, so DPF certification may be the simplest lawful route.",
+      "solution": "Check the provider on the public DPF list. If certified, document reliance on the adequacy decision; if not, use SCCs + a transfer assessment.",
+      "when": { "all": [{ "in": ["data_location", ["us", "mixed"]] }] }
+    },
+    {
+      "id": "art9_special", "title": "Find a condition for special-category data", "law": "GDPR Art. 9", "severity": "mandatory",
+      "lawUrl": "https://eur-lex.europa.eu/eli/reg/2016/679/oj#d1e2051-1-1",
+      "lawExplanation": "Processing special-category data is prohibited unless one of the ten Art. 9(2) conditions applies — most often explicit consent or a substantial public interest with a legal basis.",
+      "why": "This system processes special-category data, which is prohibited without an Art. 9(2) condition.",
+      "solution": "Identify and document the Art. 9(2) condition you rely on. This processing almost always also requires a DPIA.",
+      "exemptionNote": "Does NOT apply to data that merely looks sensitive but is not used to infer a protected trait, nor to truly anonymised data. Criminal-offence data is covered separately by Art. 10, not Art. 9.",
+      "when": { "all": [{ "includesAny": ["special_categories", ["health", "biometric", "genetic", "racial", "religious", "political", "sexual", "trade_union"]] }] }
+    },
+    {
+      "id": "art10_criminal", "title": "Handle criminal-offence data lawfully", "law": "GDPR Art. 10, §...BDSG", "severity": "mandatory",
+      "lawUrl": "https://eur-lex.europa.eu/eli/reg/2016/679/oj#d1e2073-1-1",
+      "lawExplanation": "Data on criminal convictions and offences may only be processed under the control of official authority or where authorised by EU/Member-State law with appropriate safeguards.",
+      "why": "You indicated the system processes criminal-offence data.",
+      "solution": "Confirm a specific legal authorisation for this processing and apply the additional safeguards; do not rely on Art. 9 conditions alone.",
+      "when": { "all": [{ "includes": ["special_categories", "criminal"] }] }
+    },
+    {
+      "id": "art22_adm", "title": "Add safeguards for automated decisions", "law": "GDPR Art. 22", "severity": "mandatory",
+      "lawUrl": "https://eur-lex.europa.eu/eli/reg/2016/679/oj#d1e2838-1-1",
+      "lawExplanation": "Decisions based solely on automated processing with legal or similarly significant effects are restricted; people have the right to human intervention, to express their view, and to contest the decision.",
+      "why": "This system makes automated decisions with significant effects on people.",
+      "solution": "Provide meaningful human review, allow people to contest outcomes, explain the logic, and confirm a lawful ground for the automated decision.",
+      "exemptionNote": "Does NOT apply if a human meaningfully reviews each decision, the effect is not legal/significant, or it is necessary for a contract, authorised by law, or based on explicit consent (with safeguards).",
+      "when": { "all": ["automated_decisions"] }
+    },
+    {
+      "id": "dpia", "title": "Carry out a Data Protection Impact Assessment", "law": "GDPR Art. 35", "severity": "mandatory",
+      "lawUrl": "https://eur-lex.europa.eu/eli/reg/2016/679/oj#d1e3851-1-1",
+      "lawExplanation": "A DPIA is required before processing likely to be high-risk — e.g. large-scale special-category data, systematic profiling, or new technologies such as AI.",
+      "why": "Your answers indicate high-risk processing (scale, sensitivity, profiling or model training), which triggers a DPIA.",
+      "solution": "Complete a DPIA covering the processing, necessity/proportionality, risks and mitigations. Consult your DPO; if high residual risk remains, consult the authority first (Art. 36).",
+      "exemptionNote": "Not required where the processing is unlikely to be high-risk, or it appears on the supervisory authority's published 'no-DPIA' list.",
+      "when": { "any": [{ "eq": ["subject_volume", "over_100k"] }, { "some": ["special_categories"] }, "automated_decisions", "large_scale_monitoring", "trains_on_personal_data"] }
+    },
+    {
+      "id": "dpo", "title": "Appoint a Data Protection Officer", "law": "GDPR Art. 37 + §38 BDSG", "severity": "mandatory",
+      "lawUrl": "https://eur-lex.europa.eu/eli/reg/2016/679/oj#d1e4123-1-1",
+      "lawExplanation": "A DPO is required where core activities involve large-scale regular monitoring or large-scale special-category data (Art. 37). Germany goes further: §38 BDSG requires one as soon as 20 or more people are constantly engaged in automated processing.",
+      "why": "Your scale, sensitivity, or German headcount threshold (20+) is likely to require a DPO.",
+      "solution": "Appoint a DPO (internal or external), publish their contact details, and let them report independently to top management.",
+      "exemptionNote": "Not mandatory below these thresholds — but many organisations appoint one voluntarily.",
+      "when": { "any": [{ "eq": ["subject_volume", "over_100k"] }, { "some": ["special_categories"] }, "large_scale_monitoring", { "gte": ["auto_processing_staff", 20] }] }, "gapWhen": { "all": ["!has_dpo"] }
+    },
+    {
+      "id": "eu_representative", "title": "Appoint an EU representative", "law": "GDPR Art. 27", "severity": "mandatory",
+      "lawUrl": "https://eur-lex.europa.eu/eli/reg/2016/679/oj#d1e3221-1-1",
+      "lawExplanation": "Controllers not established in the EU but offering goods/services to people in the EU must designate, in writing, a representative within the Union.",
+      "why": "Your organisation is outside the EU but serves people in the EU.",
+      "solution": "Appoint an EU-based representative, name them in your privacy notice, and have them hold a copy of your RoPA.",
+      "exemptionNote": "Art. 27(2): not required if processing is occasional, includes no large-scale special-category or criminal data, and is unlikely to risk people's rights.",
+      "when": { "all": ["established_outside_eu"] }
+    },
+    {
+      "id": "children", "title": "Apply extra protection for children's data", "law": "GDPR Art. 8 (age 16 in Germany)", "severity": "mandatory",
+      "lawUrl": "https://eur-lex.europa.eu/eli/reg/2016/679/oj#d1e2009-1-1",
+      "lawExplanation": "For online services offered to children, consent is only valid if the child is at least the national age threshold — 16 in Germany — otherwise a parent must consent, and you must make reasonable efforts to verify it.",
+      "why": "This system processes children's data.",
+      "solution": "Use age-appropriate, plain-language notices, verify parental consent under 16, and minimise the data collected from children.",
+      "when": { "all": ["childrens_data"] }
+    },
+    {
+      "id": "direct_marketing", "title": "Honour the right to object to marketing", "law": "GDPR Art. 21 + TDDDG", "severity": "mandatory",
+      "lawUrl": "https://eur-lex.europa.eu/eli/reg/2016/679/oj#d1e3325-1-1",
+      "lawExplanation": "Art. 21 gives an absolute right to object to direct marketing. Germany's TDDDG additionally requires prior consent for cookies/tracking and for most electronic marketing.",
+      "why": "You use the data for direct marketing or advertising profiling.",
+      "solution": "Offer a clear opt-out in every message, stop immediately on objection, and obtain TDDDG consent for any tracking used to profile recipients.",
+      "when": { "all": ["direct_marketing"] }
+    },
+    {
+      "id": "training_data", "title": "Control personal data used for model training", "law": "GDPR Art. 5(1)(b),(c)", "severity": "mandatory",
+      "lawUrl": "https://eur-lex.europa.eu/eli/reg/2016/679/oj#d1e1801-1-1",
+      "lawExplanation": "Purpose limitation and data minimisation mean personal data collected for one purpose cannot simply be reused to train a model, and only necessary data may be used.",
+      "why": "You use personal data to train or fine-tune the model, raising purpose-limitation, minimisation and erasure issues.",
+      "solution": "Confirm a compatible purpose and lawful basis for training, minimise and pseudonymise the training set, and document how you would handle erasure of data already learned by the model.",
+      "when": { "all": ["trains_on_personal_data"] }
+    }
+  ]
+}
