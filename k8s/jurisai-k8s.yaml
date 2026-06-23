@@ -5,7 +5,8 @@
 #   Host:    jurisai.rit.services
 #
 # Prerequisites created OUT OF BAND (not in this file, see k8s/README.md):
-#   - Secret `jurisai-secrets`  (DB creds, JWT, SMTP, ...)  -> jurisai-secrets.example.yaml
+#   - Secret `jurisai-app-secrets` (DB creds, JWT, SMTP, ...) -> jurisai-app-secrets.yaml.example
+#     (kept OUT of this synced manifest so ArgoCD never overwrites real credentials)
 #   - Secret `ghcr-secret`      (private image pulls)       -> from a GitHub PAT (read:packages)
 #   - DNS A record jurisai.rit.services -> 172.236.204.215
 # =============================================================================
@@ -51,11 +52,11 @@ spec:
             - containerPort: 5432
           env:
             - name: POSTGRES_USER
-              valueFrom: { secretKeyRef: { name: jurisai-secrets, key: POSTGRES_USER } }
+              valueFrom: { secretKeyRef: { name: jurisai-app-secrets, key: POSTGRES_USER } }
             - name: POSTGRES_PASSWORD
-              valueFrom: { secretKeyRef: { name: jurisai-secrets, key: POSTGRES_PASSWORD } }
+              valueFrom: { secretKeyRef: { name: jurisai-app-secrets, key: POSTGRES_PASSWORD } }
             - name: POSTGRES_DB
-              valueFrom: { secretKeyRef: { name: jurisai-secrets, key: POSTGRES_DB } }
+              valueFrom: { secretKeyRef: { name: jurisai-app-secrets, key: POSTGRES_DB } }
             - name: PGDATA
               value: /var/lib/postgresql/data/pgdata
           volumeMounts:
@@ -134,7 +135,7 @@ spec:
             - containerPort: 4000
           envFrom:
             - secretRef:
-                name: jurisai-secrets
+                name: jurisai-app-secrets
           volumeMounts:
             - name: uploads
               mountPath: /app/uploads

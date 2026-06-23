@@ -12,5 +12,6 @@ test-results/
 playwright-report/
 __pycache__/
 
-# Filled-in Kubernetes secret (never commit real values)
+# Filled-in Kubernetes secrets (never commit real values)
 k8s/jurisai-secrets.yaml
+k8s/jurisai-app-secrets.yaml
