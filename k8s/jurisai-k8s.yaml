@@ -1,0 +1,270 @@
+# =============================================================================
+# JurisAI - Kubernetes deployment (Rit Services cluster)
+#   Ingress: Traefik IngressRoute   TLS: cert-manager (letsencrypt-prod)
+#   Storage: Longhorn PVCs          Registry: GHCR (ghcr.io/shahnehalali/*, private)
+#   Host:    jurisai.rit.services
+#
+# Prerequisites created OUT OF BAND (not in this file, see k8s/README.md):
+#   - Secret `jurisai-secrets`  (DB creds, JWT, SMTP, ...)  -> jurisai-secrets.example.yaml
+#   - Secret `ghcr-secret`      (private image pulls)       -> from a GitHub PAT (read:packages)
+#   - DNS A record jurisai.rit.services -> 172.236.204.215
+# =============================================================================
+apiVersion: v1
+kind: Namespace
+metadata:
+  name: jurisai
+---
+# ---------------------------- PostgreSQL -------------------------------------
+apiVersion: v1
+kind: PersistentVolumeClaim
+metadata:
+  name: jurisai-postgres-pvc
+  namespace: jurisai
+spec:
+  accessModes: ["ReadWriteOnce"]
+  storageClassName: longhorn
+  resources:
+    requests:
+      storage: 5Gi
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: jurisai-postgres
+  namespace: jurisai
+spec:
+  replicas: 1
+  strategy:
+    type: Recreate
+  selector:
+    matchLabels:
+      app: jurisai-postgres
+  template:
+    metadata:
+      labels:
+        app: jurisai-postgres
+    spec:
+      containers:
+        - name: postgres
+          image: postgres:16-alpine
+          ports:
+            - containerPort: 5432
+          env:
+            - name: POSTGRES_USER
+              valueFrom: { secretKeyRef: { name: jurisai-secrets, key: POSTGRES_USER } }
+            - name: POSTGRES_PASSWORD
+              valueFrom: { secretKeyRef: { name: jurisai-secrets, key: POSTGRES_PASSWORD } }
+            - name: POSTGRES_DB
+              valueFrom: { secretKeyRef: { name: jurisai-secrets, key: POSTGRES_DB } }
+            - name: PGDATA
+              value: /var/lib/postgresql/data/pgdata
+          volumeMounts:
+            - name: data
+              mountPath: /var/lib/postgresql/data
+          readinessProbe:
+            exec: { command: ["sh", "-c", "pg_isready -U $POSTGRES_USER -d $POSTGRES_DB"] }
+            initialDelaySeconds: 10
+            periodSeconds: 10
+          resources:
+            requests: { cpu: "100m", memory: "256Mi" }
+            limits: { cpu: "1", memory: "1Gi" }
+      volumes:
+        - name: data
+          persistentVolumeClaim:
+            claimName: jurisai-postgres-pvc
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: jurisai-postgres
+  namespace: jurisai
+spec:
+  selector:
+    app: jurisai-postgres
+  ports:
+    - port: 5432
+      targetPort: 5432
+  type: ClusterIP
+---
+# ------------------------------ API server -----------------------------------
+apiVersion: v1
+kind: PersistentVolumeClaim
+metadata:
+  name: jurisai-uploads-pvc
+  namespace: jurisai
+spec:
+  accessModes: ["ReadWriteOnce"]
+  storageClassName: longhorn
+  resources:
+    requests:
+      storage: 2Gi
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: jurisai-server
+  namespace: jurisai
+spec:
+  # Single replica: it runs migrate/seed on start and is the sole writer of the
+  # ReadWriteOnce uploads volume. Do not add an HPA to this Deployment.
+  replicas: 1
+  strategy:
+    type: Recreate
+  selector:
+    matchLabels:
+      app: jurisai-server
+  template:
+    metadata:
+      labels:
+        app: jurisai-server
+    spec:
+      imagePullSecrets:
+        - name: ghcr-secret
+      containers:
+        - name: server
+          image: ghcr.io/shahnehalali/jurisai-server:latest
+          imagePullPolicy: Always
+          ports:
+            - containerPort: 4000
+          envFrom:
+            - secretRef:
+                name: jurisai-secrets
+          volumeMounts:
+            - name: uploads
+              mountPath: /app/uploads
+          readinessProbe:
+            httpGet: { path: /api/health, port: 4000 }
+            initialDelaySeconds: 20
+            periodSeconds: 10
+          livenessProbe:
+            httpGet: { path: /api/health, port: 4000 }
+            initialDelaySeconds: 60
+            periodSeconds: 20
+          resources:
+            requests: { cpu: "100m", memory: "256Mi" }
+            limits: { cpu: "1", memory: "1Gi" }
+      volumes:
+        - name: uploads
+          persistentVolumeClaim:
+            claimName: jurisai-uploads-pvc
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: jurisai-server
+  namespace: jurisai
+spec:
+  selector:
+    app: jurisai-server
+  ports:
+    - port: 4000
+      targetPort: 4000
+  type: ClusterIP
+---
+# ------------------------------ Web client -----------------------------------
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: jurisai-client
+  namespace: jurisai
+spec:
+  replicas: 2
+  selector:
+    matchLabels:
+      app: jurisai-client
+  template:
+    metadata:
+      labels:
+        app: jurisai-client
+    spec:
+      imagePullSecrets:
+        - name: ghcr-secret
+      containers:
+        - name: client
+          image: ghcr.io/shahnehalali/jurisai-client:latest
+          imagePullPolicy: Always
+          ports:
+            - containerPort: 80
+          readinessProbe:
+            httpGet: { path: /, port: 80 }
+            initialDelaySeconds: 5
+            periodSeconds: 10
+          resources:
+            requests: { cpu: "50m", memory: "64Mi" }
+            limits: { cpu: "500m", memory: "256Mi" }
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: jurisai-client
+  namespace: jurisai
+spec:
+  selector:
+    app: jurisai-client
+  ports:
+    - port: 80
+      targetPort: 80
+  type: ClusterIP
+---
+apiVersion: autoscaling/v2
+kind: HorizontalPodAutoscaler
+metadata:
+  name: jurisai-client-hpa
+  namespace: jurisai
+spec:
+  scaleTargetRef:
+    apiVersion: apps/v1
+    kind: Deployment
+    name: jurisai-client
+  minReplicas: 2
+  maxReplicas: 5
+  metrics:
+    - type: Resource
+      resource:
+        name: cpu
+        target:
+          type: Utilization
+          averageUtilization: 70
+---
+# ------------------------------ TLS certificate ------------------------------
+apiVersion: cert-manager.io/v1
+kind: Certificate
+metadata:
+  name: jurisai-cert
+  namespace: jurisai
+spec:
+  secretName: jurisai-tls
+  dnsNames:
+    - jurisai.rit.services
+  issuerRef:
+    name: letsencrypt-prod
+    kind: ClusterIssuer
+    group: cert-manager.io
+  privateKey:
+    rotationPolicy: Always
+---
+# ------------------------------ Ingress (Traefik) ----------------------------
+apiVersion: traefik.io/v1alpha1
+kind: IngressRoute
+metadata:
+  name: jurisai-ingressroute
+  namespace: jurisai
+spec:
+  entryPoints:
+    - web
+    - websecure
+  routes:
+    # API + uploaded files go to the server (longer rule => higher priority).
+    - match: Host(`jurisai.rit.services`) && (PathPrefix(`/api`) || PathPrefix(`/uploads`))
+      kind: Rule
+      services:
+        - name: jurisai-server
+          port: 4000
+    # Everything else is the SPA.
+    - match: Host(`jurisai.rit.services`)
+      kind: Rule
+      services:
+        - name: jurisai-client
+          port: 80
+  tls:
+    secretName: jurisai-tls

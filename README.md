@@ -1,4 +1,4 @@
-# Easy AI - Compliance Platform for Companies in Germany
+# JurisAI - Compliance Platform for Companies in Germany
 
 A professional web application that helps companies in Germany meet their regulatory
 requirements for using Artificial Intelligence. Companies register, classify their AI

@@ -1,5 +1,5 @@
 import { useState } from 'react';
-import { FileText } from 'lucide-react';
+import { FileText, Trash2 } from 'lucide-react';
 import { checklistResponseApi } from '@/apis/checklistResponseApi';
 import { documentApi } from '@/apis/documentApi';
 import { commentApi } from '@/apis/commentApi';
@@ -58,6 +58,15 @@ export default function ChecklistItem({ response, members = [], onChanged }) {
       setDocs((d) => [...d, doc]);
     } catch (err) { setError(err.message); }
     e.target.value = '';
+  };
+
+  const removeDoc = async (doc) => {
+    if (!window.confirm(`Remove "${doc.fileName}"? This cannot be undone.`)) return;
+    setError('');
+    try {
+      await documentApi.remove(doc.id);
+      setDocs((d) => d.filter((x) => x.id !== doc.id));
+    } catch (err) { setError(err.message); }
   };
 
   const addComment = async () => {
@@ -119,10 +128,20 @@ export default function ChecklistItem({ response, members = [], onChanged }) {
         {docs.length > 0 && (
           <div className="stack" style={{ gap: 4, marginTop: 8 }}>
             {docs.map((d) => (
-              <div key={d.id} className="row" style={{ gap: 6, fontSize: 12.5 }}>
+              <div key={d.id} className="row" data-testid="attached-document" style={{ gap: 6, fontSize: 12.5 }}>
                 <FileText size={13} aria-hidden="true" style={{ color: 'var(--muted)' }} />
                 <a href={documentApi.downloadUrl(d.id)} target="_blank" rel="noreferrer">{d.fileName}</a>
                 <span className="muted">{bytes(d.sizeBytes)}</span>
+                <button
+                  className="btn btn-ghost btn-sm"
+                  data-testid="remove-document"
+                  aria-label={`Remove ${d.fileName}`}
+                  title="Remove document"
+                  onClick={() => removeDoc(d)}
+                  style={{ padding: '2px 6px', color: 'var(--red)', lineHeight: 1 }}
+                >
+                  <Trash2 size={13} aria-hidden="true" />
+                </button>
               </div>
             ))}
           </div>

@@ -19,7 +19,7 @@ const config = {
     secure: String(process.env.SMTP_SECURE).toLowerCase() === 'true',
     user: process.env.SMTP_USER || '',
     pass: process.env.SMTP_PASS || '',
-    from: process.env.EMAIL_FROM || 'Easy AI <no-reply@aicompliance.local>',
+    from: process.env.EMAIL_FROM || 'JurisAI <no-reply@aicompliance.local>',
   },
 
   reminders: {

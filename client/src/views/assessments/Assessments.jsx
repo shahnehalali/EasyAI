@@ -1,4 +1,4 @@
-import { useMemo } from 'react';
+import { useMemo, useState } from 'react';
 import { useQuery } from '@tanstack/react-query';
 import { Link } from 'react-router-dom';
 import { assessmentApi } from '@/apis/assessmentApi';
@@ -10,6 +10,7 @@ const TIER_CHIP = { 1: 'chip-navy', 2: 'chip-gold', 3: 'chip-grey' };
 
 export default function Assessments() {
   const { t } = useT();
+  const [activeKey, setActiveKey] = useState('all');
   const { data: assessments = [], isLoading, error, refetch } = useQuery({ queryKey: ['assessments'], queryFn: assessmentApi.list });
 
   // Group by scope: each AI system, plus an organisation-wide group.
@@ -42,8 +43,15 @@ export default function Assessments() {
     return s;
   }, [assessments]);
 
+  // If the selected project no longer exists, fall back to showing all.
+  const exists = activeKey === 'all' || groups.some((g) => g.key === activeKey);
+  const effectiveKey = exists ? activeKey : 'all';
+  const visibleGroups = effectiveKey === 'all' ? groups : groups.filter((g) => g.key === effectiveKey);
+
   if (isLoading) return <SkeletonPage />;
   if (error) return <ErrorState error={error} onRetry={refetch} />;
+
+  const groupLabel = (g) => (g.isOrg ? t('as.orgWide') : g.name);
 
   return (
     <div data-testid="assessments">
@@ -68,8 +76,35 @@ export default function Assessments() {
             <div className="card stat"><div className="num" style={{ color: 'var(--red)' }}>{summary.needsReview}</div><div className="label">{t('as.stat.needReview')}</div></div>
           </div>
 
+          {groups.length > 1 && (
+            <div className="row" role="group" aria-label="Filter by project" data-testid="assessment-project-filters" style={{ gap: 8, marginBottom: 16, flexWrap: 'wrap' }}>
+              <button
+                data-testid="assessment-filter-all"
+                onClick={() => setActiveKey('all')}
+                aria-pressed={effectiveKey === 'all'}
+                className={`btn btn-sm ${effectiveKey === 'all' ? 'btn-primary' : 'btn-outline'}`}
+              >
+                {t('fw.filter.all')}<span className="muted small" style={{ marginLeft: 6, color: effectiveKey === 'all' ? 'rgba(255,255,255,0.8)' : undefined }}>{groups.length}</span>
+              </button>
+              {groups.map((g) => {
+                const active = effectiveKey === g.key;
+                return (
+                  <button
+                    key={g.key}
+                    data-testid={`assessment-filter-${g.key}`}
+                    onClick={() => setActiveKey(g.key)}
+                    aria-pressed={active}
+                    className={`btn btn-sm ${active ? 'btn-primary' : 'btn-outline'}`}
+                  >
+                    {groupLabel(g)}<span className="muted small" style={{ marginLeft: 6, color: active ? 'rgba(255,255,255,0.8)' : undefined }}>{g.rows.length}</span>
+                  </button>
+                );
+              })}
+            </div>
+          )}
+
           <div className="stack">
-            {groups.map((g) => (
+            {visibleGroups.map((g) => (
               <div key={g.key} className="card" data-testid="assessment-group">
                 <div className="card-head">
                   <div className="row" style={{ gap: 10 }}>

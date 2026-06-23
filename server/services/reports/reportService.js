@@ -23,7 +23,7 @@ function header(doc, title, orgName) {
   const w = doc.page.width;
   doc.save();
   doc.rect(0, 0, w, 84).fill(ACCENT);
-  doc.fillColor('#ffffff').font('Helvetica-Bold').fontSize(10).text('AI COMPLIANCE', 50, 20, { lineBreak: false });
+  doc.fillColor('#ffffff').font('Helvetica-Bold').fontSize(10).text('JURISAI', 50, 20, { lineBreak: false });
   doc.font('Helvetica-Bold').fontSize(16).fillColor('#ffffff').text(title, 50, 36, { width: w - 100, lineBreak: false });
   doc.font('Helvetica').fontSize(9).fillColor('#e7e8fb')
     .text(`${orgName || ''}   ·   Generated ${fmtDate(new Date())}`, 50, 62, { width: w - 100, lineBreak: false });
@@ -199,4 +199,80 @@ function renderOrganizationPdf(res, org, data) {
   finalize(doc);
 }
 
-module.exports = { renderAssessmentPdf, renderOrganizationPdf, STATUS_LABELS, RISK_LABELS, fmtDate };
+// ---- GDPR/DPA data-protection profile report ----
+const DP_PDF_LABELS = {
+  en: {
+    title: 'Data Protection Profile', subtitle: 'GDPR & DPA applicability for this AI system',
+    system: 'AI system', risk: 'Risk level', notClassified: 'Not classified', result: 'Result',
+    obligations: 'Obligations', needAction: 'Need action', applyTitle: 'Obligations that apply',
+    badgeGap: 'ACTION NEEDED', badgeOk: 'APPLIES', why: 'Why this applies', whatToDo: 'What to do',
+    exempt: 'When this may not apply', noApply: 'GDPR does not apply.',
+  },
+  de: {
+    title: 'Datenschutzprofil', subtitle: 'DSGVO- & AVV-Anwendbarkeit für dieses KI-System',
+    system: 'KI-System', risk: 'Risikostufe', notClassified: 'Nicht eingestuft', result: 'Ergebnis',
+    obligations: 'Pflichten', needAction: 'Handlung nötig', applyTitle: 'Geltende Pflichten',
+    badgeGap: 'HANDLUNG NÖTIG', badgeOk: 'GILT', why: 'Warum das gilt', whatToDo: 'Was zu tun ist',
+    exempt: 'Wann dies möglicherweise nicht gilt', noApply: 'Die DSGVO gilt nicht.',
+  },
+};
+
+function renderDataProfilePdf(res, system, orgName, result, penaltiesNote, lang = 'en') {
+  const L = DP_PDF_LABELS[lang] || DP_PDF_LABELS.en;
+  const doc = newDoc(res);
+  const w = doc.page.width - 100;
+
+  header(doc, L.title, orgName);
+
+  doc.font('Helvetica-Bold').fontSize(15).fillColor(INK).text(system.name, 50);
+  doc.font('Helvetica').fontSize(10).fillColor(MUTED).text(L.subtitle, 50);
+  doc.moveDown(0.8);
+
+  metaLine(doc, L.system, system.name);
+  metaLine(doc, L.risk, system.riskCategory ? (RISK_LABELS[system.riskCategory] || system.riskCategory) : L.notClassified);
+
+  if (!result.appliesGdpr) {
+    sectionTitle(doc, L.result);
+    doc.font('Helvetica').fontSize(10).fillColor(INK).text(result.message || L.noApply, 50, doc.y, { width: w });
+    finalize(doc);
+    return;
+  }
+
+  metaLine(doc, L.obligations, String(result.summary.total));
+  metaLine(doc, L.needAction, String(result.summary.gaps));
+
+  sectionTitle(doc, L.applyTitle);
+
+  result.obligations.forEach((o, idx) => {
+    doc.font('Helvetica-Bold').fontSize(10.5).fillColor(INK).text(`${idx + 1}. ${o.title}`, 50, doc.y, { width: w });
+    const badge = o.status === 'gap' ? L.badgeGap : L.badgeOk;
+    doc.font('Helvetica-Bold').fontSize(8).fillColor(o.status === 'gap' ? '#c0362c' : ACCENT)
+      .text(`${o.law}  ·  ${badge}`, 50, doc.y, { width: w });
+    if (o.lawExplanation) {
+      doc.moveDown(0.25);
+      doc.font('Helvetica-Oblique').fontSize(9).fillColor(MUTED).text(o.lawExplanation, 50, doc.y, { width: w });
+    }
+    doc.moveDown(0.25);
+    doc.font('Helvetica-Bold').fontSize(9).fillColor(INK).text(L.why, 50, doc.y, { width: w });
+    doc.font('Helvetica').fontSize(9.5).fillColor(INK).text(o.why, 50, doc.y, { width: w });
+    doc.moveDown(0.2);
+    doc.font('Helvetica-Bold').fontSize(9).fillColor(INK).text(L.whatToDo, 50, doc.y, { width: w });
+    doc.font('Helvetica').fontSize(9.5).fillColor(INK).text(o.solution, 50, doc.y, { width: w });
+    if (o.exemptionNote) {
+      doc.moveDown(0.2);
+      doc.font('Helvetica-Oblique').fontSize(8.5).fillColor(MUTED).text(`${L.exempt}: ${o.exemptionNote}`, 50, doc.y, { width: w });
+    }
+    doc.moveDown(0.5);
+    rule(doc);
+    doc.moveDown(0.3);
+  });
+
+  if (penaltiesNote) {
+    doc.moveDown(0.2);
+    doc.font('Helvetica-Oblique').fontSize(8.5).fillColor(MUTED).text(penaltiesNote, 50, doc.y, { width: w });
+  }
+
+  finalize(doc);
+}
+
+module.exports = { renderAssessmentPdf, renderOrganizationPdf, renderDataProfilePdf, STATUS_LABELS, RISK_LABELS, fmtDate };

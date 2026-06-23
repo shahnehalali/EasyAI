@@ -66,11 +66,11 @@ async function sendMail({ to, subject, html, text }) {
 async function sendVerificationEmail(user, verifyUrl) {
   return sendMail({
     to: user.email,
-    subject: 'Verify your email - Easy AI',
-    text: `Welcome to Easy AI. Confirm your email: ${verifyUrl}`,
+    subject: 'Verify your email - JurisAI',
+    text: `Welcome to JurisAI. Confirm your email: ${verifyUrl}`,
     html: emailShell(
       'Confirm your email address',
-      `<p>Welcome to <strong>Easy AI</strong>. Please confirm your email address to activate your account.</p>
+      `<p>Welcome to <strong>JurisAI</strong>. Please confirm your email address to activate your account.</p>
        <p style="margin:24px 0;"><a href="${verifyUrl}" style="background:#0b2545;color:#fff;text-decoration:none;padding:12px 20px;border-radius:4px;font-weight:600;">Verify email</a></p>
        <p style="color:#5b6b7b;font-size:13px;">Or paste this link into your browser:<br>${verifyUrl}</p>
        <p style="color:#5b6b7b;font-size:13px;">This link expires in 24 hours.</p>`,
@@ -81,7 +81,7 @@ async function sendVerificationEmail(user, verifyUrl) {
 async function sendPasswordResetEmail(user, resetUrl) {
   return sendMail({
     to: user.email,
-    subject: 'Reset your password - Easy AI',
+    subject: 'Reset your password - JurisAI',
     text: `Reset your password: ${resetUrl}`,
     html: emailShell(
       'Reset your password',
@@ -109,10 +109,10 @@ async function sendReviewReminderEmail(user, assessment, link) {
 async function sendInvitationEmail(email, url, orgName, inviterName) {
   return sendMail({
     to: email,
-    subject: `You are invited to join ${orgName} on Easy AI`,
-    text: `${inviterName || 'A colleague'} invited you to join ${orgName} on Easy AI. Accept here: ${url}`,
+    subject: `You are invited to join ${orgName} on JurisAI`,
+    text: `${inviterName || 'A colleague'} invited you to join ${orgName} on JurisAI. Accept here: ${url}`,
     html: emailShell(
-      `Join ${orgName} on Easy AI`,
+      `Join ${orgName} on JurisAI`,
       `<p>${inviterName || 'A colleague'} has invited you to collaborate on AI compliance for <strong>${orgName}</strong>.</p>
        <p style="margin:24px 0;"><a href="${url}" style="background:#5b5bd6;color:#fff;text-decoration:none;padding:12px 20px;border-radius:8px;font-weight:600;">Accept invitation</a></p>
        <p style="color:#5b6373;font-size:13px;">Or paste this link into your browser:<br>${url}</p>
@@ -143,7 +143,7 @@ function emailShell(heading, bodyHtml) {
     <table role="presentation" width="100%" cellpadding="0" cellspacing="0"><tr><td align="center">
       <table role="presentation" width="560" cellpadding="0" cellspacing="0" style="background:#fff;border:1px solid #d8d0c4;border-top:4px solid #0b2545;">
         <tr><td style="padding:28px 32px;">
-          <div style="font-family:Georgia,'Times New Roman',serif;font-size:20px;color:#0b2545;font-weight:700;margin-bottom:8px;">Easy AI</div>
+          <div style="font-family:Georgia,'Times New Roman',serif;font-size:20px;color:#0b2545;font-weight:700;margin-bottom:8px;">JurisAI</div>
           <hr style="border:none;border-top:1px solid #d8d0c4;margin:0 0 20px;">
           <h1 style="font-family:Georgia,'Times New Roman',serif;font-size:19px;color:#0b2545;margin:0 0 12px;">${heading}</h1>
           ${bodyHtml}

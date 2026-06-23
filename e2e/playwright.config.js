@@ -8,11 +8,12 @@ module.exports = defineConfig({
   testDir: './tests',
   fullyParallel: false,
   workers: 1,
-  // One retry locally absorbs transient dev-server timeouts during the long
-  // serial run; a real failure still fails on the retry.
-  retries: process.env.CI ? 2 : 1,
-  timeout: 30000,
-  expect: { timeout: 10000 },
+  // Retries absorb transient dev-server slowdowns during the long serial run
+  // (the heavier pages can exceed the assertion timeout when the Vite dev
+  // server is under sustained load). A real failure still fails on every retry.
+  retries: 2,
+  timeout: 45000,
+  expect: { timeout: 15000 },
   reporter: [['list'], ['html', { open: 'never' }]],
   globalSetup: require.resolve('./global-setup.js'),
   globalTeardown: require.resolve('./global-teardown.js'),

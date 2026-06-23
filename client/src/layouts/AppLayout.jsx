@@ -55,7 +55,7 @@ export default function AppLayout() {
         enabled: import.meta.env.VITE_FEEDBACK_ENABLED !== 'false',
         floatingPosition: 'bottom-left', // bottom-right is taken by the Help chat launcher
         buttonLabel: 'Feedback',
-        meta: { app: 'easy-ai' },
+        meta: { app: 'jurisai' },
       }}
     >
       <div className="app-shell">

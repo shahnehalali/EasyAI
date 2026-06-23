@@ -8,26 +8,26 @@ export const FAQ_CATEGORIES = [
     items: [
       {
         id: 'what-is',
-        q: { en: 'What is Easy AI?', de: 'Was ist Easy AI?' },
+        q: { en: 'What is JurisAI?', de: 'Was ist JurisAI?' },
         a: {
-          en: 'Easy AI helps companies in Germany meet the rules for using AI. It turns EU and German law into plain-language checklists you can work through, document, and keep reviewed each year.',
-          de: 'Easy AI hilft Unternehmen in Deutschland, die Regeln für den Einsatz von KI einzuhalten. Es übersetzt EU- und deutsches Recht in verständliche Checklisten, die Sie abarbeiten, dokumentieren und jährlich prüfen können.',
+          en: 'JurisAI helps companies in Germany meet the rules for using AI. It turns EU and German law into plain-language checklists you can work through, document, and keep reviewed each year.',
+          de: 'JurisAI hilft Unternehmen in Deutschland, die Regeln für den Einsatz von KI einzuhalten. Es übersetzt EU- und deutsches Recht in verständliche Checklisten, die Sie abarbeiten, dokumentieren und jährlich prüfen können.',
         },
       },
       {
         id: 'first-steps',
         q: { en: 'How do I get started?', de: 'Wie fange ich an?' },
         a: {
-          en: 'Register an AI system, answer a short questionnaire to classify its risk, and Easy AI builds the right checklists for you. Then work through each item and record your evidence.',
-          de: 'Legen Sie ein KI-System an, beantworten Sie einen kurzen Fragebogen zur Risikoeinstufung, und Easy AI erstellt die passenden Checklisten für Sie. Arbeiten Sie dann jeden Punkt durch und halten Sie Ihre Nachweise fest.',
+          en: 'Register an AI system, answer a short questionnaire to classify its risk, and JurisAI builds the right checklists for you. Then work through each item and record your evidence.',
+          de: 'Legen Sie ein KI-System an, beantworten Sie einen kurzen Fragebogen zur Risikoeinstufung, und JurisAI erstellt die passenden Checklisten für Sie. Arbeiten Sie dann jeden Punkt durch und halten Sie Ihre Nachweise fest.',
         },
       },
       {
         id: 'is-legal-advice',
         q: { en: 'Is this legal advice?', de: 'Ist das eine Rechtsberatung?' },
         a: {
-          en: 'No. Easy AI gives plain-language guidance for orientation only. For binding interpretation of the law, consult a qualified lawyer.',
-          de: 'Nein. Easy AI bietet verständliche Hinweise nur zur Orientierung. Für eine verbindliche Auslegung des Rechts wenden Sie sich an eine qualifizierte Anwältin oder einen qualifizierten Anwalt.',
+          en: 'No. JurisAI gives plain-language guidance for orientation only. For binding interpretation of the law, consult a qualified lawyer.',
+          de: 'Nein. JurisAI bietet verständliche Hinweise nur zur Orientierung. Für eine verbindliche Auslegung des Rechts wenden Sie sich an eine qualifizierte Anwältin oder einen qualifizierten Anwalt.',
         },
       },
     ],

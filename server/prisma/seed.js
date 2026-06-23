@@ -126,6 +126,44 @@ async function seedCoreContent() {
   }
 }
 
+// A manually-started checklist whose items are the GDPR/DPA profile obligations.
+// Lets a user turn their data-protection profile result into a working assessment.
+async function seedGdprActionPlan() {
+  const profile = readJson('gdprProfile.seed.json');
+  const framework = await prisma.framework.findUnique({ where: { key: 'gdpr' } });
+  if (!framework) return;
+
+  const template = await prisma.checklistTemplate.upsert({
+    where: { frameworkId_key: { frameworkId: framework.id, key: 'gdpr_dpa_action_plan' } },
+    update: { name: 'GDPR & DPA action plan', description: 'Work through the obligations identified by your data-protection profile.', autoActivate: false, status: 'published', sortOrder: 50 },
+    create: {
+      frameworkId: framework.id, key: 'gdpr_dpa_action_plan', name: 'GDPR & DPA action plan',
+      description: 'Work through the obligations identified by your data-protection profile.',
+      autoActivate: false, status: 'published', sortOrder: 50,
+    },
+  });
+
+  const existingItems = await prisma.templateItem.count({ where: { checklistTemplateId: template.id } });
+  if (existingItems === 0) {
+    let i = 0;
+    for (const o of profile.obligations || []) {
+      await prisma.templateItem.create({
+        data: {
+          checklistTemplateId: template.id,
+          title: `${o.title} (${o.law})`,
+          guidanceText: `${o.lawExplanation}\n\nWhat to do: ${o.solution}`,
+          inputType: 'longtext',
+          isRequired: (o.severity || 'mandatory') === 'mandatory',
+          sortOrder: i,
+          metadata: { obligationId: o.id },
+        },
+      });
+      i += 1;
+    }
+  }
+  console.log(`seeded GDPR & DPA action plan (${(profile.obligations || []).length} items)`);
+}
+
 async function seedClassification() {
   const q = readJson('classification.seed.json');
   const framework = await prisma.framework.findUnique({ where: { key: q.frameworkKey } });
@@ -162,6 +200,14 @@ async function seedClassification() {
 }
 
 async function seedDemoUsers() {
+  // Never create the well-known demo/admin accounts in production unless
+  // explicitly opted in (they have published passwords). Catalog seeding above
+  // still runs so the app is usable; you create real accounts via sign-up.
+  if (process.env.NODE_ENV === 'production' && process.env.SEED_DEMO !== 'true') {
+    console.log('skipping demo users (production)');
+    return;
+  }
+
   const adminHash = await bcrypt.hash('Admin12345!', 12);
   const demoHash = await bcrypt.hash('Demo12345!', 12);
 
@@ -221,6 +267,7 @@ async function main() {
   await seedLawDetails();
   await seedTranslations();
   await seedCoreContent();
+  await seedGdprActionPlan();
   await seedClassification();
   await seedDemoUsers();
   await seedSnapshots();

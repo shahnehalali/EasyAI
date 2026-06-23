@@ -41,7 +41,7 @@ export const UI = {
     'title.notifications': 'Notifications',
     'title.settings': 'Settings',
     'title.admin': 'Catalog Administration',
-    'title.fallback': 'Easy AI',
+    'title.fallback': 'JurisAI',
 
     // Top bar account menu
     'account.settings': 'Settings',
@@ -56,6 +56,35 @@ export const UI = {
     'dash.exportCsv': 'Export (CSV)',
     'dash.register': 'Register an AI system',
     'dash.welcome': 'Welcome. Start by registering an AI system and answering a short questionnaire. We will classify its risk level and build the right compliance checklists for you. You can also explore the laws first in the Law Explorer.',
+
+    // Data protection profile (page chrome; the questions/obligations come localised from the API)
+    'dp.eyebrow': 'Data protection profile (GDPR & DPA)',
+    'dp.seeApplies': 'See what applies',
+    'dp.checking': 'Checking...',
+    'dp.answerFirst': 'Answer the first question to continue.',
+    'dp.unansweredHint': '{n} unanswered treated as “No”.',
+    'dp.yourObligations': 'Your obligations',
+    'dp.whatAppliesTo': 'What applies to',
+    'dp.createAssessment': 'Create assessment',
+    'dp.creating': 'Creating...',
+    'dp.downloadPdf': 'Download PDF',
+    'dp.obligationsApply': 'obligations apply',
+    'dp.obligationApplies': 'obligation applies',
+    'dp.needActionNow': 'need action now',
+    'dp.whyApplies': 'Why this applies to you',
+    'dp.whatToDo': 'What to do',
+    'dp.whenNotApply': 'When this may not apply',
+    'dp.read': 'Read',
+    'dp.statusAction': 'Action needed',
+    'dp.statusApplies': 'Applies',
+    'dp.intro': 'Answer the profile and select “See what applies”. We will list the GDPR and DPA obligations for this system, with what to do about each.',
+    'dp.disclaimer': 'This is plain-language guidance for orientation only and is not legal advice.',
+    'dp.profileQuestions': 'Profile questions',
+    'dp.toggleQuestions': 'Show or hide the questions',
+    'dp.hide': 'Hide',
+    'dp.edit': 'Edit answers',
+    'common.yes': 'Yes',
+    'common.no': 'No',
 
     // Common
     'common.classifyNow': 'Classify now',
@@ -138,8 +167,8 @@ export const UI = {
     // FAQ
     'faq.eyebrow': 'Help centre',
     'faq.title': 'Frequently asked questions',
-    'faq.sub': 'Short answers to the most common questions about using Easy AI. Need more help? Use the chat button in the corner.',
-    'faq.disclaimer': 'Easy AI provides plain-language guidance for orientation only and is not legal advice.',
+    'faq.sub': 'Short answers to the most common questions about using JurisAI. Need more help? Use the chat button in the corner.',
+    'faq.disclaimer': 'JurisAI provides plain-language guidance for orientation only and is not legal advice.',
 
     // Framework detail
     'fd.back': '← All frameworks',
@@ -182,7 +211,7 @@ export const UI = {
 
     // Help assistant
     'help.title': 'Help assistant',
-    'help.sub': 'How to use Easy AI',
+    'help.sub': 'How to use JurisAI',
     'help.popular': 'Popular topics',
     'help.placeholder': 'Ask how to do something...',
     'help.open': 'Open help',
@@ -225,7 +254,7 @@ export const UI = {
     'title.notifications': 'Benachrichtigungen',
     'title.settings': 'Einstellungen',
     'title.admin': 'Katalogverwaltung',
-    'title.fallback': 'Easy AI',
+    'title.fallback': 'JurisAI',
 
     // Top bar account menu
     'account.settings': 'Einstellungen',
@@ -240,6 +269,35 @@ export const UI = {
     'dash.exportCsv': 'Exportieren (CSV)',
     'dash.register': 'KI-System anlegen',
     'dash.welcome': 'Willkommen. Legen Sie zunächst ein KI-System an und beantworten Sie einen kurzen Fragebogen. Wir stufen das Risiko ein und erstellen die passenden Compliance-Checklisten für Sie. Sie können die Gesetze auch zuerst im Gesetzes-Explorer erkunden.',
+
+    // Data protection profile (page chrome)
+    'dp.eyebrow': 'Datenschutzprofil (DSGVO & AVV)',
+    'dp.seeApplies': 'Anzeigen, was gilt',
+    'dp.checking': 'Wird geprüft...',
+    'dp.answerFirst': 'Beantworten Sie die erste Frage, um fortzufahren.',
+    'dp.unansweredHint': '{n} unbeantwortet werden als „Nein“ gewertet.',
+    'dp.yourObligations': 'Ihre Pflichten',
+    'dp.whatAppliesTo': 'Was gilt für',
+    'dp.createAssessment': 'Bewertung erstellen',
+    'dp.creating': 'Wird erstellt...',
+    'dp.downloadPdf': 'PDF herunterladen',
+    'dp.obligationsApply': 'Pflichten gelten',
+    'dp.obligationApplies': 'Pflicht gilt',
+    'dp.needActionNow': 'erfordern jetzt Handlung',
+    'dp.whyApplies': 'Warum das für Sie gilt',
+    'dp.whatToDo': 'Was zu tun ist',
+    'dp.whenNotApply': 'Wann dies möglicherweise nicht gilt',
+    'dp.read': 'Lesen',
+    'dp.statusAction': 'Handlung nötig',
+    'dp.statusApplies': 'Gilt',
+    'dp.intro': 'Beantworten Sie das Profil und wählen Sie „Anzeigen, was gilt“. Wir listen die DSGVO- und AVV-Pflichten für dieses System auf, mit dem jeweils Erforderlichen.',
+    'dp.disclaimer': 'Dies ist eine verständliche Orientierung und keine Rechtsberatung.',
+    'dp.profileQuestions': 'Profilfragen',
+    'dp.toggleQuestions': 'Fragen ein- oder ausblenden',
+    'dp.hide': 'Ausblenden',
+    'dp.edit': 'Antworten bearbeiten',
+    'common.yes': 'Ja',
+    'common.no': 'Nein',
 
     // Common
     'common.classifyNow': 'Jetzt einstufen',
@@ -322,8 +380,8 @@ export const UI = {
     // FAQ
     'faq.eyebrow': 'Hilfecenter',
     'faq.title': 'Häufig gestellte Fragen',
-    'faq.sub': 'Kurze Antworten auf die häufigsten Fragen zur Nutzung von Easy AI. Brauchen Sie mehr Hilfe? Nutzen Sie die Chat-Schaltfläche in der Ecke.',
-    'faq.disclaimer': 'Easy AI bietet verständliche Hinweise nur zur Orientierung und ist keine Rechtsberatung.',
+    'faq.sub': 'Kurze Antworten auf die häufigsten Fragen zur Nutzung von JurisAI. Brauchen Sie mehr Hilfe? Nutzen Sie die Chat-Schaltfläche in der Ecke.',
+    'faq.disclaimer': 'JurisAI bietet verständliche Hinweise nur zur Orientierung und ist keine Rechtsberatung.',
 
     // Framework detail
     'fd.back': '← Alle Rechtsrahmen',
@@ -366,7 +424,7 @@ export const UI = {
 
     // Help assistant
     'help.title': 'Hilfe-Assistent',
-    'help.sub': 'So nutzen Sie Easy AI',
+    'help.sub': 'So nutzen Sie JurisAI',
     'help.popular': 'Beliebte Themen',
     'help.placeholder': 'Fragen Sie, wie etwas geht...',
     'help.open': 'Hilfe öffnen',

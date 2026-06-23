@@ -1,14 +1,18 @@
 import { useState, useEffect, useRef } from 'react';
-import { useQuery } from '@tanstack/react-query';
-import { useParams, Link } from 'react-router-dom';
+import { useQuery, useQueryClient } from '@tanstack/react-query';
+import { useParams, Link, useNavigate } from 'react-router-dom';
+import { ChevronDown } from 'lucide-react';
 import { aiSystemApi } from '@/apis/aiSystemApi';
 import { useAuth } from '@/hooks/useAuth';
+import { useT } from '@/hooks/useT';
 import { SkeletonPage, ErrorState, Banner, Card, Chip } from '@/components/ui/Ui';
 
 const optClass = (on) => `btn btn-sm opt-btn${on ? ' is-on' : ''}`;
 
 // Renders the right control for a question: boolean | single | number | multi.
 function QuestionControl({ q, value, onChange, disabled }) {
+  const { t } = useT();
+
   if (q.type === 'number') {
     return (
       <input
@@ -59,7 +63,7 @@ function QuestionControl({ q, value, onChange, disabled }) {
           data-testid={`profile-${q.code}-${v ? 'yes' : 'no'}`} disabled={disabled}
           onClick={() => onChange(q.code, value === v ? undefined : v)}
           style={{ minWidth: 58 }}
-        >{v ? 'Yes' : 'No'}</button>
+        >{v ? t('common.yes') : t('common.no')}</button>
       ))}
     </div>
   );
@@ -68,11 +72,17 @@ function QuestionControl({ q, value, onChange, disabled }) {
 export default function AiSystemProfile() {
   const { id } = useParams();
   const { can } = useAuth();
+  const { t, lang } = useT();
+  const navigate = useNavigate();
+  const qc = useQueryClient();
   const editable = can('compliance.edit');
   const resultsRef = useRef(null);
+  const [creating, setCreating] = useState(false);
+  const [createErr, setCreateErr] = useState('');
+  const [quizOpen, setQuizOpen] = useState(true);
 
   const { data, isLoading, error, refetch } = useQuery({
-    queryKey: ['data-profile', id], queryFn: () => aiSystemApi.getDataProfile(id),
+    queryKey: ['data-profile', id, lang], queryFn: () => aiSystemApi.getDataProfile(id, lang),
   });
 
   const [answers, setAnswers] = useState({});
@@ -100,27 +110,55 @@ export default function AiSystemProfile() {
   const submit = async () => {
     setBusy(true); setSaveErr('');
     try {
-      const res = await aiSystemApi.saveDataProfile(id, answers);
+      const res = await aiSystemApi.saveDataProfile(id, answers, lang);
       setResult(res.result);
-      // Scroll the freshly computed results into view.
+      setQuizOpen(false); // collapse the questions now that the quiz is done
       setTimeout(() => resultsRef.current?.scrollIntoView({ behavior: 'smooth', block: 'start' }), 50);
     } catch (err) { setSaveErr(err.message); } finally { setBusy(false); }
+  };
+
+  const createAssessment = async () => {
+    setCreating(true); setCreateErr('');
+    try {
+      const { assessmentId } = await aiSystemApi.createProfileAssessment(id);
+      qc.invalidateQueries({ queryKey: ['assessments'] });
+      qc.invalidateQueries({ queryKey: ['dashboard'] });
+      navigate(`/assessments/${assessmentId}`);
+    } catch (err) { setCreateErr(err.message); setCreating(false); }
   };
 
   const questionsFor = (sectionKey) => questions.filter((q) => q.section === sectionKey);
 
   return (
     <div data-testid="data-profile">
-      <Link className="small" to={`/ai-systems/${id}`}>← AI system</Link>
+      <Link className="small" to={`/ai-systems/${id}`}>← {data.systemName || 'AI system'}</Link>
       <div className="page-head" style={{ marginTop: 10 }}>
         <div>
-          <div className="eyebrow">Data protection (GDPR &amp; DPA)</div>
-          <h1>{data.name}</h1>
+          <div className="eyebrow">{t('dp.eyebrow')}</div>
+          <h1>{data.systemName}</h1>
           <p className="sub">{data.description}</p>
         </div>
       </div>
 
+      {/* Questionnaire header with a collapse toggle */}
+      <div className="row-between" style={{ marginBottom: quizOpen ? 12 : 0 }}>
+        <h2 style={{ fontSize: 16 }}>{t('dp.profileQuestions')}</h2>
+        <button
+          className="btn btn-ghost btn-sm"
+          data-testid="quiz-toggle"
+          aria-expanded={quizOpen}
+          aria-label={t('dp.toggleQuestions')}
+          title={t('dp.toggleQuestions')}
+          onClick={() => setQuizOpen((o) => !o)}
+          style={{ gap: 6 }}
+        >
+          {quizOpen ? t('dp.hide') : t('dp.edit')}
+          <ChevronDown size={17} aria-hidden="true" style={{ transform: quizOpen ? 'none' : 'rotate(-90deg)', transition: 'transform 0.15s' }} />
+        </button>
+      </div>
+
       {/* Questionnaire, grouped into sections, full width */}
+      {quizOpen && (<>
       <div className="stack">
         {sections.map((s) => {
           const qs = questionsFor(s.key);
@@ -159,13 +197,14 @@ export default function AiSystemProfile() {
       {editable && (
         <div className="row" style={{ gap: 12, marginTop: 16 }}>
           <button className="btn btn-primary" data-testid="profile-submit" onClick={submit} disabled={!gateAnswered || busy}>
-            {busy ? 'Checking...' : 'See what applies'}
+            {busy ? t('dp.checking') : t('dp.seeApplies')}
           </button>
           {!gateAnswered
-            ? <span className="muted small">Answer the first question to continue.</span>
-            : unanswered > 0 && <span className="muted small">{unanswered} unanswered {unanswered === 1 ? 'question is' : 'questions are'} treated as “No”.</span>}
+            ? <span className="muted small">{t('dp.answerFirst')}</span>
+            : unanswered > 0 && <span className="muted small">{t('dp.unansweredHint').replace('{n}', unanswered)}</span>}
         </div>
       )}
+      </>)}
 
       {/* Results, full width, below the questionnaire */}
       <div ref={resultsRef} data-testid="profile-result" style={{ marginTop: 28 }}>
@@ -175,13 +214,35 @@ export default function AiSystemProfile() {
           <>
             <div className="page-head" style={{ marginBottom: 14 }}>
               <div>
-                <div className="eyebrow">Your obligations</div>
-                <h2>What applies to this system</h2>
+                <div className="eyebrow">{t('dp.yourObligations')}</div>
+                <h2>{t('dp.whatAppliesTo')} {data.systemName}</h2>
+              </div>
+              <div className="row" style={{ gap: 8 }}>
+                {editable && (
+                  <button
+                    className="btn btn-primary btn-sm"
+                    data-testid="profile-create-assessment"
+                    onClick={createAssessment}
+                    disabled={creating}
+                  >
+                    {creating ? t('dp.creating') : t('dp.createAssessment')}
+                  </button>
+                )}
+                <a
+                  className="btn btn-outline btn-sm"
+                  href={aiSystemApi.dataProfilePdfUrl(id, lang)}
+                  data-testid="profile-pdf"
+                  target="_blank"
+                  rel="noreferrer"
+                >
+                  {t('dp.downloadPdf')}
+                </a>
               </div>
             </div>
+            {createErr && <div className="error-text" style={{ marginBottom: 12 }}>{createErr}</div>}
             <Banner kind={result.summary.gaps > 0 ? 'warn' : 'info'}>
-              <strong>{result.summary.total}</strong> obligation{result.summary.total === 1 ? '' : 's'} apply
-              {result.summary.gaps > 0 && <> · <strong>{result.summary.gaps}</strong> need action now</>}.
+              <strong>{result.summary.total}</strong> {result.summary.total === 1 ? t('dp.obligationApplies') : t('dp.obligationsApply')}
+              {result.summary.gaps > 0 && <> · <strong>{result.summary.gaps}</strong> {t('dp.needActionNow')}</>}.
             </Banner>
             {data.penaltiesNote && (
               <p className="muted small" style={{ margin: '0 0 14px' }}>{data.penaltiesNote}</p>
@@ -193,8 +254,8 @@ export default function AiSystemProfile() {
                   <div className="row" style={{ gap: 8, flexWrap: 'wrap', marginBottom: 8 }}>
                     <strong style={{ fontSize: 14.5 }}>{o.title}</strong>
                     {o.status === 'gap'
-                      ? <Chip className="chip-red" dot={false}>Action needed</Chip>
-                      : <Chip className="chip-navy" dot={false}>Applies</Chip>}
+                      ? <Chip className="chip-red" dot={false}>{t('dp.statusAction')}</Chip>
+                      : <Chip className="chip-navy" dot={false}>{t('dp.statusApplies')}</Chip>}
                   </div>
 
                   <div style={{ marginBottom: 10 }}>
@@ -203,31 +264,29 @@ export default function AiSystemProfile() {
                   </div>
 
                   <div style={{ marginBottom: 10 }}>
-                    <div className="small" style={{ fontWeight: 600, marginBottom: 2 }}>Why this applies to you</div>
+                    <div className="small" style={{ fontWeight: 600, marginBottom: 2 }}>{t('dp.whyApplies')}</div>
                     <p className="small" style={{ margin: 0, lineHeight: 1.55 }}>{o.why}</p>
                   </div>
 
                   <div className="small" style={{ background: 'var(--surface-subtle)', border: '1px solid var(--border-2)', borderRadius: 8, padding: '10px 12px', lineHeight: 1.55 }}>
-                    <span style={{ fontWeight: 600 }}>What to do: </span>{o.solution}
+                    <span style={{ fontWeight: 600 }}>{t('dp.whatToDo')}: </span>{o.solution}
                   </div>
 
                   {o.exemptionNote && (
                     <p className="small" style={{ margin: '8px 0 0', color: 'var(--ink-soft)', lineHeight: 1.5 }}>
-                      <span style={{ fontWeight: 600 }}>When this may not apply: </span>{o.exemptionNote}
+                      <span style={{ fontWeight: 600 }}>{t('dp.whenNotApply')}: </span>{o.exemptionNote}
                     </p>
                   )}
 
                   {o.lawUrl && (
                     <a className="small" href={o.lawUrl} target="_blank" rel="noreferrer" style={{ display: 'inline-block', marginTop: 8 }}>
-                      Read {o.law} ↗
+                      {t('dp.read')} {o.law} ↗
                     </a>
                   )}
                 </Card>
               ))}
             </div>
-            <p className="muted" style={{ fontSize: 11, marginTop: 14 }}>
-              This is plain-language guidance for orientation only and is not legal advice.
-            </p>
+            <p className="muted" style={{ fontSize: 11, marginTop: 14 }}>{t('dp.disclaimer')}</p>
           </>
         )}
       </div>

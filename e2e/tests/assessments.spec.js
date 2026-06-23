@@ -13,6 +13,25 @@ test.describe('Assessments and checklist responses module', () => {
     await expect(page.getByTestId('assessment-row').first()).toBeVisible();
   });
 
+  test('the project filter shows only the selected project table', async ({ page }) => {
+    // A second AI system => two project groups => the filter bar appears.
+    const secondId = await createClassifiedSystem(page, { name: 'Recruiter AI', answers: { recruitment_employment: true } });
+    await page.goto('/assessments');
+
+    await expect(page.getByTestId('assessment-project-filters')).toBeVisible();
+    await expect(page.getByTestId('assessment-group')).toHaveCount(2);
+
+    // Filter to the second project: only its table remains.
+    await page.getByTestId(`assessment-filter-${secondId}`).click();
+    await expect(page.getByTestId('assessment-group')).toHaveCount(1);
+    await expect(page.getByRole('heading', { name: 'Recruiter AI' })).toBeVisible();
+    await expect(page.getByRole('heading', { name: 'Limited AI' })).toHaveCount(0);
+
+    // Back to all.
+    await page.getByTestId('assessment-filter-all').click();
+    await expect(page.getByTestId('assessment-group')).toHaveCount(2);
+  });
+
   test('write documentation, mark done, and see progress persist after reload', async ({ page }) => {
     await page.goto('/assessments');
     await page.getByTestId('assessment-row').first().getByRole('link', { name: 'Open' }).click();

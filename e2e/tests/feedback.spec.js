@@ -23,7 +23,7 @@ test.describe('Screenshot-feedback plugin', () => {
         screenshot: PNG_1PX,
         pageUrl: 'http://localhost:5173/',
         viewport: { width: 1440, height: 900 },
-        meta: { app: 'easy-ai' },
+        meta: { app: 'jurisai' },
       },
     });
     expect(res.status()).toBe(202);

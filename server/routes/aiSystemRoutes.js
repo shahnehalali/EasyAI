@@ -16,6 +16,8 @@ router.delete('/:id', requirePermission('compliance.edit'), asyncHandler(ctrl.re
 router.get('/:id/questionnaire', asyncHandler(ctrl.getQuestionnaire));
 router.post('/:id/classify', validate(classifySchema), asyncHandler(ctrl.classify));
 router.get('/:id/data-profile', asyncHandler(ctrl.getDataProfile));
+router.get('/:id/data-profile/pdf', asyncHandler(ctrl.dataProfilePdf));
 router.post('/:id/data-profile', requirePermission('compliance.edit'), asyncHandler(ctrl.saveDataProfile));
+router.post('/:id/data-profile/assessment', requirePermission('compliance.edit'), asyncHandler(ctrl.createProfileAssessment));
 
 module.exports = router;

@@ -3,6 +3,7 @@ const ErrorResponse = require('../../utils/errorResponse');
 const { recordAudit } = require('../../utils/audit');
 const classificationService = require('../../services/classification/classificationService');
 const gdprProfileService = require('../../services/profile/gdprProfileService');
+const reportService = require('../../services/reports/reportService');
 
 const DEFAULT_QUESTIONNAIRE_KEY = 'eu_ai_act_risk';
 
@@ -124,19 +125,52 @@ async function classify(req, res) {
 // GET /api/ai-systems/:id/data-profile
 // Returns the profile questions, any saved answers, and the evaluated result.
 async function getDataProfile(req, res) {
+  const lang = req.query.lang === 'de' ? 'de' : 'en';
   const system = await findOwned(req.params.id, req.organizationId);
-  const { questions, sections, name, description, key, penaltiesNote } = gdprProfileService.getQuestions();
+  const { questions, sections, name, description, key, penaltiesNote } = gdprProfileService.getQuestions(lang);
   const answers = system.dataProfile || null;
-  const result = answers ? gdprProfileService.evaluate(answers) : null;
-  res.json({ key, name, description, sections, questions, penaltiesNote, answers, result });
+  const result = answers ? gdprProfileService.evaluate(answers, lang) : null;
+  res.json({ key, name, description, systemName: system.name, sections, questions, penaltiesNote, answers, result });
+}
+
+// POST /api/ai-systems/:id/data-profile/assessment
+// Turns the saved profile result into a working GDPR/DPA assessment.
+async function createProfileAssessment(req, res) {
+  const system = await findOwned(req.params.id, req.organizationId);
+  if (!system.dataProfile) throw new ErrorResponse('Complete the data protection profile first', 400);
+
+  const { assessment, message } = await gdprProfileService.instantiateProfileAssessment({
+    organizationId: req.organizationId, aiSystem: system,
+  });
+  if (!assessment) throw new ErrorResponse(message || 'No GDPR obligations apply, so there is nothing to assess.', 400);
+
+  await recordAudit({
+    req, action: 'ai_system.data_profile_assessment', entityType: 'Assessment', entityId: assessment.id,
+    after: { aiSystemId: system.id },
+  });
+  res.status(201).json({ assessmentId: assessment.id });
+}
+
+// GET /api/ai-systems/:id/data-profile/pdf  -> downloadable applicability report
+async function dataProfilePdf(req, res) {
+  const lang = req.query.lang === 'de' ? 'de' : 'en';
+  const system = await findOwned(req.params.id, req.organizationId);
+  if (!system.dataProfile) throw new ErrorResponse('Complete the data protection profile first', 400);
+  const result = gdprProfileService.evaluate(system.dataProfile, lang);
+  const { penaltiesNote } = gdprProfileService.getQuestions(lang);
+  const org = await prisma.organization.findUnique({ where: { id: req.organizationId } });
+  res.setHeader('Content-Type', 'application/pdf');
+  res.setHeader('Content-Disposition', `attachment; filename="data-protection-profile-${system.id.slice(0, 8)}.pdf"`);
+  reportService.renderDataProfilePdf(res, system, org?.name, result, penaltiesNote, lang);
 }
 
 // POST /api/ai-systems/:id/data-profile  { answers }
 // Saves the profile answers and returns the evaluated GDPR/DPA obligations.
 async function saveDataProfile(req, res) {
+  const lang = req.query.lang === 'de' ? 'de' : 'en';
   const system = await findOwned(req.params.id, req.organizationId);
   const answers = req.body.answers || {};
-  const result = gdprProfileService.evaluate(answers);
+  const result = gdprProfileService.evaluate(answers, lang);
 
   await prisma.aiSystem.update({ where: { id: system.id }, data: { dataProfile: answers } });
   await recordAudit({
@@ -149,5 +183,5 @@ async function saveDataProfile(req, res) {
 
 module.exports = {
   create, list, getById, update, remove, getQuestionnaire, classify,
-  getDataProfile, saveDataProfile,
+  getDataProfile, saveDataProfile, dataProfilePdf, createProfileAssessment,
 };
