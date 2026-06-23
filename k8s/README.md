@@ -15,7 +15,7 @@ Deployment with HTTPS).
 | File | Purpose |
 | --- | --- |
 | `jurisai-k8s.yaml` | All cluster resources (ArgoCD syncs this) |
-| `jurisai-secrets.example.yaml` | Template for the `jurisai-secrets` Secret (create out of band) |
+| `jurisai-app-secrets.yaml.example` | Template for the `jurisai-app-secrets` Secret (create out of band) |
 | `../server/Dockerfile`, `../client/Dockerfile` | Image builds |
 | `../.github/workflows/deploy-k8s.yml` | CI: build → push → bump tags → ping ArgoCD |
 
@@ -31,9 +31,9 @@ These can't be done from the app sandbox — they need cluster access and real c
 
 3. **App secret** — fill real values and apply:
    ```bash
-   cp k8s/jurisai-secrets.example.yaml k8s/jurisai-secrets.yaml
+   cp k8s/jurisai-app-secrets.yaml.example k8s/jurisai-app-secrets.yaml
    # edit: strong POSTGRES_PASSWORD (and the matching DATABASE_URL), a long JWT_SECRET, SMTP, recipients
-   kubectl apply -f k8s/jurisai-secrets.yaml      # gitignored — do not commit
+   kubectl apply -f k8s/jurisai-app-secrets.yaml      # gitignored — do not commit
    ```
 
 4. **GHCR pull secret** — the cluster pulls the private images from ghcr.io using a
