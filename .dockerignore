@@ -1,0 +1,13 @@
+# Root .dockerignore (used by both server and client image builds, which use
+# the repo root as build context). Keeps node_modules/build output/secrets out.
+**/node_modules
+**/dist
+**/build
+.git
+.github
+test-results
+playwright-report
+**/.env
+**/.env.*
+*.log
+k8s/jurisai-secrets.yaml

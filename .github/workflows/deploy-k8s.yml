@@ -47,11 +47,11 @@ jobs:
           echo "BUILD_DATE=$(date -u +'%Y-%m-%dT%H:%M:%SZ')" >> $GITHUB_OUTPUT
           echo "GIT_COMMIT=${GITHUB_SHA}" >> $GITHUB_OUTPUT
 
-      # Server image (context = ./server).
+      # Server image (context = repo ROOT so the server can include ../content).
       - name: Build and push Server image
         uses: docker/build-push-action@v5
         with:
-          context: ./server
+          context: .
           file: ./server/Dockerfile
           push: ${{ github.event_name != 'pull_request' }}
           tags: |
