@@ -74,6 +74,12 @@
         { "value": "unsure", "label": "Not sure" }
       ] },
     { "section": "transfers", "code": "vendor_remote_access", "type": "boolean", "prompt": "Can anyone outside the EU/EEA access the data (e.g. remote support, an overseas team)?", "helpText": "Remote access from outside the EEA is itself a transfer, even if the servers are in the EU." },
+    { "section": "transfers", "code": "us_dpf_certified", "type": "single", "prompt": "If you use a US provider, is it self-certified under the EU-U.S. Data Privacy Framework (DPF)?", "helpText": "Look the provider up on the official list at dataprivacyframework.gov. The DPF is an adequacy decision (Art. 45), so a certified provider means US storage is lawful without SCCs. This is the transfer basis only and does not replace the Art. 28 processor contract (AVV).", "options": [
+      { "value": "yes", "label": "Yes, it is on the DPF list" },
+      { "value": "no", "label": "No, it is not certified" },
+      { "value": "unsure", "label": "Not sure / not checked yet" },
+      { "value": "na", "label": "No US provider involved" }
+    ] },
 
     { "section": "highrisk", "code": "large_scale_monitoring", "type": "boolean", "prompt": "Does it involve large-scale or systematic monitoring or profiling of people?", "helpText": "Systematic monitoring is a common DPIA and DPO trigger." },
     { "section": "highrisk", "code": "trains_on_personal_data", "type": "boolean", "prompt": "Do you use personal data to train, fine-tune or improve the AI model?", "helpText": "Training on personal data raises purpose-limitation and erasure challenges." },
@@ -207,19 +213,20 @@
     {
       "id": "intl_transfer", "title": "Cover international data transfers", "law": "GDPR Arts. 44-49 (Schrems II)", "severity": "mandatory",
       "lawUrl": "https://eur-lex.europa.eu/eli/reg/2016/679/oj#d1e4683-1-1",
-      "lawExplanation": "Transfers outside the EEA need a safeguard: an adequacy decision (Art. 45), Standard Contractual Clauses (Decision 2021/914, Art. 46), or a narrow Art. 49 derogation. Schrems II adds a duty to assess the destination's laws.",
+      "lawExplanation": "Storing personal data with a provider outside the EEA is allowed when a transfer safeguard is in place. The simplest is an adequacy decision (Art. 45): for the United States this is the EU-U.S. Data Privacy Framework (DPF), with further decisions for the UK, Switzerland, Japan and others. Only where no adequacy decision covers the provider do you need Standard Contractual Clauses (Decision 2021/914, Art. 46) plus a transfer impact assessment, or a narrow Art. 49 derogation. This transfer basis is separate from, and additional to, the Art. 28 processor contract (AVV).",
       "why": "Data leaves the EEA or can be accessed from outside it, which is a restricted transfer.",
-      "solution": "Use the 2021 SCCs (or adequacy where it applies) and complete a Transfer Impact Assessment documenting the destination's risk and any extra safeguards.",
+      "solution": "First check for an adequacy decision. For a US provider, confirm it self-certifies to the Data Privacy Framework on the official list at dataprivacyframework.gov; if it does, the transfer is lawful and you simply document reliance on the adequacy decision (Art. 45 / DPF). Only if no adequacy decision applies do you put the 2021 SCCs in place and complete a Transfer Impact Assessment. Keep this separate from the Art. 28 AVV, which you still need either way.",
       "exemptionNote": "Does NOT apply where everything stays inside the EU/EEA, or the destination has an adequacy decision (e.g. Switzerland, UK, Japan, and US firms under the Data Privacy Framework).",
       "when": { "any": [{ "in": ["data_location", ["us", "other_third", "mixed", "unsure"]] }, "vendor_remote_access"] }
     },
     {
-      "id": "us_dpf", "title": "Check US Data Privacy Framework coverage", "law": "GDPR Art. 45 (adequacy)", "severity": "recommended",
+      "id": "us_dpf", "title": "Rely on the EU-U.S. Data Privacy Framework for US storage", "law": "GDPR Art. 45 (adequacy)", "severity": "mandatory",
       "lawUrl": "https://commission.europa.eu/law/law-topic/data-protection/international-dimension-data-protection/eu-us-data-privacy-framework_en",
-      "lawExplanation": "Since July 2023 the EU-US Data Privacy Framework is an adequacy decision: transfers to a US company that self-certifies to the DPF need no SCCs.",
-      "why": "You use a US provider, so DPF certification may be the simplest lawful route.",
-      "solution": "Check the provider on the public DPF list. If certified, document reliance on the adequacy decision; if not, use SCCs + a transfer assessment.",
-      "when": { "all": [{ "in": ["data_location", ["us", "mixed"]] }] }
+      "lawExplanation": "Since July 2023 the EU-U.S. Data Privacy Framework (DPF) is an adequacy decision under Art. 45. If your US provider self-certifies to the DPF, storing and processing personal data with it is lawful and needs no Standard Contractual Clauses. The DPF is the transfer basis only; it does not replace the Art. 28 processor contract (AVV), the shorter retention or the audit rights, which you still need.",
+      "why": "You use a US provider, so DPF certification is usually the cleanest lawful basis for storing data there.",
+      "solution": "Look up the provider on the official DPF list at dataprivacyframework.gov. If it is certified, document that you rely on the adequacy decision (Art. 45 / DPF) and keep a copy of the listing. If it is not certified, fall back to the 2021 SCCs plus a transfer impact assessment.",
+      "when": { "all": [{ "in": ["data_location", ["us", "mixed"]] }] },
+      "gapWhen": { "all": [{ "ne": ["us_dpf_certified", "yes"] }] }
     },
     {
       "id": "art9_special", "title": "Find a condition for special-category data", "law": "GDPR Art. 9", "severity": "mandatory",
