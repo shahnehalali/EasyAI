@@ -37,7 +37,12 @@ export default function AiSystems() {
               {systems.map((s) => (
                 <tr key={s.id} data-testid="ai-system-row">
                   <td><Link to={`/ai-systems/${s.id}`}><strong>{s.name}</strong></Link><div className="muted small">{s.purpose}</div></td>
-                  <td>{s.riskCategory ? <RiskChip risk={s.riskCategory} /> : <Link className="btn btn-gold btn-sm" to={`/ai-systems/${s.id}/classify`}>{t('common.classifyNow')}</Link>}</td>
+                  <td>{s.riskCategory ? <RiskChip risk={s.riskCategory} /> : (
+                    <div className="row" style={{ gap: 6, flexWrap: 'wrap' }}>
+                      <Link className="btn btn-gold btn-sm" to={`/ai-systems/${s.id}/classify`}>{t('common.classifyNow')}</Link>
+                      <Link className="btn btn-outline btn-sm" to={`/ai-systems/${s.id}/profile`}>{t('asd.dataProfile')}</Link>
+                    </div>
+                  )}</td>
                   <td className="muted small">{s.vendor === 'in_house' ? t('common.inHouse') : s.vendor === 'third_party' ? t('common.thirdParty') : '-'}</td>
                   <td className="muted small">{['planning', 'deployed', 'retired'].includes(s.lifecycleStage) ? t(`ain.${s.lifecycleStage}`) : s.lifecycleStage}</td>
                   <td>{s._count?.assessments || 0}</td>

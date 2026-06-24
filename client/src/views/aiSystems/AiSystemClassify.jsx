@@ -71,6 +71,10 @@ export default function AiSystemClassify() {
           <div className="eyebrow">{t('acl.step2')} - {questionnaire.name}</div>
           <h1>{t('acl.classifyRisk')}</h1>
           <p className="sub">{t('acl.sub')}</p>
+          <p className="small" style={{ marginTop: 6 }}>
+            {t('acl.orProfile')}{' '}
+            <Link to={`/ai-systems/${id}/profile`} data-testid="classify-to-profile">{t('acl.goProfile')}</Link>
+          </p>
         </div>
       </div>
 

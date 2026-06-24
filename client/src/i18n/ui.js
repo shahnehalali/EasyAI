@@ -190,6 +190,8 @@ export const UI = {
     'acl.note': 'Answer Yes only where it clearly applies. Anything left as No is treated as "does not apply". If nothing applies, the system is classified as minimal risk.',
     'acl.classifying': 'Classifying...',
     'acl.classifyBuild': 'Classify and build checklists',
+    'acl.orProfile': 'Prefer to start with data protection?',
+    'acl.goProfile': 'Go to the data protection profile',
 
     // Assessment editor
     'ae.exportPdf': 'Export PDF',
@@ -661,6 +663,8 @@ export const UI = {
     'acl.note': 'Antworten Sie nur dort mit Ja, wo es eindeutig zutrifft. Alles als Nein Belassene gilt als „trifft nicht zu“. Trifft nichts zu, wird das System als minimales Risiko eingestuft.',
     'acl.classifying': 'Wird eingestuft...',
     'acl.classifyBuild': 'Einstufen und Checklisten erstellen',
+    'acl.orProfile': 'Lieber mit dem Datenschutz beginnen?',
+    'acl.goProfile': 'Zum Datenschutzprofil',
 
     // Assessment editor
     'ae.exportPdf': 'PDF exportieren',
