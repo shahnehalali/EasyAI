@@ -9,9 +9,9 @@ import { useT } from '@/hooks/useT';
 const TIER_CHIP = { 1: 'chip-navy', 2: 'chip-gold', 3: 'chip-grey' };
 
 export default function Assessments() {
-  const { t } = useT();
+  const { t, lang } = useT();
   const [activeKey, setActiveKey] = useState('all');
-  const { data: assessments = [], isLoading, error, refetch } = useQuery({ queryKey: ['assessments'], queryFn: assessmentApi.list });
+  const { data: assessments = [], isLoading, error, refetch } = useQuery({ queryKey: ['assessments', lang], queryFn: () => assessmentApi.list(lang) });
 
   // Group by scope: each AI system, plus an organisation-wide group.
   const groups = useMemo(() => {
