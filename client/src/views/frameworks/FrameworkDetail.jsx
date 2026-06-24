@@ -15,7 +15,7 @@ export default function FrameworkDetail() {
   const navigate = useNavigate();
   const { can } = useAuth();
   const { t, lang } = useT();
-  const { data: framework, isLoading, error, refetch } = useQuery({ queryKey: ['framework', key], queryFn: () => frameworkApi.getByKey(key) });
+  const { data: framework, isLoading, error, refetch } = useQuery({ queryKey: ['framework', key, lang], queryFn: () => frameworkApi.getByKey(key, lang) });
   const [busyId, setBusyId] = useState(null);
   const [startError, setStartError] = useState('');
 

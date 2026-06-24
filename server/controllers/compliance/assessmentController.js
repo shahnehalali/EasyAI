@@ -3,6 +3,7 @@ const config = require('../../config');
 const ErrorResponse = require('../../utils/errorResponse');
 const { recordAudit } = require('../../utils/audit');
 const { addDays } = require('../../services/classification/classificationService');
+const { localizeAssessment, localizeAssessmentList } = require('../../services/i18n/catalogI18n');
 
 // Recompute progressPct + status from the assessment's responses.
 async function recomputeProgress(assessmentId) {
@@ -38,12 +39,13 @@ async function list(req, res) {
     where: { organizationId: req.organizationId },
     orderBy: [{ aiSystemId: 'asc' }, { framework: { sortOrder: 'asc' } }, { updatedAt: 'desc' }],
     include: {
-      framework: { select: { key: true, name: true, shortName: true, tier: true } },
-      template: { select: { name: true } },
+      framework: { select: { key: true, name: true, shortName: true, tier: true, translations: true } },
+      template: { select: { key: true, name: true } },
       aiSystem: { select: { id: true, name: true, riskCategory: true } },
       _count: { select: { responses: true } },
     },
   });
+  localizeAssessmentList(assessments, req.query.lang);
   res.json({ assessments });
 }
 
@@ -70,6 +72,7 @@ async function getById(req, res) {
       },
     },
   });
+  localizeAssessment(assessment, req.query.lang);
   res.json({ assessment });
 }
 

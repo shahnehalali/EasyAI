@@ -1,5 +1,6 @@
 const { prisma } = require('../../db/db');
 const ErrorResponse = require('../../utils/errorResponse');
+const { localizeFramework, localizeRequirements, localizeTemplates } = require('../../services/i18n/catalogI18n');
 
 // GET /api/frameworks
 async function list(req, res) {
@@ -25,6 +26,7 @@ async function getByKey(req, res) {
     },
   });
   if (!framework) throw new ErrorResponse('Framework not found', 404);
+  localizeFramework(framework, req.query.lang);
   res.json({ framework });
 }
 
@@ -36,6 +38,7 @@ async function getRequirements(req, res) {
     where: { frameworkId: framework.id },
     orderBy: { sortOrder: 'asc' },
   });
+  localizeRequirements(framework, requirements, req.query.lang);
   res.json({ requirements });
 }
 
@@ -48,6 +51,7 @@ async function getTemplates(req, res) {
     orderBy: { sortOrder: 'asc' },
     include: { items: { orderBy: { sortOrder: 'asc' } } },
   });
+  localizeTemplates(framework, templates, req.query.lang);
   res.json({ templates });
 }
 

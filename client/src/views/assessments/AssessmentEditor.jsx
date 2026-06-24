@@ -19,7 +19,7 @@ export default function AssessmentEditor() {
   const { t, lang } = useT();
   const qc = useQueryClient();
   const { can } = useAuth();
-  const { data: assessment, isLoading, error, refetch } = useQuery({ queryKey: ['assessment', id], queryFn: () => assessmentApi.getById(id) });
+  const { data: assessment, isLoading, error, refetch } = useQuery({ queryKey: ['assessment', id, lang], queryFn: () => assessmentApi.getById(id, lang) });
   const { data: members = [] } = useQuery({ queryKey: ['members'], queryFn: organizationApi.members });
   const { data: activity = [], refetch: refetchActivity } = useQuery({ queryKey: ['assessment-activity', id], queryFn: () => assessmentApi.activity(id) });
   const [progress, setProgress] = useState(null);

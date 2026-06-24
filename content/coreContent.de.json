@@ -1,0 +1,294 @@
+{
+  "_note": "German overlay for coreContent.seed.json. Keyed by framework key. requirements keyed by code; templates keyed by template key, their items keyed by sortOrder. Served by the API when ?lang=de.",
+  "eu_ai_act": {
+    "keySections": "Art. 5 (verbotene Praktiken), Art. 6 bis 15 (Pflichten für Hochrisiko-KI), Art. 50 (Transparenz)",
+    "requirements": {
+      "Art.4": {
+        "title": "KI-Kompetenz der Mitarbeitenden",
+        "guidanceText": "Sorgen Sie dafür, dass die Personen, die Ihre KI entwickeln oder nutzen, ausreichend geschult sind, um zu verstehen, was sie tut und wo sie fehlgehen kann. Halten Sie kurz fest, wer wann geschult wurde."
+      },
+      "Art.9": {
+        "title": "Risikomanagementsystem",
+        "guidanceText": "Führen Sie für Hochrisiko-KI ein Risikomanagement über die gesamte Lebensdauer des Systems. Ermitteln Sie die Risiken für Gesundheit, Sicherheit und Grundrechte, legen Sie fest, wie Sie sie verringern, und überprüfen Sie das regelmäßig."
+      },
+      "Art.10": {
+        "title": "Daten und Daten-Governance",
+        "guidanceText": "Verwenden Sie Trainings- und Testdaten, die relevant und so weit wie vertretbar frei von Fehlern und Verzerrungen sind. Halten Sie fest, woher die Daten stammen und wie Sie ihre Qualität geprüft haben."
+      },
+      "Art.11": {
+        "title": "Technische Dokumentation",
+        "guidanceText": "Führen Sie eine technische Dokumentation, die zeigt, wie das System gebaut und getestet wurde, sodass eine Behörde die Einhaltung der Regeln prüfen könnte."
+      },
+      "Art.13": {
+        "title": "Transparenz für Nutzer",
+        "guidanceText": "Geben Sie den Personen, die das System bedienen, klare Anweisungen: was es tut, seine Grenzen und wie die Ergebnisse zu lesen sind. Stellen Sie sicher, dass sie die Ergebnisse verstehen können."
+      },
+      "Art.14": {
+        "title": "Menschliche Aufsicht",
+        "guidanceText": "Eine Person muss die KI verstehen, überwachen und bei Bedarf stoppen oder übersteuern können. Legen Sie fest, wer das ist und wie sie eingreifen kann."
+      },
+      "Art.15": {
+        "title": "Genauigkeit, Robustheit und Sicherheit",
+        "guidanceText": "Prüfen Sie, ob das System für seinen Zweck genau und stabil genug ist, und schützen Sie es vor Fehlern, Missbrauch und Angriffen. Halten Sie Ihre Testergebnisse fest."
+      },
+      "Art.50": {
+        "title": "Transparenz über den KI-Einsatz",
+        "guidanceText": "Informieren Sie Personen, wenn sie mit einer KI interagieren, und kennzeichnen Sie KI-erzeugte oder manipulierte Inhalte wie Chatbots, synthetische Medien und Deepfakes klar."
+      }
+    },
+    "templates": {
+      "ai_governance_baseline": {
+        "name": "KI-Governance-Grundlage",
+        "description": "Grundlegende Schritte, die jede Organisation, die KI nutzt, unabhängig vom Risikoniveau umsetzen sollte.",
+        "items": {
+          "1": { "title": "KI-System im Bestand erfassen", "guidanceText": "Beschreiben Sie, was dieses KI-System ist, wofür es genutzt wird und wer in Ihrem Unternehmen dafür verantwortlich ist." },
+          "2": { "title": "KI-Kompetenz und Schulung der Mitarbeitenden bestätigen", "guidanceText": "Halten Sie fest, welche Schulung die Personen erhalten haben, die dieses System entwickeln oder nutzen, damit sie seine Fähigkeiten und Grenzen verstehen." },
+          "3": { "title": "Transparenz gegenüber betroffenen Personen dokumentieren", "guidanceText": "Erläutern Sie, wie Sie Personen darüber informieren, dass sie es mit KI zu tun haben, und wie Sie KI-erzeugte Inhalte kennzeichnen." }
+        }
+      },
+      "ai_risk_assessment": {
+        "name": "KI-Risikobewertung",
+        "description": "Halten Sie die Risiken fest, die diese KI erzeugt, und wie Sie sie verringern. Dies ist Ihre zentrale Dokumentation.",
+        "items": {
+          "1": { "title": "Zweck und Kontext beschreiben", "guidanceText": "Was soll das System tun, wer nutzt es und wer ist von seinen Entscheidungen betroffen?" },
+          "2": { "title": "Risiken für Gesundheit, Sicherheit und Rechte ermitteln", "guidanceText": "Listen Sie auf, was für Menschen schiefgehen könnte, zum Beispiel unfaire Ergebnisse, Fehler oder Sicherheitsprobleme." },
+          "3": { "title": "Maßnahmen zur Risikominderung beschreiben", "guidanceText": "Schreiben Sie für jedes Risiko auf, was Sie zur Verringerung tun, etwa Tests, menschliche Prüfungen oder Nutzungsgrenzen." },
+          "4": { "title": "Datenqualität und Verzerrungsprüfungen festhalten", "guidanceText": "Halten Sie fest, woher Ihre Daten stammen und wie Sie sie auf Fehler und Verzerrungen geprüft haben." }
+        }
+      },
+      "ai_high_risk_obligations": {
+        "name": "Pflichten für Hochrisiko-KI",
+        "description": "Der volle Pflichtenkatalog, der gilt, wenn ein KI-System als hochriskant eingestuft ist.",
+        "items": {
+          "1": { "title": "Technische Dokumentation führen", "guidanceText": "Bestätigen Sie, dass Sie eine Dokumentation führen, die zeigt, wie das System gebaut und getestet wurde." },
+          "2": { "title": "Klare Anweisungen für Betreiber bereitstellen", "guidanceText": "Beschreiben Sie die Anweisungen und Informationen, die Sie den Personen geben, die das System betreiben." },
+          "3": { "title": "Menschliche Aufsicht einrichten", "guidanceText": "Benennen Sie die Person, die das System überwachen und stoppen kann, und beschreiben Sie, wie sie eingreift." },
+          "4": { "title": "Genauigkeit, Robustheit und Sicherheit testen", "guidanceText": "Fassen Sie zusammen, wie Sie die Genauigkeit getestet und das System gegen Missbrauch und Angriffe geschützt haben." },
+          "5": { "title": "Automatische Protokolle führen", "guidanceText": "Bestätigen Sie, dass das System Protokolle seines Betriebs führt, damit Ereignisse nachvollzogen werden können." }
+        }
+      },
+      "ai_transparency_obligations": {
+        "name": "Transparenzpflichten",
+        "description": "Pflichten für KI, die mit Menschen interagiert oder Inhalte erzeugt (Systeme mit begrenztem Risiko).",
+        "items": {
+          "1": { "title": "Nutzer auf die KI-Interaktion hinweisen", "guidanceText": "Beschreiben Sie, wie Sie Menschen deutlich machen, dass sie es mit einer KI zu tun haben, zum Beispiel ein Hinweis im Chatbot." },
+          "2": { "title": "KI-erzeugte Inhalte kennzeichnen", "guidanceText": "Erläutern Sie, wie Sie Inhalte kennzeichnen, die die KI erzeugt oder verändert, einschließlich synthetischer Medien." }
+        }
+      },
+      "ai_prohibited_check": {
+        "name": "Prüfung verbotener Praktiken",
+        "description": "Dieses System könnte unter eine verbotene KI-Praktik fallen. Prüfen und dokumentieren Sie dies dringend.",
+        "items": {
+          "1": { "title": "Bestätigen, dass das System keine verbotene Praktik ist", "guidanceText": "Die Einstufung legt nahe, dass dieses System nach Art. 5 verboten sein könnte, etwa Social Scoring oder bestimmte biometrische Anwendungen. Dokumentieren Sie Ihre Prüfung und holen Sie vor jeder Nutzung Rechtsrat ein." }
+        }
+      }
+    }
+  },
+  "gdpr": {
+    "keySections": "Art. 6 (Rechtsgrundlage), Art. 13 (Information), Art. 22 (automatisierte Entscheidungen), Art. 35 (Datenschutz-Folgenabschätzung)",
+    "requirements": {
+      "Art.6": {
+        "title": "Rechtsgrundlage für die Verarbeitung",
+        "guidanceText": "Haben Sie einen klaren rechtlichen Grund, personenbezogene Daten in Ihrer KI zu verwenden, etwa Einwilligung, einen Vertrag oder ein berechtigtes Interesse. Halten Sie fest, worauf Sie sich stützen."
+      },
+      "Art.13": {
+        "title": "Transparenz und Information",
+        "guidanceText": "Informieren Sie Personen klar und in einfacher Sprache darüber, wie ihre Daten von der KI genutzt werden, und zwar bevor oder wenn Sie die Daten erheben."
+      },
+      "Art.22": {
+        "title": "Automatisierte Entscheidungen und Profiling",
+        "guidanceText": "Trifft die KI Entscheidungen über Personen ohne menschliche Beteiligung und mit erheblicher Wirkung, brauchen Sie in der Regel zusätzliche Schutzmaßnahmen, etwa ein Recht auf menschliche Überprüfung."
+      },
+      "Art.35": {
+        "title": "Datenschutz-Folgenabschätzung",
+        "guidanceText": "Führen Sie für risikoreiche KI-Verarbeitung eine Datenschutz-Folgenabschätzung durch, die die Verarbeitung, die Risiken für Personen und deren Verringerung beschreibt."
+      },
+      "Art.5": {
+        "title": "Datenminimierung und Richtigkeit",
+        "guidanceText": "Verwenden Sie nur die personenbezogenen Daten, die Sie wirklich benötigen, halten Sie sie richtig und bewahren Sie sie nicht länger als nötig auf."
+      }
+    },
+    "templates": {
+      "gdpr_dpa_action_plan": {
+        "name": "DSGVO- und BDSG-Aktionsplan",
+        "description": "Arbeiten Sie die Pflichten ab, die Ihr Datenschutzprofil ermittelt hat."
+      },
+      "gdpr_ai_baseline": {
+        "name": "DSGVO-Grundlage für KI",
+        "description": "Zentrale Datenschutzschritte für jede KI, die personenbezogene Daten nutzt.",
+        "items": {
+          "1": { "title": "Rechtsgrundlage festhalten", "guidanceText": "Geben Sie den rechtlichen Grund an, aus dem Sie personenbezogene Daten in diesem KI-System verwenden." },
+          "2": { "title": "Dokumentieren, wie Sie Personen informieren", "guidanceText": "Beschreiben Sie die Datenschutzinformation, die Sie den Personen geben, deren Daten genutzt werden." },
+          "3": { "title": "Automatisierte Entscheidungsfindung bewerten", "guidanceText": "Halten Sie fest, ob die KI eigenständig Entscheidungen über Personen trifft und welche Schutzmaßnahmen Sie vorsehen." },
+          "4": { "title": "Datenschutz-Folgenabschätzung durchführen", "guidanceText": "Fassen Sie bei risikoreicher Verarbeitung Ihre Folgenabschätzung und ihr Ergebnis zusammen." },
+          "5": { "title": "Datenminimierung anwenden", "guidanceText": "Erläutern Sie, wie Sie die genutzten personenbezogenen Daten begrenzen und wie lange Sie sie aufbewahren." }
+        }
+      }
+    }
+  },
+  "dora": {
+    "keySections": "Art. 5 (Risikomanagement-Rahmen), Art. 17 (Vorfallmeldung), Art. 24 (Resilienztests), Art. 28 (Drittanbieterrisiko)",
+    "requirements": {
+      "Art.5": {
+        "title": "Rahmen für IKT- und KI-Risikomanagement",
+        "guidanceText": "Richten Sie einen dokumentierten Rahmen ein, um Ihre Technologie- und KI-Risiken im gesamten Unternehmen zu steuern. Das Leitungsorgan trägt die Verantwortung und überprüft ihn regelmäßig."
+      },
+      "Art.17": {
+        "title": "Vorfallmanagement und Meldung",
+        "guidanceText": "Erkennen, bearbeiten, klassifizieren und melden Sie schwerwiegende Technologievorfälle innerhalb der festgelegten Fristen an die zuständige Behörde."
+      },
+      "Art.24": {
+        "title": "Test der digitalen Resilienz",
+        "guidanceText": "Testen Sie die Resilienz Ihrer kritischen Technologie- und KI-Systeme regelmäßig, einschließlich fortgeschrittener bedrohungsgeleiteter Tests, wo dies erforderlich ist."
+      },
+      "Art.28": {
+        "title": "Technologierisiko durch Dritte",
+        "guidanceText": "Steuern und dokumentieren Sie die Risiken externer Technologie- und KI-Anbieter, mit zentralen vertraglichen Schutzklauseln und einem klaren Ausstiegsplan."
+      }
+    },
+    "templates": {
+      "dora_resilience": {
+        "name": "DORA Betriebliche Resilienz",
+        "description": "Schritte zur betrieblichen Resilienz für Finanzunternehmen, die Technologie und KI nutzen.",
+        "items": {
+          "1": { "title": "Rahmen für IKT- und KI-Risikomanagement dokumentieren", "guidanceText": "Beschreiben Sie, wie Sie Technologie- und KI-Risiken erkennen, steuern und überprüfen und wer dafür verantwortlich ist." },
+          "2": { "title": "Vorfallerkennung und Meldung einrichten", "guidanceText": "Erläutern Sie, wie Sie schwerwiegende IKT-Vorfälle fristgerecht erkennen, klassifizieren und melden." },
+          "3": { "title": "Resilienztests planen und durchführen", "guidanceText": "Beschreiben Sie Ihr Testprogramm für kritische Systeme." },
+          "4": { "title": "Drittanbieter und Ausstiegsstrategie steuern", "guidanceText": "Halten Sie Ihre zentralen Anbieter, vertraglichen Schutzklauseln und Ihren Ausstiegsplan fest." }
+        }
+      }
+    }
+  },
+  "nis2": {
+    "keySections": "Art. 20 (Verantwortung der Leitung), Art. 21 (Risikomanagementmaßnahmen), Art. 23 (Meldung an das BSI)",
+    "requirements": {
+      "Art.21": {
+        "title": "Risikomanagementmaßnahmen für Cybersicherheit",
+        "guidanceText": "Ergreifen Sie technische und organisatorische Maßnahmen, um die Risiken für Ihre Netz- und Informationssysteme zu steuern, im Verhältnis zum Risiko, dem Sie ausgesetzt sind."
+      },
+      "Art.20": {
+        "title": "Verantwortung der Leitung",
+        "guidanceText": "Ihr Leitungsorgan genehmigt die Cybersicherheitsmaßnahmen, überwacht sie und nimmt an einschlägigen Schulungen teil."
+      },
+      "Art.23": {
+        "title": "Vorfallmeldung an das BSI",
+        "guidanceText": "Melden Sie erhebliche Vorfälle an das BSI: eine Frühwarnung innerhalb von 24 Stunden, eine Meldung innerhalb von 72 Stunden und einen Abschlussbericht innerhalb eines Monats."
+      },
+      "Art.21d": {
+        "title": "Sicherheit der Lieferkette",
+        "guidanceText": "Berücksichtigen Sie die Sicherheit in Ihrer Lieferkette und in Ihren Beziehungen zu direkten Lieferanten und Dienstleistern."
+      }
+    },
+    "templates": {
+      "nis2_security": {
+        "name": "NIS2 Cybersicherheitsmaßnahmen",
+        "description": "Cybersicherheitspflichten für wesentliche und wichtige Einrichtungen.",
+        "items": {
+          "1": { "title": "Risikomanagementmaßnahmen umsetzen", "guidanceText": "Listen Sie die technischen und organisatorischen Maßnahmen auf, die Sie eingerichtet haben." },
+          "2": { "title": "Genehmigung und Schulung der Leitung einholen", "guidanceText": "Halten Sie die Freigabe der Leitung und die von ihr erhaltene Schulung fest." },
+          "3": { "title": "Vorfallmeldung an das BSI einrichten", "guidanceText": "Beschreiben Sie Ihren Prozess und Ihre Fristen für die Meldung erheblicher Vorfälle." },
+          "4": { "title": "Sicherheit der Lieferkette berücksichtigen", "guidanceText": "Erläutern Sie, wie Sie die Sicherheit von Lieferanten bewerten und steuern." }
+        }
+      }
+    }
+  },
+  "eu_data_act": {
+    "keySections": "Kapitel II bis IV (Datenzugang und faire Bedingungen), Kapitel VI (Cloud-Wechsel)",
+    "requirements": {
+      "Art.3": {
+        "title": "Zugang durch Gestaltung",
+        "guidanceText": "Gestalten Sie vernetzte Produkte und zugehörige Dienste so, dass Nutzer standardmäßig und ohne unzumutbaren Aufwand leicht auf die von ihnen erzeugten Daten zugreifen können."
+      },
+      "Art.5": {
+        "title": "Datenweitergabe an Dritte",
+        "guidanceText": "Stellen Sie die erzeugten Daten auf Wunsch des Nutzers einem Dritten zu fairen, angemessenen und nicht diskriminierenden Bedingungen zur Verfügung."
+      },
+      "Art.13": {
+        "title": "Keine unfairen Vertragsklauseln",
+        "guidanceText": "Erlegen Sie kleineren Unternehmen keine unfairen Klauseln zu Datenzugang und Datennutzung auf."
+      },
+      "Art.23": {
+        "title": "Cloud-Wechsel",
+        "guidanceText": "Ermöglichen Sie Kunden den Wechsel von Cloud- und Edge-Diensten, indem Sie Hindernisse und übermäßige Gebühren beseitigen."
+      }
+    },
+    "templates": {
+      "data_act_access": {
+        "name": "Data Act Compliance",
+        "description": "Fairer Datenzugang und faire Datenweitergabe für vernetzte Produkte und Dienste.",
+        "items": {
+          "1": { "title": "Nutzern Zugang zu Produktdaten geben", "guidanceText": "Beschreiben Sie, wie Nutzer auf die Daten zugreifen können, die ihr Gerät oder Dienst erzeugt." },
+          "2": { "title": "Datenweitergabe an Dritte auf Anfrage ermöglichen", "guidanceText": "Erläutern Sie, wie Sie Daten an einen Dritten weitergeben, wenn der Nutzer es verlangt." },
+          "3": { "title": "Verträge auf unfaire Datenklauseln prüfen", "guidanceText": "Halten Sie fest, wie Sie Ihre Verträge auf unfaire Datenklauseln geprüft haben." },
+          "4": { "title": "Cloud-Wechsel unterstützen", "guidanceText": "Beschreiben Sie, wie Kunden zu einem anderen Cloud- oder Edge-Anbieter wechseln können." }
+        }
+      }
+    }
+  },
+  "cra": {
+    "keySections": "Wesentliche Anforderungen in Anhang I (sichere Gestaltung, Umgang mit Schwachstellen), Meldepflichten und Konformitätsbewertung",
+    "requirements": {
+      "SecureDesign": {
+        "title": "Sicher durch Gestaltung",
+        "guidanceText": "Gestalten und bauen Sie Ihr Produkt mit digitalen Elementen so, dass es sicher ist und bei der Veröffentlichung keine bekannten ausnutzbaren Schwachstellen aufweist."
+      },
+      "VulnHandling": {
+        "title": "Umgang mit Schwachstellen und Updates",
+        "guidanceText": "Erkennen, dokumentieren und beheben Sie Schwachstellen und stellen Sie für den Unterstützungszeitraum des Produkts Sicherheitsupdates bereit."
+      },
+      "Reporting": {
+        "title": "Ausgenutzte Schwachstellen melden",
+        "guidanceText": "Melden Sie aktiv ausgenutzte Schwachstellen und schwerwiegende Vorfälle innerhalb der festgelegten Fristen an die Behörde."
+      },
+      "Conformity": {
+        "title": "Konformitätsbewertung und CE-Kennzeichnung",
+        "guidanceText": "Führen Sie eine Konformitätsbewertung durch und bringen Sie die CE-Kennzeichnung an, bevor Sie das Produkt in Verkehr bringen."
+      }
+    },
+    "templates": {
+      "cra_product_security": {
+        "name": "Cyber Resilience Act Compliance",
+        "description": "Cybersicherheitspflichten für Produkte mit digitalen Elementen, einschließlich KI-gestützter Produkte.",
+        "items": {
+          "1": { "title": "Anforderungen an sichere Gestaltung anwenden", "guidanceText": "Beschreiben Sie die Sicherheitsmaßnahmen, die in das Produkt eingebaut sind." },
+          "2": { "title": "Umgang mit Schwachstellen und Updates einrichten", "guidanceText": "Erläutern Sie, wie Sie über den Unterstützungszeitraum Schwachstellen finden, beheben und patchen." },
+          "3": { "title": "Meldung ausgenutzter Schwachstellen einrichten", "guidanceText": "Beschreiben Sie Ihren Prozess, um ausgenutzte Schwachstellen fristgerecht zu melden." },
+          "4": { "title": "Konformitätsbewertung und CE-Kennzeichnung abschließen", "guidanceText": "Halten Sie Ihre Konformitätsbewertung und CE-Kennzeichnung fest." }
+        }
+      }
+    }
+  },
+  "bafin_ki": {
+    "keySections": "BaFin-Prinzipien für den Einsatz von Algorithmen und KI (Verantwortung, Datenqualität, Validierung, Aufsicht)",
+    "requirements": {
+      "Resp": {
+        "title": "Klare Verantwortung und Governance",
+        "guidanceText": "Bewahren Sie klare menschliche Verantwortung für KI-gestützte Entscheidungen. Das Leitungsorgan bleibt rechenschaftspflichtig und kann dies nicht an den Algorithmus delegieren."
+      },
+      "Data": {
+        "title": "Datenqualität und Verzerrung",
+        "guidanceText": "Verwenden Sie geeignete, repräsentative Daten für Ihre Modelle und prüfen Sie auf Verzerrungen und Probleme der Datenqualität."
+      },
+      "Validation": {
+        "title": "Modellvalidierung",
+        "guidanceText": "Validieren Sie Modelle, bevor Sie sie einsetzen, und validieren Sie sie regelmäßig erneut, wobei Sie die Ergebnisse dokumentieren."
+      },
+      "Oversight": {
+        "title": "Laufende Überwachung und menschliche Aufsicht",
+        "guidanceText": "Überwachen Sie die Modellleistung fortlaufend und behalten Sie eine wirksame menschliche Aufsicht über die Ergebnisse."
+      }
+    },
+    "templates": {
+      "bafin_ai_governance": {
+        "name": "BaFin KI-Governance",
+        "description": "Die Erwartungen der BaFin an KI, die von beaufsichtigten Finanzunternehmen genutzt wird.",
+        "items": {
+          "1": { "title": "Klare Verantwortung für KI-Entscheidungen zuweisen", "guidanceText": "Benennen Sie, wer für das KI-System und seine Entscheidungen rechenschaftspflichtig ist." },
+          "2": { "title": "Datenqualität und Verzerrungsprüfungen dokumentieren", "guidanceText": "Beschreiben Sie Ihre Datenquellen und wie Sie sie auf Qualität und Verzerrung geprüft haben." },
+          "3": { "title": "Modelle validieren und erneut validieren", "guidanceText": "Fassen Sie Ihren Validierungsansatz und Zeitplan zusammen." },
+          "4": { "title": "Leistung überwachen und menschliche Aufsicht wahren", "guidanceText": "Erläutern Sie, wie Sie das Modell überwachen und wie eine Person die Ergebnisse beaufsichtigt." }
+        }
+      }
+    }
+  }
+}
