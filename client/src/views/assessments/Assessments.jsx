@@ -77,7 +77,7 @@ export default function Assessments() {
           </div>
 
           {groups.length > 1 && (
-            <div className="row" role="group" aria-label="Filter by project" data-testid="assessment-project-filters" style={{ gap: 8, marginBottom: 16, flexWrap: 'wrap' }}>
+            <div className="row" role="group" aria-label={t('as.filterAria')} data-testid="assessment-project-filters" style={{ gap: 8, marginBottom: 16, flexWrap: 'wrap' }}>
               <button
                 data-testid="assessment-filter-all"
                 onClick={() => setActiveKey('all')}

@@ -27,12 +27,12 @@ export default function Sidebar({ open = false, onNavigate }) {
   const { isAdmin } = useAuth();
   const { t } = useT();
   return (
-    <aside className={`sidebar${open ? ' open' : ''}`} aria-label="Primary">
+    <aside className={`sidebar${open ? ' open' : ''}`} aria-label={t('app.primaryNav')}>
       <div className="sidebar-brand">
         <img src="/trial.png" alt="" width={36} height={36} style={{ borderRadius: 8, flexShrink: 0 }} />
         JurisAI
       </div>
-      <nav className="sidebar-nav" aria-label="Main navigation">
+      <nav className="sidebar-nav" aria-label={t('app.mainNav')}>
         {NAV.map((item, i) => (
           item.section
             ? <div key={`s-${i}`} className="nav-section">{t(item.section)}</div>

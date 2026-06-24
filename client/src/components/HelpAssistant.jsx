@@ -80,7 +80,7 @@ export default function HelpAssistant() {
               onChange={(e) => setDraft(e.target.value)}
               onKeyDown={(e) => { if (e.key === 'Enter') { e.preventDefault(); onSend(); } }}
             />
-            <button className="btn btn-primary btn-sm" data-testid="help-send" onClick={onSend} disabled={!draft.trim()} aria-label="Send">
+            <button className="btn btn-primary btn-sm" data-testid="help-send" onClick={onSend} disabled={!draft.trim()} aria-label={t('help.send')}>
               <Send size={15} />
             </button>
           </div>

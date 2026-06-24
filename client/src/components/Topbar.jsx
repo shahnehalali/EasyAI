@@ -29,7 +29,7 @@ export default function Topbar({ title, orgName, onMenu }) {
   return (
     <header className="topbar">
       <div className="row" style={{ gap: 4 }}>
-        <button className="hamburger" aria-label="Open navigation menu" onClick={onMenu}><Menu size={20} /></button>
+        <button className="hamburger" aria-label={t('app.openMenu')} onClick={onMenu}><Menu size={20} /></button>
         <div className="topbar-title" data-testid="page-title">{title}</div>
       </div>
       <div className="topbar-right">

@@ -44,7 +44,7 @@ export default function Frameworks() {
         </div>
       </div>
 
-      <div className="row" role="group" aria-label="Filter frameworks by tier" data-testid="framework-filters" style={{ gap: 8, marginBottom: 16, flexWrap: 'wrap' }}>
+      <div className="row" role="group" aria-label={t('fw.filterAria')} data-testid="framework-filters" style={{ gap: 8, marginBottom: 16, flexWrap: 'wrap' }}>
         {TIER_FILTERS.map((tf) => {
           const active = filter === tf.key;
           const count = tf.tier === null ? counts.all : (counts[tf.tier] || 0);

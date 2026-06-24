@@ -5,6 +5,7 @@ import { assessmentApi } from '@/apis/assessmentApi';
 import { organizationApi } from '@/apis/organizationApi';
 import { reportApi } from '@/apis/reportApi';
 import { useAuth } from '@/hooks/useAuth';
+import { useT } from '@/hooks/useT';
 import { SkeletonPage, ErrorState, Banner, Card, StatusChip, Progress, RiskChip } from '@/components/ui/Ui';
 import { formatDate, fromNow, progressVariant } from '@/utils/format';
 import ChecklistItem from '@/components/assessments/ChecklistItem';
@@ -15,6 +16,7 @@ function humanizeAction(a) {
 
 export default function AssessmentEditor() {
   const { id } = useParams();
+  const { t, lang } = useT();
   const qc = useQueryClient();
   const { can } = useAuth();
   const { data: assessment, isLoading, error, refetch } = useQuery({ queryKey: ['assessment', id], queryFn: () => assessmentApi.getById(id) });
@@ -41,7 +43,7 @@ export default function AssessmentEditor() {
   const markReviewed = async () => {
     const updated = await assessmentApi.markReviewed(id);
     setStatus(updated.status);
-    setReviewedMsg(`Marked reviewed. Next review due ${formatDate(updated.nextReviewDueAt)}.`);
+    setReviewedMsg(t('ae.reviewedMsg').replace('{date}', formatDate(updated.nextReviewDueAt)));
     qc.invalidateQueries({ queryKey: ['assessment', id] });
     qc.invalidateQueries({ queryKey: ['assessments'] });
     qc.invalidateQueries({ queryKey: ['dashboard'] });
@@ -50,7 +52,7 @@ export default function AssessmentEditor() {
 
   return (
     <div data-testid="assessment-editor">
-      <Link className="small" to="/assessments">← Assessments</Link>
+      <Link className="small" to="/assessments">← {t('nav.assessments')}</Link>
       <div className="page-head" style={{ marginTop: 10 }}>
         <div>
           <div className="eyebrow">{assessment.framework?.name}</div>
@@ -64,10 +66,10 @@ export default function AssessmentEditor() {
         <div className="row" style={{ gap: 8 }}>
           {can('export') && (
             <a className="btn btn-outline" href={reportApi.assessmentPdfUrl(id)} data-testid="export-assessment-pdf">
-              Export PDF
+              {t('ae.exportPdf')}
             </a>
           )}
-          <button className="btn btn-gold" onClick={markReviewed} data-testid="mark-reviewed">Mark reviewed</button>
+          <button className="btn btn-gold" onClick={markReviewed} data-testid="mark-reviewed">{t('ae.markReviewed')}</button>
         </div>
       </div>
 
@@ -76,12 +78,12 @@ export default function AssessmentEditor() {
       <div className="card ruled" style={{ marginBottom: 18 }}>
         <div className="card-body row-between">
           <div className="row" style={{ gap: 14 }}>
-            <span><span className="muted small">Status </span><StatusChip status={status} /></span>
-            <span className="muted small">Next review: {formatDate(assessment.nextReviewDueAt)}</span>
+            <span><span className="muted small">{t('ae.status')} </span><StatusChip status={status} /></span>
+            <span className="muted small">{t('ae.nextReview')} {formatDate(assessment.nextReviewDueAt)}</span>
           </div>
           <div style={{ width: 220 }}>
             <div className="row-between" style={{ marginBottom: 4 }}>
-              <span className="muted small">Progress</span>
+              <span className="muted small">{t('ae.progress')}</span>
               <strong data-testid="assessment-progress">{progress}%</strong>
             </div>
             <Progress value={progress} variant={progressVariant(status, progress)} />
@@ -91,24 +93,21 @@ export default function AssessmentEditor() {
 
       <div className="editor-grid">
         <div>
-          <Banner kind="info">
-            Document each item below. Set its status, write your evidence, assign an owner, attach files, and discuss in comments.
-            Changes save automatically.
-          </Banner>
+          <Banner kind="info">{t('ae.docHint')}</Banner>
           {assessment.responses.map((r) => (
             <ChecklistItem key={r.id} response={r} members={members} onChanged={onChanged} />
           ))}
         </div>
 
-        <Card title="Activity" variant="ruled" data-testid="activity-panel">
+        <Card title={t('ae.activity')} variant="ruled" data-testid="activity-panel">
           {activity.length === 0 ? (
-            <p className="muted small" style={{ margin: 0 }}>No activity yet. Changes by your team will show here.</p>
+            <p className="muted small" style={{ margin: 0 }}>{t('ae.noActivity')}</p>
           ) : (
             <div className="stack" style={{ gap: 10 }}>
               {activity.map((a) => (
                 <div key={a.id} data-testid="activity-item" style={{ borderBottom: '1px solid var(--border-2)', paddingBottom: 8 }}>
                   <div className="small" style={{ textTransform: 'capitalize' }}>{humanizeAction(a.action)}</div>
-                  <div className="muted" style={{ fontSize: 11 }}>{a.actor} · {fromNow(a.createdAt)}</div>
+                  <div className="muted" style={{ fontSize: 11 }}>{a.actor} · {fromNow(a.createdAt, lang)}</div>
                 </div>
               ))}
             </div>

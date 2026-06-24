@@ -4,16 +4,16 @@ import { checklistResponseApi } from '@/apis/checklistResponseApi';
 import { documentApi } from '@/apis/documentApi';
 import { commentApi } from '@/apis/commentApi';
 import { useAuth } from '@/hooks/useAuth';
+import { useT } from '@/hooks/useT';
 import { StatusChip, SeverityChip } from '@/components/ui/Ui';
 import { statusLabel, STATUS_BTN_COLOR, bytes, fromNow, initials } from '@/utils/format';
-import { useLangStore } from '@/store/langStore';
 
 const STATUSES = ['not_started', 'in_progress', 'done', 'not_applicable'];
 
 export default function ChecklistItem({ response, members = [], onChanged }) {
   const item = response.templateItem;
   const { user } = useAuth();
-  const lang = useLangStore((s) => s.lang);
+  const { t, lang } = useT();
   const [status, setStatus] = useState(response.status);
   const [text, setText] = useState(response.responseText || '');
   const [assigneeId, setAssigneeId] = useState(response.assignee?.id || '');
@@ -61,7 +61,7 @@ export default function ChecklistItem({ response, members = [], onChanged }) {
   };
 
   const removeDoc = async (doc) => {
-    if (!window.confirm(`Remove "${doc.fileName}"? This cannot be undone.`)) return;
+    if (!window.confirm(t('ci.removeDocConfirm').replace('{name}', doc.fileName))) return;
     setError('');
     try {
       await documentApi.remove(doc.id);
@@ -90,13 +90,13 @@ export default function ChecklistItem({ response, members = [], onChanged }) {
           <div style={{ flex: 1 }}>
             <div className="row" style={{ gap: 8, marginBottom: 4, flexWrap: 'wrap' }}>
               <strong>{item.title}</strong>
-              {item.isRequired && <span className="tag-pill" style={{ color: 'var(--red)', borderColor: 'var(--red)' }}>Required</span>}
+              {item.isRequired && <span className="tag-pill" style={{ color: 'var(--red)', borderColor: 'var(--red)' }}>{t('ci.required')}</span>}
               {item.requirement && <SeverityChip severity={item.requirement.severity} />}
             </div>
             {item.guidanceText && <p className="muted small" style={{ margin: 0 }}>{item.guidanceText}</p>}
             {item.requirement?.lawReferenceUrl && (
               <a className="small" href={item.requirement.lawReferenceUrl} target="_blank" rel="noreferrer">
-                {item.requirement.lawReferenceLabel || item.requirement.code} (opens in a new tab)
+                {item.requirement.lawReferenceLabel || item.requirement.code} {t('ci.opensNewTab')}
               </a>
             )}
           </div>
@@ -121,7 +121,7 @@ export default function ChecklistItem({ response, members = [], onChanged }) {
 
         {item.inputType !== 'none' && item.inputType !== 'boolean' && (
           <textarea className="textarea" data-testid="response-text" aria-label={`Documentation for ${item.title}`}
-            placeholder="Write your documentation or risk assessment here..."
+            placeholder={t('ci.responsePlaceholder')}
             value={text} onChange={(e) => setText(e.target.value)} onBlur={blurText} />
         )}
 
@@ -136,7 +136,7 @@ export default function ChecklistItem({ response, members = [], onChanged }) {
                   className="btn btn-ghost btn-sm"
                   data-testid="remove-document"
                   aria-label={`Remove ${d.fileName}`}
-                  title="Remove document"
+                  title={t('ci.removeDocument')}
                   onClick={() => removeDoc(d)}
                   style={{ padding: '2px 6px', color: 'var(--red)', lineHeight: 1 }}
                 >
@@ -151,22 +151,22 @@ export default function ChecklistItem({ response, members = [], onChanged }) {
 
         <div className="row" style={{ gap: 10, marginTop: 12, alignItems: 'center', flexWrap: 'wrap' }}>
           <button className="btn btn-primary btn-sm" data-testid="save-item" onClick={saveNow} disabled={saving}>
-            {saving ? 'Saving...' : 'Save'}
+            {saving ? t('ci.saving') : t('ci.save')}
           </button>
           <label className="btn btn-outline btn-sm" style={{ cursor: 'pointer' }}>
-            Attach document
-            <input type="file" data-testid="attach-file" onChange={attach} style={{ display: 'none' }} aria-label={`Attach a document to ${item.title}`} />
+            {t('ci.attachDocument')}
+            <input type="file" data-testid="attach-file" onChange={attach} style={{ display: 'none' }} aria-label={`${t('ci.attachDocument')} - ${item.title}`} />
           </label>
           <label className="row small" style={{ gap: 6 }}>
-            <span className="muted">Assignee</span>
+            <span className="muted">{t('ci.assignee')}</span>
             <select className="select" data-testid="assignee-select" style={{ width: 160, padding: '5px 8px' }}
-              value={assigneeId} onChange={(e) => assign(e.target.value)} aria-label={`Assignee for ${item.title}`}>
-              <option value="">Unassigned</option>
+              value={assigneeId} onChange={(e) => assign(e.target.value)} aria-label={`${t('ci.assignee')} - ${item.title}`}>
+              <option value="">{t('ci.unassigned')}</option>
               {members.map((m) => <option key={m.id} value={m.id}>{m.fullName}</option>)}
             </select>
           </label>
           <span className="small muted" aria-live="polite" style={{ minWidth: 90 }}>
-            {saving ? 'Saving...' : saved ? <span style={{ color: 'var(--green)' }} data-testid="saved-flag">Saved ✓</span> : dirty ? 'Unsaved changes' : 'Changes saved automatically'}
+            {saving ? t('ci.saving') : saved ? <span style={{ color: 'var(--green)' }} data-testid="saved-flag">{t('ci.saved')} ✓</span> : dirty ? t('ci.unsavedChanges') : t('ci.savedAutomatically')}
           </span>
         </div>
 
@@ -178,21 +178,21 @@ export default function ChecklistItem({ response, members = [], onChanged }) {
                 <div key={c.id} data-testid="comment-item" className="row" style={{ gap: 8, alignItems: 'flex-start' }}>
                   <span className="avatar" style={{ width: 24, height: 24, fontSize: 9 }}>{initials(c.author?.fullName || '?')}</span>
                   <div style={{ flex: 1 }}>
-                    <div className="small"><strong>{c.author?.fullName || 'Someone'}</strong> <span className="muted">{fromNow(c.createdAt)}</span></div>
+                    <div className="small"><strong>{c.author?.fullName || t('ci.someone')}</strong> <span className="muted">{fromNow(c.createdAt, lang)}</span></div>
                     <div className="small">{c.body}</div>
                   </div>
                   {(c.author?.id === user?.id) && (
-                    <button className="btn btn-ghost btn-sm" aria-label="Delete comment" onClick={() => removeComment(c.id)}>✕</button>
+                    <button className="btn btn-ghost btn-sm" aria-label={t('ci.deleteComment')} onClick={() => removeComment(c.id)}>✕</button>
                   )}
                 </div>
               ))}
             </div>
           )}
           <div className="row" style={{ gap: 8 }}>
-            <input className="input" data-testid="comment-input" placeholder="Add a comment for your team..."
+            <input className="input" data-testid="comment-input" placeholder={t('ci.commentPlaceholder')}
               value={draft} onChange={(e) => setDraft(e.target.value)}
               onKeyDown={(e) => { if (e.key === 'Enter') { e.preventDefault(); addComment(); } }} />
-            <button className="btn btn-outline btn-sm" data-testid="add-comment" onClick={addComment} disabled={!draft.trim()}>Comment</button>
+            <button className="btn btn-outline btn-sm" data-testid="add-comment" onClick={addComment} disabled={!draft.trim()}>{t('ci.comment')}</button>
           </div>
         </div>
       </div>

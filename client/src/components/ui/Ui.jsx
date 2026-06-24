@@ -1,5 +1,6 @@
 import { STATUS_CHIP, RISK_CHIP, SEVERITY_CHIP, statusLabel, riskLabel, severityLabel } from '@/utils/format';
 import { useLangStore } from '@/store/langStore';
+import { translate } from '@/i18n/ui';
 
 export function Chip({ className = 'chip-grey', children, dot = true }) {
   return (
@@ -38,11 +39,12 @@ export function Banner({ kind = 'info', children, ...rest }) {
   return <div className={`banner banner-${kind}`} {...rest}>{children}</div>;
 }
 
-export function Spinner({ label = 'Loading...' }) {
+export function Spinner({ label }) {
+  const lang = useLangStore((s) => s.lang);
   return (
     <div className="loading" role="status" aria-live="polite">
       <div className="spinner" aria-hidden="true" />
-      {label}
+      {label || translate(lang, 'ui.loading')}
     </div>
   );
 }
@@ -53,9 +55,10 @@ export function Skeleton({ width = '100%', height = 16, style }) {
 
 // A page-level loading placeholder that mimics the dashboard/list shape.
 export function SkeletonPage({ rows = 3 }) {
+  const lang = useLangStore((s) => s.lang);
   return (
     <div role="status" aria-live="polite" aria-busy="true">
-      <span className="sr-only">Loading</span>
+      <span className="sr-only">{translate(lang, 'ui.loading')}</span>
       <Skeleton width="220px" height={28} style={{ marginBottom: 18 }} />
       <div className="card" style={{ marginBottom: 18 }}>
         <div className="card-body">
@@ -78,13 +81,14 @@ export function SkeletonPage({ rows = 3 }) {
 }
 
 export function ErrorState({ error, onRetry }) {
-  const message = typeof error === 'string' ? error : error?.message || 'Something went wrong.';
+  const lang = useLangStore((s) => s.lang);
+  const message = typeof error === 'string' ? error : error?.message || translate(lang, 'ui.somethingWrong');
   return (
     <div className="card"><div className="empty">
       <div className="big">!</div>
-      <h3 style={{ marginBottom: 6 }}>We could not load this</h3>
+      <h3 style={{ marginBottom: 6 }}>{translate(lang, 'ui.loadError')}</h3>
       <p className="muted">{message}</p>
-      {onRetry && <button className="btn btn-outline btn-sm" onClick={onRetry} style={{ marginTop: 12 }}>Try again</button>}
+      {onRetry && <button className="btn btn-outline btn-sm" onClick={onRetry} style={{ marginTop: 12 }}>{translate(lang, 'ui.tryAgain')}</button>}
     </div></div>
   );
 }

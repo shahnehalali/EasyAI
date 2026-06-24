@@ -2,10 +2,12 @@ import { useState } from 'react';
 import { useForm } from 'react-hook-form';
 import { useSearchParams, Link } from 'react-router-dom';
 import { authApi } from '@/apis/authApi';
+import { useT } from '@/hooks/useT';
 import { Banner } from '@/components/ui/Ui';
 import PasswordField from '@/components/ui/PasswordField';
 
 export default function ResetPassword() {
+  const { t } = useT();
   const [params] = useSearchParams();
   const token = params.get('token');
   const { register, handleSubmit, watch, formState: { errors } } = useForm();
@@ -23,24 +25,24 @@ export default function ResetPassword() {
 
   return (
     <div>
-      <h2 style={{ marginBottom: 16 }}>Choose a new password</h2>
+      <h2 style={{ marginBottom: 16 }}>{t('auth.newPasswordTitle')}</h2>
       {error && <Banner kind="error">{error}</Banner>}
       {done ? (
         <>
-          <Banner kind="success">Your password has been updated.</Banner>
-          <Link className="btn btn-primary btn-block" to="/login">Sign in</Link>
+          <Banner kind="success">{t('auth.passwordUpdated')}</Banner>
+          <Link className="btn btn-primary btn-block" to="/login">{t('auth.signIn')}</Link>
         </>
       ) : (
         <form onSubmit={handleSubmit(onSubmit)}>
           <PasswordField
-            label="New password"
+            label={t('auth.newPassword')}
             testId="password"
             showMeter
             value={password}
             error={errors.password?.message}
-            field={register('password', { required: 'Password is required', minLength: { value: 8, message: 'At least 8 characters' } })}
+            field={register('password', { required: t('auth.passwordRequired'), minLength: { value: 8, message: t('auth.min8') } })}
           />
-          <button className="btn btn-primary btn-block" type="submit" data-testid="submit">Update password</button>
+          <button className="btn btn-primary btn-block" type="submit" data-testid="submit">{t('auth.updatePassword')}</button>
         </form>
       )}
     </div>

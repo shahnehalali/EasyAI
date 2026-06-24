@@ -39,7 +39,7 @@ export default function AiSystems() {
                   <td><Link to={`/ai-systems/${s.id}`}><strong>{s.name}</strong></Link><div className="muted small">{s.purpose}</div></td>
                   <td>{s.riskCategory ? <RiskChip risk={s.riskCategory} /> : <Link className="btn btn-gold btn-sm" to={`/ai-systems/${s.id}/classify`}>{t('common.classifyNow')}</Link>}</td>
                   <td className="muted small">{s.vendor === 'in_house' ? t('common.inHouse') : s.vendor === 'third_party' ? t('common.thirdParty') : '-'}</td>
-                  <td className="muted small" style={{ textTransform: 'capitalize' }}>{s.lifecycleStage}</td>
+                  <td className="muted small">{['planning', 'deployed', 'retired'].includes(s.lifecycleStage) ? t(`ain.${s.lifecycleStage}`) : s.lifecycleStage}</td>
                   <td>{s._count?.assessments || 0}</td>
                   <td className="muted small">{s.classifiedAt ? formatDate(s.classifiedAt) : t('common.notYet')}</td>
                 </tr>

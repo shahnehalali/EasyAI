@@ -98,13 +98,19 @@ export function formatDate(value) {
   return d.toLocaleDateString('en-GB', { day: '2-digit', month: 'short', year: 'numeric' });
 }
 
-export function fromNow(value) {
+export function fromNow(value, lang = 'en') {
   if (!value) return '';
   const d = new Date(value);
   const days = Math.round((d - new Date()) / (1000 * 60 * 60 * 24));
+  const abs = Math.abs(days);
+  if (lang === 'de') {
+    if (days === 0) return 'heute';
+    if (days > 0) return `in ${days} Tag${days === 1 ? '' : 'en'}`;
+    return `vor ${abs} Tag${abs === 1 ? '' : 'en'}`;
+  }
   if (days === 0) return 'today';
   if (days > 0) return `in ${days} day${days === 1 ? '' : 's'}`;
-  return `${Math.abs(days)} day${Math.abs(days) === 1 ? '' : 's'} ago`;
+  return `${abs} day${abs === 1 ? '' : 's'} ago`;
 }
 
 export function initials(name = '') {
