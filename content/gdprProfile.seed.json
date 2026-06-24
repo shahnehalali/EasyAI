@@ -64,6 +64,13 @@
     { "section": "processors", "code": "uses_third_party_processor", "type": "boolean", "prompt": "Do you use a third-party vendor or cloud/AI provider to process the data (e.g. AWS, Azure, Google Cloud, OpenAI)?", "helpText": "Anyone processing the data on your behalf is a 'processor'." },
     { "section": "processors", "code": "has_dpa", "type": "boolean", "prompt": "Do you have a signed Data Processing Agreement (Art. 28) with each of those processors?", "helpText": "A DPA is the contract that lets a processor handle personal data for you lawfully." },
     { "section": "processors", "code": "sub_processors", "type": "boolean", "prompt": "Do those processors use their own sub-processors (e.g. the AI vendor runs on another company's cloud)?", "helpText": "Sub-processors must be authorised and flowed-down the same obligations (Art. 28(2),(4))." },
+    { "section": "processors", "code": "provider_no_training", "type": "single", "prompt": "Is your AI provider contractually barred from using your data to train its models?", "helpText": "Consumer tiers often train on your inputs by default and offer no AVV; business/enterprise tiers usually exclude training and include the contract. A training opt-out only covers training, not the AVV.", "options": [
+      { "value": "yes", "label": "Yes, training is excluded by contract" },
+      { "value": "no", "label": "No / training is allowed by default" },
+      { "value": "unsure", "label": "Not sure" },
+      { "value": "na", "label": "No third-party AI provider" }
+    ] },
+    { "section": "processors", "code": "critical_function", "type": "boolean", "prompt": "Does this AI support a critical or important business function at a regulated firm (e.g. a financial entity under DORA/KAGB)?", "helpText": "If yes, the provider contract is an outsourcing and must add audit rights, exit/termination, sub-provider transparency and incident reporting (DORA Art. 30)." },
 
     { "section": "transfers", "code": "data_location", "type": "single", "prompt": "Where is the personal data stored or processed?", "helpText": "Anything other than EU/EEA-only is a restricted international transfer (Chapter V).",
       "options": [
@@ -183,8 +190,24 @@
       "lawUrl": "https://eur-lex.europa.eu/eli/reg/2016/679/oj#d1e3251-1-1",
       "lawExplanation": "A binding written contract is required whenever a processor handles personal data for you, covering the eight Art. 28(3) points: subject matter, duration, instructions, confidentiality, security, sub-processing, assistance, and deletion/return.",
       "why": "You use a third-party processor, so an Art. 28 DPA is legally required.",
-      "solution": "Put a signed DPA in place with every processor covering all Art. 28(3) clauses, and keep a copy on file.",
+      "solution": "Put a signed DPA in place with every processor covering all Art. 28(3) clauses, and keep a copy on file. Note that consumer AI tiers usually offer no DPA; a business or enterprise tier includes the standard DPA automatically. The DPA must also cover audit rights, sub-processor transparency and deletion or return of data at the end. If this AI supports a critical or important function at a regulated firm, DORA Art. 30 (and KAGB outsourcing rules) add further contract requirements: audit rights, exit and termination rights, sub-provider transparency and incident reporting, which usually need an enterprise agreement.",
       "when": { "all": ["uses_third_party_processor"] }, "gapWhen": { "all": ["!has_dpa"] }
+    },
+    {
+      "id": "provider_training_optout", "title": "Bar your AI provider from training on your data", "law": "GDPR Art. 28(3)(a)", "severity": "mandatory",
+      "lawUrl": "https://eur-lex.europa.eu/eli/reg/2016/679/oj#d1e3251-1-1",
+      "lawExplanation": "A processor may only use your personal data on your documented instructions. Many consumer AI tiers use your inputs to train their models by default and offer no AVV; business and enterprise tiers exclude training by default and include the contract. A training opt-out covers only model training and does not replace the AVV, the shorter retention or audit rights.",
+      "why": "You use a third-party AI provider, so its use of your data, including for training, must be controlled by contract.",
+      "solution": "Use a business or enterprise tier where training is off by default and an AVV is included, or get a written instruction that the provider will not train on your data. Treat this as additional to, not a substitute for, the Art. 28 AVV.",
+      "when": { "all": ["uses_third_party_processor"] }, "gapWhen": { "all": [{ "ne": ["provider_no_training", "yes"] }] }
+    },
+    {
+      "id": "dora_outsourcing", "title": "Meet outsourcing contract requirements for critical functions", "law": "DORA Art. 30 / KAGB outsourcing", "severity": "mandatory",
+      "lawUrl": "https://eur-lex.europa.eu/eli/reg/2022/2554/oj",
+      "lawExplanation": "When an AI service supports a critical or important function at a regulated financial entity, using it is an outsourcing. The contract must go beyond the AVV and grant audit and access rights, exit and termination rights, transparency over sub-providers and incident reporting. These terms are typically only available on an enterprise agreement.",
+      "why": "You indicated this AI supports a critical or important function at a regulated firm.",
+      "solution": "Put an enterprise-grade outsourcing contract in place that includes audit/access rights, a documented exit strategy, sub-provider transparency and incident-reporting duties, and record the outsourcing in your register. Confirm your DORA assessment of whether the function is critical or important.",
+      "when": { "all": ["critical_function"] }
     },
     {
       "id": "sub_processor_authorisation", "title": "Authorise and flow down to sub-processors", "law": "GDPR Art. 28(2),(4)", "severity": "mandatory",
