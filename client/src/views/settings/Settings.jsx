@@ -5,19 +5,21 @@ import { reminderApi } from '@/apis/reminderApi';
 import { invitationApi } from '@/apis/invitationApi';
 import { userApi } from '@/apis/userApi';
 import { useAuth } from '@/hooks/useAuth';
+import { useT } from '@/hooks/useT';
 import { SkeletonPage, Banner, Card, Chip } from '@/components/ui/Ui';
 import { formatDate, initials } from '@/utils/format';
 
-const ROLE_CAPABILITIES = [
-  ['Owner', 'Full control: members, billing, settings, and all compliance work'],
-  ['Admin', 'Manage members and settings, and do all compliance work'],
-  ['Member', 'Do compliance work (AI systems, assessments, documents) but not manage members'],
-];
-
 export default function Settings() {
   const qc = useQueryClient();
+  const { t } = useT();
   const { user, can } = useAuth();
   const canManage = can('members.manage');
+  const roleLabel = (r) => t(`set.r.${r}`) === `set.r.${r}` ? (r || '').replace('_', ' ') : t(`set.r.${r}`);
+  const ROLE_CAPABILITIES = [
+    ['owner', t('set.capOwner')],
+    ['admin', t('set.capAdmin')],
+    ['member', t('set.capMember')],
+  ];
 
   const { data: org, isLoading } = useQuery({ queryKey: ['organization'], queryFn: organizationApi.current });
   const { data: members = [] } = useQuery({ queryKey: ['members'], queryFn: organizationApi.members });
@@ -43,7 +45,7 @@ export default function Settings() {
     e.preventDefault();
     await organizationApi.update(form);
     qc.invalidateQueries({ queryKey: ['organization'] });
-    setSaved('Organisation profile saved.');
+    setSaved(t('set.savedMsg'));
     setTimeout(() => setSaved(''), 2000);
   };
 
@@ -76,70 +78,70 @@ export default function Settings() {
 
   return (
     <div data-testid="settings" style={{ maxWidth: 860 }}>
-      <div className="page-head"><div><div className="eyebrow">Configuration</div><h1>Settings</h1></div></div>
+      <div className="page-head"><div><div className="eyebrow">{t('set.eyebrow')}</div><h1>{t('set.title')}</h1></div></div>
 
       {saved && <Banner kind="success">{saved}</Banner>}
 
       <div className="stack">
-        <Card title="Organisation profile" variant="ruled">
+        <Card title={t('set.orgProfile')} variant="ruled">
           <form onSubmit={saveOrg}>
             <div className="field">
-              <label className="label" htmlFor="org-name">Organisation name</label>
+              <label className="label" htmlFor="org-name">{t('set.orgName')}</label>
               <input id="org-name" className="input" data-testid="org-name-input" value={form.name} onChange={(e) => setForm({ ...form, name: e.target.value })} disabled={!canManage} />
             </div>
             <div className="grid grid-2">
               <div className="field">
-                <label className="label" htmlFor="org-industry">Industry</label>
+                <label className="label" htmlFor="org-industry">{t('set.industry')}</label>
                 <input id="org-industry" className="input" value={form.industry} onChange={(e) => setForm({ ...form, industry: e.target.value })} disabled={!canManage} />
               </div>
               <div className="field">
-                <label className="label" htmlFor="org-size">Company size</label>
+                <label className="label" htmlFor="org-size">{t('set.companySize')}</label>
                 <select id="org-size" className="select" value={form.sizeBand} onChange={(e) => setForm({ ...form, sizeBand: e.target.value })} disabled={!canManage}>
-                  <option value="">Select...</option>
-                  <option value="1-9">1 to 9</option>
-                  <option value="10-49">10 to 49</option>
-                  <option value="50-249">50 to 249</option>
-                  <option value="250+">250 or more</option>
+                  <option value="">{t('set.sizeSelect')}</option>
+                  <option value="1-9">{t('set.size1')}</option>
+                  <option value="10-49">{t('set.size2')}</option>
+                  <option value="50-249">{t('set.size3')}</option>
+                  <option value="250+">{t('set.size4')}</option>
                 </select>
               </div>
             </div>
-            {canManage && <button className="btn btn-primary" type="submit" data-testid="save-org">Save profile</button>}
+            {canManage && <button className="btn btn-primary" type="submit" data-testid="save-org">{t('set.saveProfile')}</button>}
           </form>
         </Card>
 
         {canManage && (
-          <Card title="Invite a teammate" variant="ruled">
+          <Card title={t('set.invite')} variant="ruled">
             {memberError && <Banner kind="error">{memberError}</Banner>}
             {inviteLink && (
               <Banner kind="success" data-testid="invite-link">
-                Invitation sent. You can also share this link directly:{' '}
+                {t('set.inviteSent')}{' '}
                 <a href={inviteLink} onClick={(e) => e.preventDefault()}>{inviteLink}</a>
               </Banner>
             )}
             <form onSubmit={sendInvite} className="row" style={{ gap: 10, alignItems: 'flex-end', flexWrap: 'wrap' }}>
               <div className="field" style={{ flex: 1, minWidth: 220, marginBottom: 0 }}>
-                <label className="label" htmlFor="invite-email">Email</label>
+                <label className="label" htmlFor="invite-email">{t('set.email')}</label>
                 <input id="invite-email" className="input" type="email" data-testid="invite-email" placeholder="teammate@company.de"
                   value={invite.email} onChange={(e) => setInvite({ ...invite, email: e.target.value })} required />
               </div>
               <div className="field" style={{ width: 150, marginBottom: 0 }}>
-                <label className="label" htmlFor="invite-role">Role</label>
+                <label className="label" htmlFor="invite-role">{t('set.role')}</label>
                 <select id="invite-role" className="select" data-testid="invite-role" value={invite.role} onChange={(e) => setInvite({ ...invite, role: e.target.value })}>
-                  <option value="member">Member</option>
-                  <option value="admin">Admin</option>
+                  <option value="member">{t('set.r.member')}</option>
+                  <option value="admin">{t('set.r.admin')}</option>
                 </select>
               </div>
-              <button className="btn btn-primary" type="submit" data-testid="send-invite">Send invitation</button>
+              <button className="btn btn-primary" type="submit" data-testid="send-invite">{t('set.sendInvite')}</button>
             </form>
 
             {invitations.length > 0 && (
               <div style={{ marginTop: 16 }}>
-                <div className="card-title-eyebrow">Pending invitations</div>
+                <div className="card-title-eyebrow">{t('set.pendingInvites')}</div>
                 <div className="stack" style={{ gap: 6 }}>
                   {invitations.map((i) => (
                     <div key={i.id} className="row-between" data-testid="pending-invite" style={{ padding: '6px 0', borderBottom: '1px solid var(--border-2)' }}>
-                      <span className="small">{i.email} <Chip className="chip-grey">{i.role}</Chip></span>
-                      <button className="btn btn-ghost btn-sm" onClick={() => revokeInvite(i.id)}>Revoke</button>
+                      <span className="small">{i.email} <Chip className="chip-grey">{roleLabel(i.role)}</Chip></span>
+                      <button className="btn btn-ghost btn-sm" onClick={() => revokeInvite(i.id)}>{t('set.revoke')}</button>
                     </div>
                   ))}
                 </div>
@@ -148,29 +150,29 @@ export default function Settings() {
           </Card>
         )}
 
-        <Card title="Team members" variant="ruled" bodyClass="card-body table-wrap">
+        <Card title={t('set.teamMembers')} variant="ruled" bodyClass="card-body table-wrap">
           {!canManage && memberError && <Banner kind="error">{memberError}</Banner>}
           <table className="table">
-            <thead><tr><th>Name</th><th>Email</th><th>Role</th><th>Status</th>{canManage && <th></th>}</tr></thead>
+            <thead><tr><th>{t('set.colName')}</th><th>{t('set.email')}</th><th>{t('set.role')}</th><th>{t('set.colStatus')}</th>{canManage && <th></th>}</tr></thead>
             <tbody>
               {members.map((m) => (
                 <tr key={m.id} data-testid="member-row">
-                  <td><div className="row" style={{ gap: 8 }}><span className="avatar" style={{ width: 26, height: 26, fontSize: 10 }}>{initials(m.fullName)}</span>{m.fullName}{m.id === user?.id && <span className="muted small">(you)</span>}</div></td>
+                  <td><div className="row" style={{ gap: 8 }}><span className="avatar" style={{ width: 26, height: 26, fontSize: 10 }}>{initials(m.fullName)}</span>{m.fullName}{m.id === user?.id && <span className="muted small">{t('set.you')}</span>}</div></td>
                   <td className="muted small">{m.email}</td>
                   <td>
                     {canManage && m.id !== user?.id ? (
                       <select className="select" data-testid="member-role" style={{ width: 130, padding: '5px 8px' }}
                         value={m.role} onChange={(e) => changeRole(m.id, e.target.value)}>
-                        {roleOptions.map((r) => <option key={r} value={r} style={{ textTransform: 'capitalize' }}>{r}</option>)}
+                        {roleOptions.map((r) => <option key={r} value={r}>{roleLabel(r)}</option>)}
                       </select>
                     ) : (
-                      <span style={{ textTransform: 'capitalize' }}>{m.role.replace('_', ' ')}</span>
+                      <span>{roleLabel(m.role)}</span>
                     )}
                   </td>
-                  <td>{m.emailVerifiedAt ? <Chip className="chip-green">Verified</Chip> : <Chip className="chip-amber">Pending</Chip>}</td>
+                  <td>{m.emailVerifiedAt ? <Chip className="chip-green">{t('set.verified')}</Chip> : <Chip className="chip-amber">{t('set.pending')}</Chip>}</td>
                   {canManage && (
                     <td style={{ textAlign: 'right' }}>
-                      {m.id !== user?.id && <button className="btn btn-danger btn-sm" data-testid="remove-member" onClick={() => removeMember(m.id)}>Remove</button>}
+                      {m.id !== user?.id && <button className="btn btn-danger btn-sm" data-testid="remove-member" onClick={() => removeMember(m.id)}>{t('set.remove')}</button>}
                     </td>
                   )}
                 </tr>
@@ -179,30 +181,30 @@ export default function Settings() {
           </table>
         </Card>
 
-        <Card title="Roles and permissions" variant="ruled">
+        <Card title={t('set.rolesPerms')} variant="ruled">
           <div className="stack" style={{ gap: 8 }}>
             {ROLE_CAPABILITIES.map(([role, desc]) => (
               <div key={role} className="row" style={{ gap: 12, alignItems: 'flex-start' }}>
-                <Chip className="chip-navy" dot={false}>{role}</Chip>
+                <Chip className="chip-navy" dot={false}>{roleLabel(role)}</Chip>
                 <span className="small muted" style={{ flex: 1 }}>{desc}</span>
               </div>
             ))}
           </div>
         </Card>
 
-        <Card title="Annual review reminders" variant="ruled" bodyClass="card-body table-wrap">
+        <Card title={t('set.reminders')} variant="ruled" bodyClass="card-body table-wrap">
           {reminders.length === 0 ? (
-            <p className="muted small">Reminders are created automatically when you classify an AI system.</p>
+            <p className="muted small">{t('set.remindersEmpty')}</p>
           ) : (
             <table className="table">
-              <thead><tr><th>Assessment</th><th>Cadence</th><th>Next reminder</th><th>Active</th></tr></thead>
+              <thead><tr><th>{t('set.colAssessment')}</th><th>{t('set.cadence')}</th><th>{t('set.nextReminder')}</th><th>{t('set.active')}</th></tr></thead>
               <tbody>
                 {reminders.map((r) => (
                   <tr key={r.id}>
                     <td>{r.assessment?.title}</td>
-                    <td style={{ textTransform: 'capitalize' }}>{r.cadence}</td>
+                    <td>{r.cadence === 'annual' ? t('set.cadenceAnnual') : r.cadence}</td>
                     <td className="muted small">{formatDate(r.nextRunAt)}</td>
-                    <td>{r.active ? <Chip className="chip-green">On</Chip> : <Chip className="chip-grey">Off</Chip>}</td>
+                    <td>{r.active ? <Chip className="chip-green">{t('set.on')}</Chip> : <Chip className="chip-grey">{t('set.off')}</Chip>}</td>
                   </tr>
                 ))}
               </tbody>
@@ -210,8 +212,8 @@ export default function Settings() {
           )}
         </Card>
 
-        <Card title="Your account" variant="ruled">
-          <p className="small"><strong>{user?.fullName}</strong> ({user?.email}) - role: {user?.role?.replace('_', ' ')}</p>
+        <Card title={t('set.account')} variant="ruled">
+          <p className="small"><strong>{user?.fullName}</strong> ({user?.email}) - {t('set.roleLabel')}: {roleLabel(user?.role)}</p>
         </Card>
       </div>
     </div>

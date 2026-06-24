@@ -1,12 +1,14 @@
 import { Link } from 'react-router-dom';
+import { useT } from '@/hooks/useT';
 
 export default function NotFound() {
+  const { t } = useT();
   return (
     <div className="card" data-testid="not-found"><div className="empty">
       <div className="big">404</div>
-      <h3 style={{ marginBottom: 6 }}>Page not found</h3>
-      <p className="muted">The page you are looking for does not exist or has moved.</p>
-      <Link className="btn btn-primary btn-sm" to="/" style={{ marginTop: 14 }}>Back to dashboard</Link>
+      <h3 style={{ marginBottom: 6 }}>{t('nf.title')}</h3>
+      <p className="muted">{t('nf.body')}</p>
+      <Link className="btn btn-primary btn-sm" to="/" style={{ marginTop: 14 }}>{t('nf.back')}</Link>
     </div></div>
   );
 }

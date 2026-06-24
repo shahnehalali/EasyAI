@@ -128,6 +128,8 @@ export function OpenItemsList({ openItems }) {
 
 // Dependency-free SVG line chart of the compliance score over time.
 export function ComplianceTrendWidget({ trends = [] }) {
+  const { t: tt } = useT();
+  const dayWord = (n) => (n === 1 ? tt('trend.day') : tt('trend.days'));
   const W = 520; const H = 120; const pad = 6;
   const points = trends.map((t) => t.overall);
   const last = points.length ? points[points.length - 1] : 0;
@@ -145,18 +147,18 @@ export function ComplianceTrendWidget({ trends = [] }) {
     : '';
 
   return (
-    <Card title="Compliance over time" variant="ruled" data-testid="widget-trends"
-      action={<span className="muted small" data-testid="trend-points">{trends.length} day{trends.length === 1 ? '' : 's'}</span>}>
+    <Card title={tt('trend.title')} variant="ruled" data-testid="widget-trends"
+      action={<span className="muted small" data-testid="trend-points">{trends.length} {dayWord(trends.length)}</span>}>
       <div className="row" style={{ gap: 12, alignItems: 'baseline', marginBottom: 8 }}>
         <span style={{ fontSize: 26, fontWeight: 700, color: 'var(--ink)' }}>{last}%</span>
         {trends.length > 1 && (
-          <Chip className={delta >= 0 ? 'chip-green' : 'chip-red'}>{delta >= 0 ? '+' : ''}{delta}% over {trends.length} days</Chip>
+          <Chip className={delta >= 0 ? 'chip-green' : 'chip-red'}>{delta >= 0 ? '+' : ''}{delta}% {tt('trend.over')} {trends.length} {dayWord(trends.length)}</Chip>
         )}
       </div>
       {trends.length < 2 ? (
-        <p className="muted small" style={{ margin: 0 }}>The trend builds up as snapshots are recorded each day. Check back tomorrow to see it grow.</p>
+        <p className="muted small" style={{ margin: 0 }}>{tt('trend.empty')}</p>
       ) : (
-        <svg viewBox={`0 0 ${W} ${H}`} width="100%" height="120" preserveAspectRatio="none" role="img" aria-label="Compliance score over time">
+        <svg viewBox={`0 0 ${W} ${H}`} width="100%" height="120" preserveAspectRatio="none" role="img" aria-label={tt('trend.aria')}>
           <polygon points={areaPts} fill="var(--accent-soft)" />
           <polyline points={linePts} fill="none" stroke="var(--accent)" strokeWidth="2" strokeLinejoin="round" strokeLinecap="round" />
         </svg>

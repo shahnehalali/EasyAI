@@ -44,7 +44,7 @@ export default function AppLayout() {
   // Close the mobile menu on navigation.
   useEffect(() => { setMenuOpen(false); }, [location.pathname]);
 
-  if (status === 'loading') return <div className="auth-wrap"><Spinner label="Loading your workspace..." /></div>;
+  if (status === 'loading') return <div className="auth-wrap"><Spinner label={t('app.loadingWorkspace')} /></div>;
   if (status === 'anonymous') return <Navigate to="/login" replace state={{ from: location.pathname }} />;
 
   return (
@@ -59,7 +59,7 @@ export default function AppLayout() {
       }}
     >
       <div className="app-shell">
-        <a href="#main-content" className="skip-link">Skip to content</a>
+        <a href="#main-content" className="skip-link">{t('app.skipToContent')}</a>
         <Sidebar open={menuOpen} onNavigate={() => setMenuOpen(false)} />
         <div
           className={`sidebar-backdrop${menuOpen ? ' show' : ''}`}

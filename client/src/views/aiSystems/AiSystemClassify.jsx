@@ -2,22 +2,24 @@ import { useState } from 'react';
 import { useQuery, useQueryClient } from '@tanstack/react-query';
 import { useParams, useNavigate, Link } from 'react-router-dom';
 import { aiSystemApi } from '@/apis/aiSystemApi';
+import { useT } from '@/hooks/useT';
 import { Spinner, Banner, Card, RiskChip } from '@/components/ui/Ui';
-
-const GROUPS = [
-  { key: 'banned', title: 'Banned-use checks', hint: 'Any "Yes" here means the use may be prohibited' },
-  { key: 'high', title: 'High-risk checks', hint: 'Annex III uses and product safety' },
-  { key: 'transparency', title: 'Transparency checks', hint: 'Chatbots and generated content' },
-];
 
 export default function AiSystemClassify() {
   const { id } = useParams();
+  const { t } = useT();
   const navigate = useNavigate();
   const qc = useQueryClient();
   const [answers, setAnswers] = useState({});
   const [result, setResult] = useState(null);
   const [busy, setBusy] = useState(false);
   const [error, setError] = useState('');
+
+  const GROUPS = [
+    { key: 'banned', title: t('acl.banned'), hint: t('acl.bannedHint') },
+    { key: 'high', title: t('acl.high'), hint: t('acl.highHint') },
+    { key: 'transparency', title: t('acl.transparency'), hint: t('acl.transparencyHint') },
+  ];
 
   const { data: questionnaire, isLoading } = useQuery({
     queryKey: ['questionnaire', id], queryFn: () => aiSystemApi.getQuestionnaire(id),
@@ -41,21 +43,20 @@ export default function AiSystemClassify() {
   if (result) {
     return (
       <div data-testid="classify-result" style={{ maxWidth: 680 }}>
-        <div className="page-head"><div><div className="eyebrow">Classification complete</div><h1>Risk result</h1></div></div>
+        <div className="page-head"><div><div className="eyebrow">{t('acl.complete')}</div><h1>{t('acl.riskResult')}</h1></div></div>
         <Card variant="ruled-gold">
           <div className="row" style={{ gap: 12, marginBottom: 10 }}>
-            <span className="muted">This system is classified as</span>
+            <span className="muted">{t('acl.classifiedAs')}</span>
             <span data-testid="result-risk"><RiskChip risk={result.riskCategory} /></span>
           </div>
           <p>{result.explanation}</p>
           <div className="divider" />
           <p className="small">
-            We created <strong data-testid="result-assessments">{result.createdAssessments}</strong> compliance assessment(s) for this system,
-            with an annual review reminder for each.
+            {t('acl.createdPre')} <strong data-testid="result-assessments">{result.createdAssessments}</strong> {t('acl.createdPost')}
           </p>
           <div className="row" style={{ gap: 10, marginTop: 8 }}>
-            <Link className="btn btn-primary btn-sm" to="/assessments">Go to assessments</Link>
-            <Link className="btn btn-outline btn-sm" to={`/ai-systems/${id}`}>View this system</Link>
+            <Link className="btn btn-primary btn-sm" to="/assessments">{t('acl.goToAssessments')}</Link>
+            <Link className="btn btn-outline btn-sm" to={`/ai-systems/${id}`}>{t('acl.viewSystem')}</Link>
           </div>
         </Card>
       </div>
@@ -64,21 +65,18 @@ export default function AiSystemClassify() {
 
   return (
     <div data-testid="classify" style={{ maxWidth: 720 }}>
-      <Link className="small" to="/ai-systems">← AI systems</Link>
+      <Link className="small" to="/ai-systems">← {t('nav.aiSystems')}</Link>
       <div className="page-head" style={{ marginTop: 10 }}>
         <div>
-          <div className="eyebrow">Step 2 of 2 - {questionnaire.name}</div>
-          <h1>Classify the risk</h1>
-          <p className="sub">Answer these questions about the system. We use them to place it in one of the four EU AI Act risk levels and to build the right checklists.</p>
+          <div className="eyebrow">{t('acl.step2')} - {questionnaire.name}</div>
+          <h1>{t('acl.classifyRisk')}</h1>
+          <p className="sub">{t('acl.sub')}</p>
         </div>
       </div>
 
       {error && <Banner kind="error">{error}</Banner>}
 
-      <p className="muted small" style={{ marginTop: 0, marginBottom: 14 }}>
-        Answer Yes only where it clearly applies. Anything left as No is treated as "does not apply".
-        If nothing applies, the system is classified as minimal risk.
-      </p>
+      <p className="muted small" style={{ marginTop: 0, marginBottom: 14 }}>{t('acl.note')}</p>
 
       <div className="stack">
         {GROUPS.map((g) => {
@@ -104,7 +102,7 @@ export default function AiSystemClassify() {
                               color: on ? '#fff' : 'var(--ink)',
                               border: `1px solid ${on ? activeColor : 'var(--border)'}`, minWidth: 64,
                             }}>
-                            {opt === 'yes' ? 'Yes' : 'No'}
+                            {opt === 'yes' ? t('common.yes') : t('common.no')}
                           </button>
                         );
                       })}
@@ -118,7 +116,7 @@ export default function AiSystemClassify() {
       </div>
 
       <button className="btn btn-primary" style={{ marginTop: 18 }} onClick={submit} disabled={busy} data-testid="classify-submit">
-        {busy ? 'Classifying...' : 'Classify and build checklists'}
+        {busy ? t('acl.classifying') : t('acl.classifyBuild')}
       </button>
     </div>
   );

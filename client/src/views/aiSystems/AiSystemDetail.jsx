@@ -2,11 +2,13 @@ import { useQuery, useQueryClient } from '@tanstack/react-query';
 import { useParams, Link, useNavigate } from 'react-router-dom';
 import { aiSystemApi } from '@/apis/aiSystemApi';
 import { useAuth } from '@/hooks/useAuth';
+import { useT } from '@/hooks/useT';
 import { SkeletonPage, ErrorState, Card, RiskChip, StatusChip, Progress, Banner } from '@/components/ui/Ui';
 import { progressVariant } from '@/utils/format';
 
 export default function AiSystemDetail() {
   const { id } = useParams();
+  const { t } = useT();
   const qc = useQueryClient();
   const navigate = useNavigate();
   const { can } = useAuth();
@@ -18,8 +20,8 @@ export default function AiSystemDetail() {
   const onDelete = async () => {
     const count = system.assessments?.length || 0;
     const warning = count > 0
-      ? `Delete "${system.name}"? This also removes its ${count} assessment(s). This cannot be undone.`
-      : `Delete "${system.name}"? This cannot be undone.`;
+      ? t('asd.deleteConfirmCount').replace('{name}', system.name).replace('{n}', count)
+      : t('asd.deleteConfirm').replace('{name}', system.name);
     if (!window.confirm(warning)) return;
     await aiSystemApi.remove(id);
     qc.invalidateQueries({ queryKey: ['ai-systems'] });
@@ -30,21 +32,21 @@ export default function AiSystemDetail() {
 
   return (
     <div data-testid="ai-system-detail">
-      <Link className="small" to="/ai-systems">← AI systems</Link>
+      <Link className="small" to="/ai-systems">← {t('nav.aiSystems')}</Link>
       <div className="page-head" style={{ marginTop: 10 }}>
         <div>
-          <div className="eyebrow">AI system</div>
+          <div className="eyebrow">{t('asd.eyebrow')}</div>
           <h1>{system.name}</h1>
           <p className="sub">{system.purpose}</p>
         </div>
         <div className="row" style={{ gap: 8 }}>
           {system.riskCategory && <RiskChip risk={system.riskCategory} />}
           <Link className="btn btn-outline btn-sm" to={`/ai-systems/${id}/classify`}>
-            {system.riskCategory ? 'Re-classify' : 'Classify this system'}
+            {system.riskCategory ? t('asd.reclassify') : t('asd.classify')}
           </Link>
-          <Link className="btn btn-outline btn-sm" to={`/ai-systems/${id}/profile`} data-testid="data-profile-link">Data protection profile</Link>
+          <Link className="btn btn-outline btn-sm" to={`/ai-systems/${id}/profile`} data-testid="data-profile-link">{t('asd.dataProfile')}</Link>
           {can('compliance.edit') && (
-            <button className="btn btn-danger btn-sm" data-testid="delete-ai-system" onClick={onDelete}>Delete</button>
+            <button className="btn btn-danger btn-sm" data-testid="delete-ai-system" onClick={onDelete}>{t('common.delete')}</button>
           )}
         </div>
       </div>
@@ -53,12 +55,12 @@ export default function AiSystemDetail() {
         <Banner kind="info">{system.classificationExplanation}</Banner>
       )}
 
-      <Card title="Compliance assessments" variant="ruled" bodyClass="card-body table-wrap">
+      <Card title={t('asd.assessmentsTitle')} variant="ruled" bodyClass="card-body table-wrap">
         {system.assessments?.length === 0 ? (
-          <p className="muted small">No assessments yet. Classify the system to generate them.</p>
+          <p className="muted small">{t('asd.noAssessments')}</p>
         ) : (
           <table className="table">
-            <thead><tr><th>Assessment</th><th>Framework</th><th>Status</th><th>Progress</th><th></th></tr></thead>
+            <thead><tr><th>{t('asd.colAssessment')}</th><th>{t('as.col.framework')}</th><th>{t('as.col.status')}</th><th>{t('as.col.progress')}</th><th></th></tr></thead>
             <tbody>
               {system.assessments.map((a) => (
                 <tr key={a.id}>
@@ -66,7 +68,7 @@ export default function AiSystemDetail() {
                   <td className="muted small">{a.framework?.shortName || a.framework?.name}</td>
                   <td><StatusChip status={a.status} /></td>
                   <td style={{ width: 130 }}><Progress value={a.progressPct} variant={progressVariant(a.status, a.progressPct)} /><span className="muted small">{a.progressPct}%</span></td>
-                  <td style={{ textAlign: 'right' }}><Link className="btn btn-outline btn-sm" to={`/assessments/${a.id}`}>Open</Link></td>
+                  <td style={{ textAlign: 'right' }}><Link className="btn btn-outline btn-sm" to={`/assessments/${a.id}`}>{t('common.open')}</Link></td>
                 </tr>
               ))}
             </tbody>
