@@ -1,10 +1,11 @@
 import { useState } from 'react';
 import { useForm } from 'react-hook-form';
-import { useNavigate, Link } from 'react-router-dom';
+import { useNavigate } from 'react-router-dom';
 import { useQueryClient } from '@tanstack/react-query';
 import { aiSystemApi } from '@/apis/aiSystemApi';
 import { useT } from '@/hooks/useT';
 import { Banner, Card } from '@/components/ui/Ui';
+import BackLink from '@/components/BackLink';
 
 export default function AiSystemNew() {
   const { t } = useT();
@@ -25,7 +26,7 @@ export default function AiSystemNew() {
 
   return (
     <div data-testid="ai-system-new" style={{ maxWidth: 680 }}>
-      <Link className="small" to="/ai-systems">← {t('nav.aiSystems')}</Link>
+      <BackLink to="/ai-systems">{t('nav.aiSystems')}</BackLink>
       <div className="page-head" style={{ marginTop: 10 }}>
         <div>
           <div className="eyebrow">{t('ain.step')}</div>

@@ -8,6 +8,7 @@ import { SkeletonPage, ErrorState, Card, Chip, Banner } from '@/components/ui/Ui
 import VoteControl from '@/components/community/VoteControl';
 import AuthorLine from '@/components/community/AuthorLine';
 import PostItem from '@/components/community/PostItem';
+import BackLink from '@/components/BackLink';
 
 export default function ThreadDetail() {
   const { id } = useParams();
@@ -78,7 +79,7 @@ export default function ThreadDetail() {
 
   return (
     <div data-testid="thread-detail" style={{ maxWidth: 820 }}>
-      <Link className="small" to="/community">← {t('com.back')}</Link>
+      <BackLink to="/community">{t('com.back')}</BackLink>
 
       <Card variant="ruled" data-testid="thread-head">
         <div className="row" style={{ gap: 12, alignItems: 'flex-start' }}>
@@ -139,20 +140,17 @@ export default function ThreadDetail() {
       )}
 
       {/* Replies */}
-      <div className="stack" data-testid="post-thread">
+      <div className="comment-list" data-testid="post-thread">
         {grouped.map(({ post, children }) => (
-          <div key={post.id} className="stack" style={{ gap: 8 }}>
-            <PostItem
-              post={post}
-              onVote={votePost}
-              onDelete={deletePost}
-              onReport={(p) => reportTarget('post', p.id)}
-              onReply={thread.status === 'locked' ? undefined : (p) => { setReplyTo(p); window.scrollTo({ top: 0, behavior: 'smooth' }); }}
-            />
-            {children.map((c) => (
-              <PostItem key={c.id} post={c} indent onVote={votePost} onDelete={deletePost} onReport={(p) => reportTarget('post', p.id)} />
-            ))}
-          </div>
+          <PostItem
+            key={post.id}
+            post={post}
+            childPosts={children}
+            onVote={votePost}
+            onDelete={deletePost}
+            onReport={(p) => reportTarget('post', p.id)}
+            onReply={thread.status === 'locked' ? undefined : (p) => { setReplyTo(p); window.scrollTo({ top: 0, behavior: 'smooth' }); }}
+          />
         ))}
       </div>
     </div>

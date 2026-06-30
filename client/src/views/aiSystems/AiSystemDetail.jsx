@@ -5,6 +5,7 @@ import { useAuth } from '@/hooks/useAuth';
 import { useT } from '@/hooks/useT';
 import { SkeletonPage, ErrorState, Card, RiskChip, StatusChip, Progress, Banner } from '@/components/ui/Ui';
 import { progressVariant } from '@/utils/format';
+import BackLink from '@/components/BackLink';
 
 export default function AiSystemDetail() {
   const { id } = useParams();
@@ -32,7 +33,7 @@ export default function AiSystemDetail() {
 
   return (
     <div data-testid="ai-system-detail">
-      <Link className="small" to="/ai-systems">← {t('nav.aiSystems')}</Link>
+      <BackLink to="/ai-systems">{t('nav.aiSystems')}</BackLink>
       <div className="page-head" style={{ marginTop: 10 }}>
         <div>
           <div className="eyebrow">{t('asd.eyebrow')}</div>
