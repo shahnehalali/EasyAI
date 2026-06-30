@@ -289,32 +289,52 @@ hr { border: none; border-top: 1px solid var(--border); margin: 16px 0; }
 .back-link svg { transition: transform 0.13s; }
 .back-link:hover svg { transform: translateX(-3px); }
 
-/* ---- Community comments (Reddit-style, not boxy) ---- */
+/* ---- Community comments (Reddit-style) ---- */
 .comment-list { display: flex; flex-direction: column; }
-.comment-list > .comment { padding: 12px 2px; border-bottom: 1px solid var(--border-2); }
-.comment-list > .comment:last-child { border-bottom: none; }
-.comment-head { display: flex; align-items: center; gap: 7px; }
+.comment-list > .comment { padding: 14px 0; }
+.comment-list > .comment + .comment { border-top: 1px solid var(--border); }
+
+.comment-header { display: flex; align-items: center; gap: 8px; }
 .comment-collapse {
-  width: 18px; height: 18px; flex-shrink: 0; display: inline-flex; align-items: center; justify-content: center;
-  border: 1px solid var(--border); border-radius: 5px; background: var(--surface); color: var(--muted);
-  cursor: pointer; padding: 0; transition: background 0.12s, color 0.12s;
+  width: 20px; height: 20px; flex-shrink: 0; display: inline-flex; align-items: center; justify-content: center;
+  border: none; border-radius: 50%; background: transparent; color: var(--muted); cursor: pointer; padding: 0;
+  transition: background 0.12s, color 0.12s;
 }
-.comment-collapse:hover { background: var(--surface-subtle); color: var(--ink); }
-.comment-body-row { display: flex; gap: 8px; margin-top: 4px; }
-.comment-rail { display: flex; justify-content: center; width: 26px; flex-shrink: 0; padding-left: 4px; }
-.comment-main { flex: 1; min-width: 0; }
-.comment-text { white-space: pre-wrap; line-height: 1.55; font-size: 14px; padding-top: 2px; }
-.comment-actions { display: flex; gap: 4px; margin-top: 6px; flex-wrap: wrap; }
+.comment-collapse:hover { background: var(--surface-hover); color: var(--ink); }
+.comment-avatar { width: 24px; height: 24px; font-size: 10px; flex-shrink: 0; }
+.comment-byline { font-size: 12.5px; color: var(--ink); min-width: 0; }
+.comment-byline strong { font-weight: 650; }
+
+/* Body + footer align just under the avatar (collapse 20 + gap 8 = 28px). */
+.comment-text { white-space: pre-wrap; line-height: 1.55; font-size: 14px; color: var(--ink); margin: 6px 0 8px; padding-left: 28px; }
+.comment-footer { display: flex; align-items: center; gap: 4px; flex-wrap: wrap; padding-left: 28px; }
+
+.vote-inline {
+  display: inline-flex; align-items: center; gap: 1px; background: var(--surface-hover);
+  border-radius: 999px; padding: 1px 2px; margin-right: 4px;
+}
+.vote-inline button {
+  display: inline-flex; align-items: center; justify-content: center; width: 24px; height: 24px;
+  border: none; background: none; color: var(--muted); cursor: pointer; border-radius: 50%; padding: 0;
+  transition: background 0.12s, color 0.12s;
+}
+.vote-inline button:hover { background: var(--surface); color: var(--ink); }
+.vote-inline button.up.on { color: var(--green); }
+.vote-inline button.down.on { color: var(--red); }
+.vote-score { font-size: 12.5px; font-weight: 700; min-width: 18px; text-align: center; color: var(--ink-soft); font-variant-numeric: tabular-nums; }
+
 .comment-action {
-  display: inline-flex; align-items: center; gap: 4px; background: none; border: none; cursor: pointer;
-  color: var(--muted); font-size: 12px; font-weight: 600; padding: 3px 6px; border-radius: 6px; transition: background 0.12s, color 0.12s;
+  display: inline-flex; align-items: center; gap: 5px; background: none; border: none; cursor: pointer;
+  color: var(--muted); font-size: 12.5px; font-weight: 600; padding: 5px 9px; border-radius: 999px;
+  transition: background 0.12s, color 0.12s;
 }
-.comment-action:hover { background: var(--surface-subtle); color: var(--ink); }
+.comment-action:hover { background: var(--surface-hover); color: var(--ink); }
 .comment-action.danger:hover { color: var(--red); }
-/* Children indent under a thin thread line, the non-boxy nesting. */
-.comment-children { margin: 8px 0 0 9px; padding-left: 14px; border-left: 2px solid var(--border-2); }
-.comment-children > .comment { padding: 8px 0; }
-.comment-children > .comment + .comment { border-top: 1px solid var(--border-2); }
+
+/* Children nest under a thin thread line aligned with the avatar. */
+.comment-children { margin: 8px 0 0 11px; padding-left: 17px; border-left: 2px solid var(--border); }
+.comment-children > .comment { padding: 12px 0; }
+.comment-children > .comment + .comment { border-top: 1px solid var(--border); }
 
 /* The screenshot-feedback floating button sits bottom-left (inline style
    left:20px). On desktop that overlaps the 234px sidebar, so shift it to clear
