@@ -1,11 +1,12 @@
 import { useState, useEffect, useRef } from 'react';
 import { useQuery, useQueryClient } from '@tanstack/react-query';
-import { useParams, Link, useNavigate } from 'react-router-dom';
+import { useParams, useNavigate } from 'react-router-dom';
 import { ChevronDown } from 'lucide-react';
 import { aiSystemApi } from '@/apis/aiSystemApi';
 import { useAuth } from '@/hooks/useAuth';
 import { useT } from '@/hooks/useT';
 import { SkeletonPage, ErrorState, Banner, Card, Chip } from '@/components/ui/Ui';
+import BackLink from '@/components/BackLink';
 
 const optClass = (on) => `btn btn-sm opt-btn${on ? ' is-on' : ''}`;
 
@@ -131,7 +132,7 @@ export default function AiSystemProfile() {
 
   return (
     <div data-testid="data-profile">
-      <Link className="small" to={`/ai-systems/${id}`}>← {data.systemName || 'AI system'}</Link>
+      <BackLink to={`/ai-systems/${id}`}>{data.systemName || 'AI system'}</BackLink>
       <div className="page-head" style={{ marginTop: 10 }}>
         <div>
           <div className="eyebrow">{t('dp.eyebrow')}</div>

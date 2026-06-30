@@ -360,6 +360,8 @@ export const UI = {
     'com.searchPh': 'Search discussions...',
     'com.searchEmptyTitle': 'No matches',
     'com.searchEmpty': 'No discussions match "{q}". Try different words or start a new one.',
+    'com.collapse': 'Collapse',
+    'com.expand': 'Expand',
 
     // Notifications bell
     'nb.title': 'Notifications',
@@ -486,7 +488,7 @@ export const UI = {
     'faq.disclaimer': 'JurisAI provides plain-language guidance for orientation only and is not legal advice.',
 
     // Framework detail
-    'fd.back': '← All frameworks',
+    'fd.back': 'All frameworks',
     'fd.officialText': 'Official text ↗',
     'fd.contentReviewed': 'Content reviewed',
     'fd.source': 'Source:',
@@ -889,6 +891,8 @@ export const UI = {
     'com.searchPh': 'Diskussionen durchsuchen...',
     'com.searchEmptyTitle': 'Keine Treffer',
     'com.searchEmpty': 'Keine Diskussionen passen zu "{q}". Versuchen Sie andere Begriffe oder starten Sie eine neue.',
+    'com.collapse': 'Einklappen',
+    'com.expand': 'Ausklappen',
 
     // Notifications bell
     'nb.title': 'Benachrichtigungen',
@@ -1015,7 +1019,7 @@ export const UI = {
     'faq.disclaimer': 'JurisAI bietet verständliche Hinweise nur zur Orientierung und ist keine Rechtsberatung.',
 
     // Framework detail
-    'fd.back': '← Alle Rechtsrahmen',
+    'fd.back': 'Alle Rechtsrahmen',
     'fd.officialText': 'Amtlicher Text ↗',
     'fd.contentReviewed': 'Inhalt geprüft',
     'fd.source': 'Quelle:',

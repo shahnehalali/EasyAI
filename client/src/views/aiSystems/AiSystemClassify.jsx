@@ -4,6 +4,7 @@ import { useParams, useNavigate, Link } from 'react-router-dom';
 import { aiSystemApi } from '@/apis/aiSystemApi';
 import { useT } from '@/hooks/useT';
 import { Spinner, Banner, Card, RiskChip } from '@/components/ui/Ui';
+import BackLink from '@/components/BackLink';
 
 export default function AiSystemClassify() {
   const { id } = useParams();
@@ -65,7 +66,7 @@ export default function AiSystemClassify() {
 
   return (
     <div data-testid="classify" style={{ maxWidth: 720 }}>
-      <Link className="small" to="/ai-systems">← {t('nav.aiSystems')}</Link>
+      <BackLink to="/ai-systems">{t('nav.aiSystems')}</BackLink>
       <div className="page-head" style={{ marginTop: 10 }}>
         <div>
           <div className="eyebrow">{t('acl.step2')} - {questionnaire.name}</div>

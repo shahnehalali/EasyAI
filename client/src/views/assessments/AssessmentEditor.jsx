@@ -1,6 +1,6 @@
 import { useState, useEffect } from 'react';
 import { useQuery, useQueryClient } from '@tanstack/react-query';
-import { useParams, Link } from 'react-router-dom';
+import { useParams } from 'react-router-dom';
 import { assessmentApi } from '@/apis/assessmentApi';
 import { organizationApi } from '@/apis/organizationApi';
 import { reportApi } from '@/apis/reportApi';
@@ -9,6 +9,7 @@ import { useT } from '@/hooks/useT';
 import { SkeletonPage, ErrorState, Banner, Card, StatusChip, Progress, RiskChip } from '@/components/ui/Ui';
 import { formatDate, fromNow, progressVariant } from '@/utils/format';
 import ChecklistItem from '@/components/assessments/ChecklistItem';
+import BackLink from '@/components/BackLink';
 
 function humanizeAction(a) {
   return a.replace(/[._]/g, ' ');
@@ -52,7 +53,7 @@ export default function AssessmentEditor() {
 
   return (
     <div data-testid="assessment-editor">
-      <Link className="small" to="/assessments">← {t('nav.assessments')}</Link>
+      <BackLink to="/assessments">{t('nav.assessments')}</BackLink>
       <div className="page-head" style={{ marginTop: 10 }}>
         <div>
           <div className="eyebrow">{assessment.framework?.name}</div>

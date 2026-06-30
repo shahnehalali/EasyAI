@@ -275,6 +275,47 @@ hr { border: none; border-top: 1px solid var(--border); margin: 16px 0; }
 .help-launcher:hover { background: var(--accent-2); }
 .help-launcher:active { transform: translateY(1px); }
 
+/* ---- Back link (pill button at the top of detail pages) ---- */
+.back-link-wrap { margin-bottom: 12px; }
+.back-link {
+  display: inline-flex; align-items: center; gap: 3px;
+  font-size: 13px; font-weight: 600; color: var(--muted);
+  padding: 5px 12px 5px 8px; border: 1px solid var(--border); border-radius: 999px;
+  background: var(--surface); text-decoration: none; line-height: 1;
+  transition: background 0.13s, color 0.13s, border-color 0.13s, transform 0.06s;
+}
+.back-link:hover { background: var(--surface-subtle); color: var(--accent); border-color: var(--accent); }
+.back-link:active { transform: translateY(1px); }
+.back-link svg { transition: transform 0.13s; }
+.back-link:hover svg { transform: translateX(-3px); }
+
+/* ---- Community comments (Reddit-style, not boxy) ---- */
+.comment-list { display: flex; flex-direction: column; }
+.comment-list > .comment { padding: 12px 2px; border-bottom: 1px solid var(--border-2); }
+.comment-list > .comment:last-child { border-bottom: none; }
+.comment-head { display: flex; align-items: center; gap: 7px; }
+.comment-collapse {
+  width: 18px; height: 18px; flex-shrink: 0; display: inline-flex; align-items: center; justify-content: center;
+  border: 1px solid var(--border); border-radius: 5px; background: var(--surface); color: var(--muted);
+  cursor: pointer; padding: 0; transition: background 0.12s, color 0.12s;
+}
+.comment-collapse:hover { background: var(--surface-subtle); color: var(--ink); }
+.comment-body-row { display: flex; gap: 8px; margin-top: 4px; }
+.comment-rail { display: flex; justify-content: center; width: 26px; flex-shrink: 0; padding-left: 4px; }
+.comment-main { flex: 1; min-width: 0; }
+.comment-text { white-space: pre-wrap; line-height: 1.55; font-size: 14px; padding-top: 2px; }
+.comment-actions { display: flex; gap: 4px; margin-top: 6px; flex-wrap: wrap; }
+.comment-action {
+  display: inline-flex; align-items: center; gap: 4px; background: none; border: none; cursor: pointer;
+  color: var(--muted); font-size: 12px; font-weight: 600; padding: 3px 6px; border-radius: 6px; transition: background 0.12s, color 0.12s;
+}
+.comment-action:hover { background: var(--surface-subtle); color: var(--ink); }
+.comment-action.danger:hover { color: var(--red); }
+/* Children indent under a thin thread line, the non-boxy nesting. */
+.comment-children { margin: 8px 0 0 9px; padding-left: 14px; border-left: 2px solid var(--border-2); }
+.comment-children > .comment { padding: 8px 0; }
+.comment-children > .comment + .comment { border-top: 1px solid var(--border-2); }
+
 /* The screenshot-feedback floating button sits bottom-left (inline style
    left:20px). On desktop that overlaps the 234px sidebar, so shift it to clear
    the sidebar. On mobile (<=860px) the sidebar is off-canvas, so the default is

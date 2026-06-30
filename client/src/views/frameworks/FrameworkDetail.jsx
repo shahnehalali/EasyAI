@@ -1,6 +1,7 @@
 import { useState } from 'react';
 import { useQuery } from '@tanstack/react-query';
-import { useParams, Link, useNavigate } from 'react-router-dom';
+import { useParams, useNavigate } from 'react-router-dom';
+import BackLink from '@/components/BackLink';
 import { frameworkApi } from '@/apis/frameworkApi';
 import { assessmentApi } from '@/apis/assessmentApi';
 import { useAuth } from '@/hooks/useAuth';
@@ -39,7 +40,7 @@ export default function FrameworkDetail() {
 
   return (
     <div data-testid="framework-detail">
-      <Link className="small" to="/frameworks">{t('fd.back')}</Link>
+      <BackLink to="/frameworks">{t('fd.back')}</BackLink>
       <div className="page-head" style={{ marginTop: 10 }}>
         <div>
           <div className="eyebrow">{fw.reference}</div>
