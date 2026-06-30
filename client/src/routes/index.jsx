@@ -13,6 +13,8 @@ import Dashboard from '@/views/dashboard/Dashboard';
 import LawExplorer from '@/views/lawExplorer/LawExplorer';
 import Frameworks from '@/views/frameworks/Frameworks';
 import FrameworkDetail from '@/views/frameworks/FrameworkDetail';
+import Community from '@/views/community/Community';
+import ThreadDetail from '@/views/community/ThreadDetail';
 import AiSystems from '@/views/aiSystems/AiSystems';
 import AiSystemNew from '@/views/aiSystems/AiSystemNew';
 import AiSystemClassify from '@/views/aiSystems/AiSystemClassify';
@@ -43,6 +45,8 @@ export default function AppRoutes() {
       <Route element={<AppLayout />}>
         <Route path="/" element={<Dashboard />} />
         <Route path="/law-explorer" element={<LawExplorer />} />
+        <Route path="/community" element={<Community />} />
+        <Route path="/community/:id" element={<ThreadDetail />} />
         <Route path="/faq" element={<Faq />} />
         <Route path="/frameworks" element={<Frameworks />} />
         <Route path="/frameworks/:key" element={<FrameworkDetail />} />
