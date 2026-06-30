@@ -275,6 +275,14 @@ hr { border: none; border-top: 1px solid var(--border); margin: 16px 0; }
 .help-launcher:hover { background: var(--accent-2); }
 .help-launcher:active { transform: translateY(1px); }
 
+/* The screenshot-feedback floating button sits bottom-left (inline style
+   left:20px). On desktop that overlaps the 234px sidebar, so shift it to clear
+   the sidebar. On mobile (<=860px) the sidebar is off-canvas, so the default is
+   left alone. !important is needed to beat the component's inline style. */
+@media (min-width: 861px) {
+  [data-feedback-trigger="true"] { left: 254px !important; }
+}
+
 .help-panel {
   position: fixed; right: 22px; bottom: 86px; z-index: 80;
   width: 370px; max-width: calc(100vw - 32px); height: 540px; max-height: calc(100vh - 130px);

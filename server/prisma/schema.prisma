@@ -39,6 +39,8 @@ model Organization {
   invitations   Invitation[]
   comments      Comment[]
   snapshots     ComplianceSnapshot[]
+  threads       Thread[]
+  threadPosts   ThreadPost[]
 }
 
 model User {
@@ -59,6 +61,10 @@ model User {
   assignedResponses ChecklistItemResponse[] @relation("ResponseAssignee")
   comments          Comment[]
   invitationsSent   Invitation[]   @relation("InvitedBy")
+  threads           Thread[]
+  threadPosts       ThreadPost[]
+  threadVotes       ThreadVote[]
+  threadReports     ThreadReport[]
 
   @@index([organizationId])
 }
@@ -114,6 +120,7 @@ model Framework {
   questionnaires    ClassificationQuestionnaire[]
   activationRules   FrameworkActivationRule[]
   assessments       Assessment[]
+  threads           Thread[]
 }
 
 model Requirement {
@@ -452,4 +459,92 @@ model Comment {
 
   @@index([assessmentId])
   @@index([checklistItemResponseId])
+}
+
+// ----------------------------------------------------------------------------
+// Community discussion (global, cross-organization). Threads are anchored to a
+// framework/requirement. visibility = global (everyone) | org (poster's org).
+// This is its own GLOBAL domain and is never joined to org-scoped compliance data.
+// ----------------------------------------------------------------------------
+
+model Thread {
+  id             String    @id @default(uuid())
+  organizationId String // author's organisation (identity shows the company)
+  authorId       String
+  frameworkId    String? // anchor: the law this thread is about
+  requirementCode String? // optional finer anchor (requirement code within the framework)
+  visibility     String    @default("global") // global | org
+  title          String
+  body           String
+  status         String    @default("open") // open | locked
+  pinned         Boolean   @default(false)
+  score          Int       @default(0)
+  replyCount     Int       @default(0)
+  lastActivityAt DateTime  @default(now())
+  deletedAt      DateTime?
+  createdAt      DateTime  @default(now())
+  updatedAt      DateTime  @updatedAt
+
+  organization Organization @relation(fields: [organizationId], references: [id])
+  author       User         @relation(fields: [authorId], references: [id])
+  framework    Framework?   @relation(fields: [frameworkId], references: [id])
+  posts        ThreadPost[]
+
+  @@index([frameworkId])
+  @@index([visibility])
+  @@index([organizationId])
+  @@index([lastActivityAt])
+}
+
+model ThreadPost {
+  id             String    @id @default(uuid())
+  threadId       String
+  organizationId String
+  authorId       String
+  parentPostId   String? // one level of nesting (reply to a reply)
+  body           String
+  score          Int       @default(0)
+  deletedAt      DateTime?
+  createdAt      DateTime  @default(now())
+  updatedAt      DateTime  @updatedAt
+
+  thread       Thread       @relation(fields: [threadId], references: [id], onDelete: Cascade)
+  author       User         @relation(fields: [authorId], references: [id])
+  organization Organization @relation(fields: [organizationId], references: [id])
+  parent       ThreadPost?  @relation("PostChildren", fields: [parentPostId], references: [id])
+  children     ThreadPost[] @relation("PostChildren")
+
+  @@index([threadId])
+  @@index([parentPostId])
+}
+
+// Votes and reports reference a target by (type, id) rather than a FK, so one
+// table serves both threads and posts. Cached scores live on the target rows.
+model ThreadVote {
+  id         String   @id @default(uuid())
+  userId     String
+  targetType String // thread | post
+  targetId   String
+  value      Int // +1 | -1
+  createdAt  DateTime @default(now())
+
+  user User @relation(fields: [userId], references: [id])
+
+  @@unique([userId, targetType, targetId])
+  @@index([targetType, targetId])
+}
+
+model ThreadReport {
+  id         String    @id @default(uuid())
+  reporterId String
+  targetType String // thread | post
+  targetId   String
+  reason     String
+  resolvedAt DateTime?
+  createdAt  DateTime  @default(now())
+
+  reporter User @relation(fields: [reporterId], references: [id])
+
+  @@index([targetType, targetId])
+  @@index([resolvedAt])
 }

@@ -17,6 +17,7 @@ const dashboardRoutes = require('./dashboardRoutes');
 const reportRoutes = require('./reportRoutes');
 const auditRoutes = require('./auditRoutes');
 const adminRoutes = require('./adminRoutes');
+const communityRoutes = require('./communityRoutes');
 
 const router = express.Router();
 
@@ -37,5 +38,6 @@ router.use('/dashboard', dashboardRoutes);
 router.use('/reports', reportRoutes);
 router.use('/audit', auditRoutes);
 router.use('/admin', adminRoutes);
+router.use('/community', communityRoutes);
 
 module.exports = router;

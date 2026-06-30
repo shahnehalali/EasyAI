@@ -1,7 +1,7 @@
 import { NavLink } from 'react-router-dom';
 import {
   LayoutDashboard, Scale, Cpu, ClipboardCheck, BookOpen, FileText,
-  Bell, ScrollText, Settings, ShieldCheck, HelpCircle,
+  Bell, ScrollText, Settings, ShieldCheck, HelpCircle, MessagesSquare,
 } from 'lucide-react';
 import { useAuth } from '@/hooks/useAuth';
 import { useT } from '@/hooks/useT';
@@ -16,6 +16,7 @@ const NAV = [
   { to: '/documents', label: 'nav.documents', Icon: FileText },
   { section: 'section.explore' },
   { to: '/law-explorer', label: 'nav.lawExplorer', Icon: Scale },
+  { to: '/community', label: 'nav.community', Icon: MessagesSquare },
   { to: '/faq', label: 'nav.faq', Icon: HelpCircle },
   { section: 'section.account' },
   { to: '/notifications', label: 'nav.notifications', Icon: Bell },

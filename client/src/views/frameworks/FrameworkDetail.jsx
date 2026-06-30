@@ -9,6 +9,7 @@ import { riskLabel, formatDate, tierLabel } from '@/utils/format';
 import { useLangStore } from '@/store/langStore';
 import { tLaw } from '@/i18n/lawExplorer';
 import { useT } from '@/hooks/useT';
+import DiscussionTab from '@/components/community/DiscussionTab';
 
 export default function FrameworkDetail() {
   const { key } = useParams();
@@ -144,6 +145,11 @@ export default function FrameworkDetail() {
       <p className="muted" style={{ fontSize: 11, marginTop: 16 }}>
         {t('fd.disclaimer')}
       </p>
+
+      <div style={{ marginTop: 28, borderTop: '2px solid var(--border-2)', paddingTop: 18 }}>
+        <h2 style={{ marginBottom: 12 }}>{t('com.fwTitle')}</h2>
+        <DiscussionTab frameworkKey={key} />
+      </div>
     </div>
   );
 }

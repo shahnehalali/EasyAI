@@ -14,6 +14,8 @@ import { FeedbackProvider } from '@ritjira/feedback-react';
 const TITLES = [
   [/^\/$/, 'title.dashboard'],
   [/^\/law-explorer/, 'title.lawExplorer'],
+  [/^\/community\/[^/]+/, 'title.thread'],
+  [/^\/community/, 'title.community'],
   [/^\/faq/, 'title.faq'],
   [/^\/ai-systems\/new/, 'title.registerAi'],
   [/^\/ai-systems\/[^/]+\/classify/, 'title.classifyAi'],
