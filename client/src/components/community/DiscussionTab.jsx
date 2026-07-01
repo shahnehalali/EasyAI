@@ -70,10 +70,10 @@ export default function DiscussionTab({ frameworkKey, compact = false }) {
         )}
       </div>
 
-      <div className="row-between" style={{ gap: 10, flexWrap: 'wrap', marginBottom: 14 }}>
-        <div className="row" style={{ gap: 6, flexWrap: 'wrap' }}>
+      <div className="row-between community-controls" style={{ gap: 10, flexWrap: 'wrap', marginBottom: 14 }}>
+        <div className="filter-row">
           {SORTS.map((s) => pill(s, sort, setSort, t(`com.sort.${s}`)))}
-          <span style={{ width: 8 }} />
+          <span className="filter-sep" />
           {SCOPES.map((s) => pill(s, scope, setScope, t(`com.scope.${s}`)))}
         </div>
         <button className="btn btn-gold btn-sm" data-testid="new-thread" onClick={() => setShowForm((v) => !v)}>

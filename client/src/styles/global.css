@@ -151,8 +151,10 @@ hr { border: none; border-top: 1px solid var(--border); margin: 16px 0; }
   border-bottom: 1px solid var(--border);
   display: flex; align-items: center; justify-content: space-between; padding: 0 26px; position: sticky; top: 0; z-index: 20;
 }
-.topbar-title { font-weight: 650; color: var(--ink); font-size: 15px; letter-spacing: -0.01em; }
+.topbar-title { font-weight: 650; color: var(--ink); font-size: 15px; letter-spacing: -0.01em; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+.topbar > .row { min-width: 0; }
 .topbar-right { display: flex; align-items: center; gap: 18px; }
+.topbar-right > * { flex-shrink: 0; } /* never squish the controls; they wrap/hide via media queries instead */
 .content { padding: 28px; max-width: 1200px; width: 100%; margin: 0 auto; }
 
 /* ---------- Cards ---------- */
@@ -257,7 +259,7 @@ hr { border: none; border-top: 1px solid var(--border); margin: 16px 0; }
 .row-between { display: flex; gap: 10px; align-items: center; justify-content: space-between; }
 .spacer { flex: 1; }
 .divider { border-top: 1px solid var(--border); margin: 16px 0; }
-.tag-pill { display:inline-block; font-size: 11px; padding: 3px 10px; border: 1px solid var(--border); border-radius: 999px; color: var(--ink-soft); background: var(--surface); }
+.tag-pill { display:inline-block; font-size: 11px; padding: 3px 10px; border: 1px solid var(--border); border-radius: 999px; color: var(--ink-soft); background: var(--surface); white-space: nowrap; }
 
 /* Auth screens */
 .auth-wrap { min-height: 100vh; display: flex; align-items: center; justify-content: center; background: var(--bg); padding: 20px; }
@@ -288,6 +290,34 @@ hr { border: none; border-top: 1px solid var(--border); margin: 16px 0; }
 .back-link:active { transform: translateY(1px); }
 .back-link svg { transition: transform 0.13s; }
 .back-link:hover svg { transform: translateX(-3px); }
+
+/* ---- Community filter pills (sort + scope) ---- */
+.filter-row { display: flex; align-items: center; gap: 6px; flex-wrap: wrap; min-width: 0; }
+.filter-sep { width: 8px; flex-shrink: 0; }
+.community-controls > .filter-row { flex: 1 1 auto; }
+
+/* ---- Community reply composer (sticky chat-style input) ---- */
+.reply-dock {
+  position: sticky; bottom: 14px; z-index: 30; margin-top: 16px;
+  background: var(--surface); border: 1px solid var(--border); border-radius: 16px;
+  box-shadow: var(--shadow-pop); padding: 8px;
+}
+.reply-to { display: flex; align-items: center; justify-content: space-between; padding: 2px 6px 8px; }
+.reply-input-row { display: flex; align-items: flex-end; gap: 8px; }
+.reply-textarea {
+  flex: 1; min-width: 0; resize: none; border: none; background: none; outline: none;
+  color: var(--ink); font: inherit; font-size: 14px; line-height: 1.5; padding: 9px 10px;
+  min-height: 22px; max-height: 160px; overflow-y: auto;
+}
+.reply-textarea::placeholder { color: var(--muted); }
+.reply-send {
+  flex-shrink: 0; width: 40px; height: 40px; min-height: 40px; padding: 0; border-radius: 50%;
+  display: inline-flex; align-items: center; justify-content: center;
+}
+.reply-send:disabled { opacity: 0.45; cursor: default; }
+/* On the thread page, hide the floating buttons so they don't cover the composer. */
+body.reply-dock-open .help-launcher,
+body.reply-dock-open [data-feedback-trigger="true"] { display: none !important; }
 
 /* ---- Community comments (Reddit-style) ---- */
 .comment-list { display: flex; flex-direction: column; }
@@ -381,6 +411,29 @@ hr { border: none; border-top: 1px solid var(--border); margin: 16px 0; }
 @media (max-width: 560px) {
   .help-panel { right: 12px; left: 12px; width: auto; bottom: 80px; }
   .help-launcher { right: 16px; bottom: 16px; }
+
+  /* Topbar: declutter so nothing squishes or gets pushed off-screen. */
+  .topbar { padding: 0 12px; height: 56px; }
+  .topbar-right { gap: 12px; }
+  .topbar [data-testid="org-name"] { display: none; } /* org is in the menu + settings */
+  .topbar-title { max-width: 44vw; }
+
+  /* Buttons keep a comfortable tap height and never collapse. */
+  .btn { min-height: 38px; }
+  .btn-sm { min-height: 32px; }
+
+  /* Community: tighter cards + comments so more room on phones */
+  [data-testid="thread-head"] .card-body { padding: 15px; }
+  [data-testid="thread-head"] h1 { font-size: 18px; line-height: 1.25; }
+  [data-testid="thread-row"] .card-body { padding: 13px; gap: 8px; }
+  .comment-list > .comment { padding: 12px 0; }
+  .comment-children { margin-left: 4px; padding-left: 11px; }
+  .comment-footer { gap: 2px; }
+  .comment-action { padding: 5px 6px; }
+  /* Sort/scope filter pills scroll sideways instead of wrapping messily */
+  .filter-row { flex-wrap: nowrap; overflow-x: auto; -webkit-overflow-scrolling: touch; padding-bottom: 2px; }
+  .filter-row::-webkit-scrollbar { display: none; }
+  .filter-row .btn { flex-shrink: 0; }
 }
 
 /* Profile option buttons (Yes/No, single, multi) — sit on a distinct fill so
@@ -499,6 +552,6 @@ hr { border: none; border-top: 1px solid var(--border); margin: 16px 0; }
   .sidebar-backdrop.show {
     display: block; position: fixed; inset: 0; background: rgba(16,24,40,0.35); z-index: 55;
   }
-  .content { padding: 18px; }
+  .content { padding: 18px 18px 84px; } /* bottom room so the floating buttons do not hide the last item */
   .topbar { padding: 0 16px; }
 }
