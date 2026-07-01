@@ -70,7 +70,7 @@ export default function AssessmentEditor() {
               {t('ae.exportPdf')}
             </a>
           )}
-          <button className="btn btn-gold" onClick={markReviewed} data-testid="mark-reviewed">{t('ae.markReviewed')}</button>
+          {can('compliance.edit') && <button className="btn btn-gold" onClick={markReviewed} data-testid="mark-reviewed">{t('ae.markReviewed')}</button>}
         </div>
       </div>
 

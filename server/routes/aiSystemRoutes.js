@@ -8,13 +8,13 @@ const { createAiSystemSchema, updateAiSystemSchema, classifySchema } = require('
 const router = express.Router();
 router.use(authHandler, requireOrg);
 
-router.post('/', validate(createAiSystemSchema), asyncHandler(ctrl.create));
+router.post('/', requirePermission('compliance.edit'), validate(createAiSystemSchema), asyncHandler(ctrl.create));
 router.get('/', asyncHandler(ctrl.list));
 router.get('/:id', asyncHandler(ctrl.getById));
-router.patch('/:id', validate(updateAiSystemSchema), asyncHandler(ctrl.update));
+router.patch('/:id', requirePermission('compliance.edit'), validate(updateAiSystemSchema), asyncHandler(ctrl.update));
 router.delete('/:id', requirePermission('compliance.edit'), asyncHandler(ctrl.remove));
 router.get('/:id/questionnaire', asyncHandler(ctrl.getQuestionnaire));
-router.post('/:id/classify', validate(classifySchema), asyncHandler(ctrl.classify));
+router.post('/:id/classify', requirePermission('compliance.edit'), validate(classifySchema), asyncHandler(ctrl.classify));
 router.get('/:id/data-profile', asyncHandler(ctrl.getDataProfile));
 router.get('/:id/data-profile/pdf', asyncHandler(ctrl.dataProfilePdf));
 router.post('/:id/data-profile', requirePermission('compliance.edit'), asyncHandler(ctrl.saveDataProfile));

@@ -13,6 +13,6 @@ router.post('/start', requirePermission('compliance.edit'), validate(startCheckl
 router.post('/start-frameworks', requirePermission('compliance.edit'), validate(startFrameworksSchema), asyncHandler(ctrl.startFrameworks));
 router.get('/:id', asyncHandler(ctrl.getById));
 router.get('/:id/activity', asyncHandler(ctrl.getActivity));
-router.post('/:id/mark-reviewed', asyncHandler(ctrl.markReviewed));
+router.post('/:id/mark-reviewed', requirePermission('compliance.edit'), asyncHandler(ctrl.markReviewed));
 
 module.exports = router;

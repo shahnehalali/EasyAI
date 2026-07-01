@@ -12,7 +12,8 @@ const STATUSES = ['not_started', 'in_progress', 'done', 'not_applicable'];
 
 export default function ChecklistItem({ response, members = [], onChanged }) {
   const item = response.templateItem;
-  const { user } = useAuth();
+  const { user, can } = useAuth();
+  const canEdit = can('compliance.edit');
   const { t, lang } = useT();
   const [status, setStatus] = useState(response.status);
   const [text, setText] = useState(response.responseText || '');
@@ -103,26 +104,32 @@ export default function ChecklistItem({ response, members = [], onChanged }) {
           <StatusChip status={status} />
         </div>
 
-        <div className="row" role="group" aria-label={`Status for ${item.title}`} style={{ gap: 6, flexWrap: 'wrap', margin: '10px 0' }}>
-          {STATUSES.map((s) => {
-            const active = status === s;
-            const color = STATUS_BTN_COLOR[s] || 'var(--accent)';
-            return (
-              <button key={s} data-testid={`status-${s}`} onClick={() => pickStatus(s)} aria-pressed={active}
-                className="btn btn-sm" style={{
-                  background: active ? color : 'var(--surface)', color: active ? '#fff' : 'var(--ink)',
-                  border: `1px solid ${active ? color : 'var(--border)'}`,
-                }}>
-                {statusLabel(s, lang)}
-              </button>
-            );
-          })}
-        </div>
+        {canEdit && (
+          <div className="row" role="group" aria-label={`Status for ${item.title}`} style={{ gap: 6, flexWrap: 'wrap', margin: '10px 0' }}>
+            {STATUSES.map((s) => {
+              const active = status === s;
+              const color = STATUS_BTN_COLOR[s] || 'var(--accent)';
+              return (
+                <button key={s} data-testid={`status-${s}`} onClick={() => pickStatus(s)} aria-pressed={active}
+                  className="btn btn-sm" style={{
+                    background: active ? color : 'var(--surface)', color: active ? '#fff' : 'var(--ink)',
+                    border: `1px solid ${active ? color : 'var(--border)'}`,
+                  }}>
+                  {statusLabel(s, lang)}
+                </button>
+              );
+            })}
+          </div>
+        )}
 
         {item.inputType !== 'none' && item.inputType !== 'boolean' && (
-          <textarea className="textarea" data-testid="response-text" aria-label={`Documentation for ${item.title}`}
-            placeholder={t('ci.responsePlaceholder')}
-            value={text} onChange={(e) => setText(e.target.value)} onBlur={blurText} />
+          canEdit ? (
+            <textarea className="textarea" data-testid="response-text" aria-label={`Documentation for ${item.title}`}
+              placeholder={t('ci.responsePlaceholder')}
+              value={text} onChange={(e) => setText(e.target.value)} onBlur={blurText} />
+          ) : (
+            text ? <p className="small" style={{ whiteSpace: 'pre-wrap', margin: '10px 0 0' }}>{text}</p> : null
+          )
         )}
 
         {docs.length > 0 && (
@@ -132,16 +139,18 @@ export default function ChecklistItem({ response, members = [], onChanged }) {
                 <FileText size={13} aria-hidden="true" style={{ color: 'var(--muted)' }} />
                 <a href={documentApi.downloadUrl(d.id)} target="_blank" rel="noreferrer">{d.fileName}</a>
                 <span className="muted">{bytes(d.sizeBytes)}</span>
-                <button
-                  className="btn btn-ghost btn-sm"
-                  data-testid="remove-document"
-                  aria-label={`Remove ${d.fileName}`}
-                  title={t('ci.removeDocument')}
-                  onClick={() => removeDoc(d)}
-                  style={{ padding: '2px 6px', color: 'var(--red)', lineHeight: 1 }}
-                >
-                  <Trash2 size={13} aria-hidden="true" />
-                </button>
+                {canEdit && (
+                  <button
+                    className="btn btn-ghost btn-sm"
+                    data-testid="remove-document"
+                    aria-label={`Remove ${d.fileName}`}
+                    title={t('ci.removeDocument')}
+                    onClick={() => removeDoc(d)}
+                    style={{ padding: '2px 6px', color: 'var(--red)', lineHeight: 1 }}
+                  >
+                    <Trash2 size={13} aria-hidden="true" />
+                  </button>
+                )}
               </div>
             ))}
           </div>
@@ -149,26 +158,28 @@ export default function ChecklistItem({ response, members = [], onChanged }) {
 
         {error && <div className="error-text" style={{ marginTop: 8 }}>{error}</div>}
 
-        <div className="row" style={{ gap: 10, marginTop: 12, alignItems: 'center', flexWrap: 'wrap' }}>
-          <button className="btn btn-primary btn-sm" data-testid="save-item" onClick={saveNow} disabled={saving}>
-            {saving ? t('ci.saving') : t('ci.save')}
-          </button>
-          <label className="btn btn-outline btn-sm" style={{ cursor: 'pointer' }}>
-            {t('ci.attachDocument')}
-            <input type="file" data-testid="attach-file" onChange={attach} style={{ display: 'none' }} aria-label={`${t('ci.attachDocument')} - ${item.title}`} />
-          </label>
-          <label className="row small" style={{ gap: 6 }}>
-            <span className="muted">{t('ci.assignee')}</span>
-            <select className="select" data-testid="assignee-select" style={{ width: 160, padding: '5px 8px' }}
-              value={assigneeId} onChange={(e) => assign(e.target.value)} aria-label={`${t('ci.assignee')} - ${item.title}`}>
-              <option value="">{t('ci.unassigned')}</option>
-              {members.map((m) => <option key={m.id} value={m.id}>{m.fullName}</option>)}
-            </select>
-          </label>
-          <span className="small muted" aria-live="polite" style={{ minWidth: 90 }}>
-            {saving ? t('ci.saving') : saved ? <span style={{ color: 'var(--green)' }} data-testid="saved-flag">{t('ci.saved')} ✓</span> : dirty ? t('ci.unsavedChanges') : t('ci.savedAutomatically')}
-          </span>
-        </div>
+        {canEdit && (
+          <div className="row" style={{ gap: 10, marginTop: 12, alignItems: 'center', flexWrap: 'wrap' }}>
+            <button className="btn btn-primary btn-sm" data-testid="save-item" onClick={saveNow} disabled={saving}>
+              {saving ? t('ci.saving') : t('ci.save')}
+            </button>
+            <label className="btn btn-outline btn-sm" style={{ cursor: 'pointer' }}>
+              {t('ci.attachDocument')}
+              <input type="file" data-testid="attach-file" onChange={attach} style={{ display: 'none' }} aria-label={`${t('ci.attachDocument')} - ${item.title}`} />
+            </label>
+            <label className="row small" style={{ gap: 6 }}>
+              <span className="muted">{t('ci.assignee')}</span>
+              <select className="select" data-testid="assignee-select" style={{ width: 160, padding: '5px 8px' }}
+                value={assigneeId} onChange={(e) => assign(e.target.value)} aria-label={`${t('ci.assignee')} - ${item.title}`}>
+                <option value="">{t('ci.unassigned')}</option>
+                {members.map((m) => <option key={m.id} value={m.id}>{m.fullName}</option>)}
+              </select>
+            </label>
+            <span className="small muted" aria-live="polite" style={{ minWidth: 90 }}>
+              {saving ? t('ci.saving') : saved ? <span style={{ color: 'var(--green)' }} data-testid="saved-flag">{t('ci.saved')} ✓</span> : dirty ? t('ci.unsavedChanges') : t('ci.savedAutomatically')}
+            </span>
+          </div>
+        )}
 
         {/* Comments thread */}
         <div style={{ marginTop: 14, borderTop: '1px solid var(--border-2)', paddingTop: 12 }}>
@@ -188,12 +199,14 @@ export default function ChecklistItem({ response, members = [], onChanged }) {
               ))}
             </div>
           )}
-          <div className="row" style={{ gap: 8 }}>
-            <input className="input" data-testid="comment-input" placeholder={t('ci.commentPlaceholder')}
-              value={draft} onChange={(e) => setDraft(e.target.value)}
-              onKeyDown={(e) => { if (e.key === 'Enter') { e.preventDefault(); addComment(); } }} />
-            <button className="btn btn-outline btn-sm" data-testid="add-comment" onClick={addComment} disabled={!draft.trim()}>{t('ci.comment')}</button>
-          </div>
+          {canEdit && (
+            <div className="row" style={{ gap: 8 }}>
+              <input className="input" data-testid="comment-input" placeholder={t('ci.commentPlaceholder')}
+                value={draft} onChange={(e) => setDraft(e.target.value)}
+                onKeyDown={(e) => { if (e.key === 'Enter') { e.preventDefault(); addComment(); } }} />
+              <button className="btn btn-outline btn-sm" data-testid="add-comment" onClick={addComment} disabled={!draft.trim()}>{t('ci.comment')}</button>
+            </div>
+          )}
         </div>
       </div>
     </div>

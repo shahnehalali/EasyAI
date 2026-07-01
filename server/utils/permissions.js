@@ -1,9 +1,11 @@
 // Single source of truth for role-based permissions.
-// Roles (org): owner > admin > member. platform_admin authors the law catalog.
+// Roles (org): owner > admin > member > viewer. viewer is read-only (can see
+// everything and export, but cannot create/edit/delete anything or manage the
+// org). platform_admin authors the law catalog.
 const MATRIX = {
-  'compliance.view': ['member', 'admin', 'owner', 'platform_admin'],
+  'compliance.view': ['viewer', 'member', 'admin', 'owner', 'platform_admin'],
   'compliance.edit': ['member', 'admin', 'owner'],
-  'export': ['member', 'admin', 'owner'],
+  'export': ['viewer', 'member', 'admin', 'owner'],
   'members.manage': ['admin', 'owner'],
   'org.manage': ['admin', 'owner'],
   'catalog.manage': ['platform_admin'],
