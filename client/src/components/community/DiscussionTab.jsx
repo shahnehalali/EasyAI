@@ -4,6 +4,7 @@ import { useNavigate } from 'react-router-dom';
 import { Plus, Search, X } from 'lucide-react';
 import { threadApi } from '@/apis/threadApi';
 import { useT } from '@/hooks/useT';
+import { useAuth } from '@/hooks/useAuth';
 import { SkeletonPage, ErrorState, EmptyState } from '@/components/ui/Ui';
 import ThreadList from './ThreadList';
 import NewThreadForm from './NewThreadForm';
@@ -15,6 +16,8 @@ const SCOPES = ['all', 'global', 'org'];
 // the framework page); without it, it shows the whole community.
 export default function DiscussionTab({ frameworkKey, compact = false }) {
   const { t, lang } = useT();
+  const { can } = useAuth();
+  const canWrite = can('compliance.edit');
   const qc = useQueryClient();
   const navigate = useNavigate();
   const [sort, setSort] = useState('hot');
@@ -36,6 +39,7 @@ export default function DiscussionTab({ frameworkKey, compact = false }) {
   });
 
   const onVote = async (thread, value) => {
+    if (!canWrite) return;
     const res = await threadApi.voteThread(thread.id, value);
     qc.setQueryData(key, (cur = []) => cur.map((th) => (th.id === thread.id ? { ...th, score: res.score, myVote: res.myVote } : th)));
   };
@@ -76,9 +80,11 @@ export default function DiscussionTab({ frameworkKey, compact = false }) {
           <span className="filter-sep" />
           {SCOPES.map((s) => pill(s, scope, setScope, t(`com.scope.${s}`)))}
         </div>
-        <button className="btn btn-gold btn-sm" data-testid="new-thread" onClick={() => setShowForm((v) => !v)}>
-          <Plus size={15} /> {frameworkKey ? t('com.start') : t('com.new')}
-        </button>
+        {canWrite && (
+          <button className="btn btn-gold btn-sm" data-testid="new-thread" onClick={() => setShowForm((v) => !v)}>
+            <Plus size={15} /> {frameworkKey ? t('com.start') : t('com.new')}
+          </button>
+        )}
       </div>
 
       {showForm && (

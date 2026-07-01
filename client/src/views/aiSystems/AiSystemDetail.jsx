@@ -42,9 +42,11 @@ export default function AiSystemDetail() {
         </div>
         <div className="row" style={{ gap: 8 }}>
           {system.riskCategory && <RiskChip risk={system.riskCategory} />}
-          <Link className="btn btn-outline btn-sm" to={`/ai-systems/${id}/classify`}>
-            {system.riskCategory ? t('asd.reclassify') : t('asd.classify')}
-          </Link>
+          {can('compliance.edit') && (
+            <Link className="btn btn-outline btn-sm" to={`/ai-systems/${id}/classify`}>
+              {system.riskCategory ? t('asd.reclassify') : t('asd.classify')}
+            </Link>
+          )}
           <Link className="btn btn-outline btn-sm" to={`/ai-systems/${id}/profile`} data-testid="data-profile-link">{t('asd.dataProfile')}</Link>
           {can('compliance.edit') && (
             <button className="btn btn-danger btn-sm" data-testid="delete-ai-system" onClick={onDelete}>{t('common.delete')}</button>

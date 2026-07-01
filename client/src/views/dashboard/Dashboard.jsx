@@ -35,7 +35,7 @@ export default function Dashboard() {
               <a className="btn btn-outline" href={reportApi.orgCsvUrl()} data-testid="export-org-csv">{t('dash.exportCsv')}</a>
             </>
           )}
-          <Link className="btn btn-primary" to="/ai-systems/new">{t('dash.register')}</Link>
+          {can('compliance.edit') && <Link className="btn btn-primary" to="/ai-systems/new">{t('dash.register')}</Link>}
         </div>
       </div>
 

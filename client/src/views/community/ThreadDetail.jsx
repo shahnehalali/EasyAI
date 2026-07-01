@@ -4,6 +4,7 @@ import { useParams, Link, useNavigate } from 'react-router-dom';
 import { Lock, Unlock, Trash2, Flag, Send } from 'lucide-react';
 import { threadApi } from '@/apis/threadApi';
 import { useT } from '@/hooks/useT';
+import { useAuth } from '@/hooks/useAuth';
 import { SkeletonPage, ErrorState, Card, Chip, Banner } from '@/components/ui/Ui';
 import VoteControl from '@/components/community/VoteControl';
 import AuthorLine from '@/components/community/AuthorLine';
@@ -13,6 +14,8 @@ import BackLink from '@/components/BackLink';
 export default function ThreadDetail() {
   const { id } = useParams();
   const { t, lang } = useT();
+  const { can } = useAuth();
+  const canWrite = can('compliance.edit');
   const qc = useQueryClient();
   const navigate = useNavigate();
   const [reply, setReply] = useState('');
@@ -53,10 +56,12 @@ export default function ThreadDetail() {
   const refresh = () => qc.invalidateQueries({ queryKey: ['thread', id] });
 
   const voteThread = async (value) => {
+    if (!canWrite) return;
     const res = await threadApi.voteThread(thread.id, value);
     qc.setQueryData(key, (cur) => (cur ? { ...cur, thread: { ...cur.thread, score: res.score, myVote: res.myVote } } : cur));
   };
   const votePost = async (post, value) => {
+    if (!canWrite) return;
     const res = await threadApi.votePost(post.id, value);
     qc.setQueryData(key, (cur) => cur && ({
       ...cur,
@@ -81,6 +86,7 @@ export default function ThreadDetail() {
     await threadApi.removePost(post.id); refresh();
   };
   const reportTarget = async (targetType, targetId) => {
+    if (!canWrite) return;
     const reason = window.prompt(t('com.reportPrompt'));
     if (!reason) return;
     await threadApi.report({ targetType, targetId, reason });
@@ -124,9 +130,11 @@ export default function ThreadDetail() {
                 {thread.canModerate && (
                   <button className="btn btn-ghost btn-sm" style={{ color: 'var(--red)' }} onClick={deleteThread}><Trash2 size={13} /></button>
                 )}
-                <button className="btn btn-ghost btn-sm" style={{ color: 'var(--muted)' }} onClick={() => reportTarget('thread', thread.id)}>
-                  <Flag size={13} /> {t('com.report')}
-                </button>
+                {canWrite && (
+                  <button className="btn btn-ghost btn-sm" style={{ color: 'var(--muted)' }} onClick={() => reportTarget('thread', thread.id)}>
+                    <Flag size={13} /> {t('com.report')}
+                  </button>
+                )}
               </div>
             </div>
           </div>
@@ -142,16 +150,17 @@ export default function ThreadDetail() {
             key={post.id}
             post={post}
             childPosts={children}
+            readOnly={!canWrite}
             onVote={votePost}
             onDelete={deletePost}
             onReport={(p) => reportTarget('post', p.id)}
-            onReply={thread.status === 'locked' ? undefined : startReplyTo}
+            onReply={(!canWrite || thread.status === 'locked') ? undefined : startReplyTo}
           />
         ))}
       </div>
 
       {/* Sticky reply composer, pinned to the bottom like a chat input */}
-      {thread.status === 'locked' ? (
+      {!canWrite ? null : thread.status === 'locked' ? (
         <div className="reply-dock"><Banner kind="info">{t('com.lockedNotice')}</Banner></div>
       ) : (
         <form className="reply-dock" onSubmit={submitReply}>

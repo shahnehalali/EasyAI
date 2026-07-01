@@ -19,6 +19,7 @@ export default function Settings() {
     ['owner', t('set.capOwner')],
     ['admin', t('set.capAdmin')],
     ['member', t('set.capMember')],
+    ['viewer', t('set.capViewer')],
   ];
 
   const { data: org, isLoading } = useQuery({ queryKey: ['organization'], queryFn: organizationApi.current });
@@ -74,7 +75,7 @@ export default function Settings() {
 
   const revokeInvite = async (id) => { await invitationApi.revoke(id); refreshMembers(); };
 
-  const roleOptions = user?.role === 'owner' ? ['owner', 'admin', 'member'] : ['admin', 'member'];
+  const roleOptions = user?.role === 'owner' ? ['owner', 'admin', 'member', 'viewer'] : ['admin', 'member', 'viewer'];
 
   return (
     <div data-testid="settings" style={{ maxWidth: 860 }}>
@@ -129,6 +130,7 @@ export default function Settings() {
                 <select id="invite-role" className="select" data-testid="invite-role" value={invite.role} onChange={(e) => setInvite({ ...invite, role: e.target.value })}>
                   <option value="member">{t('set.r.member')}</option>
                   <option value="admin">{t('set.r.admin')}</option>
+                  <option value="viewer">{t('set.r.viewer')}</option>
                 </select>
               </div>
               <button className="btn btn-primary" type="submit" data-testid="send-invite">{t('set.sendInvite')}</button>

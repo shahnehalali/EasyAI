@@ -5,7 +5,7 @@ const updateMeSchema = z.object({
 });
 
 const updateRoleSchema = z.object({
-  role: z.enum(['owner', 'admin', 'member']),
+  role: z.enum(['owner', 'admin', 'member', 'viewer']),
 });
 
 module.exports = { updateMeSchema, updateRoleSchema };

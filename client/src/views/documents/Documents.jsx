@@ -3,9 +3,12 @@ import { documentApi } from '@/apis/documentApi';
 import { SkeletonPage, ErrorState, EmptyState } from '@/components/ui/Ui';
 import { formatDate, bytes } from '@/utils/format';
 import { useT } from '@/hooks/useT';
+import { useAuth } from '@/hooks/useAuth';
 
 export default function Documents() {
   const { t } = useT();
+  const { can } = useAuth();
+  const canEdit = can('compliance.edit');
   const qc = useQueryClient();
   const { data: documents = [], isLoading, error, refetch } = useQuery({ queryKey: ['documents'], queryFn: documentApi.list });
 
@@ -33,10 +36,12 @@ export default function Documents() {
           <h1>{t('doc.title')}</h1>
           <p className="sub">{t('doc.sub')}</p>
         </div>
-        <label className="btn btn-primary" style={{ cursor: 'pointer' }}>
-          {t('doc.upload')}
-          <input type="file" data-testid="upload-file" onChange={upload} style={{ display: 'none' }} />
-        </label>
+        {canEdit && (
+          <label className="btn btn-primary" style={{ cursor: 'pointer' }}>
+            {t('doc.upload')}
+            <input type="file" data-testid="upload-file" onChange={upload} style={{ display: 'none' }} />
+          </label>
+        )}
       </div>
 
       {documents.length === 0 ? (
@@ -53,7 +58,7 @@ export default function Documents() {
                   <td className="muted small">{bytes(d.sizeBytes)}</td>
                   <td className="muted small">{formatDate(d.createdAt)}</td>
                   <td style={{ textAlign: 'right' }}>
-                    <button className="btn btn-danger btn-sm" data-testid="delete-document" onClick={() => remove(d.id)}>{t('common.delete')}</button>
+                    {canEdit && <button className="btn btn-danger btn-sm" data-testid="delete-document" onClick={() => remove(d.id)}>{t('common.delete')}</button>}
                   </td>
                 </tr>
               ))}

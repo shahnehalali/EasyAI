@@ -2,7 +2,7 @@ const { z } = require('zod');
 
 const createInvitationSchema = z.object({
   email: z.string().trim().toLowerCase().email('A valid email is required'),
-  role: z.enum(['admin', 'member']).default('member'),
+  role: z.enum(['admin', 'member', 'viewer']).default('member'),
 });
 
 const acceptInvitationSchema = z.object({

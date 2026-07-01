@@ -7,13 +7,13 @@ import { initials, fromNow } from '@/utils/format';
 // footer action row with a horizontal vote pill and actions. Each top-level
 // comment renders its own (one level of) child replies under a thread line and
 // can be collapsed, hiding its body, actions and children.
-export default function PostItem({ post, childPosts = [], onVote, onDelete, onReport, onReply }) {
+export default function PostItem({ post, childPosts = [], readOnly = false, onVote, onDelete, onReport, onReply }) {
   const { t, lang } = useT();
   const [collapsed, setCollapsed] = useState(false);
   const replyCount = childPosts.length;
   const name = post.author?.fullName || 'Unknown';
 
-  const setVote = (dir) => () => onVote?.(post, post.myVote === dir ? 0 : dir);
+  const setVote = (dir) => () => { if (!readOnly) onVote?.(post, post.myVote === dir ? 0 : dir); };
 
   return (
     <div className="comment" data-testid="post-item">
@@ -46,18 +46,20 @@ export default function PostItem({ post, childPosts = [], onVote, onDelete, onRe
           {!post.deleted && (
             <div className="comment-footer">
               <div className="vote-inline">
-                <button type="button" className={`up${post.myVote === 1 ? ' on' : ''}`} aria-label="Upvote" aria-pressed={post.myVote === 1} onClick={setVote(1)}>
+                <button type="button" className={`up${post.myVote === 1 ? ' on' : ''}`} aria-label="Upvote" aria-pressed={post.myVote === 1} onClick={setVote(1)} disabled={readOnly}>
                   <ChevronUp size={16} strokeWidth={2.4} />
                 </button>
                 <span className="vote-score">{post.score}</span>
-                <button type="button" className={`down${post.myVote === -1 ? ' on' : ''}`} aria-label="Downvote" aria-pressed={post.myVote === -1} onClick={setVote(-1)}>
+                <button type="button" className={`down${post.myVote === -1 ? ' on' : ''}`} aria-label="Downvote" aria-pressed={post.myVote === -1} onClick={setVote(-1)} disabled={readOnly}>
                   <ChevronDown size={16} strokeWidth={2.4} />
                 </button>
               </div>
               {onReply && (
                 <button className="comment-action" onClick={() => onReply(post)}><CornerDownRight size={13} /> {t('com.reply')}</button>
               )}
-              <button className="comment-action" onClick={() => onReport?.(post)}><Flag size={13} /> {t('com.report')}</button>
+              {!readOnly && (
+                <button className="comment-action" onClick={() => onReport?.(post)}><Flag size={13} /> {t('com.report')}</button>
+              )}
               {post.canModerate && (
                 <button className="comment-action danger" onClick={() => onDelete?.(post)}><Trash2 size={13} /> {t('common.delete')}</button>
               )}
@@ -67,7 +69,7 @@ export default function PostItem({ post, childPosts = [], onVote, onDelete, onRe
           {replyCount > 0 && (
             <div className="comment-children">
               {childPosts.map((c) => (
-                <PostItem key={c.id} post={c} onVote={onVote} onDelete={onDelete} onReport={onReport} />
+                <PostItem key={c.id} post={c} readOnly={readOnly} onVote={onVote} onDelete={onDelete} onReport={onReport} />
               ))}
             </div>
           )}

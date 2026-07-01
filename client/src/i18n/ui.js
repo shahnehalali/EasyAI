@@ -258,6 +258,7 @@ export const UI = {
     'set.capOwner': 'Full control: members, billing, settings, and all compliance work',
     'set.capAdmin': 'Manage members and settings, and do all compliance work',
     'set.capMember': 'Do compliance work (AI systems, assessments, documents) but not manage members',
+    'set.capViewer': 'Read-only: view everything and export reports, but cannot change anything',
     'set.reminders': 'Annual review reminders',
     'set.remindersEmpty': 'Reminders are created automatically when you classify an AI system.',
     'set.colAssessment': 'Assessment',
@@ -271,6 +272,7 @@ export const UI = {
     'set.r.owner': 'Owner',
     'set.r.admin': 'Admin',
     'set.r.member': 'Member',
+    'set.r.viewer': 'Viewer',
     'set.r.platform_admin': 'Platform admin',
     'set.cadenceAnnual': 'Annual',
 
@@ -789,6 +791,7 @@ export const UI = {
     'set.capOwner': 'Volle Kontrolle: Mitglieder, Abrechnung, Einstellungen und alle Compliance-Arbeiten',
     'set.capAdmin': 'Mitglieder und Einstellungen verwalten sowie alle Compliance-Arbeiten durchführen',
     'set.capMember': 'Compliance-Arbeiten durchführen (KI-Systeme, Bewertungen, Dokumente), aber keine Mitglieder verwalten',
+    'set.capViewer': 'Nur Lesen: alles ansehen und Berichte exportieren, aber nichts ändern',
     'set.reminders': 'Jährliche Prüfungserinnerungen',
     'set.remindersEmpty': 'Erinnerungen werden automatisch erstellt, wenn Sie ein KI-System einstufen.',
     'set.colAssessment': 'Bewertung',
@@ -802,6 +805,7 @@ export const UI = {
     'set.r.owner': 'Eigentümer',
     'set.r.admin': 'Admin',
     'set.r.member': 'Mitglied',
+    'set.r.viewer': 'Betrachter',
     'set.r.platform_admin': 'Plattform-Admin',
     'set.cadenceAnnual': 'Jährlich',
 

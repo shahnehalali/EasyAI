@@ -4,9 +4,12 @@ import { aiSystemApi } from '@/apis/aiSystemApi';
 import { SkeletonPage, ErrorState, RiskChip, EmptyState } from '@/components/ui/Ui';
 import { formatDate } from '@/utils/format';
 import { useT } from '@/hooks/useT';
+import { useAuth } from '@/hooks/useAuth';
 
 export default function AiSystems() {
   const { t } = useT();
+  const { can } = useAuth();
+  const canEdit = can('compliance.edit');
   const { data: systems = [], isLoading, error, refetch } = useQuery({ queryKey: ['ai-systems'], queryFn: aiSystemApi.list });
 
   if (isLoading) return <SkeletonPage />;
@@ -20,7 +23,7 @@ export default function AiSystems() {
           <h1>{t('ai.title')}</h1>
           <p className="sub">{t('ai.sub')}</p>
         </div>
-        <Link className="btn btn-primary" to="/ai-systems/new" data-testid="new-ai-system">{t('common.register')}</Link>
+        {canEdit && <Link className="btn btn-primary" to="/ai-systems/new" data-testid="new-ai-system">{t('common.register')}</Link>}
       </div>
 
       {systems.length === 0 ? (
@@ -37,12 +40,12 @@ export default function AiSystems() {
               {systems.map((s) => (
                 <tr key={s.id} data-testid="ai-system-row">
                   <td><Link to={`/ai-systems/${s.id}`}><strong>{s.name}</strong></Link><div className="muted small">{s.purpose}</div></td>
-                  <td>{s.riskCategory ? <RiskChip risk={s.riskCategory} /> : (
+                  <td>{s.riskCategory ? <RiskChip risk={s.riskCategory} /> : (canEdit ? (
                     <div className="row" style={{ gap: 6, flexWrap: 'wrap' }}>
                       <Link className="btn btn-gold btn-sm" to={`/ai-systems/${s.id}/classify`}>{t('common.classifyNow')}</Link>
                       <Link className="btn btn-outline btn-sm" to={`/ai-systems/${s.id}/profile`}>{t('asd.dataProfile')}</Link>
                     </div>
-                  )}</td>
+                  ) : <RiskChip risk={null} />)}</td>
                   <td className="muted small">{s.vendor === 'in_house' ? t('common.inHouse') : s.vendor === 'third_party' ? t('common.thirdParty') : '-'}</td>
                   <td className="muted small">{['planning', 'deployed', 'retired'].includes(s.lifecycleStage) ? t(`ain.${s.lifecycleStage}`) : s.lifecycleStage}</td>
                   <td>{s._count?.assessments || 0}</td>
