@@ -1,6 +1,7 @@
 const { prisma } = require('../../db/db');
 const ErrorResponse = require('../../utils/errorResponse');
 const { recordAudit } = require('../../utils/audit');
+const { encryptField, decryptField } = require('../../services/crypto/fieldCrypto');
 
 function publicComment(c) {
   return {
@@ -32,12 +33,13 @@ async function create(req, res) {
       assessmentId,
       checklistItemResponseId: checklistItemResponseId || null,
       authorId: req.user.id,
-      body,
+      body: await encryptField(req.organizationId, body),
     },
     include: { author: { select: { id: true, fullName: true } } },
   });
 
   await recordAudit({ req, action: 'comment.added', entityType: 'Assessment', entityId: assessmentId });
+  comment.body = await decryptField(req.organizationId, comment.body);
   res.status(201).json({ comment: publicComment(comment) });
 }
 
@@ -54,6 +56,7 @@ async function listByAssessment(req, res) {
     orderBy: { createdAt: 'asc' },
     include: { author: { select: { id: true, fullName: true } } },
   });
+  for (const c of comments) c.body = await decryptField(req.organizationId, c.body);
   res.json({ comments: comments.map(publicComment) });
 }
 

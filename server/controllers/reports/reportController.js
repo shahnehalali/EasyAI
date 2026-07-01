@@ -4,6 +4,7 @@ const { toCsv } = require('../../utils/csv');
 const reportService = require('../../services/reports/reportService');
 const { computeOrgSummary } = require('../../services/reports/aggregateService');
 const { sendMonthlyReports } = require('../../services/reports/reportScheduler');
+const { decryptField } = require('../../services/crypto/fieldCrypto');
 
 function attach(res, type, filename) {
   res.setHeader('Content-Type', type);
@@ -26,6 +27,7 @@ async function assessmentPdf(req, res) {
       },
     },
   });
+  for (const r of assessment.responses || []) r.responseText = await decryptField(req.organizationId, r.responseText);
   const org = await prisma.organization.findUnique({ where: { id: req.organizationId } });
   attach(res, 'application/pdf', `assessment-${assessment.id.slice(0, 8)}.pdf`);
   reportService.renderAssessmentPdf(res, assessment, org?.name);

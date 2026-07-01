@@ -30,5 +30,5 @@ ENV PORT=4000
 EXPOSE 4000
 
 # Sync schema, seed the catalog (idempotent; demo users skipped in production),
-# then run the API.
-CMD ["sh", "-c", "npx prisma db push --skip-generate && npm run seed && node index.js"]
+# encrypt any pre-existing plaintext (idempotent), then run the API.
+CMD ["sh", "-c", "npx prisma db push --skip-generate && npm run seed && node scripts/backfillEncryption.js && node index.js"]

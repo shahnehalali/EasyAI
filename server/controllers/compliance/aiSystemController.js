@@ -4,8 +4,20 @@ const { recordAudit } = require('../../utils/audit');
 const classificationService = require('../../services/classification/classificationService');
 const gdprProfileService = require('../../services/profile/gdprProfileService');
 const reportService = require('../../services/reports/reportService');
+const { encryptField, decryptField, encryptJson, decryptJson } = require('../../services/crypto/fieldCrypto');
 
 const DEFAULT_QUESTIONNAIRE_KEY = 'eu_ai_act_risk';
+
+// Decrypt an AI system's sensitive fields in place for API responses / processing.
+async function decryptSystem(orgId, s) {
+  if (!s) return s;
+  s.description = await decryptField(orgId, s.description);
+  s.purpose = await decryptField(orgId, s.purpose);
+  s.classificationExplanation = await decryptField(orgId, s.classificationExplanation);
+  s.classificationAnswers = await decryptJson(orgId, s.classificationAnswers);
+  s.dataProfile = await decryptJson(orgId, s.dataProfile);
+  return s;
+}
 
 // POST /api/ai-systems
 async function create(req, res) {
@@ -13,15 +25,15 @@ async function create(req, res) {
     data: {
       organizationId: req.organizationId,
       name: req.body.name,
-      description: req.body.description,
-      purpose: req.body.purpose,
+      description: await encryptField(req.organizationId, req.body.description),
+      purpose: await encryptField(req.organizationId, req.body.purpose),
       vendor: req.body.vendor,
       lifecycleStage: req.body.lifecycleStage || 'planning',
       createdById: req.user.id,
     },
   });
   await recordAudit({ req, action: 'ai_system.create', entityType: 'AiSystem', entityId: system.id });
-  res.status(201).json({ aiSystem: system });
+  res.status(201).json({ aiSystem: await decryptSystem(req.organizationId, system) });
 }
 
 // GET /api/ai-systems
@@ -31,6 +43,7 @@ async function list(req, res) {
     orderBy: { createdAt: 'desc' },
     include: { _count: { select: { assessments: true } } },
   });
+  for (const s of systems) await decryptSystem(req.organizationId, s);
   res.json({ aiSystems: systems });
 }
 
@@ -54,14 +67,17 @@ async function getById(req, res) {
       },
     },
   });
-  res.json({ aiSystem: system });
+  res.json({ aiSystem: await decryptSystem(req.organizationId, system) });
 }
 
 // PATCH /api/ai-systems/:id
 async function update(req, res) {
   await findOwned(req.params.id, req.organizationId);
-  const system = await prisma.aiSystem.update({ where: { id: req.params.id }, data: req.body });
-  res.json({ aiSystem: system });
+  const data = { ...req.body };
+  if (data.description !== undefined) data.description = await encryptField(req.organizationId, data.description);
+  if (data.purpose !== undefined) data.purpose = await encryptField(req.organizationId, data.purpose);
+  const system = await prisma.aiSystem.update({ where: { id: req.params.id }, data });
+  res.json({ aiSystem: await decryptSystem(req.organizationId, system) });
 }
 
 // DELETE /api/ai-systems/:id  -> also removes the system's assessments.
@@ -97,17 +113,19 @@ async function classify(req, res) {
     where: { id: system.id },
     data: {
       riskCategory,
-      classificationExplanation: explanation,
-      classificationAnswers: answers,
+      classificationExplanation: await encryptField(req.organizationId, explanation),
+      classificationAnswers: await encryptJson(req.organizationId, answers),
       classificationQuestionnaireKey: DEFAULT_QUESTIONNAIRE_KEY,
       classifiedAt: new Date(),
     },
   });
 
+  // instantiateAssessments only reads riskCategory (plaintext), so this is safe.
   const assessments = await classificationService.instantiateAssessments({
     organizationId: req.organizationId,
     aiSystem: updated,
   });
+  await decryptSystem(req.organizationId, updated);
 
   await recordAudit({
     req, action: 'ai_system.classified', entityType: 'AiSystem', entityId: system.id,
@@ -128,7 +146,7 @@ async function getDataProfile(req, res) {
   const lang = req.query.lang === 'de' ? 'de' : 'en';
   const system = await findOwned(req.params.id, req.organizationId);
   const { questions, sections, name, description, key, penaltiesNote } = gdprProfileService.getQuestions(lang);
-  const answers = system.dataProfile || null;
+  const answers = (await decryptJson(req.organizationId, system.dataProfile)) || null;
   const result = answers ? gdprProfileService.evaluate(answers, lang) : null;
   res.json({ key, name, description, systemName: system.name, sections, questions, penaltiesNote, answers, result });
 }
@@ -137,6 +155,7 @@ async function getDataProfile(req, res) {
 // Turns the saved profile result into a working GDPR/DPA assessment.
 async function createProfileAssessment(req, res) {
   const system = await findOwned(req.params.id, req.organizationId);
+  system.dataProfile = await decryptJson(req.organizationId, system.dataProfile);
   if (!system.dataProfile) throw new ErrorResponse('Complete the data protection profile first', 400);
 
   const { assessment, message } = await gdprProfileService.instantiateProfileAssessment({
@@ -155,6 +174,7 @@ async function createProfileAssessment(req, res) {
 async function dataProfilePdf(req, res) {
   const lang = req.query.lang === 'de' ? 'de' : 'en';
   const system = await findOwned(req.params.id, req.organizationId);
+  await decryptSystem(req.organizationId, system);
   if (!system.dataProfile) throw new ErrorResponse('Complete the data protection profile first', 400);
   const result = gdprProfileService.evaluate(system.dataProfile, lang);
   const { penaltiesNote } = gdprProfileService.getQuestions(lang);
@@ -172,7 +192,7 @@ async function saveDataProfile(req, res) {
   const answers = req.body.answers || {};
   const result = gdprProfileService.evaluate(answers, lang);
 
-  await prisma.aiSystem.update({ where: { id: system.id }, data: { dataProfile: answers } });
+  await prisma.aiSystem.update({ where: { id: system.id }, data: { dataProfile: await encryptJson(req.organizationId, answers) } });
   await recordAudit({
     req, action: 'ai_system.data_profile', entityType: 'AiSystem', entityId: system.id,
     after: { applies: result.appliesGdpr, obligations: result.summary.total, gaps: result.summary.gaps },

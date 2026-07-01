@@ -25,6 +25,7 @@ model Organization {
   country   String   @default("DE")
   sizeBand  String?
   selectedFunctions Json? // saved "what does your company do?" answers (Law Explorer)
+  encKeyWrapped String? // per-org data key, AES-256-GCM wrapped by the master key (field encryption)
   lastMonthlyReportAt DateTime?
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt
