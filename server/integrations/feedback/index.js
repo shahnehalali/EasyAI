@@ -9,7 +9,7 @@ const emailService = require('../../services/email/emailService');
 
 function buildFeedbackRouter() {
   return createFeedbackRouter({
-    subjectPrefix: '[JurisAI Feedback]',
+    subjectPrefix: '[Compliance Check Feedback]',
     logger,
     // recipients resolved from FEEDBACK_RECIPIENTS env (see server/.env).
     mailer: {

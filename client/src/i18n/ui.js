@@ -44,7 +44,7 @@ export const UI = {
     'title.notifications': 'Notifications',
     'title.settings': 'Settings',
     'title.admin': 'Catalog Administration',
-    'title.fallback': 'JurisAI',
+    'title.fallback': 'Compliance Check',
 
     // Top bar account menu
     'account.settings': 'Settings',
@@ -352,7 +352,7 @@ export const UI = {
     'com.form.body': 'Details',
     'com.form.bodyPh': 'Share the context, what you tried, or your question...',
     'com.form.visibility': 'Who can see this?',
-    'com.form.visGlobalHint': 'Visible to all JurisAI users across companies.',
+    'com.form.visGlobalHint': 'Visible to all Compliance Check users across companies.',
     'com.form.visOrgHint': 'Private to your organisation.',
     'com.form.anchor': 'Which law is this about?',
     'com.form.anchorNone': 'General (no specific law)',
@@ -486,8 +486,8 @@ export const UI = {
     // FAQ
     'faq.eyebrow': 'Help centre',
     'faq.title': 'Frequently asked questions',
-    'faq.sub': 'Short answers to the most common questions about using JurisAI. Need more help? Use the chat button in the corner.',
-    'faq.disclaimer': 'JurisAI provides plain-language guidance for orientation only and is not legal advice.',
+    'faq.sub': 'Short answers to the most common questions about using Compliance Check. Need more help? Use the chat button in the corner.',
+    'faq.disclaimer': 'Compliance Check provides plain-language guidance for orientation only and is not legal advice.',
 
     // Framework detail
     'fd.back': 'All frameworks',
@@ -530,7 +530,7 @@ export const UI = {
 
     // Help assistant
     'help.title': 'Help assistant',
-    'help.sub': 'How to use JurisAI',
+    'help.sub': 'How to use Compliance Check',
     'help.popular': 'Popular topics',
     'help.placeholder': 'Ask how to do something...',
     'help.open': 'Open help',
@@ -577,7 +577,7 @@ export const UI = {
     'title.notifications': 'Benachrichtigungen',
     'title.settings': 'Einstellungen',
     'title.admin': 'Katalogverwaltung',
-    'title.fallback': 'JurisAI',
+    'title.fallback': 'Compliance Check',
 
     // Top bar account menu
     'account.settings': 'Einstellungen',
@@ -885,7 +885,7 @@ export const UI = {
     'com.form.body': 'Details',
     'com.form.bodyPh': 'Teilen Sie den Kontext, was Sie versucht haben, oder Ihre Frage...',
     'com.form.visibility': 'Wer kann das sehen?',
-    'com.form.visGlobalHint': 'Sichtbar für alle JurisAI-Nutzer aller Unternehmen.',
+    'com.form.visGlobalHint': 'Sichtbar für alle Compliance Check-Nutzer aller Unternehmen.',
     'com.form.visOrgHint': 'Nur für Ihre Organisation sichtbar.',
     'com.form.anchor': 'Um welches Gesetz geht es?',
     'com.form.anchorNone': 'Allgemein (kein bestimmtes Gesetz)',
@@ -1019,8 +1019,8 @@ export const UI = {
     // FAQ
     'faq.eyebrow': 'Hilfecenter',
     'faq.title': 'Häufig gestellte Fragen',
-    'faq.sub': 'Kurze Antworten auf die häufigsten Fragen zur Nutzung von JurisAI. Brauchen Sie mehr Hilfe? Nutzen Sie die Chat-Schaltfläche in der Ecke.',
-    'faq.disclaimer': 'JurisAI bietet verständliche Hinweise nur zur Orientierung und ist keine Rechtsberatung.',
+    'faq.sub': 'Kurze Antworten auf die häufigsten Fragen zur Nutzung von Compliance Check. Brauchen Sie mehr Hilfe? Nutzen Sie die Chat-Schaltfläche in der Ecke.',
+    'faq.disclaimer': 'Compliance Check bietet verständliche Hinweise nur zur Orientierung und ist keine Rechtsberatung.',
 
     // Framework detail
     'fd.back': 'Alle Rechtsrahmen',
@@ -1063,7 +1063,7 @@ export const UI = {
 
     // Help assistant
     'help.title': 'Hilfe-Assistent',
-    'help.sub': 'So nutzen Sie JurisAI',
+    'help.sub': 'So nutzen Sie Compliance Check',
     'help.popular': 'Beliebte Themen',
     'help.placeholder': 'Fragen Sie, wie etwas geht...',
     'help.open': 'Hilfe öffnen',

@@ -31,7 +31,7 @@ export default function Sidebar({ open = false, onNavigate }) {
     <aside className={`sidebar${open ? ' open' : ''}`} aria-label={t('app.primaryNav')}>
       <div className="sidebar-brand">
         <img src="/trial.png" alt="" width={36} height={36} style={{ borderRadius: 8, flexShrink: 0 }} />
-        JurisAI
+        Compliance Check
       </div>
       <nav className="sidebar-nav" aria-label={t('app.mainNav')}>
         {NAV.map((item, i) => (

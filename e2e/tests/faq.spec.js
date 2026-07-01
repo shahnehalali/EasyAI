@@ -22,7 +22,7 @@ test.describe('FAQ page', () => {
     await expect(page.getByTestId('faq-a-what-is')).toHaveCount(0);
     await page.getByTestId('faq-q-what-is').click();
     await expect(page.getByTestId('faq-a-what-is')).toBeVisible();
-    await expect(page.getByTestId('faq-a-what-is')).toContainText('JurisAI helps companies in Germany');
+    await expect(page.getByTestId('faq-a-what-is')).toContainText('Compliance Check helps companies in Germany');
   });
 
   test('the FAQ follows the selected language', async ({ page }) => {
@@ -30,7 +30,7 @@ test.describe('FAQ page', () => {
     await page.getByTestId('lang-de').click();
     await expect(page.getByTestId('faq')).toContainText('Häufig gestellte Fragen');
     await page.getByTestId('faq-q-what-is').click();
-    await expect(page.getByTestId('faq-a-what-is')).toContainText('JurisAI hilft Unternehmen in Deutschland');
+    await expect(page.getByTestId('faq-a-what-is')).toContainText('Compliance Check hilft Unternehmen in Deutschland');
     // The disclaimer at the very bottom of the page also switches.
     await expect(page.getByTestId('faq')).toContainText('keine Rechtsberatung');
     await expect(page.getByTestId('faq')).not.toContainText('not legal advice');

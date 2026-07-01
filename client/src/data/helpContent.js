@@ -127,6 +127,6 @@ export const HELP_FALLBACK = {
 };
 
 export const HELP_GREETING = {
-  en: 'Hi! I am your JurisAI help assistant. Ask me how to use the app, or pick a topic to get started.',
-  de: 'Hallo! Ich bin Ihr JurisAI-Hilfe-Assistent. Fragen Sie mich, wie Sie die App nutzen, oder waehlen Sie ein Thema.',
+  en: 'Hi! I am your Compliance Check help assistant. Ask me how to use the app, or pick a topic to get started.',
+  de: 'Hallo! Ich bin Ihr Compliance Check-Hilfe-Assistent. Fragen Sie mich, wie Sie die App nutzen, oder waehlen Sie ein Thema.',
 };
