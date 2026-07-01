@@ -71,9 +71,9 @@ export default function Assessments() {
         <>
           <div className="grid grid-4" style={{ marginBottom: 18 }}>
             <div className="card stat"><div className="num">{summary.total}</div><div className="label">{t('as.stat.checklists')}</div></div>
-            <div className="card stat"><div className="num" style={{ color: 'var(--green)' }}>{summary.completed}</div><div className="label">{t('as.stat.completed')}</div></div>
-            <div className="card stat"><div className="num" style={{ color: 'var(--amber)' }}>{summary.inProgress}</div><div className="label">{t('as.stat.inProgress')}</div></div>
-            <div className="card stat"><div className="num" style={{ color: 'var(--red)' }}>{summary.needsReview}</div><div className="label">{t('as.stat.needReview')}</div></div>
+            <div className="card stat"><div className="num">{summary.completed}</div><div className="label">{t('as.stat.completed')}</div></div>
+            <div className="card stat"><div className="num">{summary.inProgress}</div><div className="label">{t('as.stat.inProgress')}</div></div>
+            <div className="card stat"><div className="num">{summary.needsReview}</div><div className="label">{t('as.stat.needReview')}</div></div>
           </div>
 
           {groups.length > 1 && (
