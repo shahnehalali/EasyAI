@@ -1,7 +1,7 @@
-import { useState, useMemo } from 'react';
+import { useState, useMemo, useRef, useEffect } from 'react';
 import { useQuery, useQueryClient } from '@tanstack/react-query';
 import { useParams, Link, useNavigate } from 'react-router-dom';
-import { Lock, Unlock, Trash2, Flag } from 'lucide-react';
+import { Lock, Unlock, Trash2, Flag, Send } from 'lucide-react';
 import { threadApi } from '@/apis/threadApi';
 import { useT } from '@/hooks/useT';
 import { SkeletonPage, ErrorState, Card, Chip, Banner } from '@/components/ui/Ui';
@@ -19,6 +19,20 @@ export default function ThreadDetail() {
   const [replyTo, setReplyTo] = useState(null); // a top-level post being replied to
   const [busy, setBusy] = useState(false);
   const [error, setError] = useState('');
+  const inputRef = useRef(null);
+
+  // Hide the floating help/feedback buttons on this page so they do not sit on
+  // top of the sticky chat composer.
+  useEffect(() => {
+    document.body.classList.add('reply-dock-open');
+    return () => document.body.classList.remove('reply-dock-open');
+  }, []);
+
+  const startReplyTo = (post) => {
+    setReplyTo(post);
+    inputRef.current?.focus();
+    inputRef.current?.scrollIntoView({ block: 'center', behavior: 'smooth' });
+  };
 
   const key = ['thread', id, lang];
   const { data, isLoading, error: loadError, refetch } = useQuery({ queryKey: key, queryFn: () => threadApi.get(id) });
@@ -57,6 +71,7 @@ export default function ThreadDetail() {
     try {
       await threadApi.reply(thread.id, { body: reply.trim(), parentPostId: replyTo?.id || null });
       setReply(''); setReplyTo(null);
+      if (inputRef.current) inputRef.current.style.height = 'auto';
       refresh();
     } catch (err) { setError(err.message); } finally { setBusy(false); }
   };
@@ -120,25 +135,6 @@ export default function ThreadDetail() {
 
       <p className="muted small" style={{ margin: '10px 2px 16px' }}>{t('com.disclaimer')}</p>
 
-      {/* Reply composer */}
-      {thread.status === 'locked' ? (
-        <Banner kind="info">{t('com.lockedNotice')}</Banner>
-      ) : (
-        <form onSubmit={submitReply} style={{ marginBottom: 18 }}>
-          {error && <Banner kind="error">{error}</Banner>}
-          {replyTo && (
-            <div className="muted small" style={{ marginBottom: 4 }}>
-              {t('com.reply')} → {replyTo.author?.fullName} <button type="button" className="btn btn-ghost btn-sm" onClick={() => setReplyTo(null)}>✕</button>
-            </div>
-          )}
-          <textarea className="textarea" data-testid="reply-input" value={reply} rows={3}
-            placeholder={t('com.replyPh')} onChange={(e) => setReply(e.target.value)} />
-          <button className="btn btn-primary btn-sm" data-testid="reply-submit" type="submit" disabled={busy || !reply.trim()} style={{ marginTop: 8 }}>
-            {busy ? t('com.replying') : t('com.reply')}
-          </button>
-        </form>
-      )}
-
       {/* Replies */}
       <div className="comment-list" data-testid="post-thread">
         {grouped.map(({ post, children }) => (
@@ -149,10 +145,34 @@ export default function ThreadDetail() {
             onVote={votePost}
             onDelete={deletePost}
             onReport={(p) => reportTarget('post', p.id)}
-            onReply={thread.status === 'locked' ? undefined : (p) => { setReplyTo(p); window.scrollTo({ top: 0, behavior: 'smooth' }); }}
+            onReply={thread.status === 'locked' ? undefined : startReplyTo}
           />
         ))}
       </div>
+
+      {/* Sticky reply composer, pinned to the bottom like a chat input */}
+      {thread.status === 'locked' ? (
+        <div className="reply-dock"><Banner kind="info">{t('com.lockedNotice')}</Banner></div>
+      ) : (
+        <form className="reply-dock" onSubmit={submitReply}>
+          {error && <Banner kind="error">{error}</Banner>}
+          {replyTo && (
+            <div className="reply-to">
+              <span className="muted small">{t('com.reply')} → <strong>{replyTo.author?.fullName}</strong></span>
+              <button type="button" className="comment-collapse" aria-label={t('common.cancel')} onClick={() => setReplyTo(null)}>✕</button>
+            </div>
+          )}
+          <div className="reply-input-row">
+            <textarea ref={inputRef} className="reply-textarea" data-testid="reply-input" value={reply} rows={1}
+              placeholder={t('com.replyPh')}
+              onChange={(e) => { setReply(e.target.value); const el = e.target; el.style.height = 'auto'; el.style.height = `${Math.min(el.scrollHeight, 160)}px`; }}
+              onKeyDown={(e) => { if (e.key === 'Enter' && (e.ctrlKey || e.metaKey)) { e.preventDefault(); submitReply(e); } }} />
+            <button className="btn btn-primary reply-send" data-testid="reply-submit" type="submit" disabled={busy || !reply.trim()} aria-label={t('com.reply')}>
+              <Send size={16} />
+            </button>
+          </div>
+        </form>
+      )}
     </div>
   );
 }

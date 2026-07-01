@@ -1,8 +1,19 @@
 const nodemailer = require('nodemailer');
+const { Resend } = require('resend');
 const config = require('../../config');
 const logger = require('../../utils/logger');
 
 let transporterPromise = null;
+
+// Resend is the primary transport. Built lazily so the app still runs without it.
+let resendClient = null;
+function getResend() {
+  if (resendClient === null && config.email.resendApiKey) {
+    resendClient = new Resend(config.email.resendApiKey);
+    logger.info('email: using Resend transport');
+  }
+  return resendClient;
+}
 
 // Lazily build a transporter. If no SMTP_HOST is configured (dev), create an
 // Ethereal test account so every email gets a preview URL in the logs.
@@ -41,6 +52,25 @@ async function getTransporter() {
 }
 
 async function sendMail({ to, subject, html, text }) {
+  // Primary path: Resend.
+  const resend = getResend();
+  if (resend) {
+    const { data, error } = await resend.emails.send({
+      from: config.email.from,
+      to: Array.isArray(to) ? to : [to],
+      subject,
+      html,
+      text,
+    });
+    if (error) {
+      logger.error(`email: Resend failed for ${to} (${subject})`, error.message || error);
+      throw new Error(error.message || 'Failed to send email');
+    }
+    logger.info(`email sent to ${to} via Resend (${subject}) id=${data && data.id}`);
+    return { messageId: (data && data.id) || null, previewUrl: null };
+  }
+
+  // Fallback: nodemailer (SMTP host, or console/Ethereal in dev).
   const transporter = await getTransporter();
   const info = await transporter.sendMail({
     from: config.email.from,
