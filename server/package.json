@@ -9,6 +9,7 @@
     "dev": "nodemon index.js",
     "start": "node index.js",
     "seed": "node prisma/seed.js",
+    "encrypt:backfill": "node scripts/backfillEncryption.js",
     "prisma:generate": "prisma generate",
     "prisma:migrate": "prisma migrate dev",
     "prisma:reset": "prisma migrate reset --force",

@@ -4,6 +4,7 @@ const ErrorResponse = require('../../utils/errorResponse');
 const { recordAudit } = require('../../utils/audit');
 const { addDays } = require('../../services/classification/classificationService');
 const { localizeAssessment, localizeAssessmentList } = require('../../services/i18n/catalogI18n');
+const { decryptField } = require('../../services/crypto/fieldCrypto');
 
 // Recompute progressPct + status from the assessment's responses.
 async function recomputeProgress(assessmentId) {
@@ -73,6 +74,11 @@ async function getById(req, res) {
     },
   });
   localizeAssessment(assessment, req.query.lang);
+  // Decrypt documentation text + comment bodies for the response.
+  for (const r of assessment.responses || []) {
+    r.responseText = await decryptField(req.organizationId, r.responseText);
+    for (const c of r.comments || []) c.body = await decryptField(req.organizationId, c.body);
+  }
   res.json({ assessment });
 }
 

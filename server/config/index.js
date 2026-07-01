@@ -13,6 +13,11 @@ const config = {
     cookieName: process.env.COOKIE_NAME || 'aic_session',
   },
 
+  // Master key for per-organization field encryption (base64-encoded 32 bytes).
+  // When unset (dev), field encryption runs in passthrough mode (data stored as-is).
+  // MUST be stable in production and backed up, or encrypted data becomes unreadable.
+  dataEncKey: process.env.DATA_ENC_KEY || '',
+
   email: {
     // Resend is the primary transport. When RESEND_API_KEY is set it is used;
     // otherwise the app falls back to SMTP / console (see emailService).

@@ -2,6 +2,7 @@ const { prisma } = require('../../db/db');
 const ErrorResponse = require('../../utils/errorResponse');
 const { recomputeProgress } = require('./assessmentController');
 const { recordAudit } = require('../../utils/audit');
+const { encryptField, decryptField } = require('../../services/crypto/fieldCrypto');
 
 // PATCH /api/checklist-responses/:id  -> update status, text, and/or assignee.
 async function update(req, res) {
@@ -40,11 +41,18 @@ async function update(req, res) {
     }
   }
 
+  // Encrypt new documentation text at rest with the org key; keep stored
+  // ciphertext untouched when no new text is provided.
+  const storedText = req.body.responseText !== undefined
+    ? await encryptField(req.organizationId, req.body.responseText)
+    : response.responseText;
+
   const updated = await prisma.checklistItemResponse.update({
     where: { id: response.id },
-    data: { status: nextStatus, responseText: nextText, assigneeId, updatedById: req.user.id },
+    data: { status: nextStatus, responseText: storedText, assigneeId, updatedById: req.user.id },
     include: { assignee: { select: { id: true, fullName: true } } },
   });
+  updated.responseText = await decryptField(req.organizationId, updated.responseText);
 
   // Record activity against the assessment so it surfaces in the activity feed.
   await recordAudit({
