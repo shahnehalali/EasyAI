@@ -29,6 +29,7 @@
     "node-cron": "^3.0.3",
     "nodemailer": "^6.9.16",
     "pdfkit": "^0.19.0",
+    "resend": "^6.16.0",
     "zod": "^3.23.8"
   },
   "devDependencies": {

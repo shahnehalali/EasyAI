@@ -14,6 +14,9 @@ const config = {
   },
 
   email: {
+    // Resend is the primary transport. When RESEND_API_KEY is set it is used;
+    // otherwise the app falls back to SMTP / console (see emailService).
+    resendApiKey: process.env.RESEND_API_KEY || '',
     host: process.env.SMTP_HOST || '',
     port: parseInt(process.env.SMTP_PORT || '587', 10),
     secure: String(process.env.SMTP_SECURE).toLowerCase() === 'true',
