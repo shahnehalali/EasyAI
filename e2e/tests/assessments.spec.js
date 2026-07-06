@@ -39,8 +39,9 @@ test.describe('Assessments and checklist responses module', () => {
 
     const firstItem = page.getByTestId('checklist-item').first();
     await firstItem.getByTestId('response-text').fill('We document our intended purpose and context here for the risk assessment.');
+    // Documentation autosaves (debounced + flushed on blur); status is a manual
+    // toggle. Clicking a status persists immediately and blurs the textarea.
     await firstItem.getByTestId('status-done').click();
-    await firstItem.getByTestId('save-item').click();
     await expect(firstItem.getByTestId('saved-flag')).toBeVisible();
 
     // Progress should be above zero now.

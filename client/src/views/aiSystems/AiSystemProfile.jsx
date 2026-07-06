@@ -1,7 +1,7 @@
 import { useState, useEffect, useRef } from 'react';
 import { useQuery, useQueryClient } from '@tanstack/react-query';
 import { useParams, useNavigate } from 'react-router-dom';
-import { ChevronDown } from 'lucide-react';
+import { ChevronDown, Wrench } from 'lucide-react';
 import { aiSystemApi } from '@/apis/aiSystemApi';
 import { useAuth } from '@/hooks/useAuth';
 import { useT } from '@/hooks/useT';
@@ -181,7 +181,10 @@ export default function AiSystemProfile() {
                       }}
                     >
                       <div style={{ flex: 1, marginBottom: stacked ? 14 : 0 }}>
-                        <div style={{ fontWeight: 600, lineHeight: 1.45 }}>{q.prompt}</div>
+                        <div style={{ fontWeight: 600, lineHeight: 1.45 }}>
+                          {q.tag && <span className="q-tag" title={t('dp.relatesTo')}>{q.tag}</span>}
+                          {q.prompt}
+                        </div>
                         {q.helpText && <div className="muted small" style={{ marginTop: 5 }}>{q.helpText}</div>}
                       </div>
                       <QuestionControl q={q} value={answers[q.code]} onChange={setAnswer} disabled={!editable} />
@@ -255,8 +258,8 @@ export default function AiSystemProfile() {
                   <div className="row" style={{ gap: 8, flexWrap: 'wrap', marginBottom: 8 }}>
                     <strong style={{ fontSize: 14.5 }}>{o.title}</strong>
                     {o.status === 'gap'
-                      ? <Chip className="chip-red" dot={false}>{t('dp.statusAction')}</Chip>
-                      : <Chip className="chip-navy" dot={false}>{t('dp.statusApplies')}</Chip>}
+                      ? <Chip className="dp-action" dot={false}>{t('dp.statusAction')}</Chip>
+                      : <Chip className="dp-applies" dot={false}>{t('dp.statusApplies')}</Chip>}
                   </div>
 
                   <div style={{ marginBottom: 10 }}>
@@ -269,8 +272,9 @@ export default function AiSystemProfile() {
                     <p className="small" style={{ margin: 0, lineHeight: 1.55 }}>{o.why}</p>
                   </div>
 
-                  <div className="small" style={{ background: 'var(--surface-subtle)', border: '1px solid var(--border-2)', borderRadius: 8, padding: '10px 12px', lineHeight: 1.55 }}>
-                    <span style={{ fontWeight: 600 }}>{t('dp.whatToDo')}: </span>{o.solution}
+                  <div className="dp-todo small">
+                    <div className="dp-todo-label"><Wrench size={12} aria-hidden="true" /> {t('dp.whatToDo')}</div>
+                    {o.solution}
                   </div>
 
                   {o.exemptionNote && (

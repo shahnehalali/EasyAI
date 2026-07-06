@@ -1,0 +1,86 @@
+{
+  "key": "eu_ai_act_risk",
+  "name": "Risikoklassifizierung nach der KI-Verordnung",
+  "description": "Diese Fragen ordnen Ihr KI-System einer der vier Risikostufen der KI-Verordnung zu: verboten, hoch, begrenzt oder minimal. Beantworten Sie sie fuer das konkrete System und dessen tatsaechliche Nutzung.",
+  "questions": {
+    "social_scoring": {
+      "prompt": "Bewertet oder stuft das System Menschen anhand ihres Sozialverhaltens oder persoenlicher Merkmale ein, sodass dies zu unfairer Behandlung fuehren kann?",
+      "helpText": "Ein allgemeiner 'Sozial-Score', der genutzt wird, um Zugang zu Diensten zu gewaehren oder zu verweigern. Verboten nach Art. 5."
+    },
+    "manipulative": {
+      "prompt": "Nutzt es verdeckte oder manipulative Techniken oder beutet es Schwaechen (Alter, Behinderung, soziale Lage) aus, die Entscheidungen verzerren und Schaden verursachen koennten?",
+      "helpText": "Unterschwellige oder taeuschende Techniken, deren sich die Betroffenen nicht bewusst sind. Verboten nach Art. 5."
+    },
+    "emotion_workplace": {
+      "prompt": "Leitet es die Emotionen von Menschen am Arbeitsplatz oder in Bildungseinrichtungen ab?",
+      "helpText": "Emotionserkennung am Arbeitsplatz oder in der Schule ist verboten, ausser aus medizinischen oder Sicherheitsgruenden."
+    },
+    "biometric_categorisation_sensitive": {
+      "prompt": "Kategorisiert es Menschen anhand sensibler Merkmale (wie ethnische Herkunft, politische Meinung, Religion oder sexuelle Orientierung) mithilfe biometrischer Daten?",
+      "helpText": "Biometrische Kategorisierung, die sensible Merkmale ableitet, ist nach Art. 5 verboten."
+    },
+    "realtime_biometric_public": {
+      "prompt": "Fuehrt es in oeffentlich zugaenglichen Raeumen biometrische Fernidentifizierung in Echtzeit zu Strafverfolgungszwecken durch?",
+      "helpText": "Verboten nach Art. 5, mit engen gesetzlichen Ausnahmen."
+    },
+    "predictive_policing": {
+      "prompt": "Sagt es allein auf Grundlage von Profiling oder Persoenlichkeitsmerkmalen voraus, ob eine Person eine Straftat begehen wird?",
+      "helpText": "Die Vorhersage von Straftaten allein durch Profiling ist nach Art. 5 verboten."
+    },
+    "scrape_faces": {
+      "prompt": "Baut oder erweitert es Gesichtserkennungsdatenbanken durch das ungezielte Auslesen von Bildern aus dem Internet oder aus Videoueberwachung?",
+      "helpText": "Das ungezielte Auslesen von Gesichtsbildern ist nach Art. 5 verboten."
+    },
+    "biometric_id": {
+      "prompt": "Identifiziert es Menschen anhand biometrischer Daten (zum Beispiel Gesichtserkennung), abgesehen von der oben genannten verbotenen Echtzeitnutzung?",
+      "helpText": "Biometrische Fernidentifizierung ist nach Anhang III hochriskant."
+    },
+    "safety_component": {
+      "prompt": "Ist die KI eine Sicherheitskomponente eines Produkts oder selbst ein Produkt, das einer Sicherheitsbewertung unterzogen werden muss?",
+      "helpText": "Zum Beispiel KI in Medizinprodukten, Maschinen oder Fahrzeugen."
+    },
+    "critical_infrastructure": {
+      "prompt": "Ist es eine Sicherheitskomponente bei der Verwaltung kritischer Infrastruktur (Energie, Wasser, Gas oder Verkehr)?",
+      "helpText": "Hochriskant nach Anhang III."
+    },
+    "education_scoring": {
+      "prompt": "Wird es in Bildung oder Ausbildung eingesetzt, um ueber Zulassungen zu entscheiden, Pruefungen zu bewerten oder Tests zu ueberwachen?",
+      "helpText": "Hochriskant nach Anhang III."
+    },
+    "recruitment_employment": {
+      "prompt": "Wird es eingesetzt, um Beschaeftigte einzustellen, auszuwaehlen, zu bewerten, zu befoerdern oder zu ueberwachen?",
+      "helpText": "Beschaeftigung und Personalmanagement sind nach Anhang III hochriskant."
+    },
+    "essential_services": {
+      "prompt": "Entscheidet es ueber den Zugang zu grundlegenden Diensten, etwa Kreditwuerdigkeitspruefung, Versicherungstarifierung, Sozialleistungen oder Notrufdisposition?",
+      "helpText": "Der Zugang zu grundlegenden privaten und oeffentlichen Diensten ist nach Anhang III hochriskant."
+    },
+    "law_enforcement": {
+      "prompt": "Wird es von oder fuer Strafverfolgungsbehoerden eingesetzt, zum Beispiel fuer Risikobewertungen oder die Auswertung von Beweismitteln?",
+      "helpText": "Hochriskant nach Anhang III."
+    },
+    "migration_justice": {
+      "prompt": "Wird es in den Bereichen Migration, Asyl oder Grenzkontrolle oder in der Rechtspflege oder bei Wahlen eingesetzt?",
+      "helpText": "Hochriskant nach Anhang III."
+    },
+    "critical_area": {
+      "prompt": "Wird es in einem anderen sensiblen Bereich eingesetzt, der in Anhang III der KI-Verordnung als hochriskant aufgefuehrt ist?",
+      "helpText": "Ein Sammelpunkt fuer die Hochrisikobereiche in Anhang III, die oben nicht abgedeckt sind."
+    },
+    "interacts_with_people": {
+      "prompt": "Interagiert das System direkt mit Menschen, zum Beispiel als Chatbot oder virtueller Assistent?",
+      "helpText": "Menschen muessen darueber informiert werden, wenn sie es mit einer KI zu tun haben (Art. 50)."
+    },
+    "generates_content": {
+      "prompt": "Erzeugt oder veraendert es Texte, Bilder, Audio oder Video, einschliesslich Deepfakes?",
+      "helpText": "Generative KI und synthetische Medien muessen gekennzeichnet werden (Art. 50)."
+    }
+  },
+  "explanations": {
+    "prohibited": "Das System koennte unter eine verbotene Praktik der KI-Verordnung (Art. 5) fallen, etwa Social Scoring, Manipulation, verbotene biometrische Nutzungen oder vorausschauende Polizeiarbeit. Diese Nutzungen sind untersagt; pruefen Sie dies dringend und holen Sie Rechtsrat ein.",
+    "high": "Das System wird in einem in Anhang III aufgefuehrten Hochrisikobereich oder als sicherheitsrelevante Produktkomponente eingesetzt und gilt daher als hochriskant. Es gelten saemtliche Hochrisikopflichten, darunter Risikomanagement, Daten-Governance, Dokumentation, menschliche Aufsicht sowie Genauigkeits- und Sicherheitspruefungen.",
+    "limited": "Das System interagiert mit Menschen oder erzeugt Inhalte, sodass die Transparenzpflichten fuer begrenztes Risiko gelten (Art. 50). Sie muessen Menschen darueber informieren, dass sie es mit KI zu tun haben, und KI-generierte Inhalte kennzeichnen.",
+    "minimal": "Es trafen keine Kriterien fuer ein hoeheres Risiko zu, daher wird dieses System als minimales Risiko eingestuft.",
+    "none": "Kein Fragebogen gefunden; als minimales Risiko eingestuft."
+  }
+}

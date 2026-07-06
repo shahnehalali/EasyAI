@@ -1,6 +1,7 @@
-import { useState, useEffect } from 'react';
+import { useState, useEffect, useRef } from 'react';
 import { useQuery, useQueryClient } from '@tanstack/react-query';
 import { useParams } from 'react-router-dom';
+import { ChevronUp, ChevronDown, ArrowRight, CheckCircle2 } from 'lucide-react';
 import { assessmentApi } from '@/apis/assessmentApi';
 import { organizationApi } from '@/apis/organizationApi';
 import { reportApi } from '@/apis/reportApi';
@@ -27,12 +28,52 @@ export default function AssessmentEditor() {
   const [status, setStatus] = useState(null);
   const [reviewedMsg, setReviewedMsg] = useState('');
 
+  // Point-by-point navigation through the checklist.
+  const itemRefs = useRef([]);
+  const [currentIdx, setCurrentIdx] = useState(0);
+  const responses = assessment?.responses || [];
+
   useEffect(() => {
     if (assessment) { setProgress(assessment.progressPct); setStatus(assessment.status); }
   }, [assessment]);
 
+  // Scroll-spy: keep the position indicator in sync with the point near the top.
+  useEffect(() => {
+    const els = itemRefs.current.filter(Boolean);
+    if (!els.length) return undefined;
+    const obs = new IntersectionObserver((entries) => {
+      entries.forEach((e) => { if (e.isIntersecting) setCurrentIdx(Number(e.target.dataset.idx)); });
+    }, { rootMargin: '-15% 0px -75% 0px', threshold: 0 });
+    els.forEach((el) => obs.observe(el));
+    return () => obs.disconnect();
+  }, [responses.length]);
+
   if (isLoading) return <SkeletonPage rows={4} />;
   if (error) return <ErrorState error={error} onRetry={refetch} />;
+
+  const isOpen = (r) => r.status === 'not_started' || r.status === 'in_progress';
+  const openCount = responses.filter(isOpen).length;
+
+  // Scroll a point into view and briefly highlight it.
+  const flashAndScroll = (idx) => {
+    const el = itemRefs.current[idx];
+    if (!el) return;
+    setCurrentIdx(idx);
+    el.scrollIntoView({ behavior: 'smooth', block: 'start' });
+    el.classList.add('flash');
+    setTimeout(() => el.classList.remove('flash'), 1300);
+  };
+  const goPrev = () => flashAndScroll(Math.max(0, currentIdx - 1));
+  const goNext = () => flashAndScroll(Math.min(responses.length - 1, currentIdx + 1));
+  // Jump to the next point that is still open (not done / not applicable),
+  // wrapping past the end so it keeps finding work from wherever you are.
+  const goNextOpen = () => {
+    const n = responses.length;
+    for (let step = 1; step <= n; step += 1) {
+      const idx = (currentIdx + step) % n;
+      if (isOpen(responses[idx])) { flashAndScroll(idx); return; }
+    }
+  };
 
   const onChanged = (p) => {
     if (p) { setProgress(p.progressPct); setStatus(p.status); }
@@ -94,9 +135,39 @@ export default function AssessmentEditor() {
 
       <div className="editor-grid">
         <div>
+          {responses.length > 1 && (
+            <div className="checklist-nav" data-testid="checklist-nav">
+              <div className="row" style={{ gap: 6, alignItems: 'center' }}>
+                <button className="btn btn-outline btn-sm checklist-nav-arrow" onClick={goPrev}
+                  disabled={currentIdx <= 0} aria-label={t('ae.prevPoint')} title={t('ae.prevPoint')}>
+                  <ChevronUp size={15} />
+                </button>
+                <button className="btn btn-outline btn-sm checklist-nav-arrow" onClick={goNext}
+                  disabled={currentIdx >= responses.length - 1} aria-label={t('ae.nextPoint')} title={t('ae.nextPoint')}>
+                  <ChevronDown size={15} />
+                </button>
+                <span className="muted small" data-testid="checklist-position" style={{ whiteSpace: 'nowrap' }}>
+                  {t('ae.point')} {currentIdx + 1} / {responses.length}
+                </span>
+              </div>
+              {openCount > 0 ? (
+                <button className="btn btn-primary btn-sm" onClick={goNextOpen} data-testid="next-open-point">
+                  {t('ae.nextOpen')} <ArrowRight size={14} />
+                  <span className="checklist-nav-count">{openCount}</span>
+                </button>
+              ) : (
+                <span className="row small" data-testid="all-addressed" style={{ gap: 6, color: 'var(--green)', fontWeight: 600 }}>
+                  <CheckCircle2 size={15} /> {t('ae.allAddressed')}
+                </span>
+              )}
+            </div>
+          )}
           <Banner kind="info">{t('ae.docHint')}</Banner>
-          {assessment.responses.map((r) => (
-            <ChecklistItem key={r.id} response={r} members={members} onChanged={onChanged} />
+          {responses.map((r, i) => (
+            <div key={r.id} ref={(el) => { itemRefs.current[i] = el; }} data-idx={i}
+              id={`point-${i + 1}`} className="checklist-anchor">
+              <ChecklistItem response={r} members={members} onChanged={onChanged} />
+            </div>
           ))}
         </div>
 

@@ -93,21 +93,23 @@ async function remove(req, res) {
 
 // GET /api/ai-systems/:id/questionnaire
 async function getQuestionnaire(req, res) {
+  const lang = req.query.lang === 'de' ? 'de' : 'en';
   await findOwned(req.params.id, req.organizationId);
   const questionnaire = await prisma.classificationQuestionnaire.findUnique({
     where: { key: DEFAULT_QUESTIONNAIRE_KEY },
     include: { questions: { orderBy: { sortOrder: 'asc' } } },
   });
   if (!questionnaire) throw new ErrorResponse('Risk questionnaire is not configured', 404);
-  res.json({ questionnaire });
+  res.json({ questionnaire: classificationService.localizeQuestionnaire(questionnaire, lang) });
 }
 
 // POST /api/ai-systems/:id/classify
 async function classify(req, res) {
+  const lang = req.query.lang === 'de' ? 'de' : 'en';
   const system = await findOwned(req.params.id, req.organizationId);
   const answers = req.body.answers || {};
 
-  const { riskCategory, explanation } = await classificationService.classify(DEFAULT_QUESTIONNAIRE_KEY, answers);
+  const { riskCategory, explanation } = await classificationService.classify(DEFAULT_QUESTIONNAIRE_KEY, answers, lang);
 
   const updated = await prisma.aiSystem.update({
     where: { id: system.id },

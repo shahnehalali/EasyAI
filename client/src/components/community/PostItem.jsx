@@ -42,6 +42,7 @@ export default function PostItem({ post, childPosts = [], readOnly = false, onVo
           <div className="comment-text" style={post.deleted ? { color: 'var(--muted)', fontStyle: 'italic' } : undefined}>
             {post.deleted ? t('com.deleted') : post.body}
           </div>
+          {post.translated && <div className="muted" style={{ fontSize: 11, fontStyle: 'italic', marginTop: 2 }}>{t('com.autoTranslated')}</div>}
 
           {!post.deleted && (
             <div className="comment-footer">
