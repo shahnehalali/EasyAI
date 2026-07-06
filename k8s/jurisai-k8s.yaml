@@ -2,13 +2,13 @@
 # JurisAI - Kubernetes deployment (Rit Services cluster)
 #   Ingress: Traefik IngressRoute   TLS: cert-manager (letsencrypt-prod)
 #   Storage: Longhorn PVCs          Registry: GHCR (ghcr.io/shahnehalali/*, private)
-#   Hosts:   compliance.rit.services (primary), jurisai.rit.services (legacy)
+#   Host:    compliance.rit.services
 #
 # Prerequisites created OUT OF BAND (not in this file, see k8s/README.md):
 #   - Secret `jurisai-app-secrets` (DB creds, JWT, SMTP, ...) -> jurisai-app-secrets.yaml.example
 #     (kept OUT of this synced manifest so ArgoCD never overwrites real credentials)
 #   - Secret `ghcr-secret`      (private image pulls)       -> from a GitHub PAT (read:packages)
-#   - DNS A records compliance.rit.services + jurisai.rit.services -> 172.236.204.215
+#   - DNS A record compliance.rit.services -> 172.236.204.215
 # =============================================================================
 apiVersion: v1
 kind: Namespace
@@ -243,7 +243,6 @@ spec:
   secretName: jurisai-tls
   dnsNames:
     - compliance.rit.services
-    - jurisai.rit.services
   issuerRef:
     name: letsencrypt-prod
     kind: ClusterIssuer
@@ -263,13 +262,13 @@ spec:
     - websecure
   routes:
     # API + uploaded files go to the server (longer rule => higher priority).
-    - match: (Host(`compliance.rit.services`) || Host(`jurisai.rit.services`)) && (PathPrefix(`/api`) || PathPrefix(`/uploads`))
+    - match: Host(`compliance.rit.services`) && (PathPrefix(`/api`) || PathPrefix(`/uploads`))
       kind: Rule
       services:
         - name: jurisai-server
           port: 4000
     # Everything else is the SPA.
-    - match: Host(`compliance.rit.services`) || Host(`jurisai.rit.services`)
+    - match: Host(`compliance.rit.services`)
       kind: Rule
       services:
         - name: jurisai-client
