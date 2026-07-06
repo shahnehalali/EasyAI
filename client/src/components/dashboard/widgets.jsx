@@ -11,14 +11,16 @@ export function ComplianceStandingCard({ overall, counts }) {
       <div className="card-body" style={{ display: 'flex', gap: 26, alignItems: 'center', flexWrap: 'wrap' }}>
         <div style={{ textAlign: 'center', minWidth: 130 }}>
           <div className="card-title-eyebrow">{t('w.standing')}</div>
-          <div style={{ fontFamily: 'var(--serif)', fontSize: 56, fontWeight: 700, color: 'var(--navy)', lineHeight: 1 }} data-testid="overall-score">
-            {overall}<span style={{ fontSize: 24 }}>%</span>
-          </div>
+          <div className="neu-score" data-testid="overall-score">{overall}<span>%</span></div>
           <div className="muted small">{t('w.acrossAll')}</div>
         </div>
         <div style={{ flex: 1, minWidth: 220 }}>
-          <Progress value={overall} variant={overall >= 80 ? 'green' : 'gold'} />
-          <div className="grid grid-4" style={{ marginTop: 16, gap: 10 }}>
+          <div className="hero-progress" role="progressbar" aria-valuenow={overall} aria-valuemin={0} aria-valuemax={100} aria-label={t('w.standing')}>
+            <span className="hero-progress-fill" style={{ width: `${Math.max(overall, 2)}%` }}>
+              <span className="hero-progress-knob" aria-hidden="true" />
+            </span>
+          </div>
+          <div className="grid grid-4" style={{ marginTop: 16, gap: 16 }}>
             <Stat n={counts.aiSystems} l={t('w.aiSystems')} />
             <Stat n={counts.assessments} l={t('w.assessments')} />
             <Stat n={counts.reviewsDue} l={t('w.reviewsDue')} />
@@ -32,9 +34,10 @@ export function ComplianceStandingCard({ overall, counts }) {
 
 function Stat({ n, l }) {
   return (
-    <div>
-      <div style={{ fontFamily: 'var(--serif)', fontSize: 24, fontWeight: 700, color: 'var(--navy)' }}>{n}</div>
-      <div className="muted" style={{ fontSize: 11, textTransform: 'uppercase', letterSpacing: '0.04em' }}>{l}</div>
+    <div className="stat-tile">
+      <span className="stat-tile-dot" aria-hidden="true" />
+      <div className="stat-tile-num">{n}</div>
+      <div className="stat-tile-label">{l}</div>
     </div>
   );
 }

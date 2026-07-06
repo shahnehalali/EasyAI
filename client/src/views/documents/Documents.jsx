@@ -1,6 +1,7 @@
 import { useQuery, useQueryClient } from '@tanstack/react-query';
 import { documentApi } from '@/apis/documentApi';
 import { SkeletonPage, ErrorState, EmptyState } from '@/components/ui/Ui';
+import Pagination, { usePagination } from '@/components/ui/Pagination';
 import { formatDate, bytes } from '@/utils/format';
 import { useT } from '@/hooks/useT';
 import { useAuth } from '@/hooks/useAuth';
@@ -11,6 +12,7 @@ export default function Documents() {
   const canEdit = can('compliance.edit');
   const qc = useQueryClient();
   const { data: documents = [], isLoading, error, refetch } = useQuery({ queryKey: ['documents'], queryFn: documentApi.list });
+  const { page, setPage, pageItems, pageCount, total, pageSize } = usePagination(documents, 10);
 
   const upload = async (e) => {
     const file = e.target.files?.[0];
@@ -47,11 +49,12 @@ export default function Documents() {
       {documents.length === 0 ? (
         <div className="card"><EmptyState icon="▤" title={t('doc.empty.title')}>{t('doc.empty.body')}</EmptyState></div>
       ) : (
-        <div className="card table-wrap">
+        <div className="card">
+         <div className="table-wrap">
           <table className="table">
             <thead><tr><th>{t('doc.col.file')}</th><th>{t('doc.col.type')}</th><th>{t('doc.col.size')}</th><th>{t('doc.col.uploaded')}</th><th></th></tr></thead>
             <tbody>
-              {documents.map((d) => (
+              {pageItems.map((d) => (
                 <tr key={d.id} data-testid="document-row">
                   <td><a href={documentApi.downloadUrl(d.id)} target="_blank" rel="noreferrer">{d.fileName}</a></td>
                   <td className="muted small">{d.mimeType}</td>
@@ -64,6 +67,8 @@ export default function Documents() {
               ))}
             </tbody>
           </table>
+         </div>
+          <Pagination page={page} pageCount={pageCount} onChange={setPage} total={total} pageSize={pageSize} />
         </div>
       )}
     </div>

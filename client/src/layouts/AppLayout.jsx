@@ -2,6 +2,7 @@ import { useState, useEffect } from 'react';
 import { Outlet, useLocation, Navigate } from 'react-router-dom';
 import { useQuery } from '@tanstack/react-query';
 import Sidebar from '@/components/Sidebar';
+import MobileTabBar from '@/components/MobileTabBar';
 import Topbar from '@/components/Topbar';
 import HelpAssistant from '@/components/HelpAssistant';
 import ErrorBoundary from '@/components/ErrorBoundary';
@@ -76,6 +77,7 @@ export default function AppLayout() {
             </ErrorBoundary>
           </main>
         </div>
+        <MobileTabBar onMenu={() => setMenuOpen(true)} onNavigate={() => setMenuOpen(false)} />
         <HelpAssistant />
       </div>
     </FeedbackProvider>

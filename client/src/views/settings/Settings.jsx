@@ -7,6 +7,7 @@ import { userApi } from '@/apis/userApi';
 import { useAuth } from '@/hooks/useAuth';
 import { useT } from '@/hooks/useT';
 import { SkeletonPage, Banner, Card, Chip } from '@/components/ui/Ui';
+import Pagination, { usePagination } from '@/components/ui/Pagination';
 import { formatDate, initials } from '@/utils/format';
 
 export default function Settings() {
@@ -34,6 +35,9 @@ export default function Settings() {
   const [inviteLink, setInviteLink] = useState('');
 
   useEffect(() => { if (org) setForm({ name: org.name || '', industry: org.industry || '', sizeBand: org.sizeBand || '' }); }, [org]);
+
+  const membersPage = usePagination(members, 8);
+  const remindersPage = usePagination(reminders, 8);
 
   if (isLoading) return <SkeletonPage rows={2} />;
 
@@ -157,7 +161,7 @@ export default function Settings() {
           <table className="table">
             <thead><tr><th>{t('set.colName')}</th><th>{t('set.email')}</th><th>{t('set.role')}</th><th>{t('set.colStatus')}</th>{canManage && <th></th>}</tr></thead>
             <tbody>
-              {members.map((m) => (
+              {membersPage.pageItems.map((m) => (
                 <tr key={m.id} data-testid="member-row">
                   <td><div className="row" style={{ gap: 8 }}><span className="avatar" style={{ width: 26, height: 26, fontSize: 10 }}>{initials(m.fullName)}</span>{m.fullName}{m.id === user?.id && <span className="muted small">{t('set.you')}</span>}</div></td>
                   <td className="muted small">{m.email}</td>
@@ -181,6 +185,7 @@ export default function Settings() {
               ))}
             </tbody>
           </table>
+          <Pagination page={membersPage.page} pageCount={membersPage.pageCount} onChange={membersPage.setPage} total={membersPage.total} pageSize={membersPage.pageSize} />
         </Card>
 
         <Card title={t('set.rolesPerms')} variant="ruled">
@@ -201,7 +206,7 @@ export default function Settings() {
             <table className="table">
               <thead><tr><th>{t('set.colAssessment')}</th><th>{t('set.cadence')}</th><th>{t('set.nextReminder')}</th><th>{t('set.active')}</th></tr></thead>
               <tbody>
-                {reminders.map((r) => (
+                {remindersPage.pageItems.map((r) => (
                   <tr key={r.id}>
                     <td>{r.assessment?.title}</td>
                     <td>{r.cadence === 'annual' ? t('set.cadenceAnnual') : r.cadence}</td>
@@ -212,6 +217,7 @@ export default function Settings() {
               </tbody>
             </table>
           )}
+          <Pagination page={remindersPage.page} pageCount={remindersPage.pageCount} onChange={remindersPage.setPage} total={remindersPage.total} pageSize={remindersPage.pageSize} />
         </Card>
 
         <Card title={t('set.account')} variant="ruled">

@@ -19,11 +19,11 @@ export const RISK_LABELS = {
 };
 
 export const RISK_CHIP = {
-  prohibited: 'chip-red',
-  high: 'chip-amber',
-  limited: 'chip-navy',
-  minimal: 'chip-green',
-  unclassified: 'chip-grey',
+  prohibited: 'risk-prohibited',
+  high: 'risk-high',
+  limited: 'risk-limited',
+  minimal: 'risk-minimal',
+  unclassified: 'risk-unclassified',
 };
 
 export const STATUS_LABELS = {

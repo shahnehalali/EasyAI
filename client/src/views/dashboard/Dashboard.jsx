@@ -23,7 +23,7 @@ export default function Dashboard() {
   return (
     <div data-testid="dashboard">
       <div className="page-head">
-        <div>
+        <div className="glass-head">
           <div className="eyebrow">{t('dash.eyebrow')}</div>
           <h1>{t('dash.title')}</h1>
           <p className="sub">{t('dash.sub')}</p>

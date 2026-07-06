@@ -25,7 +25,7 @@ export default function NotificationBell() {
     <div ref={ref} style={{ position: 'relative' }}>
       <button className="bell" aria-label={t('nb.aria')} data-testid="notif-bell" onClick={() => setOpen((o) => !o)}>
         <Bell size={19} strokeWidth={2} />
-        {count > 0 && <span className="count" data-testid="notif-count">{count}</span>}
+        {count > 0 && <span className="count" data-testid="notif-count">{count > 9 ? '9+' : count}</span>}
       </button>
       {open && (
         <div className="dropdown">
