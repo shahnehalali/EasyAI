@@ -15,3 +15,4 @@ __pycache__/
 # Filled-in Kubernetes secrets (never commit real values)
 k8s/jurisai-secrets.yaml
 k8s/jurisai-app-secrets.yaml
+k8s/longhorn-crypto-secret.yaml
