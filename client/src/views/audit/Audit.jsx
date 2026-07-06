@@ -5,6 +5,7 @@ import { reportApi } from '@/apis/reportApi';
 import { useAuth } from '@/hooks/useAuth';
 import { useT } from '@/hooks/useT';
 import { SkeletonPage, ErrorState, EmptyState } from '@/components/ui/Ui';
+import Pagination, { usePagination } from '@/components/ui/Pagination';
 import { formatDate, fromNow } from '@/utils/format';
 
 export default function Audit() {
@@ -15,11 +16,11 @@ export default function Audit() {
     queryKey: ['audit', action],
     queryFn: () => auditApi.list(action ? { action } : {}),
   });
+  const logs = data?.logs || [];
+  const { page, setPage, pageItems, pageCount, total, pageSize } = usePagination(logs, 12);
 
   if (isLoading) return <SkeletonPage rows={3} />;
   if (error) return <ErrorState error={error} onRetry={refetch} />;
-
-  const logs = data.logs || [];
 
   return (
     <div data-testid="audit-page">
@@ -45,11 +46,12 @@ export default function Audit() {
       {logs.length === 0 ? (
         <div className="card"><EmptyState icon="≡" title={t('aud.emptyTitle')}>{t('aud.emptyBody')}</EmptyState></div>
       ) : (
-        <div className="card table-wrap">
+        <div className="card">
+         <div className="table-wrap">
           <table className="table">
             <thead><tr><th>{t('aud.colWhen')}</th><th>{t('aud.colWho')}</th><th>{t('aud.colAction')}</th><th>{t('aud.colArea')}</th></tr></thead>
             <tbody>
-              {logs.map((l) => (
+              {pageItems.map((l) => (
                 <tr key={l.id} data-testid="audit-row">
                   <td className="muted small">{formatDate(l.createdAt)} <span style={{ opacity: 0.7 }}>({fromNow(l.createdAt, lang)})</span></td>
                   <td>{l.actor}</td>
@@ -59,6 +61,8 @@ export default function Audit() {
               ))}
             </tbody>
           </table>
+         </div>
+          <Pagination page={page} pageCount={pageCount} onChange={setPage} total={total} pageSize={pageSize} />
         </div>
       )}
     </div>

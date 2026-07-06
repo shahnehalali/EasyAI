@@ -3,6 +3,7 @@ import { useQuery } from '@tanstack/react-query';
 import { Link } from 'react-router-dom';
 import { frameworkApi } from '@/apis/frameworkApi';
 import { SkeletonPage, ErrorState, Chip } from '@/components/ui/Ui';
+import Pagination, { usePagination } from '@/components/ui/Pagination';
 import { tierLabel } from '@/utils/format';
 import { useT } from '@/hooks/useT';
 
@@ -30,6 +31,8 @@ export default function Frameworks() {
     if (!active || active.tier === null) return frameworks;
     return frameworks.filter((f) => f.tier === active.tier);
   }, [frameworks, filter]);
+
+  const { page, setPage, pageItems, pageCount, total, pageSize } = usePagination(visible, 10);
 
   if (isLoading) return <SkeletonPage />;
   if (error) return <ErrorState error={error} onRetry={refetch} />;
@@ -62,7 +65,8 @@ export default function Frameworks() {
         })}
       </div>
 
-      <div className="card table-wrap">
+      <div className="card">
+       <div className="table-wrap">
         <table className="table">
           <thead>
             <tr><th>{t('fw.col.framework')}</th><th>{t('fw.col.reference')}</th><th>{t('fw.col.tier')}</th><th>{t('fw.col.requirements')}</th><th>{t('fw.col.checklists')}</th><th></th></tr>
@@ -71,7 +75,7 @@ export default function Frameworks() {
             {visible.length === 0 && (
               <tr><td colSpan={6} className="muted small" style={{ textAlign: 'center', padding: '24px 0' }}>{t('fw.empty')}</td></tr>
             )}
-            {visible.map((f) => (
+            {pageItems.map((f) => (
               <tr key={f.key} data-testid={`framework-row-${f.key}`}>
                 <td><strong>{f.shortName || f.name}</strong><div className="muted small">{f.name}</div></td>
                 <td className="muted small">{f.reference}</td>
@@ -83,6 +87,8 @@ export default function Frameworks() {
             ))}
           </tbody>
         </table>
+       </div>
+        <Pagination page={page} pageCount={pageCount} onChange={setPage} total={total} pageSize={pageSize} />
       </div>
     </div>
   );

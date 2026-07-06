@@ -3,10 +3,53 @@ import { useQuery } from '@tanstack/react-query';
 import { Link } from 'react-router-dom';
 import { assessmentApi } from '@/apis/assessmentApi';
 import { SkeletonPage, ErrorState, StatusChip, RiskChip, Progress, Chip, EmptyState } from '@/components/ui/Ui';
+import Pagination, { usePagination } from '@/components/ui/Pagination';
 import { formatDate, progressVariant } from '@/utils/format';
 import { useT } from '@/hooks/useT';
 
 const TIER_CHIP = { 1: 'chip-navy', 2: 'chip-gold', 3: 'chip-grey' };
+
+// One group card with its own paginated table (each scope pages independently).
+function AssessmentGroup({ g }) {
+  const { t } = useT();
+  const { page, setPage, pageItems, pageCount, total, pageSize } = usePagination(g.rows, 8);
+  return (
+    <div className="card" data-testid="assessment-group">
+      <div className="card-head">
+        <div className="row" style={{ gap: 10 }}>
+          <h3 style={{ fontSize: 14.5 }}>{g.isOrg ? t('as.orgWide') : g.name}</h3>
+          {g.risk && <RiskChip risk={g.risk} />}
+          <span className="muted small">{g.rows.length} {g.rows.length === 1 ? t('as.col.checklist') : t('as.stat.checklists')}</span>
+        </div>
+        {!g.isOrg && <Link className="small" to={`/ai-systems/${g.key}`}>{t('as.viewSystem')} →</Link>}
+      </div>
+      <div className="table-wrap">
+        <table className="table">
+          <thead>
+            <tr><th>{t('as.col.framework')}</th><th>{t('as.col.checklist')}</th><th>{t('as.col.status')}</th><th style={{ width: 150 }}>{t('as.col.progress')}</th><th>{t('as.col.items')}</th><th>{t('as.col.nextReview')}</th><th></th></tr>
+          </thead>
+          <tbody>
+            {pageItems.map((a) => (
+              <tr key={a.id} data-testid="assessment-row">
+                <td><Chip className={TIER_CHIP[a.framework?.tier] || 'chip-grey'} dot={false}>{a.framework?.shortName || a.framework?.name}</Chip></td>
+                <td><strong>{a.template?.name || a.title}</strong></td>
+                <td><StatusChip status={a.status} /></td>
+                <td>
+                  <Progress value={a.progressPct} variant={progressVariant(a.status, a.progressPct)} />
+                  <span className="muted small">{a.progressPct}%</span>
+                </td>
+                <td className="muted small">{a._count?.responses ?? '-'}</td>
+                <td className="muted small">{formatDate(a.nextReviewDueAt)}</td>
+                <td style={{ textAlign: 'right' }}><Link className="btn btn-primary btn-sm" to={`/assessments/${a.id}`}>{t('common.open')}</Link></td>
+              </tr>
+            ))}
+          </tbody>
+        </table>
+      </div>
+      <Pagination page={page} pageCount={pageCount} onChange={setPage} total={total} pageSize={pageSize} />
+    </div>
+  );
+}
 
 export default function Assessments() {
   const { t, lang } = useT();
@@ -70,10 +113,10 @@ export default function Assessments() {
       ) : (
         <>
           <div className="grid grid-4" style={{ marginBottom: 18 }}>
-            <div className="card stat"><div className="num">{summary.total}</div><div className="label">{t('as.stat.checklists')}</div></div>
-            <div className="card stat"><div className="num">{summary.completed}</div><div className="label">{t('as.stat.completed')}</div></div>
-            <div className="card stat"><div className="num">{summary.inProgress}</div><div className="label">{t('as.stat.inProgress')}</div></div>
-            <div className="card stat"><div className="num">{summary.needsReview}</div><div className="label">{t('as.stat.needReview')}</div></div>
+            <div className="card stat neu-stat"><div className="num">{summary.total}</div><div className="label">{t('as.stat.checklists')}</div></div>
+            <div className="card stat neu-stat"><div className="num">{summary.completed}</div><div className="label">{t('as.stat.completed')}</div></div>
+            <div className="card stat neu-stat"><div className="num">{summary.inProgress}</div><div className="label">{t('as.stat.inProgress')}</div></div>
+            <div className="card stat neu-stat"><div className="num">{summary.needsReview}</div><div className="label">{t('as.stat.needReview')}</div></div>
           </div>
 
           {groups.length > 1 && (
@@ -104,41 +147,7 @@ export default function Assessments() {
           )}
 
           <div className="stack">
-            {visibleGroups.map((g) => (
-              <div key={g.key} className="card" data-testid="assessment-group">
-                <div className="card-head">
-                  <div className="row" style={{ gap: 10 }}>
-                    <h3 style={{ fontSize: 14.5 }}>{g.isOrg ? t('as.orgWide') : g.name}</h3>
-                    {g.risk && <RiskChip risk={g.risk} />}
-                    <span className="muted small">{g.rows.length} {g.rows.length === 1 ? t('as.col.checklist') : t('as.stat.checklists')}</span>
-                  </div>
-                  {!g.isOrg && <Link className="small" to={`/ai-systems/${g.key}`}>{t('as.viewSystem')} →</Link>}
-                </div>
-                <div className="table-wrap">
-                  <table className="table">
-                    <thead>
-                      <tr><th>{t('as.col.framework')}</th><th>{t('as.col.checklist')}</th><th>{t('as.col.status')}</th><th style={{ width: 150 }}>{t('as.col.progress')}</th><th>{t('as.col.items')}</th><th>{t('as.col.nextReview')}</th><th></th></tr>
-                    </thead>
-                    <tbody>
-                      {g.rows.map((a) => (
-                        <tr key={a.id} data-testid="assessment-row">
-                          <td><Chip className={TIER_CHIP[a.framework?.tier] || 'chip-grey'} dot={false}>{a.framework?.shortName || a.framework?.name}</Chip></td>
-                          <td><strong>{a.template?.name || a.title}</strong></td>
-                          <td><StatusChip status={a.status} /></td>
-                          <td>
-                            <Progress value={a.progressPct} variant={progressVariant(a.status, a.progressPct)} />
-                            <span className="muted small">{a.progressPct}%</span>
-                          </td>
-                          <td className="muted small">{a._count?.responses ?? '-'}</td>
-                          <td className="muted small">{formatDate(a.nextReviewDueAt)}</td>
-                          <td style={{ textAlign: 'right' }}><Link className="btn btn-primary btn-sm" to={`/assessments/${a.id}`}>{t('common.open')}</Link></td>
-                        </tr>
-                      ))}
-                    </tbody>
-                  </table>
-                </div>
-              </div>
-            ))}
+            {visibleGroups.map((g) => <AssessmentGroup key={g.key} g={g} />)}
           </div>
         </>
       )}

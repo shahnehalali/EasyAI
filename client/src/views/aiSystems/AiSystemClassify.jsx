@@ -98,8 +98,9 @@ export default function AiSystemClassify() {
                       {['yes', 'no'].map((opt) => {
                         const val = opt === 'yes';
                         const on = answers[q.code] === val;
-                        // Yes (a risky trait) reads red, No reads green when selected.
-                        const activeColor = val ? 'var(--red)' : 'var(--green)';
+                        // Yes (a risky trait) reads red, No reads green when selected. Use fixed
+                        // dark shades so the white label stays readable in both themes.
+                        const activeColor = val ? '#b42318' : '#1b7a4b';
                         return (
                           <button key={opt} data-testid={`q-${q.code}-${opt}`} onClick={() => setAnswer(q.code, val)}
                             className="btn btn-sm" style={{

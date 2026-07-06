@@ -175,7 +175,7 @@ export default function LawExplorer() {
                       const on = selectedFns.includes(f.key);
                       return (
                         <button key={f.key} data-testid={`fn-${f.key}`} title={fnDesc(f, lang)} onClick={() => toggleFn(f.key)}
-                          className="btn btn-sm" style={{ background: on ? 'var(--accent)' : 'var(--surface)', color: on ? '#fff' : 'var(--ink)', border: `1px solid ${on ? 'var(--accent)' : 'var(--border)'}` }}>
+                          className="btn btn-sm" style={{ background: on ? 'var(--accent)' : 'var(--surface)', color: on ? 'var(--accent-contrast)' : 'var(--ink)', border: `1px solid ${on ? 'var(--accent)' : 'var(--border)'}` }}>
                           {on ? '✓ ' : ''}{fnLabel(f, lang)}
                         </button>
                       );
@@ -377,7 +377,7 @@ function Wizard({ t, lang, categories, fnsInCategory, selectedFns, toggleFn, ste
                   const on = selectedFns.includes(f.key);
                   return (
                     <button key={f.key} data-testid={`wiz-fn-${f.key}`} onClick={() => toggleFn(f.key)} className="btn btn-sm"
-                      style={{ background: on ? 'var(--accent)' : 'var(--surface)', color: on ? '#fff' : 'var(--ink)', border: `1px solid ${on ? 'var(--accent)' : 'var(--border)'}` }}>
+                      style={{ background: on ? 'var(--accent)' : 'var(--surface)', color: on ? 'var(--accent-contrast)' : 'var(--ink)', border: `1px solid ${on ? 'var(--accent)' : 'var(--border)'}` }}>
                       {on ? '✓ ' : ''}{fnLabel(f, lang)}
                     </button>
                   );

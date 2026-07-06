@@ -2,6 +2,7 @@ import { useQuery } from '@tanstack/react-query';
 import { Link } from 'react-router-dom';
 import { aiSystemApi } from '@/apis/aiSystemApi';
 import { SkeletonPage, ErrorState, RiskChip, EmptyState } from '@/components/ui/Ui';
+import Pagination, { usePagination } from '@/components/ui/Pagination';
 import { formatDate } from '@/utils/format';
 import { useT } from '@/hooks/useT';
 import { useAuth } from '@/hooks/useAuth';
@@ -11,6 +12,7 @@ export default function AiSystems() {
   const { can } = useAuth();
   const canEdit = can('compliance.edit');
   const { data: systems = [], isLoading, error, refetch } = useQuery({ queryKey: ['ai-systems'], queryFn: aiSystemApi.list });
+  const { page, setPage, pageItems, pageCount, total, pageSize } = usePagination(systems, 10);
 
   if (isLoading) return <SkeletonPage />;
   if (error) return <ErrorState error={error} onRetry={refetch} />;
@@ -31,13 +33,14 @@ export default function AiSystems() {
           {t('ai.empty.body')}
         </EmptyState></div>
       ) : (
-        <div className="card table-wrap">
+        <div className="card">
+         <div className="table-wrap">
           <table className="table">
             <thead>
               <tr><th>{t('ai.col.system')}</th><th>{t('ai.col.risk')}</th><th>{t('ai.col.vendor')}</th><th>{t('ai.col.stage')}</th><th>{t('ai.col.assessments')}</th><th>{t('ai.col.classified')}</th></tr>
             </thead>
             <tbody>
-              {systems.map((s) => (
+              {pageItems.map((s) => (
                 <tr key={s.id} data-testid="ai-system-row">
                   <td><Link to={`/ai-systems/${s.id}`}><strong>{s.name}</strong></Link><div className="muted small">{s.purpose}</div></td>
                   <td>{s.riskCategory ? <RiskChip risk={s.riskCategory} /> : (canEdit ? (
@@ -54,6 +57,8 @@ export default function AiSystems() {
               ))}
             </tbody>
           </table>
+         </div>
+          <Pagination page={page} pageCount={pageCount} onChange={setPage} total={total} pageSize={pageSize} />
         </div>
       )}
     </div>

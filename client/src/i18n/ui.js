@@ -49,6 +49,12 @@ export const UI = {
     // Top bar account menu
     'account.settings': 'Settings',
     'account.signOut': 'Sign out',
+    'theme.day': 'Day mode',
+    'theme.night': 'Night mode',
+    'profile.compliance': 'Compliance',
+    'profile.aiSystems': 'AI systems',
+    'profile.assessments': 'Assessments',
+    'profile.orgLabel': 'Organisation',
     'lang.label': 'Language',
 
     // Dashboard
@@ -310,6 +316,13 @@ export const UI = {
     'app.primaryNav': 'Primary',
     'app.mainNav': 'Main navigation',
     'app.openMenu': 'Open navigation menu',
+    'app.menu': 'Menu',
+    'tab.home': 'Home',
+    'tab.systems': 'Systems',
+    'tab.assess': 'Checks',
+    'tab.explore': 'Explore',
+    'app.collapseSidebar': 'Collapse sidebar',
+    'app.expandSidebar': 'Expand sidebar',
 
     // Community discussions
     'com.eyebrow': 'Discuss with peers',
@@ -406,6 +419,7 @@ export const UI = {
     'common.classifyNow': 'Classify now',
     'common.open': 'Open',
     'common.cancel': 'Cancel',
+    'common.back': 'Back',
     'common.delete': 'Delete',
     'common.markRead': 'Mark read',
     'common.markAllRead': 'Mark all read',
@@ -582,6 +596,12 @@ export const UI = {
     // Top bar account menu
     'account.settings': 'Einstellungen',
     'account.signOut': 'Abmelden',
+    'theme.day': 'Tagmodus',
+    'theme.night': 'Nachtmodus',
+    'profile.compliance': 'Compliance',
+    'profile.aiSystems': 'KI-Systeme',
+    'profile.assessments': 'Bewertungen',
+    'profile.orgLabel': 'Organisation',
     'lang.label': 'Sprache',
 
     // Dashboard
@@ -843,6 +863,13 @@ export const UI = {
     'app.primaryNav': 'Primär',
     'app.mainNav': 'Hauptnavigation',
     'app.openMenu': 'Navigationsmenü öffnen',
+    'app.menu': 'Menü',
+    'tab.home': 'Start',
+    'tab.systems': 'Systeme',
+    'tab.assess': 'Prüfen',
+    'tab.explore': 'Erkunden',
+    'app.collapseSidebar': 'Seitenleiste einklappen',
+    'app.expandSidebar': 'Seitenleiste ausklappen',
 
     // Community discussions
     'com.eyebrow': 'Mit Kollegen austauschen',
@@ -939,6 +966,7 @@ export const UI = {
     'common.classifyNow': 'Jetzt einstufen',
     'common.open': 'Öffnen',
     'common.cancel': 'Abbrechen',
+    'common.back': 'Zurück',
     'common.delete': 'Löschen',
     'common.markRead': 'Als gelesen markieren',
     'common.markAllRead': 'Alle als gelesen markieren',

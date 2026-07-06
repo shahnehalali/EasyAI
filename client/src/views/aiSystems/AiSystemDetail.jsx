@@ -4,6 +4,7 @@ import { aiSystemApi } from '@/apis/aiSystemApi';
 import { useAuth } from '@/hooks/useAuth';
 import { useT } from '@/hooks/useT';
 import { SkeletonPage, ErrorState, Card, RiskChip, StatusChip, Progress, Banner } from '@/components/ui/Ui';
+import Pagination, { usePagination } from '@/components/ui/Pagination';
 import { progressVariant } from '@/utils/format';
 import BackLink from '@/components/BackLink';
 
@@ -14,6 +15,7 @@ export default function AiSystemDetail() {
   const navigate = useNavigate();
   const { can } = useAuth();
   const { data: system, isLoading, error, refetch } = useQuery({ queryKey: ['ai-system', id], queryFn: () => aiSystemApi.getById(id) });
+  const { page, setPage, pageItems, pageCount, total, pageSize } = usePagination(system?.assessments || [], 8);
 
   if (isLoading) return <SkeletonPage />;
   if (error) return <ErrorState error={error} onRetry={refetch} />;
@@ -65,7 +67,7 @@ export default function AiSystemDetail() {
           <table className="table">
             <thead><tr><th>{t('asd.colAssessment')}</th><th>{t('as.col.framework')}</th><th>{t('as.col.status')}</th><th>{t('as.col.progress')}</th><th></th></tr></thead>
             <tbody>
-              {system.assessments.map((a) => (
+              {pageItems.map((a) => (
                 <tr key={a.id}>
                   <td>{a.template?.name}</td>
                   <td className="muted small">{a.framework?.shortName || a.framework?.name}</td>
@@ -77,6 +79,7 @@ export default function AiSystemDetail() {
             </tbody>
           </table>
         )}
+        <Pagination page={page} pageCount={pageCount} onChange={setPage} total={total} pageSize={pageSize} />
       </Card>
     </div>
   );
