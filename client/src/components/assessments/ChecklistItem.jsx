@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useState, useRef, useEffect } from 'react';
 import { FileText, Trash2 } from 'lucide-react';
 import { checklistResponseApi } from '@/apis/checklistResponseApi';
 import { documentApi } from '@/apis/documentApi';
@@ -25,8 +25,6 @@ export default function ChecklistItem({ response, members = [], onChanged }) {
   const [saved, setSaved] = useState(false);
   const [error, setError] = useState('');
 
-  const dirty = status !== response.status || text !== (response.responseText || '');
-
   const persist = async (nextStatus, nextText) => {
     setSaving(true); setError(''); setSaved(false);
     try {
@@ -40,8 +38,26 @@ export default function ChecklistItem({ response, members = [], onChanged }) {
   };
 
   const pickStatus = (s) => { setStatus(s); persist(s, text); };
-  const blurText = () => { if (text !== (response.responseText || '')) persist(status, text); };
-  const saveNow = () => persist(status, text);
+
+  // Documentation text autosaves: debounced while typing, and flushed on blur.
+  // (Status stays a manual toggle above.) A ref keeps the latest status so a
+  // pending text save never reverts a status the user just changed.
+  const statusRef = useRef(status);
+  useEffect(() => { statusRef.current = status; }, [status]);
+  const saveTimer = useRef(0);
+  const onTextChange = (e) => {
+    const v = e.target.value;
+    setText(v);
+    clearTimeout(saveTimer.current);
+    saveTimer.current = setTimeout(() => {
+      if (v !== (response.responseText || '')) persist(statusRef.current, v);
+    }, 900);
+  };
+  const blurText = () => {
+    clearTimeout(saveTimer.current);
+    if (text !== (response.responseText || '')) persist(statusRef.current, text);
+  };
+  useEffect(() => () => clearTimeout(saveTimer.current), []);
 
   const assign = async (id) => {
     setAssigneeId(id); setError('');
@@ -126,7 +142,7 @@ export default function ChecklistItem({ response, members = [], onChanged }) {
           canEdit ? (
             <textarea className="textarea" data-testid="response-text" aria-label={`Documentation for ${item.title}`}
               placeholder={t('ci.responsePlaceholder')}
-              value={text} onChange={(e) => setText(e.target.value)} onBlur={blurText} />
+              value={text} onChange={onTextChange} onBlur={blurText} />
           ) : (
             text ? <p className="small" style={{ whiteSpace: 'pre-wrap', margin: '10px 0 0' }}>{text}</p> : null
           )
@@ -160,9 +176,6 @@ export default function ChecklistItem({ response, members = [], onChanged }) {
 
         {canEdit && (
           <div className="row" style={{ gap: 10, marginTop: 12, alignItems: 'center', flexWrap: 'wrap' }}>
-            <button className="btn btn-primary btn-sm" data-testid="save-item" onClick={saveNow} disabled={saving}>
-              {saving ? t('ci.saving') : t('ci.save')}
-            </button>
             <label className="btn btn-outline btn-sm" style={{ cursor: 'pointer' }}>
               {t('ci.attachDocument')}
               <input type="file" data-testid="attach-file" onChange={attach} style={{ display: 'none' }} aria-label={`${t('ci.attachDocument')} - ${item.title}`} />
@@ -176,7 +189,7 @@ export default function ChecklistItem({ response, members = [], onChanged }) {
               </select>
             </label>
             <span className="small muted" aria-live="polite" style={{ minWidth: 90 }}>
-              {saving ? t('ci.saving') : saved ? <span style={{ color: 'var(--green)' }} data-testid="saved-flag">{t('ci.saved')} ✓</span> : dirty ? t('ci.unsavedChanges') : t('ci.savedAutomatically')}
+              {saving ? t('ci.saving') : saved ? <span style={{ color: 'var(--green)' }} data-testid="saved-flag">{t('ci.saved')} ✓</span> : t('ci.savedAutomatically')}
             </span>
           </div>
         )}
