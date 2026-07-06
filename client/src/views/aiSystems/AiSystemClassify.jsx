@@ -8,7 +8,7 @@ import BackLink from '@/components/BackLink';
 
 export default function AiSystemClassify() {
   const { id } = useParams();
-  const { t } = useT();
+  const { t, lang } = useT();
   const navigate = useNavigate();
   const qc = useQueryClient();
   const [answers, setAnswers] = useState({});
@@ -23,7 +23,7 @@ export default function AiSystemClassify() {
   ];
 
   const { data: questionnaire, isLoading } = useQuery({
-    queryKey: ['questionnaire', id], queryFn: () => aiSystemApi.getQuestionnaire(id),
+    queryKey: ['questionnaire', id, lang], queryFn: () => aiSystemApi.getQuestionnaire(id, lang),
   });
 
   if (isLoading) return <Spinner />;
@@ -33,7 +33,7 @@ export default function AiSystemClassify() {
   const submit = async () => {
     setBusy(true); setError('');
     try {
-      const res = await aiSystemApi.classify(id, answers);
+      const res = await aiSystemApi.classify(id, answers, lang);
       setResult(res);
       qc.invalidateQueries({ queryKey: ['ai-systems'] });
       qc.invalidateQueries({ queryKey: ['assessments'] });

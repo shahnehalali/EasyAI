@@ -38,7 +38,7 @@ export default function ThreadDetail() {
   };
 
   const key = ['thread', id, lang];
-  const { data, isLoading, error: loadError, refetch } = useQuery({ queryKey: key, queryFn: () => threadApi.get(id) });
+  const { data, isLoading, error: loadError, refetch } = useQuery({ queryKey: key, queryFn: () => threadApi.get(id, lang) });
 
   // Group posts into top-level + their children (one nesting level).
   const grouped = useMemo(() => {
@@ -118,7 +118,8 @@ export default function ThreadDetail() {
               {thread.status === 'locked' && <Chip className="chip-grey" dot={false}><Lock size={11} /> {t('com.locked')}</Chip>}
             </div>
             <h1 style={{ fontSize: 22, marginBottom: 8 }}>{thread.title}</h1>
-            <div style={{ whiteSpace: 'pre-wrap', marginBottom: 10 }}>{thread.deleted ? t('com.deleted') : thread.body}</div>
+            <div style={{ whiteSpace: 'pre-wrap', marginBottom: thread.translated ? 4 : 10 }}>{thread.deleted ? t('com.deleted') : thread.body}</div>
+            {thread.translated && <div className="muted small" style={{ marginBottom: 10, fontStyle: 'italic' }}>{t('com.autoTranslated')}</div>}
             <div className="row-between" style={{ flexWrap: 'wrap', gap: 8 }}>
               <AuthorLine author={thread.author} createdAt={thread.createdAt} lang={lang} />
               <div className="row" style={{ gap: 10 }}>

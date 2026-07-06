@@ -68,6 +68,7 @@ export const UI = {
 
     // Data protection profile (page chrome; the questions/obligations come localised from the API)
     'dp.eyebrow': 'Data protection profile (GDPR & DPA)',
+    'dp.relatesTo': 'Relates to',
     'dp.seeApplies': 'See what applies',
     'dp.checking': 'Checking...',
     'dp.answerFirst': 'Answer the first question to continue.',
@@ -212,6 +213,12 @@ export const UI = {
     'ae.docHint': 'Document each item below. Set its status, write your evidence, assign an owner, attach files, and discuss in comments. Changes save automatically.',
     'ae.activity': 'Activity',
     'ae.noActivity': 'No activity yet. Changes by your team will show here.',
+    'ae.point': 'Point',
+    'ae.prevPoint': 'Previous point',
+    'ae.nextPoint': 'Next point',
+    'ae.nextOpen': 'Next open point',
+    'ae.allAddressed': 'All points addressed',
+    'ae.openRemaining': '{n} open',
 
     // Checklist item
     'ci.required': 'Required',
@@ -377,6 +384,7 @@ export const UI = {
     'com.searchEmpty': 'No discussions match "{q}". Try different words or start a new one.',
     'com.collapse': 'Collapse',
     'com.expand': 'Expand',
+    'com.autoTranslated': 'Auto-translated',
 
     // Notifications bell
     'nb.title': 'Notifications',
@@ -615,6 +623,7 @@ export const UI = {
 
     // Data protection profile (page chrome)
     'dp.eyebrow': 'Datenschutzprofil (DSGVO & AVV)',
+    'dp.relatesTo': 'Bezieht sich auf',
     'dp.seeApplies': 'Anzeigen, was gilt',
     'dp.checking': 'Wird geprüft...',
     'dp.answerFirst': 'Beantworten Sie die erste Frage, um fortzufahren.',
@@ -759,6 +768,12 @@ export const UI = {
     'ae.docHint': 'Dokumentieren Sie jeden Punkt unten. Setzen Sie den Status, halten Sie Ihre Nachweise fest, weisen Sie eine verantwortliche Person zu, hängen Sie Dateien an und diskutieren Sie in Kommentaren. Änderungen werden automatisch gespeichert.',
     'ae.activity': 'Aktivität',
     'ae.noActivity': 'Noch keine Aktivität. Änderungen Ihres Teams erscheinen hier.',
+    'ae.point': 'Punkt',
+    'ae.prevPoint': 'Vorheriger Punkt',
+    'ae.nextPoint': 'Nächster Punkt',
+    'ae.nextOpen': 'Nächster offener Punkt',
+    'ae.allAddressed': 'Alle Punkte bearbeitet',
+    'ae.openRemaining': '{n} offen',
 
     // Checklist item
     'ci.required': 'Erforderlich',
@@ -924,6 +939,7 @@ export const UI = {
     'com.searchEmpty': 'Keine Diskussionen passen zu "{q}". Versuchen Sie andere Begriffe oder starten Sie eine neue.',
     'com.collapse': 'Einklappen',
     'com.expand': 'Ausklappen',
+    'com.autoTranslated': 'Automatisch übersetzt',
 
     // Notifications bell
     'nb.title': 'Benachrichtigungen',

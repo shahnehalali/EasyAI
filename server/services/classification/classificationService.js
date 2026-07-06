@@ -1,6 +1,7 @@
 const { prisma } = require('../../db/db');
 const logger = require('../../utils/logger');
 const config = require('../../config');
+const { localizeExplanation, localizeQuestionnaire } = require('./classificationL10n');
 
 // ---- Boolean condition DSL ----
 // A condition is one of:
@@ -33,23 +34,29 @@ function evaluate(condition, answers) {
 
 // Resolve a risk category from answers using the questionnaire's rules.
 // Rules are evaluated by ascending priority; first match wins. Default: minimal.
-async function classify(questionnaireKey, answers) {
+async function classify(questionnaireKey, answers, lang = 'en') {
   const questionnaire = await prisma.classificationQuestionnaire.findUnique({
     where: { key: questionnaireKey },
     include: { rules: { orderBy: { priority: 'asc' } } },
   });
   if (!questionnaire) {
-    return { riskCategory: 'minimal', explanation: 'No questionnaire found; defaulted to minimal risk.' };
+    return {
+      riskCategory: 'minimal',
+      explanation: localizeExplanation('minimal', lang, 'No questionnaire found; defaulted to minimal risk.', 'none'),
+    };
   }
 
   for (const rule of questionnaire.rules) {
     if (evaluate(rule.conditions, answers)) {
-      return { riskCategory: rule.resultRiskCategory, explanation: rule.explanation };
+      return {
+        riskCategory: rule.resultRiskCategory,
+        explanation: localizeExplanation(rule.resultRiskCategory, lang, rule.explanation),
+      };
     }
   }
   return {
     riskCategory: 'minimal',
-    explanation: 'No higher-risk criteria matched, so this system is treated as minimal risk.',
+    explanation: localizeExplanation('minimal', lang, 'No higher-risk criteria matched, so this system is treated as minimal risk.'),
   };
 }
 
@@ -124,4 +131,4 @@ function addDays(date, days) {
   return d;
 }
 
-module.exports = { evaluate, classify, instantiateAssessments, addDays };
+module.exports = { evaluate, classify, instantiateAssessments, addDays, localizeQuestionnaire };

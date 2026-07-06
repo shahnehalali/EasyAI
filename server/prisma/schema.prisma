@@ -481,6 +481,7 @@ model Thread {
   pinned         Boolean   @default(false)
   score          Int       @default(0)
   replyCount     Int       @default(0)
+  translations   Json? // cached machine translations, e.g. { "de": { "title": "...", "body": "..." } }
   lastActivityAt DateTime  @default(now())
   deletedAt      DateTime?
   createdAt      DateTime  @default(now())
@@ -504,6 +505,7 @@ model ThreadPost {
   authorId       String
   parentPostId   String? // one level of nesting (reply to a reply)
   body           String
+  translations   Json? // cached machine translations, e.g. { "de": { "body": "..." } }
   score          Int       @default(0)
   deletedAt      DateTime?
   createdAt      DateTime  @default(now())

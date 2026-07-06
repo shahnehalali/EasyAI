@@ -320,16 +320,20 @@ hr { border: none; border-top: 1px solid var(--border); margin: 16px 0; }
   padding: 3px 10px; border-radius: 999px; border: 1px solid transparent; white-space: nowrap; letter-spacing: -0.01em;
 }
 .chip .dot { width: 6px; height: 6px; border-radius: 50%; background: currentColor; }
-/* Monochrome status pills (like the mockup): light-grey fill, dark text.
-   "Done" reads as a solid dark pill so completion stands out; anything needing
-   attention is outlined; everything else is a quiet grey pill. */
-.chip-green { background: var(--accent); color: var(--accent-contrast); }
-.chip-green .dot { background: var(--accent-contrast); }
-.chip-red { background: var(--surface); color: var(--ink); border-color: var(--ink); }
-.chip-amber { background: var(--grey-bg); color: var(--ink-soft); }
+/* Status / severity pills carry semantic colour app-wide: green=done, red=needs
+   attention / mandatory, amber=in progress / recommended, blue=informational,
+   grey=neutral. The dot inherits the text colour. */
+.chip-green { background: #e2f4ea; color: #1b7a4b; }
+.chip-red { background: #fbe3e0; color: #b42318; }
+.chip-amber { background: #fef6da; color: #8a6516; }
+.chip-navy { background: #e6effd; color: #175cd3; }
+.chip-gold { background: #fef6da; color: #8a6516; }
 .chip-grey { background: var(--grey-bg); color: var(--ink-soft); }
-.chip-navy { background: var(--grey-bg); color: var(--ink-soft); }
-.chip-gold { background: var(--grey-bg); color: var(--ink-soft); }
+[data-theme='dark'] .chip-green { background: #16301f; color: #7fd3a1; }
+[data-theme='dark'] .chip-red { background: #3a1c19; color: #f4a89f; }
+[data-theme='dark'] .chip-amber { background: #322c14; color: #e5cf7a; }
+[data-theme='dark'] .chip-navy { background: #16233a; color: #8fb8f2; }
+[data-theme='dark'] .chip-gold { background: #322c14; color: #e5cf7a; }
 
 /* Risk pills carry a status colour (severity ramp): prohibited=red, high=orange,
    limited=amber, minimal=green, unclassified=grey. The dot inherits the text. */
@@ -343,6 +347,30 @@ hr { border: none; border-top: 1px solid var(--border); margin: 16px 0; }
 [data-theme='dark'] .risk-limited { background: #322c14; color: #e5cf7a; }
 [data-theme='dark'] .risk-minimal { background: #16301f; color: #7fd3a1; }
 [data-theme='dark'] .risk-unclassified { background: var(--surface-hover); color: var(--muted); }
+/* Small topic tag on a profile question (e.g. AVV, DPF, SCC). */
+.q-tag {
+  display: inline-block; font-size: 10px; font-weight: 700; letter-spacing: 0.05em; text-transform: uppercase;
+  color: #175cd3; background: #e6effd; border-radius: 6px; padding: 2px 7px; margin-right: 8px; vertical-align: middle;
+}
+[data-theme='dark'] .q-tag { color: #8fb8f2; background: #16233a; }
+
+/* Highlighted "What to do" callout on each obligation (blue accent). */
+.dp-todo {
+  background: #eef4ff; border: 1px solid #cfe0fb; border-left: 3px solid #175cd3;
+  border-radius: 8px; padding: 11px 13px; line-height: 1.55; color: var(--ink);
+}
+.dp-todo-label {
+  display: flex; align-items: center; gap: 5px; font-weight: 700; color: #175cd3;
+  text-transform: uppercase; font-size: 10.5px; letter-spacing: 0.05em; margin-bottom: 5px;
+}
+[data-theme='dark'] .dp-todo { background: #14213a; border-color: #23324d; border-left-color: #4b8bf0; }
+[data-theme='dark'] .dp-todo-label { color: #8fb8f2; }
+
+/* Data-protection obligation status pills: "action needed" = amber, "applies" = blue. */
+.dp-action { background: #fdead7; color: #b54708; }
+.dp-applies { background: #e6effd; color: #175cd3; }
+[data-theme='dark'] .dp-action { background: #38260f; color: #f0b483; }
+[data-theme='dark'] .dp-applies { background: #16233a; color: #8fb8f2; }
 .tier-tag { font-size: 10.5px; font-weight: 700; letter-spacing: 0.03em; text-transform: uppercase; }
 
 /* ---------- Buttons ---------- */
@@ -354,16 +382,20 @@ hr { border: none; border-top: 1px solid var(--border); margin: 16px 0; }
 }
 .btn:active:not(:disabled) { transform: translateY(0.5px); }
 .btn:disabled { opacity: 0.5; cursor: not-allowed; }
+/* Every variant re-asserts its text colour on :hover. This is required because
+   the global `a:hover { color: var(--accent) }` rule would otherwise steal the
+   text colour of any <Link> styled as a button and collide it with the hover
+   background (e.g. primary text -> near-black on a black hover background). */
 .btn-primary { background: var(--accent); color: var(--accent-contrast); box-shadow: 0 1px 2px rgba(16,24,40,0.16); }
-.btn-primary:hover:not(:disabled) { background: var(--accent-2); }
+.btn-primary:hover:not(:disabled) { background: var(--accent-2); color: var(--accent-contrast); }
 .btn-gold { background: var(--accent-soft); color: var(--accent-ink); }
-.btn-gold:hover:not(:disabled) { background: var(--accent-soft-hover); }
+.btn-gold:hover:not(:disabled) { background: var(--accent-soft-hover); color: var(--accent-ink); }
 .btn-outline { background: var(--surface); border-color: var(--border); color: var(--ink); }
-.btn-outline:hover:not(:disabled) { border-color: var(--outline-border-hover); background: var(--surface-subtle); }
+.btn-outline:hover:not(:disabled) { border-color: var(--outline-border-hover); background: var(--surface-subtle); color: var(--ink); }
 .btn-ghost { background: transparent; color: var(--ink-soft); }
 .btn-ghost:hover:not(:disabled) { background: var(--surface-hover); color: var(--ink); }
 .btn-danger { background: #fff; border-color: #f0cfcb; color: var(--red); }
-.btn-danger:hover:not(:disabled) { background: var(--red-bg); }
+.btn-danger:hover:not(:disabled) { background: var(--red-bg); color: var(--red); }
 .btn-sm { padding: 6px 11px; font-size: 12.5px; border-radius: 8px; }
 .btn-block { width: 100%; }
 
@@ -582,12 +614,30 @@ hr { border: none; border-top: 1px solid var(--border); margin: 16px 0; }
 }
 .help-launcher:active { transform: translateY(1px); }
 
-/* Shared black-glass iPhone look + equal size for the two floating action
-   buttons (chat launcher, screenshot-feedback). The feedback button is a
+/* Chat quick-action button in the speed-dial. It reveals ABOVE the arrow
+   trigger (a vertical dial stacking upward from the bottom-right corner). */
+.fab-action {
+  position: fixed; right: 22px; bottom: 78px; z-index: 80; cursor: pointer;
+  display: flex; align-items: center; justify-content: center;
+  transition: opacity 0.2s ease, transform 0.32s cubic-bezier(0.34, 1.4, 0.64, 1), filter 0.14s;
+  opacity: 0; transform: translateY(12px) scale(0.9); pointer-events: none;
+}
+.fab-action.fab-revealed { opacity: 1; transform: translateY(0) scale(1); pointer-events: auto; }
+
+/* The collapsed trigger shows an up arrow; it flips 180deg when expanded. */
+.fab-arrow { transition: transform 0.28s cubic-bezier(0.34, 1.4, 0.64, 1); }
+.help-launcher.is-open .fab-arrow { transform: rotate(180deg); }
+
+/* Shared black-glass iPhone look + equal size for the floating action buttons
+   (arrow trigger, chat quick-action, screenshot-feedback). font-size:0 hides the
+   feedback button's built-in "Feedback" text label (its icon is fixed-size, and
+   its accessible name comes from aria-label). The feedback button is a
    third-party component with inline styles, so it needs !important. */
 .help-launcher,
+.fab-action,
 [data-feedback-trigger="true"] {
-  width: 54px !important; height: 54px !important; border-radius: 50% !important;
+  width: 44px !important; height: 44px !important; border-radius: 50% !important;
+  font-size: 0 !important; gap: 0 !important;
   color: #fff !important; border: none !important;
   background:
     radial-gradient(120% 92% at 50% -22%, rgba(255, 255, 255, 0.42), rgba(255, 255, 255, 0.10) 42%, rgba(255, 255, 255, 0) 62%),
@@ -600,6 +650,7 @@ hr { border: none; border-top: 1px solid var(--border); margin: 16px 0; }
     0 8px 20px -6px rgba(0, 0, 0, 0.45) !important;
 }
 .help-launcher:hover,
+.fab-action:hover,
 [data-feedback-trigger="true"]:hover { filter: brightness(1.14); }
 
 /* ---- Back link (pill button at the top of detail pages) ---- */
@@ -642,6 +693,7 @@ hr { border: none; border-top: 1px solid var(--border); margin: 16px 0; }
 .reply-send:disabled { opacity: 0.45; cursor: default; }
 /* On the thread page, hide the floating buttons so they don't cover the composer. */
 body.reply-dock-open .help-launcher,
+body.reply-dock-open .fab-action,
 body.reply-dock-open [data-feedback-trigger="true"] { display: none !important; }
 
 /* ---- Community comments (Reddit-style) ---- */
@@ -698,8 +750,8 @@ body.reply-dock-open [data-feedback-trigger="true"] { display: none !important; 
    !important beats the component's inline positioning. */
 @media (min-width: 861px) {
   [data-feedback-trigger="true"] {
-    left: auto !important; right: 22px !important; bottom: 88px !important;
-    opacity: 0; transform: translateY(14px) scale(0.9); pointer-events: none;
+    left: auto !important; right: 22px !important; bottom: 134px !important;
+    opacity: 0; transform: translateY(12px) scale(0.9); pointer-events: none;
     transition: opacity 0.2s ease, transform 0.32s cubic-bezier(0.34, 1.4, 0.64, 1), filter 0.14s;
   }
   [data-feedback-trigger="true"].fab-revealed {
@@ -863,11 +915,14 @@ body.reply-dock-open [data-feedback-trigger="true"] { display: none !important; 
 
 /* Notification bell icon-button chrome. */
 .bell {
-  width: 34px; height: 34px; border-radius: 10px;
+  width: 32px; height: 32px; border-radius: 50%;
   cursor: pointer; color: var(--ink-soft); background: transparent; border: 1px solid transparent; padding: 0;
   display: inline-flex; align-items: center; justify-content: center; line-height: 1;
   transition: background 0.12s, color 0.12s, border-color 0.12s;
 }
+/* The bell glyph is top-heavy (clapper is a thin dot), so it reads slightly
+   high when geometrically centred. Nudge it down ~1px to optically centre it. */
+.bell svg { display: block; transform: translateY(1px); }
 .bell:hover { color: var(--ink); background: var(--surface-hover); border-color: var(--border); }
 
 /* Day / night pill toggle: a white knob (sun/moon) that slides across a track.
@@ -1014,6 +1069,29 @@ body.reply-dock-open [data-feedback-trigger="true"] { display: none !important; 
 .editor-grid { display: grid; grid-template-columns: 1fr 300px; gap: 18px; align-items: start; }
 @media (max-width: 900px) { .editor-grid { grid-template-columns: 1fr; } }
 
+/* Point-by-point checklist navigation (forth/back + jump to next open point) */
+.checklist-nav {
+  position: sticky; top: 10px; z-index: 20;
+  display: flex; align-items: center; justify-content: space-between; gap: 10px; flex-wrap: wrap;
+  padding: 8px 10px; margin-bottom: 12px;
+  background: var(--surface); border: 1px solid var(--border); border-radius: 12px;
+  box-shadow: 0 6px 18px rgba(16,24,40,0.10);
+}
+[data-theme='dark'] .checklist-nav { box-shadow: 0 6px 18px rgba(0,0,0,0.35); }
+.checklist-nav-arrow { padding: 5px 9px; }
+.checklist-nav-count {
+  display: inline-flex; align-items: center; justify-content: center;
+  min-width: 18px; height: 18px; padding: 0 5px; margin-left: 2px;
+  font-size: 11px; font-weight: 700; line-height: 1;
+  background: var(--accent-contrast); color: var(--accent); border-radius: 999px;
+}
+.checklist-anchor { scroll-margin-top: 72px; border-radius: var(--radius); }
+@keyframes point-flash {
+  0% { box-shadow: 0 0 0 3px var(--accent); }
+  100% { box-shadow: 0 0 0 3px transparent; }
+}
+.checklist-anchor.flash > .card { animation: point-flash 1.3s ease-out; }
+
 /* ---------- Mobile: off-canvas sidebar ---------- */
 .hamburger { display: none; background: none; border: none; cursor: pointer; font-size: 20px; color: var(--ink); padding: 4px 8px; margin-right: 4px; border-radius: 8px; }
 .hamburger:hover { background: var(--surface-hover); }
@@ -1074,6 +1152,7 @@ body.reply-dock-open [data-feedback-trigger="true"] { display: none !important; 
   .content { padding: 18px 18px 108px; }         /* clear the floating tab bar */
   [data-feedback-trigger="true"] { display: none !important; } /* declutter with bottom nav */
   .help-launcher { bottom: 90px !important; }
+  .fab-chat { bottom: 146px; } /* above the trigger, which is lifted over the tab bar */
   .help-panel { bottom: 154px; }
 }
 /* Back button in the topbar (mobile only, on sub-pages). */

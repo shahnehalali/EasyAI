@@ -1,5 +1,5 @@
 import { useState, useRef, useEffect } from 'react';
-import { MessagesSquare, X, Send } from 'lucide-react';
+import { MessagesSquare, X, Send, ChevronUp } from 'lucide-react';
 import { matchTopic, HELP_FALLBACK, HELP_GREETING } from '@/data/helpContent';
 import { useLangStore } from '@/store/langStore';
 import { useT } from '@/hooks/useT';
@@ -90,16 +90,37 @@ export default function HelpAssistant() {
 
   return (
     <>
+      {/* Chat quick-action: hidden until the dial is expanded (hover/tap). */}
+      {!open && (
+        <button
+          className={`fab-action fab-chat${fabOpen ? ' fab-revealed' : ''}`}
+          data-testid="fab-chat"
+          aria-label={t('help.open')}
+          aria-hidden={!fabOpen}
+          tabIndex={fabOpen ? 0 : -1}
+          onMouseEnter={openFab}
+          onMouseLeave={closeFab}
+          onClick={() => { setOpen(true); setFabOpen(false); }}
+        >
+          <MessagesSquare size={19} />
+        </button>
+      )}
+
+      {/* Speed-dial trigger: a neutral arrow when collapsed. Hovering reveals the
+          chat + feedback actions above it (the arrow flips up-side-down to signal
+          the dial is open). Clicking it opens the chat panel directly; when the
+          panel is open it becomes a close (X). Click opens chat rather than
+          toggling the dial so it does not fight the hover handler. */}
       <button
-        className="help-launcher"
+        className={`help-launcher${!open && fabOpen ? ' is-open' : ''}`}
         data-testid="help-launcher"
         aria-label={open ? t('help.close') : t('help.open')}
-        aria-expanded={open}
+        aria-expanded={open || fabOpen}
         onMouseEnter={openFab}
         onMouseLeave={closeFab}
         onClick={() => setOpen((o) => !o)}
       >
-        {open ? <X size={22} /> : <MessagesSquare size={22} />}
+        {open ? <X size={20} /> : <ChevronUp size={21} className="fab-arrow" />}
       </button>
 
       {open && (

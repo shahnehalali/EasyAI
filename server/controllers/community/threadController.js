@@ -3,7 +3,7 @@ const ErrorResponse = require('../../utils/errorResponse');
 const { recordAudit } = require('../../utils/audit');
 const {
   visibilityWhere, canSeeThread, canModerate, setVote, myVotes,
-  publicThread, authorInclude,
+  publicThread, authorInclude, ensureThreadTitles, ensureThreadDetail,
 } = require('../../services/community/communityService');
 
 const SORTS = {
@@ -15,6 +15,7 @@ const SORTS = {
 // GET /api/community/threads?frameworkKey=&scope=&sort=&q=
 async function list(req, res) {
   const { frameworkKey, scope, sort, q } = req.query;
+  const lang = req.query.lang === 'de' ? 'de' : 'en';
   // AND the visibility clause with an optional full-text-ish search so the two
   // OR groups do not collide.
   const and = [visibilityWhere(req.user, scope)];
@@ -36,16 +37,18 @@ async function list(req, res) {
     include: { author: authorInclude, framework: { select: { key: true, name: true, shortName: true } } },
   });
   const votes = await myVotes(req.user.id, 'thread', threads.map((t) => t.id));
+  await ensureThreadTitles(threads, lang);
   res.json({
     threads: threads.map((t) => publicThread(t, {
       myVote: votes[t.id] || 0,
       canModerate: canModerate(t, req.user),
-    })),
+    }, lang)),
   });
 }
 
 // GET /api/community/threads/:id  -> the thread plus its posts.
 async function getById(req, res) {
+  const lang = req.query.lang === 'de' ? 'de' : 'en';
   const thread = await prisma.thread.findUnique({
     where: { id: req.params.id },
     include: { author: authorInclude, framework: { select: { key: true, name: true, shortName: true } } },
@@ -63,12 +66,13 @@ async function getById(req, res) {
   const mod = canModerate(thread, req.user);
   const { publicPost } = require('../../services/community/communityService');
 
+  await ensureThreadDetail(thread, posts, lang);
   res.json({
-    thread: publicThread(thread, { myVote: tVote[thread.id] || 0, canModerate: mod }),
+    thread: publicThread(thread, { myVote: tVote[thread.id] || 0, canModerate: mod }, lang),
     posts: posts.map((p) => publicPost(p, {
       myVote: pVotes[p.id] || 0,
       canModerate: mod || p.authorId === req.user.id,
-    })),
+    }, lang)),
   });
 }
 

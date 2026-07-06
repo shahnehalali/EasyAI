@@ -44,7 +44,7 @@
         { "value": "over_250", "label": "250 or more staff" }
       ] },
     { "section": "role", "code": "auto_processing_staff", "type": "number", "prompt": "How many of your staff are constantly engaged in the automated processing of personal data?", "helpText": "Germany (§38 BDSG) requires a Data Protection Officer once 20 or more people are.", "unit": "people" },
-    { "section": "role", "code": "acts_as_processor", "type": "boolean", "prompt": "Do you process this data on behalf of another organisation (you are a processor, not the controller)?", "helpText": "A processor follows the controller's instructions and has its own duties." },
+    { "section": "role", "code": "acts_as_processor", "tag": "AVV", "type": "boolean", "prompt": "Do you process this data on behalf of another organisation (you are a processor, not the controller)?", "helpText": "A processor follows the controller's instructions and has its own duties." },
     { "section": "role", "code": "joint_controller", "type": "boolean", "prompt": "Do you decide the purposes and means of processing jointly with another organisation?", "helpText": "Two organisations deciding together are joint controllers (Art. 26)." },
     { "section": "role", "code": "established_outside_eu", "type": "boolean", "prompt": "Is your organisation established outside the EU/EEA while offering this service to people in the EU?", "helpText": "Non-EU controllers offering to EU users must appoint an EU representative (Art. 27)." },
 
@@ -61,10 +61,12 @@
     { "section": "basis", "code": "direct_marketing", "type": "boolean", "prompt": "Do you use the data for direct marketing or advertising profiling?", "helpText": "Marketing triggers an absolute right to object (Art. 21) and German ePrivacy rules (TDDDG)." },
     { "section": "basis", "code": "automated_decisions", "type": "boolean", "prompt": "Does it make automated decisions with a legal or similarly significant effect on people (e.g. credit, hiring, benefits)?", "helpText": "Decisions made without meaningful human involvement trigger Art. 22." },
 
-    { "section": "processors", "code": "uses_third_party_processor", "type": "boolean", "prompt": "Do you use a third-party vendor or cloud/AI provider to process the data (e.g. AWS, Azure, Google Cloud, OpenAI)?", "helpText": "Anyone processing the data on your behalf is a 'processor'." },
-    { "section": "processors", "code": "has_dpa", "type": "boolean", "prompt": "Do you have a signed Data Processing Agreement (Art. 28) with each of those processors?", "helpText": "A DPA is the contract that lets a processor handle personal data for you lawfully." },
-    { "section": "processors", "code": "sub_processors", "type": "boolean", "prompt": "Do those processors use their own sub-processors (e.g. the AI vendor runs on another company's cloud)?", "helpText": "Sub-processors must be authorised and flowed-down the same obligations (Art. 28(2),(4))." },
-    { "section": "processors", "code": "provider_no_training", "type": "single", "prompt": "Is your AI provider contractually barred from using your data to train its models?", "helpText": "Consumer tiers often train on your inputs by default and offer no AVV; business/enterprise tiers usually exclude training and include the contract. A training opt-out only covers training, not the AVV.", "options": [
+    { "section": "processors", "code": "uses_third_party_processor", "tag": "AVV", "type": "boolean", "prompt": "Do you use a third-party vendor or cloud/AI provider to process the data (e.g. AWS, Azure, Google Cloud, OpenAI)?", "helpText": "Anyone processing the data on your behalf is a 'processor'." },
+    { "section": "processors", "code": "has_dpa", "tag": "AVV", "type": "boolean", "prompt": "Do you have a signed Data Processing Agreement (Art. 28) with each of those processors?", "helpText": "A DPA is the contract that lets a processor handle personal data for you lawfully." },
+    { "section": "processors", "code": "dpa_complete", "tag": "AVV", "type": "boolean", "prompt": "Does each Data Processing Agreement (AVV) cover all the required Art. 28(3) clauses — documented instructions, confidentiality, security, sub-processor approval, assistance with data-subject requests and breaches, audit rights, and deletion or return of the data at the end?", "helpText": "A signed AVV only counts if it contains the eight Art. 28(3) points. Consumer AI tiers rarely include a complete AVV; business/enterprise tiers bind the standard AVV automatically." },
+    { "section": "processors", "code": "sub_processors", "tag": "AVV", "type": "boolean", "prompt": "Do those processors use their own sub-processors (e.g. the AI vendor runs on another company's cloud)?", "helpText": "Sub-processors must be authorised and flowed-down the same obligations (Art. 28(2),(4))." },
+    { "section": "processors", "code": "sub_processors_authorised", "tag": "AVV", "type": "boolean", "prompt": "Have you approved each sub-processor in writing and made sure your processor flows down the same Art. 28 obligations to them?", "helpText": "Under Art. 28(2),(4) sub-processors need your prior authorisation and must be bound to the same data-protection terms; your processor stays fully liable for them." },
+    { "section": "processors", "code": "provider_no_training", "tag": "AVV", "type": "single", "prompt": "Is your AI provider contractually barred from using your data to train its models?", "helpText": "Consumer tiers often train on your inputs by default and offer no AVV; business/enterprise tiers usually exclude training and include the contract. A training opt-out only covers training, not the AVV.", "options": [
       { "value": "yes", "label": "Yes, training is excluded by contract" },
       { "value": "no", "label": "No / training is allowed by default" },
       { "value": "unsure", "label": "Not sure" },
@@ -72,7 +74,7 @@
     ] },
     { "section": "processors", "code": "critical_function", "type": "boolean", "prompt": "Does this AI support a critical or important business function at a regulated firm (e.g. a financial entity under DORA/KAGB)?", "helpText": "If yes, the provider contract is an outsourcing and must add audit rights, exit/termination, sub-provider transparency and incident reporting (DORA Art. 30)." },
 
-    { "section": "transfers", "code": "data_location", "type": "single", "prompt": "Where is the personal data stored or processed?", "helpText": "Anything other than EU/EEA-only is a restricted international transfer (Chapter V).",
+    { "section": "transfers", "code": "data_location", "tag": "Transfers", "type": "single", "prompt": "Where is the personal data stored or processed?", "helpText": "Anything other than EU/EEA-only is a restricted international transfer (Chapter V).",
       "options": [
         { "value": "eu_only", "label": "EU/EEA only" },
         { "value": "us", "label": "United States" },
@@ -80,8 +82,11 @@
         { "value": "mixed", "label": "A mix of regions" },
         { "value": "unsure", "label": "Not sure" }
       ] },
-    { "section": "transfers", "code": "vendor_remote_access", "type": "boolean", "prompt": "Can anyone outside the EU/EEA access the data (e.g. remote support, an overseas team)?", "helpText": "Remote access from outside the EEA is itself a transfer, even if the servers are in the EU." },
-    { "section": "transfers", "code": "us_dpf_certified", "type": "single", "prompt": "If you use a US provider, is it self-certified under the EU-U.S. Data Privacy Framework (DPF)?", "helpText": "Look the provider up on the official list at dataprivacyframework.gov. The DPF is an adequacy decision (Art. 45), so a certified provider means US storage is lawful without SCCs. This is the transfer basis only and does not replace the Art. 28 processor contract (AVV).", "options": [
+    { "section": "transfers", "code": "vendor_remote_access", "tag": "Transfers", "type": "boolean", "prompt": "Can anyone outside the EU/EEA access the data (e.g. remote support, an overseas team)?", "helpText": "Remote access from outside the EEA is itself a transfer, even if the servers are in the EU." },
+    { "section": "transfers", "code": "third_country_adequate", "tag": "Transfers", "type": "boolean", "prompt": "For any non-US country outside the EEA where the data goes, is it covered by an EU adequacy decision (for example the UK, Switzerland, Canada, Japan, or South Korea)?", "helpText": "An adequacy decision (Art. 45) means transfers there need no extra safeguard. Without adequacy you need SCCs or another Art. 46 tool." },
+    { "section": "transfers", "code": "has_transfer_safeguard", "tag": "SCC", "type": "boolean", "prompt": "For transfers to countries without an adequacy decision or DPF cover, do you have signed EU Standard Contractual Clauses (SCC) or another Art. 46 safeguard in place?", "helpText": "SCCs are the usual Art. 46 mechanism after Schrems II. They must be the current 2021 EU SCCs and actually signed with the data importer." },
+    { "section": "transfers", "code": "has_tia", "tag": "SCC", "type": "boolean", "prompt": "Have you completed a Transfer Impact Assessment (TIA) for those transfers?", "helpText": "Schrems II requires a case-by-case TIA whenever you rely on SCCs: check the destination country's laws and add supplementary measures (for example encryption) where needed." },
+    { "section": "transfers", "code": "us_dpf_certified", "tag": "DPF", "type": "single", "prompt": "If you use a US provider, is it self-certified under the EU-U.S. Data Privacy Framework (DPF)?", "helpText": "Look the provider up on the official list at dataprivacyframework.gov. The DPF is an adequacy decision (Art. 45), so a certified provider means US storage is lawful without SCCs. This is the transfer basis only and does not replace the Art. 28 processor contract (AVV).", "options": [
       { "value": "yes", "label": "Yes, it is on the DPF list" },
       { "value": "no", "label": "No, it is not certified" },
       { "value": "unsure", "label": "Not sure / not checked yet" },
@@ -194,6 +199,14 @@
       "when": { "all": ["uses_third_party_processor"] }, "gapWhen": { "all": ["!has_dpa"] }
     },
     {
+      "id": "dpa_complete", "title": "Make sure your AVV covers all Art. 28(3) requirements", "law": "GDPR Art. 28(3)", "severity": "mandatory",
+      "lawUrl": "https://eur-lex.europa.eu/eli/reg/2016/679/oj#d1e3251-1-1",
+      "lawExplanation": "A Data Processing Agreement is only valid if it contains the eight mandatory Art. 28(3) clauses: documented instructions, confidentiality, security (Art. 32), sub-processor approval, assistance with data-subject requests and breach handling, audit rights, and deletion or return of the data at the end.",
+      "why": "You have an AVV in place, but it must actually cover all Art. 28(3) elements to be legally sufficient.",
+      "solution": "Review each signed AVV against the eight Art. 28(3) points and add any missing clauses (especially audit rights, sub-processor transparency, and deletion/return of data). Consumer AI tiers rarely include a complete AVV; a business or enterprise tier binds the standard AVV automatically. Keep the signed copy on file.",
+      "when": { "all": ["uses_third_party_processor", "has_dpa"] }, "gapWhen": { "all": ["!dpa_complete"] }
+    },
+    {
       "id": "provider_training_optout", "title": "Bar your AI provider from training on your data", "law": "GDPR Art. 28(3)(a)", "severity": "mandatory",
       "lawUrl": "https://eur-lex.europa.eu/eli/reg/2016/679/oj#d1e3251-1-1",
       "lawExplanation": "A processor may only use your personal data on your documented instructions. Many consumer AI tiers use your inputs to train their models by default and offer no AVV; business and enterprise tiers exclude training by default and include the contract. A training opt-out covers only model training and does not replace the AVV, the shorter retention or audit rights.",
@@ -215,7 +228,7 @@
       "lawExplanation": "A processor may only engage sub-processors with the controller's authorisation and must impose the same data-protection terms on them.",
       "why": "Your processor uses sub-processors, so the chain must be authorised and flowed down.",
       "solution": "Keep the sub-processor list, require prior notice of changes with a right to object, and confirm the same terms are flowed down.",
-      "when": { "all": ["uses_third_party_processor", "sub_processors"] }
+      "when": { "all": ["uses_third_party_processor", "sub_processors"] }, "gapWhen": { "all": ["!sub_processors_authorised"] }
     },
     {
       "id": "processor_duties", "title": "Meet your duties as a processor", "law": "GDPR Art. 28(3)", "severity": "mandatory",
@@ -250,6 +263,26 @@
       "solution": "Look up the provider on the official DPF list at dataprivacyframework.gov. If it is certified, document that you rely on the adequacy decision (Art. 45 / DPF) and keep a copy of the listing. If it is not certified, fall back to the 2021 SCCs plus a transfer impact assessment.",
       "when": { "all": [{ "in": ["data_location", ["us", "mixed"]] }] },
       "gapWhen": { "all": [{ "ne": ["us_dpf_certified", "yes"] }] }
+    },
+    {
+      "id": "transfer_safeguard", "title": "Put a transfer safeguard in place (SCCs)", "law": "GDPR Art. 46", "severity": "mandatory",
+      "lawUrl": "https://eur-lex.europa.eu/eli/reg/2016/679/oj#d1e5061-1-1",
+      "lawExplanation": "Personal data may only leave the EEA to a country without an adequacy decision when an Art. 46 safeguard is in place, most commonly the EU Standard Contractual Clauses (2021), signed with the data importer.",
+      "why": "Your data goes to a country outside the EEA that is not covered by an adequacy decision, so a transfer safeguard is required.",
+      "solution": "Sign the current 2021 EU Standard Contractual Clauses with the importer for the correct module, or use another Art. 46 tool such as Binding Corporate Rules or an approved code. Keep a signed copy and list the transfer in your records. Where an adequacy decision covers the country, you can rely on that instead.",
+      "exemptionNote": "Does NOT apply where the country has an adequacy decision, or a US provider is covered by the Data Privacy Framework.",
+      "when": { "any": [{ "eq": ["data_location", "other_third"] }, { "eq": ["data_location", "mixed"] }, "vendor_remote_access"] },
+      "gapWhen": { "all": ["!third_country_adequate", "!has_transfer_safeguard"] }
+    },
+    {
+      "id": "transfer_impact_assessment", "title": "Run a Transfer Impact Assessment (Schrems II)", "law": "GDPR Art. 46 (Schrems II)", "severity": "mandatory",
+      "lawUrl": "https://eur-lex.europa.eu/eli/reg/2016/679/oj#d1e5061-1-1",
+      "lawExplanation": "After the Schrems II ruling, relying on SCCs (or the DPF) is not enough on its own. You must assess whether the destination country's laws undermine the protection and add supplementary measures where they do.",
+      "why": "You transfer personal data outside the EEA under SCCs or a similar tool, so a case-by-case Transfer Impact Assessment is required.",
+      "solution": "Document a TIA for each third-country transfer: map the data flow, assess the destination's surveillance and access laws, and add supplementary measures (strong encryption with EU-held keys, pseudonymisation, contractual and organisational controls) where the assessment shows a risk. Re-check it periodically.",
+      "exemptionNote": "Not needed where the destination has an adequacy decision.",
+      "when": { "any": [{ "eq": ["data_location", "other_third"] }, { "eq": ["data_location", "mixed"] }, "vendor_remote_access"] },
+      "gapWhen": { "all": ["!third_country_adequate", "!has_tia"] }
     },
     {
       "id": "art9_special", "title": "Find a condition for special-category data", "law": "GDPR Art. 9", "severity": "mandatory",

@@ -1,20 +1,26 @@
 const { test, expect } = require('@playwright/test');
 const { signUpAndSignIn } = require('../fixtures/helpers');
 
+// The chat launcher is a speed-dial arrow; clicking it opens the chat panel
+// (hovering also reveals the chat + feedback quick-actions).
+async function openChat(page) {
+  await page.getByTestId('help-launcher').click();
+}
+
 test.describe('Help assistant module', () => {
   test.beforeEach(async ({ page }) => { await signUpAndSignIn(page); });
 
   test('the help launcher opens a chat panel with a greeting', async ({ page }) => {
     await page.goto('/');
     await expect(page.getByTestId('help-launcher')).toBeVisible();
-    await page.getByTestId('help-launcher').click();
+    await openChat(page);
     await expect(page.getByTestId('help-panel')).toBeVisible();
     await expect(page.getByTestId('help-panel')).toContainText('help assistant');
   });
 
   test('asking about classification shows its explanation', async ({ page }) => {
     await page.goto('/');
-    await page.getByTestId('help-launcher').click();
+    await openChat(page);
     await page.getByTestId('help-input').fill('how does risk classification work');
     await page.getByTestId('help-send').click();
     await expect(page.getByTestId('help-panel')).toContainText('Prohibited, High, Limited, or Minimal');
@@ -22,7 +28,7 @@ test.describe('Help assistant module', () => {
 
   test('typing a question returns a matching answer', async ({ page }) => {
     await page.goto('/');
-    await page.getByTestId('help-launcher').click();
+    await openChat(page);
     await page.getByTestId('help-input').fill('how do I export a report as pdf');
     await page.getByTestId('help-send').click();
     await expect(page.getByTestId('help-panel')).toContainText('Export report (PDF)');
@@ -30,7 +36,7 @@ test.describe('Help assistant module', () => {
 
   test('an unrecognised question falls back to topic guidance', async ({ page }) => {
     await page.goto('/');
-    await page.getByTestId('help-launcher').click();
+    await openChat(page);
     await page.getByTestId('help-input').fill('zzzzz qqqqq nonsense');
     await page.getByTestId('help-send').click();
     await expect(page.getByTestId('help-panel')).toContainText('Try one of the topics below');

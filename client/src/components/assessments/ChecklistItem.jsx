@@ -25,16 +25,25 @@ export default function ChecklistItem({ response, members = [], onChanged }) {
   const [saved, setSaved] = useState(false);
   const [error, setError] = useState('');
 
-  const persist = async (nextStatus, nextText) => {
-    setSaving(true); setError(''); setSaved(false);
-    try {
-      const res = await checklistResponseApi.update(response.id, { status: nextStatus, responseText: nextText });
-      response.status = nextStatus;
-      response.responseText = nextText;
-      setSaved(true);
-      onChanged?.(res.assessmentProgress);
-      setTimeout(() => setSaved(false), 1800);
-    } catch (err) { setError(err.message); } finally { setSaving(false); }
+  // Serialize writes for this item. A status click first blurs the textarea,
+  // which fires a text-save with the PREVIOUS status; without ordering that can
+  // race the status click and land last, reverting status/progress. Chaining
+  // guarantees writes apply (and their progress callbacks fire) in submit order.
+  const persistChain = useRef(Promise.resolve());
+  const persist = (nextStatus, nextText) => {
+    const run = async () => {
+      setSaving(true); setError(''); setSaved(false);
+      try {
+        const res = await checklistResponseApi.update(response.id, { status: nextStatus, responseText: nextText });
+        response.status = nextStatus;
+        response.responseText = nextText;
+        setSaved(true);
+        onChanged?.(res.assessmentProgress);
+        setTimeout(() => setSaved(false), 1800);
+      } catch (err) { setError(err.message); } finally { setSaving(false); }
+    };
+    persistChain.current = persistChain.current.then(run, run);
+    return persistChain.current;
   };
 
   const pickStatus = (s) => { setStatus(s); persist(s, text); };
