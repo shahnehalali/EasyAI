@@ -15,6 +15,28 @@ kind: Namespace
 metadata:
   name: jurisai
 ---
+# ------------------- Encrypted storage (data-at-rest / GDPR) ------------------
+# LUKS-encrypted Longhorn volumes. The passphrase lives in the `longhorn-crypto`
+# Secret in namespace longhorn-system (create OUT OF BAND -> longhorn-crypto-secret.yaml.example).
+# Node prereq: cryptsetup + dm_crypt available on the Longhorn nodes.
+apiVersion: storage.k8s.io/v1
+kind: StorageClass
+metadata:
+  name: longhorn-encrypted
+provisioner: driver.longhorn.io
+allowVolumeExpansion: true
+reclaimPolicy: Delete
+volumeBindingMode: Immediate
+parameters:
+  encrypted: "true"
+  # Global secret holding the LUKS key (referenced at provision + node stage/publish).
+  csi.storage.k8s.io/provisioner-secret-name: longhorn-crypto
+  csi.storage.k8s.io/provisioner-secret-namespace: longhorn-system
+  csi.storage.k8s.io/node-publish-secret-name: longhorn-crypto
+  csi.storage.k8s.io/node-publish-secret-namespace: longhorn-system
+  csi.storage.k8s.io/node-stage-secret-name: longhorn-crypto
+  csi.storage.k8s.io/node-stage-secret-namespace: longhorn-system
+---
 # ---------------------------- PostgreSQL -------------------------------------
 apiVersion: v1
 kind: PersistentVolumeClaim
@@ -23,7 +45,7 @@ metadata:
   namespace: jurisai
 spec:
   accessModes: ["ReadWriteOnce"]
-  storageClassName: longhorn
+  storageClassName: longhorn-encrypted
   resources:
     requests:
       storage: 5Gi
@@ -95,7 +117,7 @@ metadata:
   namespace: jurisai
 spec:
   accessModes: ["ReadWriteOnce"]
-  storageClassName: longhorn
+  storageClassName: longhorn-encrypted
   resources:
     requests:
       storage: 2Gi

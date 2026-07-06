@@ -70,6 +70,47 @@ kubectl -n jurisai get certificate jurisai-cert   # wait for Ready=True
 curl https://jurisai.rit.services/api/health
 ```
 
+## Encryption at rest (GDPR)
+
+Two layers protect data:
+1. **App-level field encryption** (per-org envelope, `DATA_ENC_KEY`) for sensitive
+   compliance content — already active.
+2. **Encrypted storage volumes** (LUKS via Longhorn) so the *whole* database +
+   uploads (incl. user PII) are encrypted on disk. The `longhorn-encrypted`
+   StorageClass and the `jurisai-*-pvc` claims use it.
+
+Enabling #2 needs a one-time migration (a PVC's StorageClass is immutable, so the
+volumes are re-provisioned). **Node prereq:** `cryptsetup` + `dm_crypt` on the
+Longhorn nodes.
+
+```bash
+# 1. Create the LUKS key secret (out of band; back the key up separately!)
+cp k8s/longhorn-crypto-secret.yaml.example k8s/longhorn-crypto-secret.yaml
+#   set a strong CRYPTO_KEY_VALUE (openssl rand -base64 48), then:
+kubectl apply -f k8s/longhorn-crypto-secret.yaml            # gitignored
+
+# 2. Back up existing data (skip only if it's throwaway demo data)
+kubectl -n jurisai exec deploy/jurisai-postgres -- \
+  pg_dump -U jurisai jurisai > backup.sql
+#   (and copy /app/uploads out of the server pod if you have real documents)
+
+# 3. Re-provision the volumes on the encrypted class. The StorageClass change is
+#    already in jurisai-k8s.yaml; the old PVCs must be deleted so ArgoCD recreates
+#    them encrypted. Scale down first to release the volumes:
+kubectl -n jurisai scale deploy/jurisai-server deploy/jurisai-postgres --replicas=0
+kubectl -n jurisai delete pvc jurisai-postgres-pvc jurisai-uploads-pvc
+#    ArgoCD re-syncs -> new LUKS-encrypted PVCs + pods. Postgres re-seeds the
+#    catalog automatically (demo/admin skipped in prod).
+
+# 4. Restore your backup if you took one
+kubectl -n jurisai exec -i deploy/jurisai-postgres -- \
+  psql -U jurisai jurisai < backup.sql
+
+# 5. Verify the volumes are encrypted
+kubectl -n longhorn-system get volumes.longhorn.io -o \
+  custom-columns=NAME:.metadata.name,ENCRYPTED:.spec.encrypted
+```
+
 ## Notes
 - The **server runs at 1 replica** on purpose: it runs `prisma db push` + catalog
   seed on start and owns the ReadWriteOnce uploads volume. Don't add an HPA to it.
