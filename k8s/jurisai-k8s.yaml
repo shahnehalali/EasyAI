@@ -263,13 +263,13 @@ spec:
     - websecure
   routes:
     # API + uploaded files go to the server (longer rule => higher priority).
-    - match: Host(`compliance.rit.services`, `jurisai.rit.services`) && (PathPrefix(`/api`) || PathPrefix(`/uploads`))
+    - match: (Host(`compliance.rit.services`) || Host(`jurisai.rit.services`)) && (PathPrefix(`/api`) || PathPrefix(`/uploads`))
       kind: Rule
       services:
         - name: jurisai-server
           port: 4000
     # Everything else is the SPA.
-    - match: Host(`compliance.rit.services`, `jurisai.rit.services`)
+    - match: Host(`compliance.rit.services`) || Host(`jurisai.rit.services`)
       kind: Rule
       services:
         - name: jurisai-client
