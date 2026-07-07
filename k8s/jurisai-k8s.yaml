@@ -155,6 +155,12 @@ spec:
           imagePullPolicy: Always
           ports:
             - containerPort: 4000
+          env:
+            # A plain recipient address, not a secret, so it lives in git for
+            # ArgoCD to manage. An explicit env entry overrides the same key from
+            # the jurisai-app-secrets Secret pulled via envFrom below.
+            - name: FEEDBACK_RECIPIENTS
+              value: shahnehal.a@rit.services
           envFrom:
             - secretRef:
                 name: jurisai-app-secrets
