@@ -1,4 +1,4 @@
-import { lazy, Suspense, useCallback, useMemo, useState, type ReactNode } from 'react';
+import { lazy, Suspense, useCallback, useEffect, useMemo, useState, type ReactNode } from 'react';
 import { FeedbackContext } from './FeedbackContext';
 import { FeedbackButton } from './components/FeedbackButton';
 import { captureViewportScreenshot } from './utils/captureScreenshot';
@@ -6,8 +6,11 @@ import type { FeedbackConfig, FeedbackContextValue } from './types';
 
 // Lazy-load the annotation modal so its heavy Konva canvas dependency is only
 // fetched when the user actually opens feedback — every other page stays light.
+// `importFeedbackModal` is shared so we can also PREFETCH the chunk on hover,
+// so the first open doesn't wait on the dynamic import.
+const importFeedbackModal = () => import('./components/FeedbackModal');
 const FeedbackModal = lazy(() =>
-  import('./components/FeedbackModal').then((m) => ({ default: m.FeedbackModal })),
+  importFeedbackModal().then((m) => ({ default: m.FeedbackModal })),
 );
 
 interface Props {
@@ -33,11 +36,15 @@ export function FeedbackProvider({ config, children }: Props) {
     }
     setImageDataUrl(null);
     setIsCapturing(true);
+    // Open the dialog IMMEDIATELY (it shows a "Capturing…" placeholder) and run
+    // the screenshot capture in parallel, instead of blocking on the capture
+    // before the dialog appears. The modal root carries
+    // data-feedback-hide-during-capture, so it is excluded from the screenshot.
+    setIsOpen(true);
     try {
       await new Promise((r) => requestAnimationFrame(() => r(null)));
       const result = await captureViewportScreenshot();
       setImageDataUrl(result.dataUrl);
-      setIsOpen(true);
     } catch (err) {
       console.error('[feedback] capture failed', err);
       config.onSubmitError?.(err);
@@ -46,14 +53,34 @@ export function FeedbackProvider({ config, children }: Props) {
     }
   }, [config]);
 
+  // Warm the lazy modal chunk (Konva) ahead of the click so the first open is
+  // instant. Cheap and idempotent — the dynamic import is cached after the first call.
+  const prefetch = useCallback(() => { void importFeedbackModal(); }, []);
+
+  // Also warm it once the page goes idle, so even the very first open (before any
+  // hover) doesn't wait on the dynamic import.
+  useEffect(() => {
+    if (config.enabled === false || typeof window === 'undefined') return undefined;
+    const w = window as unknown as {
+      requestIdleCallback?: (cb: () => void, opts?: { timeout: number }) => number;
+      cancelIdleCallback?: (id: number) => void;
+    };
+    if (w.requestIdleCallback) {
+      const id = w.requestIdleCallback(() => prefetch(), { timeout: 3000 });
+      return () => w.cancelIdleCallback?.(id);
+    }
+    const id = window.setTimeout(prefetch, 1500);
+    return () => window.clearTimeout(id);
+  }, [config.enabled, prefetch]);
+
   const close = useCallback(() => {
     setIsOpen(false);
     setImageDataUrl(null);
   }, []);
 
   const value = useMemo<FeedbackContextValue>(
-    () => ({ config, open, close, isOpen, isCapturing }),
-    [config, open, close, isOpen, isCapturing],
+    () => ({ config, open, close, isOpen, isCapturing, prefetch }),
+    [config, open, close, isOpen, isCapturing, prefetch],
   );
 
   const mode = config.mode ?? 'floating';

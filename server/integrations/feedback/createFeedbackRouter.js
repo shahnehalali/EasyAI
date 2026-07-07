@@ -100,7 +100,20 @@ function createFeedbackRouter(options = {}) {
       });
 
       log.info(`sent to ${recipients.length} recipient(s) — title="${payload.title}"`);
-      res.status(202).json({ ok: true });
+
+      // After the email (order matters: never lose feedback to a ticketing
+      // outage), optionally open a ticket. Failures here are logged, not fatal.
+      let ticket = null;
+      if (typeof options.createTicket === 'function') {
+        try {
+          ticket = await options.createTicket({ payload, submitter, receivedAt });
+          if (ticket) log.info(`ticket created: ${ticket.key || ticket.id}`);
+        } catch (err) {
+          log.error('ticket creation failed', err);
+        }
+      }
+
+      res.status(202).json({ ok: true, ticket: ticket ? { id: ticket.id, key: ticket.key } : null });
     } catch (err) {
       log.error('feedback send failed', err);
       next(err);

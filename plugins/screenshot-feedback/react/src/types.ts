@@ -18,6 +18,8 @@ export interface FeedbackContextValue {
   close: () => void;
   isOpen: boolean;
   isCapturing: boolean;
+  /** Warm the lazy modal chunk ahead of the click (e.g. on hover). */
+  prefetch: () => void;
 }
 
 export interface AnnotationLine {

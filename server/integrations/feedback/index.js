@@ -6,12 +6,17 @@
 const { createFeedbackRouter } = require('./createFeedbackRouter');
 const logger = require('../../utils/logger');
 const emailService = require('../../services/email/emailService');
+const spirex = require('./spirex');
 
 function buildFeedbackRouter() {
   return createFeedbackRouter({
     subjectPrefix: '[Compliance Check Feedback]',
     logger,
     // recipients resolved from FEEDBACK_RECIPIENTS env (see server/.env).
+    // After the email, open a Spirex ticket (no-op unless SPIREX_* env is set).
+    createTicket: spirex.isEnabled()
+      ? ({ payload, submitter, receivedAt }) => spirex.createStory({ payload, submitter, receivedAt })
+      : undefined,
     mailer: {
       send: async ({ to, subject, html, text, attachments }) => {
         let finalHtml = html;

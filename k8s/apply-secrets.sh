@@ -30,6 +30,8 @@ echo "==> Verifying the email env landed in the running pod"
 kubectl -n "$NS" exec deploy/jurisai-server -- \
   sh -c 'echo "RESEND_API_KEY set: $([ -n "$RESEND_API_KEY" ] && echo yes || echo NO)";
          echo "EMAIL_FROM: $EMAIL_FROM";
-         echo "FEEDBACK_RECIPIENTS: $FEEDBACK_RECIPIENTS"'
+         echo "FEEDBACK_RECIPIENTS: $FEEDBACK_RECIPIENTS";
+         echo "SPIREX_API_KEY set: $([ -n "$SPIREX_API_KEY" ] && echo yes || echo NO)";
+         echo "SPIREX_PROJECT_ID: $SPIREX_PROJECT_ID"'
 
 echo "==> Done. Submit feedback in the app; it should arrive at FEEDBACK_RECIPIENTS."

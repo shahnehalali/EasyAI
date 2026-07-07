@@ -156,11 +156,16 @@ spec:
           ports:
             - containerPort: 4000
           env:
-            # A plain recipient address, not a secret, so it lives in git for
-            # ArgoCD to manage. An explicit env entry overrides the same key from
-            # the jurisai-app-secrets Secret pulled via envFrom below.
+            # Plain, non-secret config lives in git for ArgoCD to manage. These
+            # explicit env entries override the same keys from the
+            # jurisai-app-secrets Secret pulled via envFrom below. (The Spirex
+            # API KEY is a credential and stays in the Secret — see below.)
             - name: FEEDBACK_RECIPIENTS
               value: shahnehal.a@rit.services
+            - name: SPIREX_ORG_ID # RIT Services org
+              value: cmpwl383l0001ak5y1kc0rxmt
+            - name: SPIREX_PROJECT_ID # "Compliance Check" project (EL)
+              value: cmqjaz9si012s13blgllmzcsp
           envFrom:
             - secretRef:
                 name: jurisai-app-secrets

@@ -20,7 +20,7 @@ const DefaultIcon = () => (
 );
 
 export function FeedbackButton({ variant = 'inline', className, style, label, icon }: Props) {
-  const { open, isCapturing, config } = useFeedback();
+  const { open, isCapturing, config, prefetch } = useFeedback();
   const [expanded, setExpanded] = useState(false);
   if (config.enabled === false) return null;
 
@@ -39,9 +39,9 @@ export function FeedbackButton({ variant = 'inline', className, style, label, ic
         data-feedback-trigger="true"
         onClick={open}
         disabled={isCapturing}
-        onMouseEnter={() => setExpanded(true)}
+        onMouseEnter={() => { setExpanded(true); prefetch(); }}
         onMouseLeave={() => setExpanded(false)}
-        onFocus={() => setExpanded(true)}
+        onFocus={() => { setExpanded(true); prefetch(); }}
         onBlur={() => setExpanded(false)}
         className={className}
         style={mergeStyles(floatingStyle(config.floatingPosition ?? 'bottom-right'), style)}
@@ -75,6 +75,8 @@ export function FeedbackButton({ variant = 'inline', className, style, label, ic
       data-feedback-hide-during-capture
       data-feedback-trigger="true"
       onClick={open}
+      onMouseEnter={prefetch}
+      onFocus={prefetch}
       disabled={isCapturing}
       className={className}
       style={mergeStyles(
