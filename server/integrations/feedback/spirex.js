@@ -29,8 +29,35 @@ function buildDescription({ payload, submitter, receivedAt }) {
   if (payload.userAgent) lines.push(`User agent: ${payload.userAgent}`);
   const when = receivedAt instanceof Date ? receivedAt.toISOString() : receivedAt;
   if (when) lines.push(`Received: ${when}`);
-  lines.push('', 'A screenshot is attached to the feedback email for this report.');
+  lines.push('', 'Screenshot attached to this ticket.');
   return lines.join('\n');
+}
+
+// Upload the feedback screenshot (a base64 data URL) as an attachment on the
+// story. Spirex: POST /api/attachments (multipart) with file + projectId +
+// storyId. Uses global fetch/FormData/Blob (Node 18+).
+const DATA_URL = /^data:(image\/(png|jpe?g|webp));base64,(.+)$/;
+async function uploadScreenshot(storyId, screenshot) {
+  const m = DATA_URL.exec(screenshot || '');
+  if (!m) return null;
+  const contentType = m[1];
+  const ext = m[2] === 'jpeg' ? 'jpg' : m[2];
+  const buffer = Buffer.from(m[3], 'base64');
+  const form = new FormData();
+  form.append('file', new Blob([buffer], { type: contentType }), `feedback-screenshot.${ext}`);
+  form.append('projectId', PROJECT);
+  if (storyId) form.append('storyId', storyId);
+  const res = await fetch(`${BASE}/api/attachments`, {
+    method: 'POST',
+    // No content-type header: fetch sets multipart/form-data with the boundary.
+    headers: { authorization: `Bearer ${KEY}`, 'x-org-id': ORG },
+    body: form,
+  });
+  if (!res.ok) {
+    const body = await res.text().catch(() => '');
+    throw new Error(`Spirex attachments ${res.status}: ${body.slice(0, 200)}`);
+  }
+  return res.json().catch(() => null);
 }
 
 // Create the story. Returns the created story ({ id, key, ... }) or throws.
@@ -56,7 +83,18 @@ async function createStory({ payload, submitter, receivedAt }) {
     throw new Error(`Spirex API ${res.status}: ${body.slice(0, 300)}`);
   }
   const data = await res.json();
-  return data.story || null;
+  const story = data.story || null;
+
+  // Attach the screenshot to the story (best-effort: the email already has it,
+  // so a failed upload should not fail the whole feedback flow).
+  if (story && payload.screenshot) {
+    try {
+      await uploadScreenshot(story.id, payload.screenshot);
+    } catch (err) {
+      logger.warn(`spirex: screenshot attach failed for ${story.key || story.id}: ${err.message}`);
+    }
+  }
+  return story;
 }
 
 module.exports = { isEnabled, createStory };

@@ -1,4 +1,4 @@
-// CommonJS port of @ritjira/feedback-server rate limiter.
+// CommonJS port of @rit-services/feedback-server rate limiter.
 function createRateLimiter(opts) {
   const buckets = new Map();
 

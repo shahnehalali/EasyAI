@@ -1,4 +1,4 @@
-// CommonJS port of @ritjira/feedback-server validators.
+// CommonJS port of @rit-services/feedback-server validators.
 // (The host server is CommonJS and cannot import the plugin's ESM/TS source,
 // so the plugin's server logic is vendored here verbatim in CJS form.)
 const { z } = require('zod');

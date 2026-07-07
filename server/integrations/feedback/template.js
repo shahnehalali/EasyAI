@@ -1,4 +1,4 @@
-// CommonJS port of @ritjira/feedback-server email template.
+// CommonJS port of @rit-services/feedback-server email template.
 function escapeHtml(s) {
   return s
     .replace(/&/g, '&amp;')

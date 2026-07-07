@@ -9,7 +9,7 @@ export default defineConfig({
       '@': path.resolve(__dirname, './src'),
       // Consume the screenshot-feedback plugin's React package straight from
       // source; Vite transpiles its TS/TSX. (The plugin lives at the repo root.)
-      '@ritjira/feedback-react': path.resolve(__dirname, '../plugins/screenshot-feedback/react/src/index.ts'),
+      '@rit-services/feedback-react': path.resolve(__dirname, '../plugins/screenshot-feedback/react/src/index.ts'),
       // The plugin source is outside client/, so its bare imports must be pinned
       // to the client's installed copies for both dev and production builds.
       'html-to-image': path.resolve(__dirname, 'node_modules/html-to-image'),

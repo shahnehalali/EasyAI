@@ -1,5 +1,5 @@
 {
-  "name": "@ritjira/feedback-server",
+  "name": "@rit-services/feedback-server",
   "private": true,
   "version": "0.1.0",
   "description": "Express side of the screenshot feedback plugin. Exposes createFeedbackRouter() with a 3-tier mailer interface (custom function / nodemailer transport / self-contained env config).",

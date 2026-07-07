@@ -95,6 +95,7 @@ export default function HelpAssistant() {
         <button
           className={`fab-action fab-chat${fabOpen ? ' fab-revealed' : ''}`}
           data-testid="fab-chat"
+          data-feedback-hide-during-capture
           aria-label={t('help.open')}
           aria-hidden={!fabOpen}
           tabIndex={fabOpen ? 0 : -1}
@@ -114,6 +115,7 @@ export default function HelpAssistant() {
       <button
         className={`help-launcher${!open && fabOpen ? ' is-open' : ''}`}
         data-testid="help-launcher"
+        data-feedback-hide-during-capture
         aria-label={open ? t('help.close') : t('help.open')}
         aria-expanded={open || fabOpen}
         onMouseEnter={openFab}

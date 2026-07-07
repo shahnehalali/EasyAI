@@ -559,6 +559,16 @@ hr { border: none; border-top: 1px solid var(--border); margin: 16px 0; }
   margin-bottom: 22px; display: flex; align-items: flex-end; justify-content: space-between;
   gap: 16px; flex-wrap: nowrap;
 }
+/* During feedback screenshot capture, render the glass hero as a solid dark
+   card. html-to-image can't do backdrop-filter, so the frosted panel would
+   otherwise collapse into a translucent blob over the page behind it. */
+.ss-capturing .page-head:has(h1) > div:first-child,
+.ss-capturing .glass-head {
+  backdrop-filter: none !important;
+  -webkit-backdrop-filter: none !important;
+  background: #2a2d36 !important;
+}
+
 .page-head:has(h1) > div:first-child, .glass-head {
   position: relative; flex: 1 1 0; min-width: 0; max-width: 662px;
   border-radius: 24px; padding: 22px 26px; overflow: hidden;

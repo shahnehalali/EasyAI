@@ -1,6 +1,6 @@
-# @ritjira/screenshot-feedback
+# Rit Services — Feedback Plugin
 
-A drop-in **screenshot + annotation feedback plugin** for any React + Express app.
+A drop-in **screenshot + annotation feedback plugin** for any React + Express app. Published privately to GitHub Packages under the `@rit-services` scope so any team project can install it with `npm install`.
 
 - Captures the **current viewport** — what the user is actually looking at, scroll position included — via `html-to-image`. Inner scroll panes are honored, and entrance animations are frozen so nothing captures half-faded.
 - Lets users **annotate** the screenshot — pen, highlighter, arrow, rectangle, text — using a Konva canvas.
@@ -10,81 +10,123 @@ A drop-in **screenshot + annotation feedback plugin** for any React + Express ap
 - Production-only rate limiting (5 submissions / 10 min by default).
 - TypeScript end to end.
 
+> 👉 **Just want to use the package in your project?** Read the
+> **[Consuming the Feedback Plugin — Developer Guide](./CONSUMING.md)**. It walks
+> through authentication, install, and import step by step. The sections below are
+> the full feature/API reference.
+
 ## Architecture
 
 The plugin ships as **two sibling sub-packages** so the frontend and backend are independently consumable:
 
 | Package | Responsibility |
 | --- | --- |
-| `@ritjira/feedback-react` | `FeedbackProvider`, `FeedbackButton`, annotation modal, screenshot capture |
-| `@ritjira/feedback-server` | `createFeedbackRouter()` Express middleware, mailer adapter, zod validation, rate limiting |
+| `@rit-services/feedback-react` | `FeedbackProvider`, `FeedbackButton`, annotation modal, screenshot capture |
+| `@rit-services/feedback-server` | `createFeedbackRouter()` Express middleware, mailer adapter, zod validation, rate limiting |
 
 > **Heads-up — two packages = two installs (unless you use workspaces).**
-> If your project has separate frontend and backend folders with their own `package.json` files, you must add **`@ritjira/feedback-react`** to the frontend's `package.json` and **`@ritjira/feedback-server`** to the backend's `package.json`, then run `npm install` **in each folder**. Running `npm install` inside the server does **not** install the React side into the client, and vice versa. Each `package.json` is independent. If you have a single combined `package.json` (monolith) or you use npm workspaces, one install covers both.
+> If your project has separate frontend and backend folders with their own `package.json` files, you must add **`@rit-services/feedback-react`** to the frontend's `package.json` and **`@rit-services/feedback-server`** to the backend's `package.json`, then run `npm install` **in each folder**. Running `npm install` inside the server does **not** install the React side into the client, and vice versa. Each `package.json` is independent. If you have a single combined `package.json` (monolith) or you use npm workspaces, one install covers both.
 
 ```
-plugins/screenshot-feedback/
-├── README.md                ← this file
-├── package.json             ← workspace root (private)
-├── react/                   ← @ritjira/feedback-react
-│   ├── package.json
-│   ├── tsconfig.json
-│   └── src/
-│       ├── index.ts
-│       ├── FeedbackProvider.tsx
-│       ├── FeedbackContext.ts
-│       ├── types.ts
-│       ├── components/
-│       │   ├── FeedbackButton.tsx
-│       │   ├── FeedbackModal.tsx
-│       │   └── AnnotationCanvas.tsx
-│       ├── hooks/useFeedback.ts
-│       └── utils/
-│           ├── captureScreenshot.ts
-│           └── dataUrl.ts
-└── server/                  ← @ritjira/feedback-server
-    ├── package.json
-    ├── tsconfig.json
-    └── src/
-        ├── index.ts
-        ├── createFeedbackRouter.ts
-        ├── mailer.ts
-        ├── rateLimiter.ts
-        ├── template.ts
-        ├── validators.ts
-        └── types.ts
+feedback-plugin/                ← this repo (Rit-Services/feedback-plugin)
+├── README.md
+├── package.json                ← workspace root (private, not published)
+├── .npmrc                      ← maps the @rit-services scope to GitHub Packages
+├── .github/workflows/publish.yml  ← publishes both packages on a version tag
+└── packages/
+    ├── react/                  ← @rit-services/feedback-react
+    │   ├── package.json
+    │   ├── tsconfig.json
+    │   ├── tsup.config.ts
+    │   └── src/
+    │       ├── index.ts
+    │       ├── FeedbackProvider.tsx
+    │       ├── FeedbackContext.ts
+    │       ├── types.ts
+    │       ├── components/
+    │       │   ├── FeedbackButton.tsx
+    │       │   ├── FeedbackModal.tsx
+    │       │   └── AnnotationCanvas.tsx
+    │       ├── hooks/useFeedback.ts
+    │       └── utils/
+    │           ├── captureScreenshot.ts
+    │           └── dataUrl.ts
+    └── server/                 ← @rit-services/feedback-server
+        ├── package.json
+        ├── tsconfig.json
+        ├── tsup.config.ts
+        └── src/
+            ├── index.ts
+            ├── createFeedbackRouter.ts
+            ├── mailer.ts
+            ├── rateLimiter.ts
+            ├── template.ts
+            ├── validators.ts
+            └── types.ts
 ```
 
 ---
 
-## Quick start (inside this monorepo)
+## Installing it in your project (for the team)
 
-The plugin is already wired into RitJira. To turn it on locally:
+This is the whole point — getting the plugin into any Rit Services project with a plain `npm install`. It's a private package, so there's a **one-time auth step per machine**, then it behaves like any npm dependency.
 
-```bash
-# at the repo root
-npm install
-```
+### Step 1 — One-time: tell npm where the `@rit-services` scope lives
 
-Set env vars:
+The package is hosted on **GitHub Packages**, not the public npm registry. Each developer (and each CI runner) needs to point the `@rit-services` scope at GitHub and authenticate once.
+
+**a)** Create a GitHub **Personal Access Token (classic)** with the **`read:packages`** scope: GitHub → Settings → Developer settings → Personal access tokens → Tokens (classic). (Authorize it for SSO against the `Rit-Services` org if SSO is enforced.)
+
+**b)** Add these two lines to your **`~/.npmrc`** (your user-level file — keeps the token out of the repo):
 
 ```ini
-# server/.env
-FEEDBACK_RECIPIENTS=team@example.com,bugs@example.com
-
-# client/.env
-VITE_FEEDBACK_MODE=floating       # floating | sidebar | navbar | manual
-VITE_FEEDBACK_ENABLED=true
+@rit-services:registry=https://npm.pkg.github.com
+//npm.pkg.github.com/:_authToken=YOUR_READ_PACKAGES_TOKEN
 ```
 
-Run:
+That's it. You never do this again on this machine.
+
+> The **scope mapping** (first line) can also live in the *project's* `.npmrc` (commit that — it's not secret), but the **token line** must stay in your personal `~/.npmrc`, never committed.
+
+### Step 2 — Install
+
+The two packages are independent — install each where it belongs.
+
+**Separate frontend / backend folders** (each with its own `package.json`):
 
 ```bash
-npm run dev:server
-npm run dev:client
+cd <your-frontend-folder>   # client/, web/, app/ — name doesn't matter
+npm install @rit-services/feedback-react
+
+cd ../<your-backend-folder>  # server/, api/, backend/
+npm install @rit-services/feedback-server
 ```
 
-Sign in to RitJira → bottom-right floating "Feedback" button → click → annotate → submit → recipients receive an email.
+**Single combined `package.json` (monolith)** or **npm/pnpm workspaces** — one install, both listed:
+
+```bash
+npm install @rit-services/feedback-react @rit-services/feedback-server
+```
+
+`html-to-image`, `konva`, and `react-konva` come in automatically as dependencies of the React package — nothing to add by hand.
+
+### Step 3 — Wire it up
+
+Frontend provider + backend router — see [Frontend usage](#frontend-usage) and [Backend usage](#backend-usage) below. RitJira's live wiring is reproduced under [How RitJira wires it](#how-ritjira-wires-it-live-reference).
+
+---
+
+## Developing this plugin locally
+
+```bash
+git clone https://github.com/Rit-Services/feedback-plugin.git
+cd feedback-plugin
+npm install          # installs both workspaces
+npm run build        # tsup → dist/ (ESM + CJS + .d.ts) for both packages
+npm run typecheck    # tsc --noEmit across both
+```
+
+To test an unpublished change against a real app without publishing, use `npm pack` in a package and `npm install ../path/to/the.tgz` in the host, or `npm link`.
 
 ---
 
@@ -93,7 +135,7 @@ Sign in to RitJira → bottom-right floating "Feedback" button → click → ann
 ### 1. Wrap your app
 
 ```tsx
-import { FeedbackProvider } from '@ritjira/feedback-react';
+import { FeedbackProvider } from '@rit-services/feedback-react';
 
 <FeedbackProvider
   config={{
@@ -113,7 +155,7 @@ import { FeedbackProvider } from '@ritjira/feedback-react';
 ### 2. Mount the button
 
 ```tsx
-import { FeedbackButton } from '@ritjira/feedback-react';
+import { FeedbackButton } from '@rit-services/feedback-react';
 
 // In your sidebar
 <FeedbackButton variant="sidebar" label="Report a bug" />
@@ -128,7 +170,7 @@ import { FeedbackButton } from '@ritjira/feedback-react';
 Pass `mode: 'manual'` to the provider if you want zero auto-rendered buttons and trigger programmatically:
 
 ```tsx
-import { useFeedback } from '@ritjira/feedback-react';
+import { useFeedback } from '@rit-services/feedback-react';
 
 const { open } = useFeedback();
 <button onClick={open}>Send feedback</button>
@@ -176,7 +218,7 @@ This is purely optional — ignore it if you have nothing to close.
 
 ```ts
 import express from 'express';
-import { createFeedbackRouter } from '@ritjira/feedback-server';
+import { createFeedbackRouter } from '@rit-services/feedback-server';
 
 const app = express();
 app.use(express.json({ limit: '15mb' })); // screenshots are ~5-8 MB
@@ -293,86 +335,36 @@ Responses:
 
 ---
 
-## Using this plugin in another project
+## Publishing a new version
 
-Two paths.
-
-### Option A — Copy the folder (simplest, recommended for now)
-
-1. Copy `plugins/screenshot-feedback/` into the new project.
-2. Add the two sub-packages to its workspaces array:
-   ```json
-   {
-     "workspaces": [
-       "client",
-       "server",
-       "plugins/screenshot-feedback/react",
-       "plugins/screenshot-feedback/server"
-     ]
-   }
-   ```
-3. Add `@ritjira/feedback-react` to the client's `dependencies` (`"*"`), and `@ritjira/feedback-server` to the server's dependencies.
-4. Nothing to add by hand — the React package declares `html-to-image`, `konva`, and `react-konva` as direct dependencies, so the host install pulls them in automatically.
-5. Run `npm install` at the new project's root.
-6. Wire the provider in your client tree and `createFeedbackRouter` in your server.
-
-That's it. Same pattern that's already wired into RitJira — see `client/src/layouts/AppLayout.tsx` and `server/routes/index.ts` for live references.
-
-### Option B — Publish to a private registry (later)
-
-> **Before publishing:** both sub-package `package.json` files currently set `"private": true` (so they can't be published by accident while they live inside this monorepo). Remove that flag from `react/package.json` and `server/package.json` first, and give them real version numbers — they're at `0.1.0` today.
-
-When you're ready to share across non-monorepo projects:
+Publishing is automated. A push of a **version tag** triggers the GitHub Actions workflow ([.github/workflows/publish.yml](.github/workflows/publish.yml)), which builds, typechecks, and publishes **both** packages to GitHub Packages using the repo's built-in `GITHUB_TOKEN` — no secrets to manage.
 
 ```bash
-# inside plugins/screenshot-feedback/react
-npm publish --access restricted
+# 1. Bump the version in BOTH package.json files (keep them in lockstep):
+#    packages/react/package.json   →  "version": "0.2.0"
+#    packages/server/package.json  →  "version": "0.2.0"
 
-# inside plugins/screenshot-feedback/server
-npm publish --access restricted
+# 2. Commit, tag, push:
+git add -A && git commit -m "release: v0.2.0"
+git tag v0.2.0
+git push origin main --tags
 ```
 
-Then in any other project:
+The workflow runs on the `v*` tag and publishes `@rit-services/feedback-react@0.2.0` and `@rit-services/feedback-server@0.2.0`. Consumers then upgrade with `npm update @rit-services/feedback-react @rit-services/feedback-server` (or bump the pinned version).
+
+> **One bug fix → everyone upgrades.** That's the entire reason this lives in its own published package instead of being copied around.
+
+### Manual publish (fallback)
+
+If you ever need to publish from your machine instead of CI, authenticate with a token that has **`write:packages`** (in `~/.npmrc`) and run from the repo root:
 
 ```bash
-npm install @ritjira/feedback-react @ritjira/feedback-server
+npm run build
+npm publish --workspace packages/react
+npm publish --workspace packages/server
 ```
 
-The integration code stays identical.
-
-#### Important — install location depends on your project layout
-
-The two packages are independent. **Where** you install each one depends on how your project is structured:
-
-**1. Separate frontend and backend folders (each with its own `package.json`)**
-
-You must install in **both** folders. One install does NOT cover the other.
-
-```bash
-# Frontend folder (could be named client/, frontend/, web/, app/ — name doesn't matter)
-cd <your-frontend-folder>
-npm install @ritjira/feedback-react
-
-# Backend folder (could be named server/, backend/, api/ — name doesn't matter)
-cd ../<your-backend-folder>
-npm install @ritjira/feedback-server
-```
-
-Each `package.json` gets its own entry. Each `node_modules` is independent.
-
-**2. Single combined `package.json` (monolith, e.g. Next.js fullstack)**
-
-One install, both packages listed in the same `package.json`:
-
-```bash
-npm install @ritjira/feedback-react @ritjira/feedback-server
-```
-
-**3. npm workspaces / pnpm workspaces / Turborepo**
-
-Add each package to the relevant workspace's `package.json`, then run `npm install` once at the workspace root — it'll wire both up.
-
-> **Folder names are irrelevant.** npm imports packages by name (`@ritjira/feedback-react`), not by path. Whether your folders are called `client`/`server`, `web`/`api`, or anything else, the integration code is the same.
+`publishConfig` in each `package.json` already targets `https://npm.pkg.github.com` with `restricted` access, so no extra flags are needed.
 
 ---
 
