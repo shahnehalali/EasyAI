@@ -10,7 +10,7 @@ import { useAuth } from '@/hooks/useAuth';
 import { organizationApi } from '@/apis/organizationApi';
 import { Spinner } from '@/components/ui/Ui';
 import { useT } from '@/hooks/useT';
-import { FeedbackProvider } from '@ritjira/feedback-react';
+import { FeedbackProvider } from '@rit-services/feedback-react';
 
 const TITLES = [
   [/^\/$/, 'title.dashboard'],
@@ -46,6 +46,20 @@ export default function AppLayout() {
 
   // Close the mobile menu on navigation.
   useEffect(() => { setMenuOpen(false); }, [location.pathname]);
+
+  // While the feedback plugin captures a screenshot, glass cards (backdrop-filter)
+  // would collapse into a dark translucent blob because html-to-image cannot
+  // render backdrop-filter. Flag <html> for the capture window so CSS can swap
+  // them to a solid background. The page is hidden behind the feedback modal
+  // during this, so the user never sees the swap.
+  useEffect(() => {
+    const onOpen = () => {
+      document.documentElement.classList.add('ss-capturing');
+      window.setTimeout(() => document.documentElement.classList.remove('ss-capturing'), 6000);
+    };
+    window.addEventListener('feedback:open', onOpen);
+    return () => window.removeEventListener('feedback:open', onOpen);
+  }, []);
 
   if (status === 'loading') return <div className="auth-wrap"><Spinner label={t('app.loadingWorkspace')} /></div>;
   if (status === 'anonymous') return <Navigate to="/login" replace state={{ from: location.pathname }} />;

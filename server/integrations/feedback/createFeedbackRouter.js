@@ -1,4 +1,4 @@
-// CommonJS port of @ritjira/feedback-server createFeedbackRouter.
+// CommonJS port of @rit-services/feedback-server createFeedbackRouter.
 // Same contract as the plugin: POST / accepts a feedback payload, validates it
 // with zod, renders an email and hands it to the configured mailer.
 const { Router } = require('express');

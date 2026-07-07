@@ -1,4 +1,4 @@
-// CommonJS port of @ritjira/feedback-server mailer resolution.
+// CommonJS port of @rit-services/feedback-server mailer resolution.
 const nodemailer = require('nodemailer');
 
 const noopLog = () => {};

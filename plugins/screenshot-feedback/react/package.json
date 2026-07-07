@@ -1,5 +1,5 @@
 {
-  "name": "@ritjira/feedback-react",
+  "name": "@rit-services/feedback-react",
   "private": true,
   "version": "0.1.0",
   "description": "React side of the screenshot feedback plugin. Provides FeedbackProvider, FeedbackButton (floating/sidebar/navbar variants) and a Konva-powered annotation modal.",
