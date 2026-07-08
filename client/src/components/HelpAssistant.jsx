@@ -1,6 +1,9 @@
 import { useState, useRef, useEffect } from 'react';
 import { MessagesSquare, X, Send } from 'lucide-react';
-import { matchTopic, HELP_FALLBACK, HELP_GREETING } from '@/data/helpContent';
+import { useQuery } from '@tanstack/react-query';
+import { answerFor, HELP_GREETING } from '@/data/helpContent';
+import { lawApi } from '@/apis/lawApi';
+import { tLaw } from '@/i18n/lawExplorer';
 import { useLangStore } from '@/store/langStore';
 import { useT } from '@/hooks/useT';
 import TextMorph from '@/components/ui/TextMorph';
@@ -34,6 +37,13 @@ export default function HelpAssistant() {
   const bodyRef = useRef(null);
   const inputRef = useRef(null);
 
+  // The law catalog answers "what is the EU AI Act?" straight from the Law
+  // Explorer's content, so there is one source of truth. Fetched only once the
+  // panel opens, sharing the Law Explorer's ['laws'] cache.
+  const { data: laws } = useQuery({
+    queryKey: ['laws'], queryFn: lawApi.explorer, enabled: open, staleTime: 5 * 60 * 1000,
+  });
+
   // Keep the latest message in view and focus the input when opened.
   useEffect(() => {
     if (bodyRef.current) bodyRef.current.scrollTop = bodyRef.current.scrollHeight;
@@ -54,8 +64,8 @@ export default function HelpAssistant() {
     if (!text) return;
     pushUser(text);
     setDraft('');
-    const topic = matchTopic(text);
-    pushBot(topic ? topic.answer[lang] : HELP_FALLBACK[lang]);
+    // How-to topic, glossary term, or a law from the catalog.
+    pushBot(answerFor(text, lang, laws?.frameworks || [], tLaw));
   };
 
   return (
