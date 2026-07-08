@@ -1,10 +1,13 @@
 import { Outlet } from 'react-router-dom';
 import { useT } from '@/hooks/useT';
+import NeuralBackground from '@/components/NeuralBackground';
 
 export default function AuthLayout() {
   const { t } = useT();
   return (
     <div className="auth-wrap">
+      <div className="auth-watermark" aria-hidden="true">Compliance</div>
+      <NeuralBackground />
       <div className="auth-card">
         <div className="auth-body">
           <div className="row" style={{ gap: 10, marginBottom: 4 }}>
