@@ -1,5 +1,5 @@
 import { useState, useRef, useEffect } from 'react';
-import { MessagesSquare, X, Send, ChevronUp } from 'lucide-react';
+import { MessagesSquare, X, Send } from 'lucide-react';
 import { matchTopic, HELP_FALLBACK, HELP_GREETING } from '@/data/helpContent';
 import { useLangStore } from '@/store/langStore';
 import { useT } from '@/hooks/useT';
@@ -29,40 +29,10 @@ export default function HelpAssistant() {
   const { t } = useT();
   const lang = useLangStore((s) => s.lang);
   const [open, setOpen] = useState(false);
-  const [fabOpen, setFabOpen] = useState(false);
   const [messages, setMessages] = useState([{ id: mkId(), from: 'bot', text: HELP_GREETING[lang] }]);
   const [draft, setDraft] = useState('');
   const bodyRef = useRef(null);
   const inputRef = useRef(null);
-  const fabTimer = useRef(0);
-
-  // Speed-dial: the chat launcher and the (external) screenshot-feedback button
-  // form one dock in the bottom-right. Hovering either reveals the feedback
-  // action popping up above the chat button; a short close delay lets the
-  // pointer travel between them.
-  const openFab = () => { clearTimeout(fabTimer.current); setFabOpen(true); };
-  const closeFab = () => { clearTimeout(fabTimer.current); fabTimer.current = setTimeout(() => setFabOpen(false), 180); };
-
-  useEffect(() => {
-    let el = null;
-    const on = () => openFab();
-    const off = () => closeFab();
-    const id = setTimeout(() => {
-      el = document.querySelector('[data-feedback-trigger="true"]');
-      if (el) { el.addEventListener('mouseenter', on); el.addEventListener('mouseleave', off); }
-    }, 400);
-    return () => {
-      clearTimeout(id); clearTimeout(fabTimer.current);
-      if (el) { el.removeEventListener('mouseenter', on); el.removeEventListener('mouseleave', off); }
-    };
-  }, []);
-
-  // Reveal the feedback button only while the dock is hovered and the chat
-  // panel is closed.
-  useEffect(() => {
-    const el = document.querySelector('[data-feedback-trigger="true"]');
-    if (el) el.classList.toggle('fab-revealed', fabOpen && !open);
-  }, [fabOpen, open]);
 
   // Keep the latest message in view and focus the input when opened.
   useEffect(() => {
@@ -90,39 +60,16 @@ export default function HelpAssistant() {
 
   return (
     <>
-      {/* Chat quick-action: hidden until the dial is expanded (hover/tap). */}
-      {!open && (
-        <button
-          className={`fab-action fab-chat${fabOpen ? ' fab-revealed' : ''}`}
-          data-testid="fab-chat"
-          data-feedback-hide-during-capture
-          aria-label={t('help.open')}
-          aria-hidden={!fabOpen}
-          tabIndex={fabOpen ? 0 : -1}
-          onMouseEnter={openFab}
-          onMouseLeave={closeFab}
-          onClick={() => { setOpen(true); setFabOpen(false); }}
-        >
-          <MessagesSquare size={19} />
-        </button>
-      )}
-
-      {/* Speed-dial trigger: a neutral arrow when collapsed. Hovering reveals the
-          chat + feedback actions above it (the arrow flips up-side-down to signal
-          the dial is open). Clicking it opens the chat panel directly; when the
-          panel is open it becomes a close (X). Click opens chat rather than
-          toggling the dial so it does not fight the hover handler. */}
+      {/* Floating chat launcher: the chat icon; opens/closes the help panel. */}
       <button
-        className={`help-launcher${!open && fabOpen ? ' is-open' : ''}`}
+        className="help-launcher"
         data-testid="help-launcher"
         data-feedback-hide-during-capture
         aria-label={open ? t('help.close') : t('help.open')}
-        aria-expanded={open || fabOpen}
-        onMouseEnter={openFab}
-        onMouseLeave={closeFab}
+        aria-expanded={open}
         onClick={() => setOpen((o) => !o)}
       >
-        {open ? <X size={20} /> : <ChevronUp size={21} className="fab-arrow" />}
+        {open ? <X size={22} /> : <MessagesSquare size={22} />}
       </button>
 
       {open && (

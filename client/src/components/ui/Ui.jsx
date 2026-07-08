@@ -1,10 +1,16 @@
-import { STATUS_CHIP, RISK_CHIP, SEVERITY_CHIP, statusLabel, riskLabel, severityLabel } from '@/utils/format';
+import {
+  STATUS_CHIP, RISK_CHIP, SEVERITY_CHIP,
+  statusLabel, riskLabel, severityLabel,
+  statusTip, riskTip, severityTip,
+} from '@/utils/format';
 import { useLangStore } from '@/store/langStore';
 import { translate } from '@/i18n/ui';
 
-export function Chip({ className = 'chip-grey', children, dot = true }) {
+// `tip` renders a hover tooltip (see [data-tip] in global.css) explaining what
+// the pill means. Purely supplementary: the pill's own label stays the content.
+export function Chip({ className = 'chip-grey', children, dot = true, tip }) {
   return (
-    <span className={`chip ${className}`}>
+    <span className={`chip ${className}`} {...(tip ? { 'data-tip': tip } : {})}>
       {dot && <span className="dot" />}
       {children}
     </span>
@@ -13,18 +19,18 @@ export function Chip({ className = 'chip-grey', children, dot = true }) {
 
 export function StatusChip({ status }) {
   const lang = useLangStore((s) => s.lang);
-  return <Chip className={STATUS_CHIP[status] || 'chip-grey'}>{statusLabel(status, lang)}</Chip>;
+  return <Chip className={STATUS_CHIP[status] || 'chip-grey'} tip={statusTip(status, lang)}>{statusLabel(status, lang)}</Chip>;
 }
 
 export function RiskChip({ risk }) {
   const lang = useLangStore((s) => s.lang);
   const key = risk || 'unclassified';
-  return <Chip className={RISK_CHIP[key] || 'chip-grey'}>{riskLabel(key, lang)}</Chip>;
+  return <Chip className={RISK_CHIP[key] || 'chip-grey'} tip={riskTip(key, lang)}>{riskLabel(key, lang)}</Chip>;
 }
 
 export function SeverityChip({ severity }) {
   const lang = useLangStore((s) => s.lang);
-  return <Chip className={SEVERITY_CHIP[severity] || 'chip-grey'}>{severityLabel(severity, lang)}</Chip>;
+  return <Chip className={SEVERITY_CHIP[severity] || 'chip-grey'} tip={severityTip(severity, lang)}>{severityLabel(severity, lang)}</Chip>;
 }
 
 export function Progress({ value = 0, variant = '' }) {

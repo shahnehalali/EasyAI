@@ -8,10 +8,16 @@ const PNG_1PX =
 test.describe('Screenshot-feedback plugin', () => {
   test.beforeEach(async ({ page }) => { await signUpAndSignIn(page); });
 
-  test('the floating feedback trigger button renders in the app', async ({ page }) => {
+  test('the feedback trigger lives in the profile card, not floating', async ({ page }) => {
     await page.goto('/');
     await expect(page.getByTestId('dashboard')).toBeVisible();
-    await expect(page.locator('[data-feedback-trigger="true"]')).toBeVisible();
+    // The plugin runs in 'manual' mode now: no floating button. The trigger sits
+    // in the account menu next to Settings, and opens the annotation dialog.
+    await expect(page.locator('[data-feedback-trigger="true"]')).toHaveCount(0);
+    await page.getByTestId('account-menu').click();
+    await expect(page.getByTestId('account-feedback')).toBeVisible();
+    await page.getByTestId('account-feedback').click();
+    await expect(page.getByRole('dialog')).toBeVisible();
   });
 
   test('the backend accepts a valid submission', async ({ page }) => {
@@ -27,7 +33,12 @@ test.describe('Screenshot-feedback plugin', () => {
       },
     });
     expect(res.status()).toBe(202);
-    expect(await res.json()).toEqual({ ok: true });
+    const body = await res.json();
+    expect(body.ok).toBe(true);
+    // After the email the router also opens a Spirex ticket. It reports the
+    // created story (or null when SPIREX_* is not configured / the API errored),
+    // so assert the shape rather than an exact body.
+    expect(body).toHaveProperty('ticket');
   });
 
   test('the backend rejects an invalid submission', async ({ page }) => {

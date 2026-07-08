@@ -81,6 +81,7 @@ export default function AiSystemProfile() {
   const [creating, setCreating] = useState(false);
   const [createErr, setCreateErr] = useState('');
   const [quizOpen, setQuizOpen] = useState(true);
+  const [obFilter, setObFilter] = useState('all'); // all | gap | applies
 
   const { data, isLoading, error, refetch } = useQuery({
     queryKey: ['data-profile', id, lang], queryFn: () => aiSystemApi.getDataProfile(id, lang),
@@ -102,6 +103,26 @@ export default function AiSystemProfile() {
   if (error) return <ErrorState error={error} onRetry={refetch} />;
 
   const setAnswer = (code, value) => setAnswers((a) => ({ ...a, [code]: value }));
+
+  // Plain-language explanation shown when hovering a question's tag pill
+  // (AVV / DPF / SCC / Transfers). t() returns the key itself when a tag has no
+  // entry, so fall back to the generic "Relates to" label in that case.
+  const tagTip = (tag) => {
+    const key = `dp.tag.${tag}`;
+    const tip = t(key);
+    return tip === key ? t('dp.relatesTo') : tip;
+  };
+
+  // Obligations: filter by status, and always surface the ones needing action
+  // first (Array.sort is stable, so the original order holds inside each group).
+  const obligations = result?.obligations || [];
+  const gapCount = obligations.filter((o) => o.status === 'gap').length;
+  const appliesCount = obligations.length - gapCount;
+  const visibleObligations = obligations
+    .filter((o) => (obFilter === 'all' ? true : obFilter === 'gap' ? o.status === 'gap' : o.status !== 'gap'))
+    .slice()
+    .sort((a, b) => (a.status === 'gap' ? 0 : 1) - (b.status === 'gap' ? 0 : 1));
+
   const questions = data.questions || [];
   const sections = data.sections || [];
   // The gate question must be answered; any question left blank is treated as "No"/none.
@@ -182,7 +203,16 @@ export default function AiSystemProfile() {
                     >
                       <div style={{ flex: 1, marginBottom: stacked ? 14 : 0 }}>
                         <div style={{ fontWeight: 600, lineHeight: 1.45 }}>
-                          {q.tag && <span className="q-tag" title={t('dp.relatesTo')}>{q.tag}</span>}
+                          {q.tag && (
+                            <span
+                              className="q-tag"
+                              data-tip={tagTip(q.tag)}
+                              tabIndex={0}
+                              aria-label={`${q.tag}. ${tagTip(q.tag)}`}
+                            >
+                              {q.tag}
+                            </span>
+                          )}
                           {q.prompt}
                         </div>
                         {q.helpText && <div className="muted small" style={{ marginTop: 5 }}>{q.helpText}</div>}
@@ -252,14 +282,38 @@ export default function AiSystemProfile() {
               <p className="muted small" style={{ margin: '0 0 14px' }}>{data.penaltiesNote}</p>
             )}
 
+            {obligations.length > 1 && (
+              <div className="filter-row" style={{ marginBottom: 14 }} data-testid="obligation-filter">
+                {[
+                  { key: 'all', label: t('dp.filterAll'), count: obligations.length },
+                  { key: 'gap', label: t('dp.statusAction'), count: gapCount },
+                  { key: 'applies', label: t('dp.statusApplies'), count: appliesCount },
+                ].map((f) => (
+                  <button
+                    key={f.key}
+                    data-testid={`obligation-filter-${f.key}`}
+                    className={`btn btn-sm ${obFilter === f.key ? 'btn-primary' : 'btn-outline'}`}
+                    aria-pressed={obFilter === f.key}
+                    onClick={() => setObFilter(f.key)}
+                  >
+                    {f.label} ({f.count})
+                  </button>
+                ))}
+              </div>
+            )}
+
+            {visibleObligations.length === 0 && (
+              <p className="muted small" data-testid="obligation-filter-empty">{t('dp.filterEmpty')}</p>
+            )}
+
             <div className="grid grid-2">
-              {result.obligations.map((o) => (
+              {visibleObligations.map((o) => (
                 <Card key={o.id} variant="ruled" data-testid={`obligation-${o.id}`} bodyClass="card-body">
                   <div className="row" style={{ gap: 8, flexWrap: 'wrap', marginBottom: 8 }}>
                     <strong style={{ fontSize: 14.5 }}>{o.title}</strong>
                     {o.status === 'gap'
-                      ? <Chip className="dp-action" dot={false}>{t('dp.statusAction')}</Chip>
-                      : <Chip className="dp-applies" dot={false}>{t('dp.statusApplies')}</Chip>}
+                      ? <Chip className="dp-action" dot={false} tip={t('dp.tipAction')}>{t('dp.statusAction')}</Chip>
+                      : <Chip className="dp-applies" dot={false} tip={t('dp.tipApplies')}>{t('dp.statusApplies')}</Chip>}
                   </div>
 
                   <div style={{ marginBottom: 10 }}>

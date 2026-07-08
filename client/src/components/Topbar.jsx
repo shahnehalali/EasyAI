@@ -1,7 +1,8 @@
 import { useState, useRef, useEffect } from 'react';
 import { useNavigate, useLocation } from 'react-router-dom';
 import { useQuery } from '@tanstack/react-query';
-import { Menu, ChevronLeft, Sun, Moon, ShieldCheck, Cpu, ClipboardCheck, Building2, ArrowRight, LogOut } from 'lucide-react';
+import { Menu, ChevronLeft, Sun, Moon, ShieldCheck, Cpu, ClipboardCheck, Building2, ArrowRight, LogOut, Megaphone } from 'lucide-react';
+import { useFeedback } from '@rit-services/feedback-react';
 import { useAuth } from '@/hooks/useAuth';
 import { useThemeStore } from '@/store/themeStore';
 import { useLangStore } from '@/store/langStore';
@@ -21,6 +22,7 @@ export default function Topbar({ title, orgName, onMenu }) {
   const lang = useLangStore((s) => s.lang);
   const setLang = useLangStore((s) => s.setLang);
   const [open, setOpen] = useState(false);
+  const { open: openFeedback, config: fbConfig } = useFeedback();
   const ref = useRef(null);
   const navigate = useNavigate();
   const location = useLocation();
@@ -127,11 +129,20 @@ export default function Topbar({ title, orgName, onMenu }) {
                   </div>
                 </div>
 
-                <button className="profile-cta" data-testid="account-settings"
-                  onClick={() => { setOpen(false); navigate('/settings'); }}>
-                  <span className="profile-cta-arrow"><ArrowRight size={15} /></span>
-                  {t('account.settings')}
-                </button>
+                <div className="profile-actions">
+                  <button className="profile-cta" data-testid="account-settings"
+                    onClick={() => { setOpen(false); navigate('/settings'); }}>
+                    <span className="profile-cta-arrow"><ArrowRight size={15} /></span>
+                    {t('account.settings')}
+                  </button>
+                  {fbConfig.enabled !== false && (
+                    <button className="profile-cta profile-cta-alt" data-testid="account-feedback"
+                      onClick={() => { setOpen(false); openFeedback(); }}>
+                      <span className="profile-cta-arrow"><Megaphone size={14} /></span>
+                      {t('account.feedback')}
+                    </button>
+                  )}
+                </div>
                 <button className="profile-signout" data-testid="logout" onClick={onLogout}>
                   <LogOut size={14} /> {t('account.signOut')}
                 </button>

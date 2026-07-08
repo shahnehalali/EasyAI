@@ -48,6 +48,7 @@ export const UI = {
 
     // Top bar account menu
     'account.settings': 'Settings',
+    'account.feedback': 'Feedback',
     'account.signOut': 'Sign out',
     'theme.day': 'Day mode',
     'theme.night': 'Night mode',
@@ -69,6 +70,13 @@ export const UI = {
     // Data protection profile (page chrome; the questions/obligations come localised from the API)
     'dp.eyebrow': 'Data protection profile (GDPR & DPA)',
     'dp.relatesTo': 'Relates to',
+    'dp.tipApplies': 'This obligation is triggered by your answers. No gap was detected, but you must keep meeting it.',
+    'dp.tipAction': 'This obligation applies and your answers show a gap. Follow the "What to do" steps to close it.',
+    // Explanations shown when hovering a question's tag pill.
+    'dp.tag.AVV': 'AVV (Auftragsverarbeitungsvertrag): the data processing agreement that GDPR Art. 28 requires whenever a provider processes personal data on your behalf.',
+    'dp.tag.DPF': 'EU-US Data Privacy Framework: the adequacy decision that lets certified US companies receive personal data from the EU without extra safeguards.',
+    'dp.tag.SCC': 'Standard Contractual Clauses: the EU-approved contract terms that make transfers of personal data to countries without an adequacy decision lawful.',
+    'dp.tag.Transfers': 'International transfers: moving personal data outside the EU/EEA. Chapter V of the GDPR requires a legal safeguard for this.',
     'dp.seeApplies': 'See what applies',
     'dp.checking': 'Checking...',
     'dp.answerFirst': 'Answer the first question to continue.',
@@ -87,6 +95,8 @@ export const UI = {
     'dp.read': 'Read',
     'dp.statusAction': 'Action needed',
     'dp.statusApplies': 'Applies',
+    'dp.filterAll': 'All',
+    'dp.filterEmpty': 'No obligations match this filter.',
     'dp.intro': 'Answer the profile and select “See what applies”. We will list the GDPR and DPA obligations for this system, with what to do about each.',
     'dp.disclaimer': 'This is plain-language guidance for orientation only and is not legal advice.',
     'dp.profileQuestions': 'Profile questions',
@@ -603,6 +613,7 @@ export const UI = {
 
     // Top bar account menu
     'account.settings': 'Einstellungen',
+    'account.feedback': 'Feedback',
     'account.signOut': 'Abmelden',
     'theme.day': 'Tagmodus',
     'theme.night': 'Nachtmodus',
@@ -624,6 +635,13 @@ export const UI = {
     // Data protection profile (page chrome)
     'dp.eyebrow': 'Datenschutzprofil (DSGVO & AVV)',
     'dp.relatesTo': 'Bezieht sich auf',
+    'dp.tipApplies': 'Diese Pflicht wird durch Ihre Antworten ausgelöst. Es wurde keine Lücke festgestellt, Sie müssen sie aber weiterhin erfüllen.',
+    'dp.tipAction': 'Diese Pflicht gilt und Ihre Antworten zeigen eine Lücke. Folgen Sie den Schritten unter "Was zu tun ist", um sie zu schließen.',
+    // Erklärungen beim Überfahren der Themen-Pille einer Frage.
+    'dp.tag.AVV': 'AVV (Auftragsverarbeitungsvertrag): der nach Art. 28 DSGVO erforderliche Vertrag, wenn ein Anbieter personenbezogene Daten in Ihrem Auftrag verarbeitet.',
+    'dp.tag.DPF': 'EU-US Data Privacy Framework: der Angemessenheitsbeschluss, der zertifizierten US-Unternehmen erlaubt, personenbezogene Daten ohne zusätzliche Garantien aus der EU zu empfangen.',
+    'dp.tag.SCC': 'Standardvertragsklauseln: die von der EU genehmigten Vertragsklauseln, die Übermittlungen personenbezogener Daten in Länder ohne Angemessenheitsbeschluss zulässig machen.',
+    'dp.tag.Transfers': 'Internationale Übermittlungen: die Weitergabe personenbezogener Daten außerhalb der EU/des EWR. Kapitel V DSGVO verlangt dafür eine rechtliche Garantie.',
     'dp.seeApplies': 'Anzeigen, was gilt',
     'dp.checking': 'Wird geprüft...',
     'dp.answerFirst': 'Beantworten Sie die erste Frage, um fortzufahren.',
@@ -642,6 +660,8 @@ export const UI = {
     'dp.read': 'Lesen',
     'dp.statusAction': 'Handlung nötig',
     'dp.statusApplies': 'Gilt',
+    'dp.filterAll': 'Alle',
+    'dp.filterEmpty': 'Keine Pflichten passen zu diesem Filter.',
     'dp.intro': 'Beantworten Sie das Profil und wählen Sie „Anzeigen, was gilt“. Wir listen die DSGVO- und AVV-Pflichten für dieses System auf, mit dem jeweils Erforderlichen.',
     'dp.disclaimer': 'Dies ist eine verständliche Orientierung und keine Rechtsberatung.',
     'dp.profileQuestions': 'Profilfragen',
