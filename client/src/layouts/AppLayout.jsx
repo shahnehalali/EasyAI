@@ -5,6 +5,7 @@ import Sidebar from '@/components/Sidebar';
 import MobileTabBar from '@/components/MobileTabBar';
 import Topbar from '@/components/Topbar';
 import HelpAssistant from '@/components/HelpAssistant';
+import TooltipLayer from '@/components/ui/TooltipLayer';
 import ErrorBoundary from '@/components/ErrorBoundary';
 import { useAuth } from '@/hooks/useAuth';
 import { organizationApi } from '@/apis/organizationApi';
@@ -68,9 +69,10 @@ export default function AppLayout() {
     <FeedbackProvider
       config={{
         apiUrl: '/api/feedback', // relative: Vite proxy in dev, same API origin in prod
-        mode: import.meta.env.VITE_FEEDBACK_MODE ?? 'floating',
+        // 'manual': no floating button. The trigger lives in the profile card
+        // (Topbar) via useFeedback().open(). The bottom-right corner is just the chat.
+        mode: import.meta.env.VITE_FEEDBACK_MODE ?? 'manual',
         enabled: import.meta.env.VITE_FEEDBACK_ENABLED !== 'false',
-        floatingPosition: 'bottom-left', // bottom-right is taken by the Help chat launcher
         buttonLabel: 'Feedback',
         meta: { app: 'jurisai' },
       }}
@@ -93,6 +95,7 @@ export default function AppLayout() {
         </div>
         <MobileTabBar onMenu={() => setMenuOpen(true)} onNavigate={() => setMenuOpen(false)} />
         <HelpAssistant />
+        <TooltipLayer />
       </div>
     </FeedbackProvider>
   );

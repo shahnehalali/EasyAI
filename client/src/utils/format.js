@@ -50,6 +50,56 @@ export const SEVERITY_LABELS = {
   de: { mandatory: 'Verpflichtend', recommended: 'Empfohlen', informational: 'Informativ' },
 };
 
+// Plain-language explanations shown as a tooltip when hovering a pill.
+export const RISK_TIPS = {
+  en: {
+    prohibited: 'Banned under Art. 5 of the EU AI Act. Stop this use and seek legal advice.',
+    high: 'Listed in Annex III, or a product safety component. The full high-risk duties apply: risk management, data governance, documentation, human oversight, and accuracy and security testing.',
+    limited: 'Transparency duties apply (Art. 50). Tell people they are dealing with an AI and label AI-generated content.',
+    minimal: 'No specific duties under the EU AI Act. Voluntary codes of conduct and general good practice still apply.',
+    unclassified: 'Not classified yet. Answer the risk questionnaire to see which EU AI Act duties apply.',
+  },
+  de: {
+    prohibited: 'Nach Art. 5 der KI-Verordnung verboten. Stellen Sie diese Nutzung ein und holen Sie Rechtsrat ein.',
+    high: 'In Anhang III aufgeführt oder sicherheitsrelevante Produktkomponente. Es gelten alle Hochrisikopflichten: Risikomanagement, Daten-Governance, Dokumentation, menschliche Aufsicht sowie Genauigkeits- und Sicherheitsprüfungen.',
+    limited: 'Es gelten Transparenzpflichten (Art. 50). Informieren Sie Menschen darüber, dass sie mit einer KI zu tun haben, und kennzeichnen Sie KI-generierte Inhalte.',
+    minimal: 'Keine besonderen Pflichten nach der KI-Verordnung. Freiwillige Verhaltenskodizes und gute Praxis gelten weiterhin.',
+    unclassified: 'Noch nicht eingestuft. Beantworten Sie den Risikofragebogen, um die geltenden Pflichten zu sehen.',
+  },
+};
+
+export const STATUS_TIPS = {
+  en: {
+    not_started: 'No work has been recorded on this item yet.',
+    in_progress: 'Work has begun but the item is not finished.',
+    done: 'Completed and documented.',
+    not_applicable: 'Does not apply to this system, so it is excluded from the progress calculation.',
+    completed: 'Every item in this assessment is done or not applicable.',
+    needs_review: 'The annual review is due. Check the entries are still accurate, then mark it reviewed.',
+  },
+  de: {
+    not_started: 'Für diesen Punkt wurde noch nichts erfasst.',
+    in_progress: 'Die Arbeit hat begonnen, der Punkt ist aber noch nicht abgeschlossen.',
+    done: 'Abgeschlossen und dokumentiert.',
+    not_applicable: 'Gilt für dieses System nicht und zählt daher nicht in den Fortschritt.',
+    completed: 'Alle Punkte dieser Bewertung sind erledigt oder nicht zutreffend.',
+    needs_review: 'Die jährliche Prüfung ist fällig. Prüfen Sie die Einträge und markieren Sie sie als geprüft.',
+  },
+};
+
+export const SEVERITY_TIPS = {
+  en: {
+    mandatory: 'Legally required. Leaving it open is a compliance breach.',
+    recommended: 'Strongly advised good practice, but not strictly required by law.',
+    informational: 'Background guidance. No direct obligation attached.',
+  },
+  de: {
+    mandatory: 'Gesetzlich vorgeschrieben. Bleibt der Punkt offen, liegt ein Compliance-Verstoß vor.',
+    recommended: 'Dringend empfohlene gute Praxis, gesetzlich aber nicht zwingend.',
+    informational: 'Hintergrundinformation. Damit ist keine unmittelbare Pflicht verbunden.',
+  },
+};
+
 export function riskLabel(risk, lang = 'en') {
   const key = risk || 'unclassified';
   return (RISK_LABELS[lang] || RISK_LABELS.en)[key] || key;
@@ -59,6 +109,16 @@ export function statusLabel(status, lang = 'en') {
 }
 export function severityLabel(sev, lang = 'en') {
   return (SEVERITY_LABELS[lang] || SEVERITY_LABELS.en)[sev] || sev;
+}
+export function riskTip(risk, lang = 'en') {
+  const key = risk || 'unclassified';
+  return (RISK_TIPS[lang] || RISK_TIPS.en)[key] || '';
+}
+export function statusTip(status, lang = 'en') {
+  return (STATUS_TIPS[lang] || STATUS_TIPS.en)[status] || '';
+}
+export function severityTip(sev, lang = 'en') {
+  return (SEVERITY_TIPS[lang] || SEVERITY_TIPS.en)[sev] || '';
 }
 
 export const STATUS_CHIP = {
