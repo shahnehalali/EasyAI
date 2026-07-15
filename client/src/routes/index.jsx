@@ -15,8 +15,10 @@ import Frameworks from '@/views/frameworks/Frameworks';
 import FrameworkDetail from '@/views/frameworks/FrameworkDetail';
 import Community from '@/views/community/Community';
 import ThreadDetail from '@/views/community/ThreadDetail';
+import Timeline from '@/views/timeline/Timeline';
 import AiSystems from '@/views/aiSystems/AiSystems';
 import AiSystemNew from '@/views/aiSystems/AiSystemNew';
+import AiSystemEdit from '@/views/aiSystems/AiSystemEdit';
 import AiSystemClassify from '@/views/aiSystems/AiSystemClassify';
 import AiSystemProfile from '@/views/aiSystems/AiSystemProfile';
 import AiSystemDetail from '@/views/aiSystems/AiSystemDetail';
@@ -50,8 +52,10 @@ export default function AppRoutes() {
         <Route path="/faq" element={<Faq />} />
         <Route path="/frameworks" element={<Frameworks />} />
         <Route path="/frameworks/:key" element={<FrameworkDetail />} />
+        <Route path="/timeline" element={<Timeline />} />
         <Route path="/ai-systems" element={<AiSystems />} />
         <Route path="/ai-systems/new" element={<AiSystemNew />} />
+        <Route path="/ai-systems/:id/edit" element={<AiSystemEdit />} />
         <Route path="/ai-systems/:id/classify" element={<AiSystemClassify />} />
         <Route path="/ai-systems/:id/profile" element={<AiSystemProfile />} />
         <Route path="/ai-systems/:id" element={<AiSystemDetail />} />

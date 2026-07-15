@@ -81,7 +81,7 @@ export default function DiscussionTab({ frameworkKey, compact = false }) {
           {SCOPES.map((s) => pill(s, scope, setScope, t(`com.scope.${s}`)))}
         </div>
         {canWrite && (
-          <button className="btn btn-gold btn-sm" data-testid="new-thread" onClick={() => setShowForm((v) => !v)}>
+          <button className="btn btn-primary btn-sm" data-testid="new-thread" onClick={() => setShowForm((v) => !v)}>
             <Plus size={15} /> {frameworkKey ? t('com.start') : t('com.new')}
           </button>
         )}

@@ -37,7 +37,11 @@ test.describe('Assessments and checklist responses module', () => {
     await page.getByTestId('assessment-row').first().getByRole('link', { name: 'Open' }).click();
     await expect(page.getByTestId('assessment-editor')).toBeVisible();
 
-    const firstItem = page.getByTestId('checklist-item').first();
+    // The editor opens on the overview table; open the first point to edit it.
+    await expect(page.getByTestId('points-table')).toBeVisible();
+    await page.getByTestId('open-point-0').click();
+    const firstItem = page.getByTestId('focus-point').getByTestId('checklist-item');
+    await expect(firstItem).toBeVisible();
     await firstItem.getByTestId('response-text').fill('We document our intended purpose and context here for the risk assessment.');
     // Documentation autosaves (debounced + flushed on blur); status is a manual
     // toggle. Clicking a status persists immediately and blurs the textarea.
@@ -47,9 +51,12 @@ test.describe('Assessments and checklist responses module', () => {
     // Progress should be above zero now.
     await expect(page.getByTestId('assessment-progress')).not.toHaveText('0%');
 
-    // Reload and confirm the text persisted.
+    // The stepper node for this point should now show it as done (green).
+    await expect(page.getByTestId('step-node-0')).toHaveClass(/step-done/);
+
+    // Reload (still on ?point=1) and confirm the text persisted.
     await page.reload();
-    await expect(page.getByTestId('checklist-item').first().getByTestId('response-text'))
+    await expect(page.getByTestId('focus-point').getByTestId('response-text'))
       .toHaveValue(/document our intended purpose/);
   });
 

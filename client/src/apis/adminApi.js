@@ -7,4 +7,6 @@ export const adminApi = {
   createFramework: (data) => http.post('/frameworks', data).then((r) => r.data.framework),
   createRequirement: (key, data) => http.post(`/frameworks/${key}/requirements`, data).then((r) => r.data.requirement),
   createTemplate: (key, data) => http.post(`/frameworks/${key}/templates`, data).then((r) => r.data.template),
+  reports: () => http.get('/reports').then((r) => r.data.reports),
+  resolveReport: (data) => http.post('/reports/resolve', data).then((r) => r.data),
 };

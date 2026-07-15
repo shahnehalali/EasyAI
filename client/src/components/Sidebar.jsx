@@ -3,8 +3,9 @@ import { NavLink, useLocation } from 'react-router-dom';
 import {
   LayoutDashboard, Scale, Cpu, ClipboardCheck, BookOpen, FileText,
   Bell, ScrollText, Settings, ShieldCheck, HelpCircle, MessagesSquare,
-  ChevronsLeft, ChevronsRight,
+  ChevronsLeft, ChevronsRight, Megaphone, CalendarClock,
 } from 'lucide-react';
+import { useFeedback } from '@rit-services/feedback-react';
 import { useAuth } from '@/hooks/useAuth';
 import { useT } from '@/hooks/useT';
 
@@ -14,6 +15,7 @@ const NAV = [
   { section: 'section.compliance' },
   { to: '/ai-systems', label: 'nav.aiSystems', Icon: Cpu },
   { to: '/assessments', label: 'nav.assessments', Icon: ClipboardCheck },
+  { to: '/timeline', label: 'nav.timeline', Icon: CalendarClock },
   { to: '/frameworks', label: 'nav.frameworks', Icon: BookOpen },
   { to: '/documents', label: 'nav.documents', Icon: FileText },
   { section: 'section.explore' },
@@ -24,6 +26,8 @@ const NAV = [
   { to: '/notifications', label: 'nav.notifications', Icon: Bell },
   { to: '/audit', label: 'nav.audit', Icon: ScrollText },
   { to: '/settings', label: 'nav.settings', Icon: Settings },
+  // Not a route — opens the feedback modal via the plugin.
+  { action: 'feedback', label: 'account.feedback', Icon: Megaphone },
 ];
 
 // Group each section heading with the nav items that follow it, so the
@@ -38,6 +42,7 @@ const STORE_KEY = 'aic_sidebar_collapsed';
 
 export default function Sidebar({ open = false, onNavigate }) {
   const { isAdmin } = useAuth();
+  const { open: openFeedback, config: fbConfig } = useFeedback();
   const { t, lang } = useT();
   const location = useLocation();
   const [collapsed, setCollapsed] = useState(() => {
@@ -106,19 +111,38 @@ export default function Sidebar({ open = false, onNavigate }) {
     };
   }, [measure]);
 
-  const navItem = (item) => (
-    <NavLink
-      key={item.to}
-      to={item.to}
-      end={item.end}
-      onClick={onNavigate}
-      title={collapsed ? t(item.label) : undefined}
-      className={({ isActive }) => `nav-link${isActive ? ' active' : ''}`}
-    >
-      <span className="ico" aria-hidden="true"><item.Icon size={17} strokeWidth={2} /></span>
-      <span className="nav-label">{t(item.label)}</span>
-    </NavLink>
-  );
+  const navItem = (item) => {
+    // Action items (e.g. Feedback) open a modal instead of navigating.
+    if (item.action === 'feedback') {
+      if (fbConfig.enabled === false) return null;
+      return (
+        <button
+          key="feedback"
+          type="button"
+          className="nav-link nav-action"
+          data-testid="sidebar-feedback"
+          title={collapsed ? t(item.label) : undefined}
+          onClick={() => { onNavigate?.(); openFeedback(); }}
+        >
+          <span className="ico" aria-hidden="true"><item.Icon size={17} strokeWidth={2} /></span>
+          <span className="nav-label">{t(item.label)}</span>
+        </button>
+      );
+    }
+    return (
+      <NavLink
+        key={item.to}
+        to={item.to}
+        end={item.end}
+        onClick={onNavigate}
+        title={collapsed ? t(item.label) : undefined}
+        className={({ isActive }) => `nav-link${isActive ? ' active' : ''}`}
+      >
+        <span className="ico" aria-hidden="true"><item.Icon size={17} strokeWidth={2} /></span>
+        <span className="nav-label">{t(item.label)}</span>
+      </NavLink>
+    );
+  };
 
   return (
     <aside className={`sidebar${open ? ' open' : ''}${collapsed ? ' collapsed' : ''}`} aria-label={t('app.primaryNav')}>

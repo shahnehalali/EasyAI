@@ -9,6 +9,8 @@ import TooltipLayer from '@/components/ui/TooltipLayer';
 import ErrorBoundary from '@/components/ErrorBoundary';
 import { useAuth } from '@/hooks/useAuth';
 import { organizationApi } from '@/apis/organizationApi';
+import { aiSystemApi } from '@/apis/aiSystemApi';
+import { assessmentApi } from '@/apis/assessmentApi';
 import { Spinner } from '@/components/ui/Ui';
 import { useT } from '@/hooks/useT';
 import { FeedbackProvider } from '@rit-services/feedback-react';
@@ -19,7 +21,9 @@ const TITLES = [
   [/^\/community\/[^/]+/, 'title.thread'],
   [/^\/community/, 'title.community'],
   [/^\/faq/, 'title.faq'],
+  [/^\/timeline/, 'title.timeline'],
   [/^\/ai-systems\/new/, 'title.registerAi'],
+  [/^\/ai-systems\/[^/]+\/edit/, 'title.editAi'],
   [/^\/ai-systems\/[^/]+\/classify/, 'title.classifyAi'],
   [/^\/ai-systems\/[^/]+\/profile/, 'title.dataProfile'],
   [/^\/ai-systems/, 'title.aiSystems'],
@@ -40,10 +44,43 @@ function titleKeyFor(path) {
 
 export default function AppLayout() {
   const { status } = useAuth();
-  const { t } = useT();
+  const { t, lang } = useT();
   const location = useLocation();
   const [menuOpen, setMenuOpen] = useState(false);
   const { data: org } = useQuery({ queryKey: ['organization'], queryFn: organizationApi.current, enabled: status === 'authenticated' });
+
+  // When we're inside a specific AI system (detail / edit / classify / profile),
+  // name it in the top bar. The id is anything after /ai-systems/ that isn't the
+  // "new" form. Shares the ['ai-system', id] cache with the detail page, so it's
+  // usually already loaded.
+  const aiSystemId = (() => {
+    const m = location.pathname.match(/^\/ai-systems\/([^/]+)/);
+    return m && m[1] !== 'new' ? m[1] : null;
+  })();
+  const { data: aiSystem } = useQuery({
+    queryKey: ['ai-system', aiSystemId],
+    queryFn: () => aiSystemApi.getById(aiSystemId),
+    enabled: status === 'authenticated' && !!aiSystemId,
+  });
+
+  // Likewise, name the assessment you're viewing in the top bar. Shares the
+  // ['assessment', id, lang] cache with the editor.
+  const assessmentId = (() => {
+    const m = location.pathname.match(/^\/assessments\/([^/]+)/);
+    return m ? m[1] : null;
+  })();
+  const { data: assessment } = useQuery({
+    queryKey: ['assessment', assessmentId, lang],
+    queryFn: () => assessmentApi.getById(assessmentId, lang),
+    enabled: status === 'authenticated' && !!assessmentId,
+  });
+
+  const titleKey = titleKeyFor(location.pathname);
+  // The bare detail page falls under the "AI Systems" (list) title; make it
+  // singular when we're viewing one, then append the entity's name.
+  const baseTitle = titleKey === 'title.aiSystems' && aiSystemId ? t('asd.eyebrow') : t(titleKey);
+  const detailName = aiSystem?.name || assessment?.template?.name || null;
+  const pageTitle = (aiSystemId || assessmentId) && detailName ? `${baseTitle} — ${detailName}` : baseTitle;
 
   // Close the mobile menu on navigation.
   useEffect(() => { setMenuOpen(false); }, [location.pathname]);
@@ -86,7 +123,7 @@ export default function AppLayout() {
           aria-hidden="true"
         />
         <div className="main">
-          <Topbar title={t(titleKeyFor(location.pathname))} orgName={org?.name} onMenu={() => setMenuOpen(true)} />
+          <Topbar title={pageTitle} orgName={org?.name} onMenu={() => setMenuOpen(true)} />
           <main id="main-content" className="content">
             <ErrorBoundary key={location.pathname}>
               <Outlet />

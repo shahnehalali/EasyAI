@@ -66,7 +66,26 @@ export default function ChecklistItem({ response, members = [], onChanged }) {
     clearTimeout(saveTimer.current);
     if (text !== (response.responseText || '')) persist(statusRef.current, text);
   };
-  useEffect(() => () => clearTimeout(saveTimer.current), []);
+
+  // Flush a pending (debounced) edit if the item unmounts before it saves — e.g.
+  // the user clicks Next to the following point within the 900ms window. We call
+  // the API directly (no setState on an unmounting component) and keep the shared
+  // response object in sync so the stepper/table reflect it.
+  const textRef = useRef(text);
+  useEffect(() => { textRef.current = text; }, [text]);
+  useEffect(() => () => {
+    clearTimeout(saveTimer.current);
+    if (textRef.current !== (response.responseText || '')) {
+      checklistResponseApi.update(response.id, { status: statusRef.current, responseText: textRef.current })
+        .then((res) => {
+          response.status = statusRef.current;
+          response.responseText = textRef.current;
+          onChanged?.(res.assessmentProgress);
+        })
+        .catch(() => {});
+    }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, []);
 
   const assign = async (id) => {
     setAssigneeId(id); setError('');
