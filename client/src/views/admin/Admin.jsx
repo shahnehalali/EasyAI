@@ -6,6 +6,88 @@ import { adminApi } from '@/apis/adminApi';
 import { useAuth } from '@/hooks/useAuth';
 import { useT } from '@/hooks/useT';
 import { Banner, Card, EmptyState } from '@/components/ui/Ui';
+import { fromNow } from '@/utils/format';
+
+// Community moderation queue: reported threads/replies, with the reason(s) and
+// remove / dismiss actions. Platform-admin only (the whole page is gated).
+function ModerationQueue() {
+  const { t, lang } = useT();
+  const qc = useQueryClient();
+  const { data: reports = [], isLoading } = useQuery({ queryKey: ['admin-reports'], queryFn: adminApi.reports });
+  const [busyKey, setBusyKey] = useState('');
+  const [err, setErr] = useState('');
+
+  const resolve = async (r, action) => {
+    const key = `${r.targetType}:${r.targetId}`;
+    setBusyKey(key); setErr('');
+    try {
+      await adminApi.resolveReport({ targetType: r.targetType, targetId: r.targetId, action });
+      qc.invalidateQueries({ queryKey: ['admin-reports'] });
+      qc.invalidateQueries({ queryKey: ['threads'] });
+      if (r.threadId) qc.invalidateQueries({ queryKey: ['thread', r.threadId] });
+    } catch (e) { setErr(e.message); } finally { setBusyKey(''); }
+  };
+
+  return (
+    <Card title={t('adm.mod.title')} variant="ruled" data-testid="moderation-queue" style={{ marginBottom: 18 }}>
+      <p className="muted small" style={{ margin: '0 0 12px' }}>{t('adm.mod.sub')}</p>
+      {err && <Banner kind="error">{err}</Banner>}
+      {isLoading ? (
+        <p className="muted small">{t('adm.mod.loading')}</p>
+      ) : reports.length === 0 ? (
+        <EmptyState icon="🛡️" title={t('adm.mod.emptyTitle')}>{t('adm.mod.emptyBody')}</EmptyState>
+      ) : (
+        <div className="stack" style={{ gap: 12 }}>
+          {reports.map((r) => {
+            const key = `${r.targetType}:${r.targetId}`;
+            return (
+              <div key={key} className="report-row" data-testid="report-row">
+                <div className="row" style={{ gap: 8, marginBottom: 6, flexWrap: 'wrap', alignItems: 'center' }}>
+                  <span className="tag-pill">{t(r.targetType === 'thread' ? 'adm.mod.thread' : 'adm.mod.reply')}</span>
+                  <span className="report-count" data-testid="report-count">
+                    {r.count} {r.count === 1 ? t('adm.mod.report') : t('adm.mod.reports')}
+                  </span>
+                  {r.deleted && <span className="tag-pill" style={{ color: 'var(--muted)', borderColor: 'var(--border)' }}>{t('adm.mod.removed')}</span>}
+                </div>
+
+                <div className="report-content">
+                  {!r.exists
+                    ? <em className="muted">{t('adm.mod.gone')}</em>
+                    : (r.content || <em className="muted">{t('adm.mod.noText')}</em>)}
+                </div>
+                <div className="muted small" style={{ marginTop: 4 }}>
+                  {t('adm.mod.by')} {r.author?.fullName || t('adm.mod.someone')}{r.author?.company ? `, ${r.author.company}` : ''}
+                </div>
+
+                <ul className="report-reasons">
+                  {r.reports.map((rep) => (
+                    <li key={rep.id} className="small">
+                      “{rep.reason}” <span className="muted">— {rep.reporter?.fullName || t('adm.mod.someone')} · {fromNow(rep.createdAt, lang)}</span>
+                    </li>
+                  ))}
+                </ul>
+
+                <div className="row" style={{ gap: 6, marginTop: 8, flexWrap: 'wrap' }}>
+                  {r.threadId && (
+                    <Link className="btn btn-outline btn-sm" to={`/community/${r.threadId}`} data-testid="report-open">{t('adm.mod.open')}</Link>
+                  )}
+                  {r.exists && !r.deleted && (
+                    <button className="btn btn-danger btn-sm" data-testid="report-remove" disabled={busyKey === key} onClick={() => resolve(r, 'remove')}>
+                      {t('adm.mod.delete')}
+                    </button>
+                  )}
+                  <button className="btn btn-outline btn-sm" data-testid="report-dismiss" disabled={busyKey === key} onClick={() => resolve(r, 'dismiss')}>
+                    {t('adm.mod.dismiss')}
+                  </button>
+                </div>
+              </div>
+            );
+          })}
+        </div>
+      )}
+    </Card>
+  );
+}
 
 export default function Admin() {
   const { isAdmin } = useAuth();
@@ -63,6 +145,8 @@ export default function Admin() {
           ))}
         </div>
       )}
+
+      <ModerationQueue />
 
       {error && <Banner kind="error">{error}</Banner>}
       {result && (

@@ -46,4 +46,10 @@ const createTemplateSchema = z.object({
   items: z.array(templateItemSchema).optional(),
 });
 
-module.exports = { createFrameworkSchema, createRequirementSchema, createTemplateSchema };
+const resolveReportSchema = z.object({
+  targetType: z.enum(['thread', 'post']),
+  targetId: z.string().min(1),
+  action: z.enum(['dismiss', 'remove']),
+});
+
+module.exports = { createFrameworkSchema, createRequirementSchema, createTemplateSchema, resolveReportSchema };

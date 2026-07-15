@@ -174,7 +174,31 @@ hr { border: none; border-top: 1px solid var(--border); margin: 16px 0; }
 .sidebar-brand .mark { width: 22px; height: 22px; background: var(--accent); border-radius: 7px; display: inline-block; }
 /* Keep the brand mark monochrome to match the theme. */
 .sidebar-brand img, .auth-body img { filter: grayscale(1) contrast(1.05); }
-.sidebar-nav { position: relative; padding: 8px 14px; display: flex; flex-direction: column; gap: 2px; overflow-y: auto; }
+/* Right padding is smaller than the left because `margin-right` below pulls the
+   whole scroll column (and its scrollbar) in from the sidebar's rounded edge;
+   the two together keep the content visually centred. */
+.sidebar-nav { position: relative; padding: 8px 8px 8px 14px; margin-right: 6px; display: flex; flex-direction: column; gap: 2px; overflow-y: auto; }
+/* Slim, rounded, always-visible scrollbar. No arrow buttons; the track is inset
+   top/bottom so the bar is a short pill in the middle of the rail, clear of the
+   rounded corners and never reaching the sidebar's ends. */
+.sidebar-nav { scrollbar-width: thin; scrollbar-color: color-mix(in srgb, var(--muted) 35%, transparent) transparent; }
+.sidebar-nav::-webkit-scrollbar { width: 8px; }
+/* Kill the up/down arrow buttons at both ends of the scrollbar (all variants). */
+.sidebar-nav::-webkit-scrollbar-button,
+.sidebar-nav::-webkit-scrollbar-button:start,
+.sidebar-nav::-webkit-scrollbar-button:end,
+.sidebar-nav::-webkit-scrollbar-button:vertical:start,
+.sidebar-nav::-webkit-scrollbar-button:vertical:end,
+.sidebar-nav::-webkit-scrollbar-button:single-button,
+.sidebar-nav::-webkit-scrollbar-button:double-button {
+  display: none !important; width: 0 !important; height: 0 !important; background: transparent;
+}
+.sidebar-nav::-webkit-scrollbar-track { background: transparent; margin: 64px 0 72px; }
+.sidebar-nav::-webkit-scrollbar-thumb {
+  background: color-mix(in srgb, var(--muted) 35%, transparent);
+  border: 2px solid transparent; background-clip: padding-box; border-radius: 999px;
+}
+.sidebar-nav::-webkit-scrollbar-thumb:hover { background: color-mix(in srgb, var(--muted) 55%, transparent); background-clip: padding-box; }
 .nav-section {
   font-size: 10.5px; text-transform: uppercase; letter-spacing: 0.07em; color: var(--muted);
   padding: 16px 10px 6px 2px; font-weight: 600; overflow: hidden; max-height: 44px; opacity: 1;
@@ -189,6 +213,9 @@ hr { border: none; border-top: 1px solid var(--border); margin: 16px 0; }
   color: var(--ink-soft); font-weight: 500; font-size: 13.5px;
   transition: background 0.14s ease, color 0.14s ease, padding 0.3s cubic-bezier(0.4, 0, 0.2, 1), gap 0.3s cubic-bezier(0.4, 0, 0.2, 1);
 }
+/* A nav item that's a <button> (an action, not a route) — reset UA button styles
+   so it's pixel-identical to the anchor nav links. */
+.nav-action { width: 100%; background: none; border: none; cursor: pointer; font-family: inherit; text-align: left; }
 .nav-link:hover { background: var(--surface-hover); color: var(--ink); }
 .nav-link.active, .nav-link.active:hover { background: transparent; }
 /* The active item only carries the text/icon treatment; the glass highlight is
@@ -407,7 +434,14 @@ hr { border: none; border-top: 1px solid var(--border); margin: 16px 0; }
   font-family: var(--sans); font-weight: 600; font-size: 13.5px; cursor: pointer; letter-spacing: -0.01em;
   padding: 9px 15px; border-radius: var(--radius); border: 1px solid transparent;
   transition: background 0.13s, border-color 0.13s, box-shadow 0.13s, transform 0.04s;
+  /* Normalize so an <a class="btn"> and a <button class="btn"> render as the
+     exact same shape. Anchors otherwise inherit the body line-height (~1.5) and
+     come out taller than buttons (which use the UA default), so buttons sitting
+     side by side look mismatched. */
+  box-sizing: border-box; line-height: 1.2; vertical-align: middle;
+  white-space: nowrap; text-decoration: none; -webkit-appearance: none; appearance: none;
 }
+a.btn, a.btn:hover { text-decoration: none; }
 .btn:active:not(:disabled) { transform: translateY(0.5px); }
 .btn:disabled { opacity: 0.5; cursor: not-allowed; }
 /* Every variant re-asserts its text colour on :hover. This is required because
@@ -416,8 +450,6 @@ hr { border: none; border-top: 1px solid var(--border); margin: 16px 0; }
    background (e.g. primary text -> near-black on a black hover background). */
 .btn-primary { background: var(--accent); color: var(--accent-contrast); box-shadow: 0 1px 2px rgba(16,24,40,0.16); }
 .btn-primary:hover:not(:disabled) { background: var(--accent-2); color: var(--accent-contrast); }
-.btn-gold { background: var(--accent-soft); color: var(--accent-ink); }
-.btn-gold:hover:not(:disabled) { background: var(--accent-soft-hover); color: var(--accent-ink); }
 .btn-outline { background: var(--surface); border-color: var(--border); color: var(--ink); }
 .btn-outline:hover:not(:disabled) { border-color: var(--outline-border-hover); background: var(--surface-subtle); color: var(--ink); }
 .btn-ghost { background: transparent; color: var(--ink-soft); }
@@ -1165,6 +1197,187 @@ body.reply-dock-open [data-feedback-trigger="true"] { display: none !important; 
   100% { box-shadow: 0 0 0 3px transparent; }
 }
 .checklist-anchor.flash > .card { animation: point-flash 1.3s ease-out; }
+
+/* ---------- Assessment: layout + vertical step rail ---------- */
+.assessment-body { display: grid; grid-template-columns: 1fr 264px; gap: 18px; align-items: start; }
+.assessment-main { min-width: 0; order: 1; } /* content on the left; min-width lets the table shrink */
+.stepper-col { order: 2; position: sticky; top: 10px; } /* rail on the right, follows the page */
+/* Fixed, short height: the point list scrolls inside it rather than running long. */
+.stepper-wrap {
+  display: flex; flex-direction: column;
+  max-height: 420px;
+  padding: 12px 10px;
+  background: var(--surface); border: 1px solid var(--border); border-radius: 14px;
+  overflow: hidden; /* the list scrolls, not the card */
+}
+.stepper-title {
+  flex: 0 0 auto;
+  font-size: 11px; font-weight: 700; letter-spacing: 0.06em; text-transform: uppercase;
+  color: var(--muted); margin: 2px 4px 8px;
+}
+.stepper { flex: 1 1 auto; min-height: 0; overflow-y: auto; scrollbar-width: thin; display: flex; flex-direction: column; }
+
+.vstep {
+  display: flex; align-items: stretch; gap: 10px; width: 100%;
+  background: none; border: none; padding: 0; cursor: pointer; text-align: left;
+  border-radius: 8px;
+}
+.vstep:hover .vstep-label { color: var(--ink); }
+.vstep:hover { background: var(--surface-hover); }
+.vstep:focus-visible { outline: 2px solid var(--accent); outline-offset: 2px; }
+
+/* Dot column: top line, dot, bottom line stacked. Lines flex to fill the gap. */
+.vstep-rail { display: flex; flex-direction: column; align-items: center; width: 30px; flex: 0 0 30px; }
+.vstep-line { width: 2px; flex: 1 1 auto; min-height: 10px; background: var(--border); transition: background 0.35s ease; }
+.vstep-line.is-filled { background: var(--green); }
+.vstep-line.is-hidden { visibility: hidden; }
+.vstep-dot {
+  flex: 0 0 auto;
+  display: inline-flex; align-items: center; justify-content: center;
+  width: 28px; height: 28px; border-radius: 999px;
+  border: 2px solid var(--border); background: var(--surface); color: var(--muted);
+  font-size: 12px; font-weight: 700; line-height: 1;
+  transition: box-shadow 0.15s ease, background 0.2s ease, border-color 0.2s ease, color 0.2s ease;
+}
+.vstep-label {
+  flex: 1; min-width: 0; display: flex; align-items: center;
+  padding: 8px 4px; font-size: 12.5px; line-height: 1.35; color: var(--muted-strong, var(--ink-soft));
+}
+
+.vstep.step-progress .vstep-dot { border-color: var(--amber); color: var(--amber); background: color-mix(in srgb, var(--amber) 12%, var(--surface)); }
+.vstep.step-done .vstep-dot { border-color: var(--green); background: var(--green); color: #fff; }
+.vstep.step-na .vstep-dot { border-color: var(--grey); background: var(--grey); color: #fff; }
+.vstep.is-current .vstep-dot {
+  box-shadow: 0 0 0 4px color-mix(in srgb, var(--accent) 28%, transparent);
+  border-color: var(--accent);
+}
+.vstep.is-current .vstep-label { color: var(--ink); font-weight: 600; }
+
+@media (max-width: 900px) {
+  .assessment-body { grid-template-columns: 1fr; }
+  /* On mobile the rail sits above the content; cap its height so a long
+     checklist doesn't push everything down, and let it scroll. */
+  .stepper-wrap { height: auto; max-height: 240px; }
+}
+
+/* Single-point focus card: fade + rise in each time the point changes. */
+@keyframes focus-in {
+  from { opacity: 0; transform: translateY(10px); }
+  to   { opacity: 1; transform: translateY(0); }
+}
+.focus-point { animation: focus-in 0.28s ease-out; }
+@media (prefers-reduced-motion: reduce) { .focus-point { animation: none; } }
+
+/* Overview table: whole row is a click target into the point. */
+.point-row { cursor: pointer; transition: background 0.12s ease; }
+.point-row:hover { background: var(--surface-hover); }
+
+/* ---------- Moderation queue (Admin) ---------- */
+.report-row { padding: 12px 14px; border: 1px solid var(--border); border-radius: 12px; background: var(--surface); }
+.report-count {
+  font-size: 11px; font-weight: 700; color: var(--red);
+  background: color-mix(in srgb, var(--red) 12%, var(--surface));
+  border-radius: 999px; padding: 2px 8px;
+}
+.report-content { font-size: 13.5px; line-height: 1.5; white-space: pre-wrap; word-break: break-word; }
+.report-reasons { margin: 8px 0 0; padding-left: 18px; display: flex; flex-direction: column; gap: 3px; }
+
+/* ---------- Compliance Timeline ---------- */
+/* Summary tiles */
+.tl-stats { display: grid; grid-template-columns: repeat(3, 1fr); gap: 12px; margin-bottom: 18px; }
+.tl-stat {
+  position: relative; overflow: hidden;
+  padding: 14px 16px; border-radius: 14px;
+  background: var(--surface); border: 1px solid var(--border);
+}
+.tl-stat::before { content: ''; position: absolute; left: 0; top: 0; bottom: 0; width: 4px; }
+.tl-stat-upcoming::before { background: var(--accent); }
+.tl-stat-overdue::before { background: var(--red); }
+.tl-stat-done::before { background: var(--green); }
+.tl-stat-num { font-size: 26px; font-weight: 800; line-height: 1; letter-spacing: -0.02em; }
+.tl-stat-upcoming .tl-stat-num { color: var(--accent); }
+.tl-stat-overdue .tl-stat-num { color: var(--red); }
+.tl-stat-done .tl-stat-num { color: var(--green); }
+.tl-stat-label { margin-top: 6px; font-size: 12px; font-weight: 600; color: var(--muted); text-transform: uppercase; letter-spacing: 0.04em; }
+
+/* Event cards, grouped into collapsible years. The group itself is transparent;
+   only the header reads as a white card. */
+.tl2 { display: flex; flex-direction: column; gap: 8px; }
+.tl2-yeargroup { background: transparent; }
+.tl2-yearbtn {
+  display: flex; align-items: center; gap: 10px; width: 100%;
+  background: var(--surface); border: 1px solid var(--border); border-radius: 12px;
+  cursor: pointer; text-align: left;
+  padding: 13px 16px;
+  font-size: 15px; font-weight: 800; color: var(--ink); letter-spacing: -0.01em;
+  transition: background 0.12s ease, border-color 0.12s ease;
+}
+.tl2-yearbtn:hover { background: var(--surface-hover); }
+.tl2-chevron { color: var(--muted); transition: transform 0.18s ease; flex-shrink: 0; }
+.tl2-yearbtn.is-open .tl2-chevron { transform: rotate(90deg); }
+.tl2-yearnum { flex: 1; }
+.tl2-yearcount {
+  font-size: 11px; font-weight: 700; color: var(--muted);
+  background: var(--surface-subtle); border: 1px solid var(--border);
+  border-radius: 999px; padding: 1px 9px;
+}
+.tl2-yearoverdue {
+  font-size: 10.5px; font-weight: 700; text-transform: uppercase; letter-spacing: 0.03em;
+  color: var(--red); background: color-mix(in srgb, var(--red) 14%, var(--surface));
+  border-radius: 999px; padding: 2px 9px;
+}
+.tl2-group {
+  display: flex; flex-direction: column; gap: 10px;
+  padding: 10px 2px 2px; /* transparent — the event cards carry their own surface */
+  animation: focus-in 0.2s ease-out;
+}
+
+.tl2-card {
+  display: grid; grid-template-columns: 58px 1fr; gap: 14px; align-items: center;
+  background: var(--surface); border: 1px solid var(--border); border-left: 4px solid var(--border);
+  border-radius: 14px; padding: 12px 16px;
+  transition: box-shadow 0.15s ease, transform 0.12s ease, border-color 0.15s ease;
+}
+.tl2-card:hover { box-shadow: var(--shadow); transform: translateY(-1px); }
+.tl2-card.tl2-done { border-left-color: var(--green); }
+.tl2-card.tl2-overdue { border-left-color: var(--red); }
+.tl2-card.tl2-upcoming { border-left-color: var(--accent); }
+
+.tl2-datechip {
+  display: flex; flex-direction: column; align-items: center; justify-content: center;
+  padding: 8px 4px; border-radius: 11px; background: var(--surface-subtle);
+}
+.tl2-card.tl2-done .tl2-datechip { background: color-mix(in srgb, var(--green) 13%, var(--surface)); }
+.tl2-card.tl2-overdue .tl2-datechip { background: color-mix(in srgb, var(--red) 13%, var(--surface)); }
+.tl2-card.tl2-upcoming .tl2-datechip { background: var(--accent-soft); }
+.tl2-day { font-size: 20px; font-weight: 800; line-height: 1; color: var(--ink); }
+.tl2-mon { font-size: 10.5px; font-weight: 700; text-transform: uppercase; letter-spacing: 0.04em; color: var(--muted); margin-top: 3px; }
+
+.tl2-body { min-width: 0; }
+.tl2-badges { display: flex; align-items: center; gap: 8px; flex-wrap: wrap; margin-bottom: 5px; }
+.tl2-badge { font-size: 10px; font-weight: 700; padding: 2px 8px; border-radius: 999px; text-transform: uppercase; letter-spacing: 0.04em; }
+.tl2-badge-done { background: color-mix(in srgb, var(--green) 16%, var(--surface)); color: var(--green); }
+.tl2-badge-overdue { background: color-mix(in srgb, var(--red) 16%, var(--surface)); color: var(--red); }
+.tl2-badge-upcoming { background: var(--accent-soft); color: var(--accent-ink); }
+.tl2-kind { display: inline-flex; align-items: center; gap: 4px; font-size: 11px; color: var(--muted); }
+.tl2-title { font-weight: 650; font-size: 14px; line-height: 1.4; }
+.tl2-title a { color: var(--ink); }
+.tl2-tags { margin-top: 8px; display: flex; align-items: center; gap: 8px; flex-wrap: wrap; }
+
+@media (max-width: 560px) {
+  .tl-stats { grid-template-columns: 1fr; }
+}
+
+/* Tiny progress card beside the "Checklist points" heading. */
+.mini-progress {
+  flex: 0 0 auto; min-width: 156px;
+  padding: 9px 12px;
+  background: var(--surface); border: 1px solid var(--border); border-radius: 12px;
+}
+.mini-progress-top { display: flex; align-items: center; justify-content: space-between; gap: 14px; margin-bottom: 5px; }
+.mini-progress-label { font-size: 10.5px; font-weight: 700; letter-spacing: 0.05em; text-transform: uppercase; color: var(--muted); }
+.mini-progress-num { font-size: 14px; font-weight: 700; }
+@media (max-width: 560px) { .mini-progress { display: none; } }
 
 /* ---------- Mobile: off-canvas sidebar ---------- */
 .hamburger { display: none; background: none; border: none; cursor: pointer; font-size: 20px; color: var(--ink); padding: 4px 8px; margin-right: 4px; border-radius: 8px; }

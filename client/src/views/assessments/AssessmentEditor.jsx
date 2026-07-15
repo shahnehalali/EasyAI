@@ -1,85 +1,67 @@
-import { useState, useEffect, useRef } from 'react';
+import { useState, useEffect } from 'react';
 import { useQuery, useQueryClient } from '@tanstack/react-query';
-import { useParams } from 'react-router-dom';
-import { ChevronUp, ChevronDown, ArrowRight, CheckCircle2 } from 'lucide-react';
+import { useParams, useSearchParams } from 'react-router-dom';
+import { ArrowLeft, ArrowRight, CheckCircle2, FileText } from 'lucide-react';
 import { assessmentApi } from '@/apis/assessmentApi';
 import { organizationApi } from '@/apis/organizationApi';
 import { reportApi } from '@/apis/reportApi';
 import { useAuth } from '@/hooks/useAuth';
 import { useT } from '@/hooks/useT';
 import { SkeletonPage, ErrorState, Banner, Card, StatusChip, Progress, RiskChip } from '@/components/ui/Ui';
-import { formatDate, fromNow, progressVariant } from '@/utils/format';
+import { formatDate, progressVariant } from '@/utils/format';
 import ChecklistItem from '@/components/assessments/ChecklistItem';
+import AssessmentStepper from '@/components/assessments/AssessmentStepper';
 import BackLink from '@/components/BackLink';
 
-function humanizeAction(a) {
-  return a.replace(/[._]/g, ' ');
-}
+const isOpen = (r) => r.status === 'not_started' || r.status === 'in_progress';
 
 export default function AssessmentEditor() {
   const { id } = useParams();
   const { t, lang } = useT();
   const qc = useQueryClient();
   const { can } = useAuth();
+  const [searchParams, setSearchParams] = useSearchParams();
   const { data: assessment, isLoading, error, refetch } = useQuery({ queryKey: ['assessment', id, lang], queryFn: () => assessmentApi.getById(id, lang) });
   const { data: members = [] } = useQuery({ queryKey: ['members'], queryFn: organizationApi.members });
-  const { data: activity = [], refetch: refetchActivity } = useQuery({ queryKey: ['assessment-activity', id], queryFn: () => assessmentApi.activity(id) });
   const [progress, setProgress] = useState(null);
   const [status, setStatus] = useState(null);
   const [reviewedMsg, setReviewedMsg] = useState('');
-
-  // Point-by-point navigation through the checklist.
-  const itemRefs = useRef([]);
-  const [currentIdx, setCurrentIdx] = useState(0);
-  const responses = assessment?.responses || [];
+  // Bumped whenever a point is saved, so the stepper re-reads the (in-place
+  // mutated) response statuses and reflects progress immediately.
+  const [, setTick] = useState(0);
 
   useEffect(() => {
     if (assessment) { setProgress(assessment.progressPct); setStatus(assessment.status); }
   }, [assessment]);
 
-  // Scroll-spy: keep the position indicator in sync with the point near the top.
-  useEffect(() => {
-    const els = itemRefs.current.filter(Boolean);
-    if (!els.length) return undefined;
-    const obs = new IntersectionObserver((entries) => {
-      entries.forEach((e) => { if (e.isIntersecting) setCurrentIdx(Number(e.target.dataset.idx)); });
-    }, { rootMargin: '-15% 0px -75% 0px', threshold: 0 });
-    els.forEach((el) => obs.observe(el));
-    return () => obs.disconnect();
-  }, [responses.length]);
-
   if (isLoading) return <SkeletonPage rows={4} />;
   if (error) return <ErrorState error={error} onRetry={refetch} />;
 
-  const isOpen = (r) => r.status === 'not_started' || r.status === 'in_progress';
+  const responses = assessment.responses || [];
   const openCount = responses.filter(isOpen).length;
 
-  // Scroll a point into view and briefly highlight it.
-  const flashAndScroll = (idx) => {
-    const el = itemRefs.current[idx];
-    if (!el) return;
-    setCurrentIdx(idx);
-    el.scrollIntoView({ behavior: 'smooth', block: 'start' });
-    el.classList.add('flash');
-    setTimeout(() => el.classList.remove('flash'), 1300);
-  };
-  const goPrev = () => flashAndScroll(Math.max(0, currentIdx - 1));
-  const goNext = () => flashAndScroll(Math.min(responses.length - 1, currentIdx + 1));
-  // Jump to the next point that is still open (not done / not applicable),
-  // wrapping past the end so it keeps finding work from wherever you are.
+  // A valid ?point=N (1-based) puts us in single-point focus mode; anything else
+  // is the overview table.
+  const raw = Number(searchParams.get('point'));
+  const focusIdx = Number.isInteger(raw) && raw >= 1 && raw <= responses.length ? raw - 1 : null;
+  const inFocus = focusIdx !== null;
+
+  const goToPoint = (idx) => setSearchParams({ point: String(idx + 1) });
+  const goOverview = () => setSearchParams({});
   const goNextOpen = () => {
     const n = responses.length;
+    const from = focusIdx ?? -1;
     for (let step = 1; step <= n; step += 1) {
-      const idx = (currentIdx + step) % n;
-      if (isOpen(responses[idx])) { flashAndScroll(idx); return; }
+      const idx = (from + step) % n;
+      if (isOpen(responses[idx])) { goToPoint(idx); return; }
     }
   };
 
   const onChanged = (p) => {
     if (p) { setProgress(p.progressPct); setStatus(p.status); }
+    setTick((n) => n + 1);
     qc.invalidateQueries({ queryKey: ['assessments'] });
     qc.invalidateQueries({ queryKey: ['dashboard'] });
-    refetchActivity();
   };
 
   const markReviewed = async () => {
@@ -89,12 +71,14 @@ export default function AssessmentEditor() {
     qc.invalidateQueries({ queryKey: ['assessment', id] });
     qc.invalidateQueries({ queryKey: ['assessments'] });
     qc.invalidateQueries({ queryKey: ['dashboard'] });
-    refetchActivity();
   };
 
   return (
     <div data-testid="assessment-editor">
-      <BackLink to="/assessments">{t('nav.assessments')}</BackLink>
+      {inFocus
+        ? <BackLink to={`/assessments/${id}`}>{t('ae.backToPoints')}</BackLink>
+        : <BackLink to="/assessments">{t('nav.assessments')}</BackLink>}
+
       <div className="page-head" style={{ marginTop: 10 }}>
         <div>
           <div className="eyebrow">{assessment.framework?.name}</div>
@@ -111,80 +95,155 @@ export default function AssessmentEditor() {
               {t('ae.exportPdf')}
             </a>
           )}
-          {can('compliance.edit') && <button className="btn btn-gold" onClick={markReviewed} data-testid="mark-reviewed">{t('ae.markReviewed')}</button>}
+          {can('compliance.edit') && <button className="btn btn-outline" onClick={markReviewed} data-testid="mark-reviewed">{t('ae.markReviewed')}</button>}
         </div>
       </div>
 
       {reviewedMsg && <Banner kind="success">{reviewedMsg}</Banner>}
 
-      <div className="card ruled" style={{ marginBottom: 18 }}>
-        <div className="card-body row-between">
-          <div className="row" style={{ gap: 14 }}>
-            <span><span className="muted small">{t('ae.status')} </span><StatusChip status={status} /></span>
-            <span className="muted small">{t('ae.nextReview')} {formatDate(assessment.nextReviewDueAt)}</span>
-          </div>
-          <div style={{ width: 220 }}>
-            <div className="row-between" style={{ marginBottom: 4 }}>
-              <span className="muted small">{t('ae.progress')}</span>
-              <strong data-testid="assessment-progress">{progress}%</strong>
+      {inFocus && (
+        <div className="card ruled" style={{ marginBottom: 18 }}>
+          <div className="card-body row-between">
+            <div className="row" style={{ gap: 14 }}>
+              <span><span className="muted small">{t('ae.status')} </span><StatusChip status={status} /></span>
+              <span className="muted small">{t('ae.nextReview')} {formatDate(assessment.nextReviewDueAt)}</span>
             </div>
-            <Progress value={progress} variant={progressVariant(status, progress)} />
-          </div>
-        </div>
-      </div>
-
-      <div className="editor-grid">
-        <div>
-          {responses.length > 1 && (
-            <div className="checklist-nav" data-testid="checklist-nav">
-              <div className="row" style={{ gap: 6, alignItems: 'center' }}>
-                <button className="btn btn-outline btn-sm checklist-nav-arrow" onClick={goPrev}
-                  disabled={currentIdx <= 0} aria-label={t('ae.prevPoint')} title={t('ae.prevPoint')}>
-                  <ChevronUp size={15} />
-                </button>
-                <button className="btn btn-outline btn-sm checklist-nav-arrow" onClick={goNext}
-                  disabled={currentIdx >= responses.length - 1} aria-label={t('ae.nextPoint')} title={t('ae.nextPoint')}>
-                  <ChevronDown size={15} />
-                </button>
-                <span className="muted small" data-testid="checklist-position" style={{ whiteSpace: 'nowrap' }}>
-                  {t('ae.point')} {currentIdx + 1} / {responses.length}
-                </span>
+            <div style={{ width: 220 }}>
+              <div className="row-between" style={{ marginBottom: 4 }}>
+                <span className="muted small">{t('ae.progress')}</span>
+                <strong data-testid="assessment-progress">{progress}%</strong>
               </div>
-              {openCount > 0 ? (
-                <button className="btn btn-primary btn-sm" onClick={goNextOpen} data-testid="next-open-point">
-                  {t('ae.nextOpen')} <ArrowRight size={14} />
-                  <span className="checklist-nav-count">{openCount}</span>
-                </button>
-              ) : (
-                <span className="row small" data-testid="all-addressed" style={{ gap: 6, color: 'var(--green)', fontWeight: 600 }}>
-                  <CheckCircle2 size={15} /> {t('ae.allAddressed')}
-                </span>
-              )}
+              <Progress value={progress} variant={progressVariant(status, progress)} />
             </div>
-          )}
-          <Banner kind="info">{t('ae.docHint')}</Banner>
-          {responses.map((r, i) => (
-            <div key={r.id} ref={(el) => { itemRefs.current[i] = el; }} data-idx={i}
-              id={`point-${i + 1}`} className="checklist-anchor">
-              <ChecklistItem response={r} members={members} onChanged={onChanged} />
-            </div>
-          ))}
+          </div>
         </div>
+      )}
 
-        <Card title={t('ae.activity')} variant="ruled" data-testid="activity-panel">
-          {activity.length === 0 ? (
-            <p className="muted small" style={{ margin: 0 }}>{t('ae.noActivity')}</p>
-          ) : (
-            <div className="stack" style={{ gap: 10 }}>
-              {activity.map((a) => (
-                <div key={a.id} data-testid="activity-item" style={{ borderBottom: '1px solid var(--border-2)', paddingBottom: 8 }}>
-                  <div className="small" style={{ textTransform: 'capitalize' }}>{humanizeAction(a.action)}</div>
-                  <div className="muted" style={{ fontSize: 11 }}>{a.actor} · {fromNow(a.createdAt, lang)}</div>
-                </div>
-              ))}
+      <div className="assessment-body">
+        {/* Vertical delivery-tracker rail: click a point to jump to it; saved
+            points fill in as you go. Replaces the old activity sidebar. */}
+        {responses.length > 0 && (
+          <aside className="stepper-col">
+            <div className="stepper-wrap">
+              <div className="stepper-title">{t('ae.stepsLabel')}</div>
+              <AssessmentStepper responses={responses} currentIdx={focusIdx ?? -1} onSelect={goToPoint} />
             </div>
-          )}
-        </Card>
+          </aside>
+        )}
+
+        <div className="assessment-main">
+      {inFocus ? (
+        <div>
+          <div className="checklist-nav" data-testid="checklist-nav">
+            <div className="row" style={{ gap: 6, alignItems: 'center' }}>
+              <button className="btn btn-outline btn-sm" onClick={() => goToPoint(focusIdx - 1)}
+                disabled={focusIdx <= 0} aria-label={t('ae.prevPoint')} title={t('ae.prevPoint')}>
+                <ArrowLeft size={15} />
+              </button>
+              <button className="btn btn-outline btn-sm" onClick={() => goToPoint(focusIdx + 1)}
+                disabled={focusIdx >= responses.length - 1} aria-label={t('ae.nextPoint')} title={t('ae.nextPoint')}>
+                <ArrowRight size={15} />
+              </button>
+              <span className="muted small" data-testid="checklist-position" style={{ whiteSpace: 'nowrap' }}>
+                {t('ae.point')} {focusIdx + 1} / {responses.length}
+              </span>
+            </div>
+            {openCount > 0 ? (
+              <button className="btn btn-primary btn-sm" onClick={goNextOpen} data-testid="next-open-point">
+                {t('ae.nextOpen')} <ArrowRight size={14} />
+                <span className="checklist-nav-count">{openCount}</span>
+              </button>
+            ) : (
+              <span className="row small" data-testid="all-addressed" style={{ gap: 6, color: 'var(--green)', fontWeight: 600 }}>
+                <CheckCircle2 size={15} /> {t('ae.allAddressed')}
+              </span>
+            )}
+          </div>
+
+          {/* key on the index so the card remounts and fades in on each move */}
+          <div key={focusIdx} className="focus-point" data-testid="focus-point">
+            <ChecklistItem response={responses[focusIdx]} members={members} onChanged={onChanged} />
+          </div>
+
+          <div className="row-between" style={{ marginTop: 6 }}>
+            <button className="btn btn-outline btn-sm" onClick={() => goToPoint(focusIdx - 1)} disabled={focusIdx <= 0}>
+              <ArrowLeft size={14} /> {t('ae.prevPoint')}
+            </button>
+            {focusIdx < responses.length - 1 ? (
+              <button className="btn btn-primary btn-sm" data-testid="focus-next" onClick={() => goToPoint(focusIdx + 1)}>
+                {t('ae.nextPoint')} <ArrowRight size={14} />
+              </button>
+            ) : (
+              <button className="btn btn-outline btn-sm" data-testid="focus-done" onClick={goOverview}>
+                {t('ae.backToPoints')}
+              </button>
+            )}
+          </div>
+        </div>
+      ) : (
+        <>
+          <div className="row-between" style={{ alignItems: 'flex-start', gap: 12, marginBottom: 12 }}>
+            <div>
+              <h2 style={{ fontSize: 16, margin: '0 0 4px' }}>{t('ae.pointsOverview')}</h2>
+              <p className="muted small" style={{ margin: 0 }}>{t('ae.selectHint')}</p>
+            </div>
+            <div className="mini-progress" data-testid="assessment-progress-card">
+              <div className="mini-progress-top">
+                <span className="mini-progress-label">{t('ae.progress')}</span>
+                <strong className="mini-progress-num" data-testid="assessment-progress">{progress}%</strong>
+              </div>
+              <Progress value={progress} variant={progressVariant(status, progress)} />
+            </div>
+          </div>
+
+          <Card variant="ruled" bodyClass="card-body table-wrap" data-testid="points-table">
+            <table className="table">
+              <thead>
+                <tr>
+                  <th style={{ width: 44 }}>#</th>
+                  <th>{t('ae.colPoint')}</th>
+                  <th>{t('as.col.status')}</th>
+                  <th>{t('ae.colOwner')}</th>
+                  <th style={{ textAlign: 'center' }}>{t('ae.colDocs')}</th>
+                  <th></th>
+                </tr>
+              </thead>
+              <tbody>
+                {responses.map((r, i) => (
+                  <tr key={r.id} className="point-row" data-testid={`point-row-${i}`} onClick={() => goToPoint(i)}>
+                    <td className="muted">{i + 1}</td>
+                    <td>
+                      <div className="row" style={{ gap: 8, flexWrap: 'wrap' }}>
+                        <strong style={{ fontWeight: 600 }}>{r.templateItem.title}</strong>
+                        {r.templateItem.isRequired && (
+                          <span className="tag-pill" style={{ color: 'var(--red)', borderColor: 'var(--red)' }}>{t('ci.required')}</span>
+                        )}
+                      </div>
+                    </td>
+                    <td><StatusChip status={r.status} /></td>
+                    <td className="muted small">{r.assignee?.fullName || t('ci.unassigned')}</td>
+                    <td style={{ textAlign: 'center' }}>
+                      {r.documents?.length
+                        ? <span className="row small" style={{ gap: 4, justifyContent: 'center' }}><FileText size={13} /> {r.documents.length}</span>
+                        : <span className="muted">—</span>}
+                    </td>
+                    <td style={{ textAlign: 'right' }}>
+                      <button
+                        className="btn btn-outline btn-sm"
+                        data-testid={`open-point-${i}`}
+                        onClick={(e) => { e.stopPropagation(); goToPoint(i); }}
+                      >
+                        {t('ae.openPoint')} <ArrowRight size={13} />
+                      </button>
+                    </td>
+                  </tr>
+                ))}
+              </tbody>
+            </table>
+          </Card>
+        </>
+      )}
+        </div>
       </div>
     </div>
   );

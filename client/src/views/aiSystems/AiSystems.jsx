@@ -45,7 +45,7 @@ export default function AiSystems() {
                   <td><Link to={`/ai-systems/${s.id}`}><strong>{s.name}</strong></Link><div className="muted small">{s.purpose}</div></td>
                   <td>{s.riskCategory ? <RiskChip risk={s.riskCategory} /> : (canEdit ? (
                     <div className="row" style={{ gap: 6, flexWrap: 'wrap' }}>
-                      <Link className="btn btn-gold btn-sm" to={`/ai-systems/${s.id}/classify`}>{t('common.classifyNow')}</Link>
+                      <Link className="btn btn-primary btn-sm" to={`/ai-systems/${s.id}/classify`}>{t('common.classifyNow')}</Link>
                       <Link className="btn btn-outline btn-sm" to={`/ai-systems/${s.id}/profile`}>{t('asd.dataProfile')}</Link>
                     </div>
                   ) : <RiskChip risk={null} />)}</td>
