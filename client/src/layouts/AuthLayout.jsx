@@ -1,6 +1,7 @@
 import { Outlet } from 'react-router-dom';
 import { useT } from '@/hooks/useT';
 import NeuralBackground from '@/components/NeuralBackground';
+import LanguageSwitch from '@/components/ui/LanguageSwitch';
 
 export default function AuthLayout() {
   const { t } = useT();
@@ -8,6 +9,7 @@ export default function AuthLayout() {
     <div className="auth-wrap">
       <div className="auth-watermark" aria-hidden="true">Compliance</div>
       <NeuralBackground />
+      <div className="auth-lang"><LanguageSwitch /></div>
       <div className="auth-card">
         <div className="auth-body">
           <div className="row" style={{ gap: 10, marginBottom: 4 }}>

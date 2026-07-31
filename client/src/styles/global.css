@@ -703,6 +703,8 @@ a.btn, a.btn:hover { text-decoration: none; }
 }
 .auth-card .auth-body { padding: 32px 34px; }
 .auth-brand { font-size: 20px; font-weight: 700; color: var(--ink); letter-spacing: -0.02em; }
+/* Language toggle pinned to the top-right of the auth pages, above the card/bg. */
+.auth-lang { position: absolute; top: 20px; right: 20px; z-index: 5; }
 
 /* ---------- Help assistant (floating chat) ---------- */
 .help-launcher {

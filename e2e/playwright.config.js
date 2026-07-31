@@ -21,6 +21,10 @@ module.exports = defineConfig({
     baseURL: 'http://localhost:5173',
     trace: 'on-first-retry',
     screenshot: 'only-on-failure',
+    // The app now defaults to German; the suite asserts English UI text, so pin
+    // the test context's saved language to English. (Auth-language tests that
+    // need the real default clear this in-test.)
+    storageState: path.join(__dirname, 'fixtures', 'en-locale.json'),
   },
   projects: [
     { name: 'chromium', use: { ...devices['Desktop Chrome'] } },
