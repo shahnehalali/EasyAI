@@ -5,8 +5,8 @@ import { Menu, ChevronLeft, Sun, Moon, ShieldCheck, Cpu, ClipboardCheck, Buildin
 import { useFeedback } from '@rit-services/feedback-react';
 import { useAuth } from '@/hooks/useAuth';
 import { useThemeStore } from '@/store/themeStore';
-import { useLangStore } from '@/store/langStore';
 import { useT } from '@/hooks/useT';
+import LanguageSwitch from '@/components/ui/LanguageSwitch';
 import { initials } from '@/utils/format';
 import { organizationApi } from '@/apis/organizationApi';
 import { dashboardApi } from '@/apis/dashboardApi';
@@ -19,8 +19,6 @@ export default function Topbar({ title, orgName, onMenu }) {
   const { user, logout } = useAuth();
   const { theme, toggle } = useThemeStore();
   const { t } = useT();
-  const lang = useLangStore((s) => s.lang);
-  const setLang = useLangStore((s) => s.setLang);
   const [open, setOpen] = useState(false);
   const { open: openFeedback, config: fbConfig } = useFeedback();
   const ref = useRef(null);
@@ -57,21 +55,7 @@ export default function Topbar({ title, orgName, onMenu }) {
         </div>
       </div>
       <div className="topbar-right">
-        <div className={`lang-switch ${lang}`} role="group" aria-label={t('lang.label')} data-testid="lang-switch">
-          <span className="lang-indicator" aria-hidden="true" />
-          <button
-            data-testid="lang-en"
-            className={`lang-opt${lang === 'en' ? ' active' : ''}`}
-            aria-pressed={lang === 'en'}
-            onClick={() => setLang('en')}
-          >EN</button>
-          <button
-            data-testid="lang-de"
-            className={`lang-opt${lang === 'de' ? ' active' : ''}`}
-            aria-pressed={lang === 'de'}
-            onClick={() => setLang('de')}
-          >DE</button>
-        </div>
+        <LanguageSwitch />
         <span className="topbar-sep" aria-hidden="true" />
         <button
           className={`theme-switch${theme === 'dark' ? ' night' : ' day'}`}
