@@ -53,6 +53,11 @@ model User {
   role            String    @default("owner") // owner | admin | member | platform_admin
   emailVerifiedAt DateTime?
   lastLoginAt     DateTime?
+  // TOTP multi-factor auth (per-account, opt-in). mfaSecret is stored encrypted
+  // at rest (fieldCrypto); mfaBackupCodes holds bcrypt hashes of one-time codes.
+  mfaEnabled      Boolean   @default(false)
+  mfaSecret       String?
+  mfaBackupCodes  Json?
   createdAt       DateTime  @default(now())
   updatedAt       DateTime  @updatedAt
 

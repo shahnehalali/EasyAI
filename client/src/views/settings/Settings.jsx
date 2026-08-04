@@ -9,6 +9,7 @@ import { useT } from '@/hooks/useT';
 import { SkeletonPage, Banner, Card, Chip } from '@/components/ui/Ui';
 import Pagination, { usePagination } from '@/components/ui/Pagination';
 import { formatDate, initials } from '@/utils/format';
+import MfaCard from '@/components/settings/MfaCard';
 
 export default function Settings() {
   const qc = useQueryClient();
@@ -219,6 +220,8 @@ export default function Settings() {
           )}
           <Pagination page={remindersPage.page} pageCount={remindersPage.pageCount} onChange={remindersPage.setPage} total={remindersPage.total} pageSize={remindersPage.pageSize} />
         </Card>
+
+        <MfaCard />
 
         <Card title={t('set.account')} variant="ruled">
           <p className="small"><strong>{user?.fullName}</strong> ({user?.email}) - {t('set.roleLabel')}: {roleLabel(user?.role)}</p>

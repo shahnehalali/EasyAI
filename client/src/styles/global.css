@@ -1274,6 +1274,15 @@ body.reply-dock-open [data-feedback-trigger="true"] { display: none !important; 
 .point-row { cursor: pointer; transition: background 0.12s ease; }
 .point-row:hover { background: var(--surface-hover); }
 
+/* ---------- MFA (two-factor) ---------- */
+.mfa-qr { display: block; margin: 6px 0 10px; border: 1px solid var(--border); border-radius: 12px; background: #fff; padding: 8px; }
+.mfa-secret { font-size: 12.5px; background: var(--surface-subtle); padding: 2px 6px; border-radius: 6px; letter-spacing: 0.06em; }
+.mfa-codes { display: grid; grid-template-columns: repeat(2, minmax(0, 160px)); gap: 8px; margin: 10px 0 4px; }
+.mfa-code {
+  font-size: 14px; font-weight: 600; letter-spacing: 0.08em; text-align: center;
+  background: var(--surface-subtle); border: 1px solid var(--border); border-radius: 8px; padding: 7px 8px;
+}
+
 /* ---------- Moderation queue (Admin) ---------- */
 .report-row { padding: 12px 14px; border: 1px solid var(--border); border-radius: 12px; background: var(--surface); }
 .report-count {
