@@ -160,6 +160,8 @@ spec:
             # explicit env entries override the same keys from the
             # jurisai-app-secrets Secret pulled via envFrom below. (The Spirex
             # API KEY is a credential and stays in the Secret — see below.)
+            - name: CLIENT_URL # public app URL used in verification/reset emails
+              value: https://compliance.rit.services
             - name: FEEDBACK_RECIPIENTS
               value: shahnehal.a@rit.services
             - name: SPIREX_ORG_ID # RIT Services org
