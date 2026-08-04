@@ -11,4 +11,9 @@ export const authApi = {
   me: () => http.get('/me').then((r) => r.data),
   forgotPassword: (email) => http.post('/forgot-password', { email }).then((r) => r.data),
   resetPassword: (token, password) => http.post('/reset-password', { token, password }).then((r) => r.data),
+  // Multi-factor auth (TOTP)
+  mfaSetup: () => http.post('/mfa/setup').then((r) => r.data),
+  mfaEnable: (code) => http.post('/mfa/enable', { code }).then((r) => r.data),
+  mfaDisable: (password) => http.post('/mfa/disable', { password }).then((r) => r.data),
+  mfaVerify: (mfaToken, code) => http.post('/mfa/verify', { mfaToken, code }).then((r) => r.data),
 };

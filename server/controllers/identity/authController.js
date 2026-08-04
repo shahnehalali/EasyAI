@@ -4,7 +4,7 @@ const { prisma } = require('../../db/db');
 const ErrorResponse = require('../../utils/errorResponse');
 const logger = require('../../utils/logger');
 const { recordAudit } = require('../../utils/audit');
-const { signSession, createOpaqueToken, hashToken } = require('../../services/auth/tokenService');
+const { signSession, signMfaChallenge, createOpaqueToken, hashToken } = require('../../services/auth/tokenService');
 const emailService = require('../../services/email/emailService');
 const { permissionsFor } = require('../../utils/permissions');
 
@@ -19,6 +19,7 @@ function publicUser(user) {
     role: user.role,
     organizationId: user.organizationId,
     emailVerified: Boolean(user.emailVerifiedAt),
+    mfaEnabled: Boolean(user.mfaEnabled),
     permissions: permissionsFor(user.role),
   };
 }
@@ -130,11 +131,18 @@ async function login(req, res) {
     throw new ErrorResponse('Please verify your email address before signing in', 403);
   }
 
+  // MFA on: the password was correct, but withhold the session until a second
+  // factor is verified. Hand back a short-lived challenge token instead.
+  if (user.mfaEnabled) {
+    await recordAudit({ req, action: 'auth.login.mfa_challenge', entityType: 'User', entityId: user.id });
+    return res.json({ mfaRequired: true, mfaToken: signMfaChallenge(user) });
+  }
+
   await prisma.user.update({ where: { id: user.id }, data: { lastLoginAt: new Date() } });
   await recordAudit({ req, action: 'auth.login', entityType: 'User', entityId: user.id });
 
   setSessionCookie(res, user);
-  res.json({ message: 'Signed in', user: publicUser(user) });
+  return res.json({ message: 'Signed in', user: publicUser(user) });
 }
 
 // POST /api/auth/logout
@@ -212,4 +220,7 @@ module.exports = {
   forgotPassword,
   resetPassword,
   devVerificationToken,
+  // Shared with mfaController so it can complete a login.
+  publicUser,
+  setSessionCookie,
 };

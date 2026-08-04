@@ -17,16 +17,33 @@ export default function Login() {
   const [needsVerify, setNeedsVerify] = useState(false);
   const [resent, setResent] = useState(false);
   const [busy, setBusy] = useState(false);
+  // When set, the password was correct but a second factor is required.
+  const [mfaToken, setMfaToken] = useState('');
+  const [mfaCode, setMfaCode] = useState('');
+
+  const goAfterLogin = (user) => { setUser(user); navigate(location.state?.from || '/', { replace: true }); };
 
   const onSubmit = async (data) => {
     setError(''); setNeedsVerify(false); setResent(false); setBusy(true);
     try {
       const res = await authApi.login(data);
-      setUser(res.user);
-      navigate(location.state?.from || '/', { replace: true });
+      if (res.mfaRequired) { setMfaToken(res.mfaToken); return; }
+      goAfterLogin(res.user);
     } catch (err) {
       setError(err.message);
       if (err.status === 403 || /verify/i.test(err.message)) setNeedsVerify(true);
+    } finally { setBusy(false); }
+  };
+
+  const onVerify = async (e) => {
+    e.preventDefault();
+    setError(''); setBusy(true);
+    try {
+      const res = await authApi.mfaVerify(mfaToken, mfaCode.trim());
+      goAfterLogin(res.user);
+    } catch (err) {
+      setError(err.message);
+      if (err.status === 401 && /sign in again|expired/i.test(err.message)) { setMfaToken(''); setMfaCode(''); }
     } finally { setBusy(false); }
   };
 
@@ -34,6 +51,36 @@ export default function Login() {
     await authApi.resendVerification(getValues('email'));
     setResent(true);
   };
+
+  // Step 2: enter the authenticator / backup code.
+  if (mfaToken) {
+    return (
+      <div>
+        <h2 style={{ marginBottom: 6 }}>{t('mfa.verifyTitle')}</h2>
+        <p className="muted small" style={{ marginBottom: 16 }}>{t('mfa.verifySub')}</p>
+        {error && <Banner kind="error">{error}</Banner>}
+        <form onSubmit={onVerify} noValidate>
+          <div className="field">
+            <label className="label" htmlFor="mfa-code">{t('mfa.codeLabel')}</label>
+            <input
+              id="mfa-code" className="input" data-testid="mfa-code"
+              inputMode="numeric" autoComplete="one-time-code" autoFocus
+              placeholder="123456"
+              value={mfaCode} onChange={(e) => setMfaCode(e.target.value)}
+            />
+          </div>
+          <button className="btn btn-primary btn-block" type="submit" data-testid="mfa-submit" disabled={busy || mfaCode.trim().length < 4}>
+            {busy ? t('mfa.verifying') : t('mfa.verifyBtn')}
+          </button>
+        </form>
+        <div style={{ marginTop: 14 }}>
+          <button className="btn btn-ghost btn-sm" data-testid="mfa-cancel" onClick={() => { setMfaToken(''); setMfaCode(''); setError(''); }}>
+            {t('mfa.back')}
+          </button>
+        </div>
+      </div>
+    );
+  }
 
   return (
     <div>
