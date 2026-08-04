@@ -67,6 +67,12 @@ export default function MfaCard() {
       {mode === 'setup' && setupData && (
         <form onSubmit={confirmEnable}>
           <p className="small" style={{ marginTop: 0 }}>{t('mfa.setupStep1')}</p>
+          <p className="small muted" style={{ margin: '0 0 8px' }}>
+            {t('mfa.getApp')}{' '}
+            <a href="https://apps.apple.com/app/google-authenticator/id388497605" target="_blank" rel="noreferrer">App Store</a>
+            {' · '}
+            <a href="https://play.google.com/store/apps/details?id=com.google.android.apps.authenticator2" target="_blank" rel="noreferrer">Google Play</a>
+          </p>
           <img src={setupData.qr} alt={t('mfa.qrAlt')} width={176} height={176} className="mfa-qr" />
           <p className="small muted">{t('mfa.setupManual')} <code className="mfa-secret">{setupData.secret}</code></p>
           <div className="field" style={{ maxWidth: 220 }}>
