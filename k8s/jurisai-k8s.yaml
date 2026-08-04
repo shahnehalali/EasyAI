@@ -151,7 +151,7 @@ spec:
           command: ["sh", "-c", "until nc -z jurisai-postgres 5432; do echo 'waiting for postgres'; sleep 2; done"]
       containers:
         - name: server
-          image: ghcr.io/shahnehalali/jurisai-server:sha-f4f6aed0
+          image: ghcr.io/shahnehalali/jurisai-server:sha-5109f83a
           imagePullPolicy: Always
           ports:
             - containerPort: 4000
@@ -221,7 +221,7 @@ spec:
         - name: ghcr-secret
       containers:
         - name: client
-          image: ghcr.io/shahnehalali/jurisai-client:sha-f4f6aed0
+          image: ghcr.io/shahnehalali/jurisai-client:sha-5109f83a
           imagePullPolicy: Always
           ports:
             - containerPort: 80
