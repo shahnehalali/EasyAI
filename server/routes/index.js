@@ -2,6 +2,7 @@ const express = require('express');
 
 const authRoutes = require('./authRoutes');
 const userRoutes = require('./userRoutes');
+const privacyRoutes = require('./privacyRoutes');
 const invitationRoutes = require('./invitationRoutes');
 const organizationRoutes = require('./organizationRoutes');
 const frameworkRoutes = require('./frameworkRoutes');
@@ -23,6 +24,7 @@ const router = express.Router();
 
 router.use('/auth', authRoutes);
 router.use('/users', userRoutes);
+router.use('/privacy', privacyRoutes);
 router.use('/invitations', invitationRoutes);
 router.use('/organizations', organizationRoutes);
 router.use('/frameworks', frameworkRoutes);

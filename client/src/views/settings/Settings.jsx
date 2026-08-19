@@ -10,6 +10,7 @@ import { SkeletonPage, Banner, Card, Chip } from '@/components/ui/Ui';
 import Pagination, { usePagination } from '@/components/ui/Pagination';
 import { formatDate, initials } from '@/utils/format';
 import MfaCard from '@/components/settings/MfaCard';
+import PrivacyCard from '@/components/settings/PrivacyCard';
 
 export default function Settings() {
   const qc = useQueryClient();
@@ -226,6 +227,8 @@ export default function Settings() {
         <Card title={t('set.account')} variant="ruled">
           <p className="small"><strong>{user?.fullName}</strong> ({user?.email}) - {t('set.roleLabel')}: {roleLabel(user?.role)}</p>
         </Card>
+
+        <PrivacyCard />
       </div>
     </div>
   );

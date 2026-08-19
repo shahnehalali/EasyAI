@@ -2,6 +2,7 @@ const { prisma } = require('../../db/db');
 const logger = require('../../utils/logger');
 const emailService = require('../email/emailService');
 const config = require('../../config');
+const { encryptField } = require('../crypto/fieldCrypto');
 
 function addDays(date, days) {
   const d = new Date(date);
@@ -36,7 +37,9 @@ async function processDueReminders(now = new Date()) {
           userId: user.id,
           type: 'review_due',
           title: 'Annual review due',
-          body: `"${assessment.title}" is due for its annual compliance review.`,
+          // Carries the customer's assessment title, so encrypted like other
+          // tenant free text (the title itself stays generic).
+          body: await encryptField(organization.id, `"${assessment.title}" is due for its annual compliance review.`),
           link: `/assessments/${assessment.id}`,
         },
       });

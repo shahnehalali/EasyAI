@@ -1,5 +1,6 @@
 const { prisma } = require('../../db/db');
 const ErrorResponse = require('../../utils/errorResponse');
+const { decryptField } = require('../../services/crypto/fieldCrypto');
 
 // GET /api/notifications
 async function list(req, res) {
@@ -8,6 +9,8 @@ async function list(req, res) {
     orderBy: { createdAt: 'desc' },
     take: 100,
   });
+  // Bodies quote assessment titles, so they are stored under the org key.
+  for (const n of notifications) n.body = await decryptField(n.organizationId, n.body);
   res.json({ notifications });
 }
 
@@ -22,6 +25,7 @@ async function markRead(req, res) {
   const notification = await prisma.notification.findUnique({ where: { id: req.params.id } });
   if (!notification || notification.userId !== req.user.id) throw new ErrorResponse('Notification not found', 404);
   const updated = await prisma.notification.update({ where: { id: notification.id }, data: { readAt: new Date() } });
+  updated.body = await decryptField(updated.organizationId, updated.body);
   res.json({ notification: updated });
 }
 

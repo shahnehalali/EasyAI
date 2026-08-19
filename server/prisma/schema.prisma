@@ -344,6 +344,9 @@ model Document {
   mimeType                String?
   sizeBytes               Int?
   storageKey              String
+  // File bytes on disk are AES-256-GCM encrypted with the org data key.
+  // Legacy rows written before that are stored plain and read back as-is.
+  encrypted               Boolean  @default(false)
   uploadedById            String?
   createdAt               DateTime @default(now())
 
@@ -476,7 +479,10 @@ model Comment {
 model Thread {
   id             String    @id @default(uuid())
   organizationId String // author's organisation (identity shows the company)
-  authorId       String
+  // Nullable so an erasure request (GDPR Art. 17) can detach the author and
+  // leave the discussion intact for everyone else, rather than cascading the
+  // whole thread (and other people's replies) away.
+  authorId       String?
   frameworkId    String? // anchor: the law this thread is about
   requirementCode String? // optional finer anchor (requirement code within the framework)
   visibility     String    @default("global") // global | org
@@ -492,8 +498,8 @@ model Thread {
   createdAt      DateTime  @default(now())
   updatedAt      DateTime  @updatedAt
 
-  organization Organization @relation(fields: [organizationId], references: [id])
-  author       User         @relation(fields: [authorId], references: [id])
+  organization Organization @relation(fields: [organizationId], references: [id], onDelete: Cascade)
+  author       User?        @relation(fields: [authorId], references: [id], onDelete: SetNull)
   framework    Framework?   @relation(fields: [frameworkId], references: [id])
   posts        ThreadPost[]
 
@@ -507,7 +513,7 @@ model ThreadPost {
   id             String    @id @default(uuid())
   threadId       String
   organizationId String
-  authorId       String
+  authorId       String? // nullable for erasure — see Thread.authorId
   parentPostId   String? // one level of nesting (reply to a reply)
   body           String
   translations   Json? // cached machine translations, e.g. { "de": { "body": "..." } }
@@ -517,8 +523,8 @@ model ThreadPost {
   updatedAt      DateTime  @updatedAt
 
   thread       Thread       @relation(fields: [threadId], references: [id], onDelete: Cascade)
-  author       User         @relation(fields: [authorId], references: [id])
-  organization Organization @relation(fields: [organizationId], references: [id])
+  author       User?        @relation(fields: [authorId], references: [id], onDelete: SetNull)
+  organization Organization @relation(fields: [organizationId], references: [id], onDelete: Cascade)
   parent       ThreadPost?  @relation("PostChildren", fields: [parentPostId], references: [id])
   children     ThreadPost[] @relation("PostChildren")
 
@@ -536,7 +542,7 @@ model ThreadVote {
   value      Int // +1 | -1
   createdAt  DateTime @default(now())
 
-  user User @relation(fields: [userId], references: [id])
+  user User @relation(fields: [userId], references: [id], onDelete: Cascade)
 
   @@unique([userId, targetType, targetId])
   @@index([targetType, targetId])
@@ -551,7 +557,7 @@ model ThreadReport {
   resolvedAt DateTime?
   createdAt  DateTime  @default(now())
 
-  reporter User @relation(fields: [reporterId], references: [id])
+  reporter User @relation(fields: [reporterId], references: [id], onDelete: Cascade)
 
   @@index([targetType, targetId])
   @@index([resolvedAt])

@@ -1,0 +1,94 @@
+# =============================================================================
+# JurisAI - database backups
+#
+# GDPR Art. 32(1)(c) requires "the ability to restore the availability and
+# access to personal data in a timely manner in the event of a physical or
+# technical incident". Until this existed there were no backups at all: a single
+# Postgres replica on one ReadWriteOnce volume, so losing the node lost every
+# tenant's compliance record permanently.
+#
+# The dumps contain personal data, so the volume they land on is LUKS-encrypted
+# (StorageClass longhorn-encrypted). This PVC is also the canary for that class:
+# it is a brand-new claim, so unlike the pre-existing jurisai-* PVCs it can be
+# provisioned encrypted immediately. If it binds and mounts, the nodes have
+# working cryptsetup/dm_crypt and the main volume migration is safe to attempt.
+# =============================================================================
+apiVersion: v1
+kind: PersistentVolumeClaim
+metadata:
+  name: jurisai-backup-pvc
+  namespace: jurisai
+spec:
+  accessModes: ["ReadWriteOnce"]
+  storageClassName: longhorn-encrypted
+  resources:
+    requests:
+      storage: 10Gi
+---
+apiVersion: batch/v1
+kind: CronJob
+metadata:
+  name: jurisai-postgres-backup
+  namespace: jurisai
+spec:
+  # 01:00 UTC daily, an hour before the app's retention sweep at 02:30 so a
+  # dump always exists from before anything was pruned.
+  schedule: "0 1 * * *"
+  concurrencyPolicy: Forbid
+  successfulJobsHistoryLimit: 3
+  failedJobsHistoryLimit: 3
+  # A run that hangs must not block tomorrow's.
+  startingDeadlineSeconds: 3600
+  jobTemplate:
+    spec:
+      backoffLimit: 2
+      activeDeadlineSeconds: 3600
+      template:
+        spec:
+          restartPolicy: OnFailure
+          containers:
+            - name: pg-dump
+              image: postgres:16-alpine
+              env:
+                - name: PGHOST
+                  value: jurisai-postgres
+                - name: PGUSER
+                  valueFrom: { secretKeyRef: { name: jurisai-app-secrets, key: POSTGRES_USER } }
+                - name: PGPASSWORD
+                  valueFrom: { secretKeyRef: { name: jurisai-app-secrets, key: POSTGRES_PASSWORD } }
+                - name: PGDATABASE
+                  valueFrom: { secretKeyRef: { name: jurisai-app-secrets, key: POSTGRES_DB } }
+                - name: RETENTION_DAYS
+                  value: "30"
+              command:
+                - /bin/sh
+                - -c
+                - |
+                  set -euo pipefail
+                  STAMP=$(date -u +%Y%m%dT%H%M%SZ)
+                  OUT="/backup/jurisai-${STAMP}.sql.gz"
+                  echo "==> dumping ${PGDATABASE} to ${OUT}"
+                  # --clean --if-exists so the dump can be restored over an
+                  # existing database without hand-editing it first.
+                  pg_dump --clean --if-exists --no-owner --no-privileges \
+                    | gzip -9 > "${OUT}.partial"
+                  # Only rename once the dump completed, so a truncated file is
+                  # never mistaken for a good backup.
+                  mv "${OUT}.partial" "${OUT}"
+                  echo "==> wrote $(du -h "${OUT}" | cut -f1)"
+                  echo "==> pruning dumps older than ${RETENTION_DAYS} days"
+                  find /backup -name 'jurisai-*.sql.gz' -type f -mtime "+${RETENTION_DAYS}" -print -delete
+                  # Clean up any partial files left by an earlier failed run.
+                  find /backup -name '*.partial' -type f -mtime +1 -print -delete
+                  echo "==> backups on disk:"
+                  ls -1t /backup | head -10
+              volumeMounts:
+                - name: backup
+                  mountPath: /backup
+              resources:
+                requests: { cpu: "50m", memory: "128Mi" }
+                limits: { cpu: "500m", memory: "512Mi" }
+          volumes:
+            - name: backup
+              persistentVolumeClaim:
+                claimName: jurisai-backup-pvc

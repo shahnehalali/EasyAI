@@ -4,6 +4,7 @@ const config = require('../../config');
 const logger = require('../../utils/logger');
 const emailService = require('../email/emailService');
 const { computeOrgSummary } = require('./aggregateService');
+const { encryptField } = require('../crypto/fieldCrypto');
 
 // Send the monthly compliance summary to org owners/admins. `onlyOrgId` limits
 // it to a single organisation (used by the forced-run endpoint and tests).
@@ -26,7 +27,7 @@ async function sendMonthlyReports(now = new Date(), onlyOrgId = null) {
             userId: user.id,
             type: 'system',
             title: 'Monthly compliance summary',
-            body: `Overall standing ${summary.overall}%. ${summary.counts.reviewsDue} review(s) due.`,
+            body: await encryptField(org.id, `Overall standing ${summary.overall}%. ${summary.counts.reviewsDue} review(s) due.`),
             link: '/',
             emailSentAt: new Date(),
           },
