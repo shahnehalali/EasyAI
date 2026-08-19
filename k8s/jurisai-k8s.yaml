@@ -38,10 +38,16 @@ parameters:
   csi.storage.k8s.io/node-stage-secret-namespace: longhorn-system
 ---
 # ---------------------------- PostgreSQL -------------------------------------
+# NOTE: these claims are named *-enc-pvc because they replaced the original
+# jurisai-postgres-pvc / jurisai-uploads-pvc, which were provisioned on the
+# plain `longhorn` class before `longhorn-encrypted` existed. storageClassName
+# is immutable, so the only way onto the encrypted class was a new claim. The
+# old PVs were set to reclaimPolicy: Retain and can be deleted once this has
+# been verified in production.
 apiVersion: v1
 kind: PersistentVolumeClaim
 metadata:
-  name: jurisai-postgres-pvc
+  name: jurisai-postgres-enc-pvc
   namespace: jurisai
 spec:
   accessModes: ["ReadWriteOnce"]
@@ -94,7 +100,7 @@ spec:
       volumes:
         - name: data
           persistentVolumeClaim:
-            claimName: jurisai-postgres-pvc
+            claimName: jurisai-postgres-enc-pvc
 ---
 apiVersion: v1
 kind: Service
@@ -113,7 +119,7 @@ spec:
 apiVersion: v1
 kind: PersistentVolumeClaim
 metadata:
-  name: jurisai-uploads-pvc
+  name: jurisai-uploads-enc-pvc
   namespace: jurisai
 spec:
   accessModes: ["ReadWriteOnce"]
@@ -188,7 +194,7 @@ spec:
       volumes:
         - name: uploads
           persistentVolumeClaim:
-            claimName: jurisai-uploads-pvc
+            claimName: jurisai-uploads-enc-pvc
 ---
 apiVersion: v1
 kind: Service
