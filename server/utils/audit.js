@@ -1,5 +1,6 @@
 const { prisma } = require('../db/db');
 const logger = require('./logger');
+const { clientIp } = require('./clientIp');
 
 // Append-only audit logging. Never throws into the request path.
 async function recordAudit({ req, action, entityType, entityId, before, after }) {
@@ -13,7 +14,8 @@ async function recordAudit({ req, action, entityType, entityId, before, after })
         entityId: entityId ? String(entityId) : null,
         before: before ?? undefined,
         after: after ?? undefined,
-        ip: req?.ip,
+        // null unless the address is genuinely the subject's — see clientIp.
+        ip: req ? clientIp(req) : null,
         userAgent: req?.headers?.['user-agent'],
       },
     });

@@ -71,6 +71,23 @@ async function getDek(organizationId) {
   return dek;
 }
 
+// Drop a cached DEK. Called after an organisation is crypto-shredded so a
+// long-lived process cannot keep decrypting data whose key is gone.
+function forgetDek(organizationId) {
+  dekCache.delete(organizationId);
+}
+
+// Crypto-shredding (GDPR Art. 17): discard the wrapped data key. Every field
+// encrypted with it becomes permanently unrecoverable, which erases the content
+// even in backups taken before the request. Irreversible by design.
+async function shredOrgKey(organizationId) {
+  forgetDek(organizationId);
+  await prisma.organization.updateMany({
+    where: { id: organizationId },
+    data: { encKeyWrapped: null },
+  });
+}
+
 const isEncrypted = (v) => typeof v === 'string' && v.startsWith(PREFIX);
 
 // ---- Public API (string fields) ----
@@ -124,4 +141,5 @@ async function decryptBuffer(organizationId, buf) {
 module.exports = {
   encryptField, decryptField, encryptJson, decryptJson,
   encryptBuffer, decryptBuffer, isEncrypted, getDek,
+  forgetDek, shredOrgKey,
 };

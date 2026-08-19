@@ -1,4 +1,3 @@
-const path = require('path');
 const express = require('express');
 const cors = require('cors');
 const helmet = require('helmet');
@@ -16,6 +15,7 @@ const { buildFeedbackRouter } = require('./integrations/feedback');
 const { startReminderScheduler } = require('./services/reminders/reminderScheduler');
 const { startSnapshotScheduler } = require('./services/trends/snapshotService');
 const { startMonthlyReportScheduler } = require('./services/reports/reportScheduler');
+const { startRetentionScheduler } = require('./services/retention/retentionScheduler');
 
 const app = express();
 
@@ -37,8 +37,12 @@ app.use(express.urlencoded({ extended: true }));
 app.use(cookieParser());
 app.use(requestLogger);
 
-// Serve uploaded documents (dev local storage).
-app.use('/uploads', express.static(path.join(__dirname, 'uploads')));
+// NOTE: uploaded documents are deliberately NOT served statically. They are
+// personal data and were previously reachable at /uploads/<storageKey> with no
+// authentication and no tenant check (GDPR Art. 32 / Art. 5(1)(f)). The only
+// way to a document is now GET /api/documents/:id/download, which authenticates
+// the caller, verifies the document belongs to their organisation, and decrypts
+// it on the way out.
 
 app.get('/api/health', (req, res) => res.json({ status: 'ok', time: new Date().toISOString() }));
 
@@ -57,6 +61,7 @@ async function start() {
   startReminderScheduler();
   startSnapshotScheduler();
   startMonthlyReportScheduler();
+  startRetentionScheduler();
   app.listen(config.port, () => {
     logger.info(`server listening on http://localhost:${config.port} (${config.env})`);
   });

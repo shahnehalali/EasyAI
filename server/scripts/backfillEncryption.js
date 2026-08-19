@@ -41,7 +41,16 @@ async function run() {
     }
   }
 
-  logger.info(`backfill: encrypted ${systems} AI system(s), ${responses} response(s), ${comments} comment(s)`);
+  // Notification bodies quote assessment titles (tenant content).
+  let notifications = 0;
+  for (const n of await prisma.notification.findMany()) {
+    if (n.body && !encd(n.body)) {
+      await prisma.notification.update({ where: { id: n.id }, data: { body: await fc.encryptField(n.organizationId, n.body) } });
+      notifications++;
+    }
+  }
+
+  logger.info(`backfill: encrypted ${systems} AI system(s), ${responses} response(s), ${comments} comment(s), ${notifications} notification(s)`);
 }
 
 // Allow running standalone (node scripts/backfillEncryption.js) or importing.

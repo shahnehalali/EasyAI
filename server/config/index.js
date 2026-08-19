@@ -42,6 +42,22 @@ const config = {
   monthlyReport: {
     cron: process.env.MONTHLY_REPORT_CRON || '0 8 1 * *', // 1st of month, 08:00
   },
+
+  // GDPR Art. 5(1)(e) storage limitation: personal data must not be kept in an
+  // identifiable form for longer than necessary. These bound the two stores
+  // that would otherwise grow forever. Run daily by the retention scheduler.
+  retention: {
+    cron: process.env.RETENTION_CRON || '30 2 * * *', // daily 02:30
+    // Audit entries are the accountability record (Art. 5(2)); 12 months is the
+    // shortest period that still covers an annual compliance review cycle.
+    auditLogDays: parseInt(process.env.RETENTION_AUDIT_LOG_DAYS || '365', 10),
+    // Consumed/expired verification + reset tokens have no purpose once used.
+    emailTokenDays: parseInt(process.env.RETENTION_EMAIL_TOKEN_DAYS || '7', 10),
+    // Invitations that were never accepted.
+    invitationDays: parseInt(process.env.RETENTION_INVITATION_DAYS || '90', 10),
+    // Read notifications the user has already seen.
+    notificationDays: parseInt(process.env.RETENTION_NOTIFICATION_DAYS || '180', 10),
+  },
 };
 
 module.exports = config;
