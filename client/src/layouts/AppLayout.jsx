@@ -14,6 +14,8 @@ import { assessmentApi } from '@/apis/assessmentApi';
 import { Spinner } from '@/components/ui/Ui';
 import { useT } from '@/hooks/useT';
 import { FeedbackProvider } from '@rit-services/feedback-react';
+import MarketingLayout from '@/layouts/MarketingLayout';
+import Landing from '@/views/marketing/Landing';
 
 const TITLES = [
   [/^\/$/, 'title.dashboard'],
@@ -100,7 +102,15 @@ export default function AppLayout() {
   }, []);
 
   if (status === 'loading') return <div className="auth-wrap"><Spinner label={t('app.loadingWorkspace')} /></div>;
-  if (status === 'anonymous') return <Navigate to="/login" replace state={{ from: location.pathname }} />;
+  if (status === 'anonymous') {
+    // The root route is the public entry point: an anonymous visitor sees
+    // the marketing landing page in place (URL stays "/"), not a bounce to
+    // /login. Every other protected route still redirects to /login exactly
+    // as before; sign-out also still lands there, via Topbar's own explicit
+    // navigate('/login') call, independent of this guard.
+    if (location.pathname === '/') return <MarketingLayout><Landing /></MarketingLayout>;
+    return <Navigate to="/login" replace state={{ from: location.pathname }} />;
+  }
 
   return (
     <FeedbackProvider

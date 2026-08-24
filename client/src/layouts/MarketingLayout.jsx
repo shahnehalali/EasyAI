@@ -8,7 +8,12 @@ import { FOOTER, RIT_SERVICES_URL } from '@/data/marketingContent';
 
 // Public layout for the marketing site: landing page, about page, and the
 // draft legal pages. Not gated by AppLayout's auth guard, reachable by anyone.
-export default function MarketingLayout() {
+//
+// Normally used as a react-router layout Route (renders whatever nested route
+// matched, via <Outlet/>). AppLayout also renders it directly with an
+// explicit `children` for the "/" route: an anonymous visit to "/" shows the
+// landing page in place, so `children` wins over <Outlet/> when supplied.
+export default function MarketingLayout({ children }) {
   const theme = useThemeStore((s) => s.theme);
   const toggleTheme = useThemeStore((s) => s.toggle);
   const lang = useLangStore((s) => s.lang);
@@ -80,7 +85,7 @@ export default function MarketingLayout() {
       </header>
 
       <main key={location.pathname}>
-        <Outlet />
+        {children || <Outlet />}
       </main>
 
       <footer className="mkt-footer">
