@@ -3,15 +3,21 @@
     "whatYouMustDo": [
       "Make a list of every AI system you build or use, and note what each one does.",
       "Work out each system's risk level: banned, high, limited, or minimal.",
-      "For high-risk AI, run a risk assessment, use good quality data, keep technical documentation, allow human oversight, and test for accuracy and security.",
-      "Tell people clearly when they are dealing with AI, and label AI-generated content such as deepfakes.",
-      "Train your staff so they understand the AI they work with."
+      "Check the banned list again before 2 December 2026: it now also covers AI that generates child sexual abuse material or non-consensual sexual or intimate images.",
+      "For high-risk AI, run a risk assessment, use good quality data, keep technical documentation, allow human oversight, and test for accuracy and security. You have until 2 December 2027 for stand-alone Annex III systems, and 2 August 2028 for AI inside regulated products.",
+      "Tell people clearly when they are dealing with AI. From 2 December 2026, AI-generated or manipulated content must also carry a machine-readable mark.",
+      "Train your staff so they understand the AI they work with.",
+      "If you have under 750 staff and turnover of 150 million euros or less, check the new 'small mid-cap' category: it brings simplified documentation and lighter penalties."
     ],
     "keyDates": [
       "Banned AI practices: enforced since 2 February 2025.",
       "General-purpose AI model rules: since 2 August 2025.",
-      "High-risk AI rules: apply from 2 August 2026.",
-      "AI built into regulated products: extended to 2 December 2027."
+      "General application, including the transparency duties (Art. 50): 2 August 2026.",
+      "New bans on AI-generated child sexual abuse material and non-consensual intimate imagery, and machine-readable marking of AI-generated content (Art. 50(2)): 2 December 2026.",
+      "Regulatory sandboxes in place in each member state: 2 August 2027.",
+      "High-risk rules for stand-alone Annex III systems: 2 December 2027 (deferred from 2 August 2026 by the Digital Omnibus).",
+      "High-risk rules for AI built into regulated products (Annex I, e.g. medical devices, machinery, toys): 2 August 2028.",
+      "Legacy AI systems used by public authorities: 2 August 2030."
     ],
     "penalties": "Up to 35 million euros or 7% of worldwide annual turnover for banned practices; up to 15 million euros or 3% for most other breaches."
   },
@@ -23,7 +29,9 @@
       "Do a data protection impact assessment for high-risk AI processing.",
       "Use only the data you need, keep it accurate, and do not keep it longer than necessary."
     ],
-    "keyDates": ["In force across the EU since 25 May 2018."],
+    "keyDates": [
+      "In force across the EU since 25 May 2018."
+    ],
     "penalties": "Up to 20 million euros or 4% of worldwide annual turnover, whichever is higher."
   },
   "eu_data_act": {
@@ -33,7 +41,9 @@
       "Remove unfair data clauses from your contracts with smaller businesses.",
       "Let customers switch to another cloud provider without heavy obstacles or fees."
     ],
-    "keyDates": ["In force; the main rules apply since 12 September 2025."],
+    "keyDates": [
+      "In force; the main rules apply since 12 September 2025."
+    ],
     "penalties": "Set by each EU country; in Germany the Federal Network Agency can impose administrative fines."
   },
   "dga": {
@@ -42,7 +52,9 @@
       "Follow the rules when you reuse protected public-sector data to train AI.",
       "If you collect data for altruistic purposes, meet the transparency requirements."
     ],
-    "keyDates": ["Applies since 24 September 2023."],
+    "keyDates": [
+      "Applies since 24 September 2023."
+    ],
     "penalties": "Set by each EU country; administrative fines and possible loss of registration for data services."
   },
   "dora": {
@@ -52,7 +64,9 @@
       "Test the resilience of your critical systems regularly.",
       "Manage and document the risks from your outside IT and AI suppliers, with a clear exit plan."
     ],
-    "keyDates": ["Applies since 17 January 2025."],
+    "keyDates": [
+      "Applies since 17 January 2025."
+    ],
     "penalties": "Supervisory measures and fines set by national regulators; in Germany this is BaFin."
   },
   "nis2": {
@@ -62,7 +76,9 @@
       "Report significant incidents to the BSI: an early warning within 24 hours, a fuller report within 72 hours, and a final report within one month.",
       "Check the security of your suppliers and service providers."
     ],
-    "keyDates": ["The German implementing law has been in force since 5 December 2025."],
+    "keyDates": [
+      "The German implementing law has been in force since 5 December 2025."
+    ],
     "penalties": "Up to 10 million euros or 2% of worldwide turnover for essential entities."
   },
   "cra": {
@@ -72,7 +88,9 @@
       "Report actively exploited weaknesses and serious incidents to the authorities on time.",
       "Complete a conformity assessment and add the CE marking before you sell it."
     ],
-    "keyDates": ["In force; reporting duties from September 2026; main duties from 11 December 2027."],
+    "keyDates": [
+      "In force; reporting duties from September 2026; main duties from 11 December 2027."
+    ],
     "penalties": "Up to 15 million euros or 2.5% of worldwide turnover."
   },
   "pld": {
@@ -81,7 +99,9 @@
       "Be ready to disclose technical information if someone claims your AI product harmed them.",
       "Review your insurance and contracts for AI-related liability."
     ],
-    "keyDates": ["In force since 9 December 2024; Germany must turn it into national law by 9 December 2026."],
+    "keyDates": [
+      "In force since 9 December 2024; Germany must turn it into national law by 9 December 2026."
+    ],
     "penalties": "Civil liability: you may have to pay compensation for damage caused by a defective product."
   },
   "machinery": {
@@ -90,7 +110,9 @@
       "Build in safety functions and keep technical documentation.",
       "Complete the conformity assessment and CE marking before sale."
     ],
-    "keyDates": ["Applies from 20 January 2027."],
+    "keyDates": [
+      "Applies from 20 January 2027."
+    ],
     "penalties": "National market-surveillance measures, fines, and product withdrawal."
   },
   "dsa": {
@@ -100,7 +122,9 @@
       "Be transparent about content moderation and give reasons for your decisions.",
       "Larger platforms must assess and reduce the systemic risks from their algorithms."
     ],
-    "keyDates": ["Fully applicable since 17 February 2024."],
+    "keyDates": [
+      "Fully applicable since 17 February 2024."
+    ],
     "penalties": "Up to 6% of worldwide annual turnover for very large platforms."
   },
   "dma": {
@@ -109,7 +133,9 @@
       "Do not use business users' data to compete against them.",
       "Keep ranking fair and non-discriminatory."
     ],
-    "keyDates": ["Applies since 2 May 2023; gatekeeper duties from March 2024."],
+    "keyDates": [
+      "Applies since 2 May 2023; gatekeeper duties from March 2024."
+    ],
     "penalties": "Up to 10% of worldwide turnover, rising to 20% for repeat breaches."
   },
   "eidas": {
@@ -118,7 +144,9 @@
       "If you rely on electronic identity or the EU wallet for KYC or anti-fraud, use compliant providers.",
       "Keep your identity-verification AI auditable."
     ],
-    "keyDates": ["Original rules from 2014; eIDAS 2.0 in force 2024; EU wallets rolling out by 2026."],
+    "keyDates": [
+      "Original rules from 2014; eIDAS 2.0 in force 2024; EU wallets rolling out by 2026."
+    ],
     "penalties": "Supervisory measures, national fines, and loss of trust-service status."
   },
   "ki_mig": {
@@ -127,7 +155,9 @@
       "Be ready for market-surveillance checks under the EU AI Act.",
       "Consider the regulatory sandbox if you are developing new AI."
     ],
-    "keyDates": ["Government draft adopted 10 February 2026; still going through parliament."],
+    "keyDates": [
+      "Government draft adopted 10 February 2026; still going through parliament."
+    ],
     "penalties": "Will follow the EU AI Act penalty levels once enacted."
   },
   "bdsg": {
@@ -136,7 +166,9 @@
       "Be careful with AI profiling of staff in hiring and performance management.",
       "Report data breaches as required."
     ],
-    "keyDates": ["In force since 25 May 2018; updated periodically."],
+    "keyDates": [
+      "In force since 25 May 2018; updated periodically."
+    ],
     "penalties": "Follows the GDPR levels: up to 20 million euros or 4% of turnover."
   },
   "tdddg": {
@@ -145,7 +177,9 @@
       "Do not use AI profiling or tracking without a valid legal basis.",
       "Keep your cookie banner and consent records compliant."
     ],
-    "keyDates": ["In force since 1 December 2021; renamed TDDDG on 14 May 2024."],
+    "keyDates": [
+      "In force since 1 December 2021; renamed TDDDG on 14 May 2024."
+    ],
     "penalties": "Fines up to 300,000 euros for certain breaches, plus GDPR fines for related data misuse."
   },
   "geschgehg": {
@@ -154,7 +188,9 @@
       "Take reasonable steps to keep them secret, such as access controls and confidentiality clauses.",
       "Use contracts when sharing confidential data with partners."
     ],
-    "keyDates": ["In force since 26 April 2019."],
+    "keyDates": [
+      "In force since 26 April 2019."
+    ],
     "penalties": "Civil claims for damages and injunctions; criminal penalties in serious cases."
   },
   "urhg": {
@@ -163,7 +199,9 @@
       "Respect machine-readable opt-outs from rights holders.",
       "Be careful about ownership and infringement when you generate AI content commercially."
     ],
-    "keyDates": ["Text-and-data-mining rules in force since 7 June 2021."],
+    "keyDates": [
+      "Text-and-data-mining rules in force since 7 June 2021."
+    ],
     "penalties": "Civil claims for damages and injunctions; criminal penalties for serious infringement."
   },
   "uwg": {
@@ -172,7 +210,9 @@
       "Label automated commercial content where needed.",
       "Avoid using AI in ways that unfairly harm competitors or consumers."
     ],
-    "keyDates": ["In force; frequently updated."],
+    "keyDates": [
+      "In force; frequently updated."
+    ],
     "penalties": "Injunctions, removal of profits, and damages; fines for certain consumer breaches."
   },
   "gwb": {
@@ -181,7 +221,9 @@
       "Do not misuse data to block competitors.",
       "Watch for dominance built on data and network effects."
     ],
-    "keyDates": ["The Section 19a powers have been in force since 19 January 2021."],
+    "keyDates": [
+      "The Section 19a powers have been in force since 19 January 2021."
+    ],
     "penalties": "Up to 10% of worldwide annual turnover."
   },
   "bgb": {
@@ -190,7 +232,9 @@
       "Do not use AI to create deepfakes that harm someone's personality rights.",
       "Tell consumers when prices or terms are set by AI."
     ],
-    "keyDates": ["In force since 1900; continuously updated."],
+    "keyDates": [
+      "In force since 1900; continuously updated."
+    ],
     "penalties": "Civil liability: damages, injunctions, and contract remedies."
   },
   "agg": {
@@ -199,7 +243,9 @@
       "Make sure AI does not disadvantage people based on protected traits.",
       "Keep records that show your AI decisions are fair."
     ],
-    "keyDates": ["In force since 18 August 2006."],
+    "keyDates": [
+      "In force since 18 August 2006."
+    ],
     "penalties": "Compensation and damages claims; the burden of proof can shift to you."
   },
   "betrvg": {
@@ -208,7 +254,9 @@
       "Get a co-determination agreement for performance-monitoring or hiring AI.",
       "Give the works council the information it needs, and expert support if required."
     ],
-    "keyDates": ["AI provisions clarified by the 2021 Works Council Modernisation Act."],
+    "keyDates": [
+      "AI provisions clarified by the 2021 Works Council Modernisation Act."
+    ],
     "penalties": "Measures introduced without agreement can be blocked or reversed by the labour courts."
   },
   "arbschg": {
@@ -216,7 +264,9 @@
       "Include AI in your workplace risk assessment, including stress from monitoring and algorithmic management.",
       "Reduce the risks you find and review them regularly."
     ],
-    "keyDates": ["In force since 1996; last updated in 2024."],
+    "keyDates": [
+      "In force since 1996; last updated in 2024."
+    ],
     "penalties": "Fines and, in serious cases, criminal liability for employers."
   },
   "stgb": {
@@ -224,7 +274,9 @@
       "Do not create or deploy AI that produces illegal content such as harmful deepfakes, defamation, or incitement.",
       "Have safeguards to prevent your AI being used for fraud or harassment."
     ],
-    "keyDates": ["In force; a dedicated deepfake offence is being prepared in 2026."],
+    "keyDates": [
+      "In force; a dedicated deepfake offence is being prepared in 2026."
+    ],
     "penalties": "Criminal: fines or imprisonment depending on the offence."
   },
   "mstv": {
@@ -232,7 +284,9 @@
       "Disclose when an account or content is automated, for example a bot that looks like a real person.",
       "Keep recommendation systems on media platforms transparent and non-discriminatory."
     ],
-    "keyDates": ["In force since 7 November 2020."],
+    "keyDates": [
+      "In force since 7 November 2020."
+    ],
     "penalties": "Measures and fines from the state media authorities."
   },
   "kwg": {
@@ -241,7 +295,9 @@
       "Keep clear responsibility and documentation for algorithmic decisions.",
       "Follow BaFin's expectations for outsourcing and risk management."
     ],
-    "keyDates": ["In force; BaFin Big Data and AI principles from 2021."],
+    "keyDates": [
+      "In force; BaFin Big Data and AI principles from 2021."
+    ],
     "penalties": "BaFin supervisory measures and fines."
   },
   "vag": {
@@ -250,7 +306,9 @@
       "Document and validate the models you use.",
       "Keep human oversight of automated insurance decisions."
     ],
-    "keyDates": ["In force (VAG 2016)."],
+    "keyDates": [
+      "In force (VAG 2016)."
+    ],
     "penalties": "BaFin supervisory measures and fines."
   },
   "sgbv_diga": {
@@ -259,7 +317,9 @@
       "Show evidence of a positive healthcare effect.",
       "Meet data-protection, security and medical-device requirements."
     ],
-    "keyDates": ["DiGA fast-track available since 2020."],
+    "keyDates": [
+      "DiGA fast-track available since 2020."
+    ],
     "penalties": "Removal from the DiGA directory and loss of reimbursement; medical-device penalties."
   },
   "mdr": {
@@ -268,7 +328,9 @@
       "Complete the conformity assessment and obtain CE marking.",
       "Run post-market surveillance and report incidents."
     ],
-    "keyDates": ["Applies since 26 May 2021, with transition periods."],
+    "keyDates": [
+      "Applies since 26 May 2021, with transition periods."
+    ],
     "penalties": "National fines, market withdrawal, and loss of CE marking."
   },
   "stvg_autonomous": {
@@ -277,7 +339,9 @@
       "Meet the operating and technical-supervisor rules in the ordinance.",
       "Keep safety documentation for the driving system."
     ],
-    "keyDates": ["Level 3 framework 2017; Level 4 amendment 28 July 2021; ordinance in force 1 July 2022."],
+    "keyDates": [
+      "Level 3 framework 2017; Level 4 amendment 28 July 2021; ordinance in force 1 July 2022."
+    ],
     "penalties": "Approval refusal or withdrawal, fines, and liability for accidents."
   },
   "vwvfg": {
@@ -286,7 +350,9 @@
       "Make sure automated decisions can be explained and challenged.",
       "Give reasons and a right to be heard."
     ],
-    "keyDates": ["The automated-decision rule (Section 35a) has been in force since 2017."],
+    "keyDates": [
+      "The automated-decision rule (Section 35a) has been in force since 2017."
+    ],
     "penalties": "Decisions can be overturned by administrative courts; consequences in public procurement."
   },
   "prodhaftg": {
@@ -294,7 +360,9 @@
       "Treat AI-integrated products as potentially defective and keep safety evidence.",
       "Prepare for the wider rules coming from the new EU directive by December 2026."
     ],
-    "keyDates": ["In force; an update is due by December 2026."],
+    "keyDates": [
+      "In force; an update is due by December 2026."
+    ],
     "penalties": "Strict liability: compensation for damage caused by a defective product."
   },
   "ehds": {
@@ -303,7 +371,9 @@
       "Follow the rules for secondary use of health data for research and training.",
       "Keep this alongside your GDPR duties."
     ],
-    "keyDates": ["In force 2025; phased application."],
+    "keyDates": [
+      "In force 2025; phased application."
+    ],
     "penalties": "National fines and loss of data access."
   },
   "hinschg": {
@@ -312,7 +382,9 @@
       "Protect people who report legal violations, including unsafe or unlawful AI use, from retaliation.",
       "Route AI-governance concerns through these channels."
     ],
-    "keyDates": ["In force; channels required for organisations with 50 or more staff."],
+    "keyDates": [
+      "In force; channels required for organisations with 50 or more staff."
+    ],
     "penalties": "Fines up to 50,000 euros for missing channels or for retaliation."
   },
   "bafin_ki": {
@@ -322,7 +394,9 @@
       "Validate models before use and re-validate them regularly.",
       "Monitor performance and keep meaningful human oversight."
     ],
-    "keyDates": ["Based on BaFin guidance from 2021; expectations continue to evolve."],
+    "keyDates": [
+      "Based on BaFin guidance from 2021; expectations continue to evolve."
+    ],
     "penalties": "BaFin supervisory measures and fines."
   }
 }
