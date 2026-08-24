@@ -140,6 +140,82 @@ export const STEPS = [
   },
 ];
 
+// Alternating feature deep-dives (Landing.jsx "In practice" section): a real
+// mock panel paired with a headline, two sentences, and concrete bullets.
+// Longer-form than FEATURES below, which stays the compact card grid.
+export const FEATURE_ROWS = [
+  {
+    id: 'dashboard',
+    eyebrow: { en: 'Overview', de: 'Uebersicht' },
+    title: { en: 'See your standing at a glance', de: 'Ihr Stand auf einen Blick' },
+    body: {
+      en: 'One dashboard shows exactly where you stand: overall progress, open items, and which reviews are coming due. Nothing to maintain in a spreadsheet on the side.',
+      de: 'Ein Dashboard zeigt genau, wo Sie stehen: Gesamtfortschritt, offene Punkte und faellige Pruefungen. Keine separate Tabelle mehr zu pflegen.',
+    },
+    points: [
+      { en: 'Progress is computed automatically from your checklists, never entered by hand', de: 'Der Fortschritt wird automatisch aus Ihren Checklisten berechnet, nie manuell eingetragen' },
+      { en: 'Broken down per AI system, so you see exactly what needs attention', de: 'Aufgeschluesselt pro KI-System, damit Sie genau sehen, was Aufmerksamkeit braucht' },
+      { en: 'A recent-activity feed shows who did what, and when', de: 'Ein Aktivitaetsverlauf zeigt, wer was wann getan hat' },
+    ],
+  },
+  {
+    id: 'checklist',
+    eyebrow: { en: 'Checklists', de: 'Checklisten' },
+    title: { en: 'Work through the law, one item at a time', de: 'Das Gesetz Punkt fuer Punkt abarbeiten' },
+    body: {
+      en: 'Every requirement becomes a checklist item you can actually act on: mark it done, in progress, or not applicable, with a place to document your reasoning and attach evidence.',
+      de: 'Jede Anforderung wird zu einem Checklistenpunkt, den Sie wirklich abarbeiten koennen: erledigt, in Bearbeitung oder nicht zutreffend, mit Platz fuer Begruendung und Nachweise.',
+    },
+    points: [
+      { en: 'Each item traces back to the exact article of law that requires it', de: 'Jeder Punkt laesst sich auf den konkreten Gesetzesartikel zurueckfuehren' },
+      { en: 'Assign an item to a teammate and track who owns what', de: 'Weisen Sie einen Punkt einer Kollegin oder einem Kollegen zu und behalten Sie den Ueberblick' },
+      { en: 'Comment directly on a requirement to discuss it as a team', de: 'Kommentieren Sie eine Anforderung direkt, um sie im Team zu besprechen' },
+    ],
+  },
+  {
+    id: 'explorer',
+    eyebrow: { en: 'Law Explorer', de: 'Gesetzes-Explorer' },
+    title: { en: 'Know exactly which laws apply to you', de: 'Wissen, welche Gesetze fuer Sie gelten' },
+    body: {
+      en: 'Answer a short questionnaire about what your company does, and see precisely which of the 37 laws apply, each with a plain-language summary and a link to the official text.',
+      de: 'Beantworten Sie einen kurzen Fragebogen zu Ihrem Unternehmen und sehen Sie genau, welche der 37 Gesetze gelten, mit verstaendlicher Zusammenfassung und Link zum Originaltext.',
+    },
+    points: [
+      { en: 'Filterable by tier: EU-wide, German national, or sector-specific', de: 'Filterbar nach Ebene: EU-weit, deutsches Bundesrecht oder branchenspezifisch' },
+      { en: 'Kept current as the law changes, most recently for the Digital Omnibus', de: 'Wird bei Gesetzesaenderungen aktuell gehalten, zuletzt fuer den Digital Omnibus' },
+      { en: 'Every summary cites where it came from', de: 'Jede Zusammenfassung nennt ihre Quelle' },
+    ],
+  },
+  {
+    id: 'documents',
+    eyebrow: { en: 'Evidence', de: 'Nachweise' },
+    title: { en: 'Documentation you can actually trust', de: 'Dokumentation, der Sie vertrauen koennen' },
+    body: {
+      en: 'Attach the evidence for a requirement directly to its checklist item. Every file is encrypted with your organisation\'s own key before it ever touches disk.',
+      de: 'Haengen Sie Nachweise direkt an den zugehoerigen Checklistenpunkt an. Jede Datei wird mit dem eigenen Schluessel Ihrer Organisation verschluesselt, bevor sie gespeichert wird.',
+    },
+    points: [
+      { en: 'Never stored in plaintext, not even temporarily', de: 'Niemals im Klartext gespeichert, auch nicht voruebergehend' },
+      { en: 'Files attach directly to the checklist item they support', de: 'Dateien werden direkt an den passenden Checklistenpunkt angehaengt' },
+      { en: 'Download or delete everything at any time, from Settings', de: 'Alles jederzeit herunterladen oder loeschen, direkt in den Einstellungen' },
+    ],
+  },
+  {
+    id: 'team',
+    eyebrow: { en: 'Team', de: 'Team' },
+    title: { en: 'Built for a team, not a single owner', de: 'Fuer ein Team gemacht, nicht fuer eine Einzelperson' },
+    body: {
+      en: 'Invite colleagues, assign the right person to each requirement, and keep a record of who changed what. Compliance work rarely fits on one desk.',
+      de: 'Laden Sie Kolleginnen und Kollegen ein, weisen Sie die richtige Person je Anforderung zu, und behalten Sie fest, wer was geaendert hat. Compliance passt selten auf einen Schreibtisch.',
+    },
+    points: [
+      { en: 'Role-based access: owner, admin, member', de: 'Rollenbasierter Zugriff: Inhaber, Admin, Mitglied' },
+      { en: 'Assign checklist items to the right teammate', de: 'Checklistenpunkte der richtigen Person zuweisen' },
+      { en: 'An audit trail records every meaningful action', de: 'Ein Protokoll erfasst jede relevante Aktion' },
+    ],
+  },
+];
+
 export const FEATURES = [
   {
     icon: 'ShieldCheck',

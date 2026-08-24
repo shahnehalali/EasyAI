@@ -1610,15 +1610,10 @@ body.reply-dock-open [data-feedback-trigger="true"] { display: none !important; 
 .mkt-demo-tab.active { opacity: 1; box-shadow: 0 0 0 2px var(--accent) inset; border-radius: 999px; }
 .mkt-demo-card .card-body { padding: 22px 24px; min-height: 90px; }
 
-/* Product showcase: every preview shown at once, side by side, nothing to
-   click through. A soft-tinted band behind the grid gives it its own
-   background rather than floating on the section colour, and each frame
-   fades in on load with a short stagger (guarded by prefers-reduced-motion,
-   so with motion reduced everything is simply visible immediately). */
-.mkt-showcase-grid {
-  display: grid; grid-template-columns: repeat(auto-fit, minmax(230px, 1fr)); gap: 16px;
-  background: var(--surface-subtle); border: 1px solid var(--border-2); border-radius: 16px; padding: 18px;
-}
+/* Product showcase: alternating feature rows (Vanta-style deep dive), a real
+   mocked screen paired with copy on each. Each frame fades in on load
+   (guarded by prefers-reduced-motion, so with motion reduced everything is
+   simply visible immediately). */
 .mkt-showcase-frame {
   background: var(--surface); border: 1px solid var(--border); border-radius: 14px; overflow: hidden; box-shadow: var(--shadow);
   opacity: 0; animation: mkt-showcase-in 0.5s ease forwards;
@@ -1629,8 +1624,34 @@ body.reply-dock-open [data-feedback-trigger="true"] { display: none !important; 
 }
 .mkt-showcase-chrome { display: flex; align-items: center; gap: 6px; padding: 10px 14px; border-bottom: 1px solid var(--border-2); background: var(--surface-subtle); }
 .mkt-showcase-dot { width: 8px; height: 8px; border-radius: 50%; background: var(--border); }
-.mkt-showcase-chrome-label { margin-left: 6px; font-size: 11.5px; font-weight: 650; color: var(--ink-soft); }
 .mkt-showcase-body { padding: 18px; min-height: 160px; }
+
+/* Larger frame used in the alternating rows: more headroom, bigger type,
+   so it reads as a real screen rather than a compact card. */
+.mkt-showcase-frame-lg { box-shadow: var(--shadow-pop); }
+.mkt-showcase-body-lg { padding: 30px 28px; min-height: 240px; }
+.mkt-showcase-body-lg .mkt-mock-tile-value { font-size: 26px; }
+.mkt-showcase-body-lg .mkt-mock-item,
+.mkt-showcase-body-lg .mkt-mock-row { font-size: 14.5px; }
+
+/* Alternating rows: text on one side, the framed screen on the other,
+   flipping side each row. Stacks on narrow screens regardless of order. */
+.mkt-rows { display: flex; flex-direction: column; gap: 64px; max-width: 1080px; margin: 0 auto; }
+.mkt-row { display: grid; grid-template-columns: minmax(0, 0.85fr) minmax(0, 1fr); gap: 48px; align-items: center; }
+.mkt-row-reverse { grid-template-columns: minmax(0, 1fr) minmax(0, 0.85fr); }
+.mkt-row-reverse .mkt-row-text { order: 2; }
+.mkt-row-reverse .mkt-row-visual { order: 1; }
+.mkt-row-title { font-size: clamp(20px, 2.4vw, 26px); font-weight: 700; letter-spacing: -0.01em; margin: 8px 0 12px; color: var(--ink); }
+.mkt-row-body { font-size: 14.5px; line-height: 1.65; color: var(--ink-soft); margin-bottom: 18px; }
+.mkt-row-points { display: flex; flex-direction: column; gap: 10px; }
+.mkt-row-points li { display: flex; align-items: flex-start; gap: 9px; font-size: 13.5px; color: var(--ink-soft); }
+.mkt-row-points li svg { color: var(--mkt-purple, var(--green)); flex-shrink: 0; margin-top: 2px; }
+
+@media (max-width: 860px) {
+  .mkt-row, .mkt-row-reverse { grid-template-columns: 1fr; gap: 22px; }
+  .mkt-row-reverse .mkt-row-text, .mkt-row-reverse .mkt-row-visual { order: initial; }
+  .mkt-rows { gap: 44px; }
+}
 .mkt-mock-avatar {
   width: 22px; height: 22px; border-radius: 50%; background: var(--accent-soft); color: var(--accent-ink);
   display: inline-flex; align-items: center; justify-content: center; font-size: 10px; font-weight: 700; flex-shrink: 0;
