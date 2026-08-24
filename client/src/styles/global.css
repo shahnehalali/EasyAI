@@ -1845,3 +1845,63 @@ body.reply-dock-open [data-feedback-trigger="true"] { display: none !important; 
   .mkt-flow-branch-grid { grid-template-columns: 1fr; }
   .mkt-flow-step { gap: 14px; }
 }
+
+/* ============================================================
+   Marketing purple accent, sampled from the actual logo
+   (client/public/trial.png: #42169c). Scoped to .mkt-page so it
+   only ever touches the marketing site, never the authenticated
+   app's shared .btn-primary / .eyebrow / chip classes.
+   ============================================================ */
+.mkt-page {
+  --mkt-purple: #42169c;
+  --mkt-purple-hover: #350f80;
+  --mkt-purple-soft: #f1ecfb;
+  --mkt-purple-ink: #42169c;
+  --mkt-purple-border: #ddd0f5;
+}
+[data-theme='dark'] .mkt-page {
+  --mkt-purple: #a689f0;
+  --mkt-purple-hover: #c1abf7;
+  --mkt-purple-soft: #241748;
+  --mkt-purple-ink: #c1abf7;
+  --mkt-purple-border: #3c2a6e;
+}
+
+.mkt-page .eyebrow { color: var(--mkt-purple-ink); }
+
+.mkt-page .btn-primary {
+  background: var(--mkt-purple); box-shadow: 0 1px 2px rgba(66, 22, 156, 0.25);
+}
+.mkt-page .btn-primary:hover:not(:disabled) { background: var(--mkt-purple-hover); }
+
+.mkt-badge { background: var(--mkt-purple-soft); color: var(--mkt-purple-ink); border-color: var(--mkt-purple-border); }
+
+.mkt-stat-value { color: var(--mkt-purple-ink); }
+
+.mkt-flow-node { background: var(--mkt-purple); border-color: var(--mkt-purple); }
+.mkt-flow-line::after { background: var(--mkt-purple); }
+.mkt-flow-branch-label { color: var(--mkt-purple-ink); }
+.mkt-flow-branch-label svg { color: var(--mkt-purple-ink); }
+
+.mkt-showcase-frame { border-top: 3px solid var(--mkt-purple); }
+
+.mkt-step-n { background: var(--mkt-purple); }
+
+.mkt-search:focus-within { border-color: var(--mkt-purple); }
+.mkt-directory-tier-head { color: var(--mkt-purple-ink); }
+
+.mkt-cta-band { background: var(--mkt-purple-soft); border-top-color: var(--mkt-purple-border); }
+
+.mkt-footer-heading { color: var(--mkt-purple-ink); }
+
+.mkt-rit-badge:hover { border-color: var(--mkt-purple-border); }
+.mkt-founder-link { color: var(--mkt-purple-ink); }
+
+/* Hero: a soft purple glow behind the headline, on top of the neural canvas. */
+.mkt-hero::before {
+  content: ''; position: absolute; top: -10%; left: 50%; transform: translateX(-50%);
+  width: 70%; max-width: 640px; aspect-ratio: 1.6 / 1;
+  background: radial-gradient(ellipse at center, var(--mkt-purple-soft) 0%, transparent 70%);
+  z-index: 0; pointer-events: none; opacity: 0.9;
+}
+[data-theme='dark'] .mkt-hero::before { opacity: 0.5; }
