@@ -1,12 +1,72 @@
 [
-  { "date": "2025-02-02", "frameworkKey": "eu_ai_act", "label": "EU AI Act: banned AI practices became enforceable" },
-  { "date": "2025-08-02", "frameworkKey": "eu_ai_act", "label": "EU AI Act: rules for general-purpose AI models began" },
-  { "date": "2025-09-12", "frameworkKey": "eu_data_act", "label": "EU Data Act: main rules became applicable" },
-  { "date": "2025-12-05", "frameworkKey": "nis2", "label": "German NIS2 implementing law came into force" },
-  { "date": "2026-08-02", "frameworkKey": "eu_ai_act", "label": "EU AI Act: high-risk AI rules start to apply" },
-  { "date": "2026-09-11", "frameworkKey": "cra", "label": "Cyber Resilience Act: vulnerability reporting duties start" },
-  { "date": "2026-12-09", "frameworkKey": "pld", "label": "Product Liability Directive: Germany must transpose it by now" },
-  { "date": "2027-01-20", "frameworkKey": "machinery", "label": "Machinery Regulation starts to apply" },
-  { "date": "2027-12-02", "frameworkKey": "eu_ai_act", "label": "EU AI Act: high-risk rules for product-embedded AI apply" },
-  { "date": "2027-12-11", "frameworkKey": "cra", "label": "Cyber Resilience Act: main obligations apply" }
+  {
+    "date": "2025-02-02",
+    "frameworkKey": "eu_ai_act",
+    "label": "EU AI Act: banned AI practices became enforceable"
+  },
+  {
+    "date": "2025-08-02",
+    "frameworkKey": "eu_ai_act",
+    "label": "EU AI Act: rules for general-purpose AI models began"
+  },
+  {
+    "date": "2025-09-12",
+    "frameworkKey": "eu_data_act",
+    "label": "EU Data Act: main rules became applicable"
+  },
+  {
+    "date": "2025-12-05",
+    "frameworkKey": "nis2",
+    "label": "German NIS2 implementing law came into force"
+  },
+  {
+    "date": "2026-08-02",
+    "frameworkKey": "eu_ai_act",
+    "label": "EU AI Act: general application, including the transparency duties (Art. 50)"
+  },
+  {
+    "date": "2026-09-11",
+    "frameworkKey": "cra",
+    "label": "Cyber Resilience Act: vulnerability reporting duties start"
+  },
+  {
+    "date": "2026-12-02",
+    "frameworkKey": "eu_ai_act",
+    "label": "EU AI Act: new bans on AI-generated CSAM and non-consensual intimate imagery; AI-generated content must be machine-readably marked"
+  },
+  {
+    "date": "2026-12-09",
+    "frameworkKey": "pld",
+    "label": "Product Liability Directive: Germany must transpose it by now"
+  },
+  {
+    "date": "2027-01-20",
+    "frameworkKey": "machinery",
+    "label": "Machinery Regulation starts to apply"
+  },
+  {
+    "date": "2027-08-02",
+    "frameworkKey": "eu_ai_act",
+    "label": "EU AI Act: regulatory sandboxes must be in place"
+  },
+  {
+    "date": "2027-12-02",
+    "frameworkKey": "eu_ai_act",
+    "label": "EU AI Act: high-risk rules apply to stand-alone Annex III systems (deferred from 2 August 2026)"
+  },
+  {
+    "date": "2027-12-11",
+    "frameworkKey": "cra",
+    "label": "Cyber Resilience Act: main obligations apply"
+  },
+  {
+    "date": "2028-08-02",
+    "frameworkKey": "eu_ai_act",
+    "label": "EU AI Act: high-risk rules apply to AI built into regulated products (Annex I)"
+  },
+  {
+    "date": "2030-08-02",
+    "frameworkKey": "eu_ai_act",
+    "label": "EU AI Act: legacy AI systems used by public authorities must comply"
+  }
 ]

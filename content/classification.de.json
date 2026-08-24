@@ -74,10 +74,18 @@
     "generates_content": {
       "prompt": "Erzeugt oder veraendert es Texte, Bilder, Audio oder Video, einschliesslich Deepfakes?",
       "helpText": "Generative KI und synthetische Medien muessen gekennzeichnet werden (Art. 50)."
+    },
+    "generate_csam": {
+      "prompt": "Kann das System Bilder oder Videos erzeugen oder veraendern, die sexuellen Kindesmissbrauch darstellen?",
+      "helpText": "Verboten nach Art. 5 in der Fassung des Digital Omnibus (Verordnung (EU) 2026/1744). Anbieter muessen bis zum 2. Dezember 2026 technische Schutzmassnahmen umsetzen."
+    },
+    "generate_ncii": {
+      "prompt": "Kann das System sexuelle oder intime Aufnahmen einer realen Person ohne deren Einwilligung erzeugen oder veraendern?",
+      "helpText": "Sogenannte 'Nudifier'-Anwendungen. Verboten nach Art. 5 in der Fassung des Digital Omnibus. Gilt ab dem 2. Dezember 2026."
     }
   },
   "explanations": {
-    "prohibited": "Das System koennte unter eine verbotene Praktik der KI-Verordnung (Art. 5) fallen, etwa Social Scoring, Manipulation, verbotene biometrische Nutzungen oder vorausschauende Polizeiarbeit. Diese Nutzungen sind untersagt; pruefen Sie dies dringend und holen Sie Rechtsrat ein.",
+    "prohibited": "Das System koennte unter eine verbotene Praktik der KI-Verordnung (Art. 5) fallen, etwa Social Scoring, Manipulation, verbotene biometrische Nutzungen oder vorausschauende Polizeiarbeit. Diese Nutzungen sind untersagt; pruefen Sie dies dringend und holen Sie Rechtsrat ein. Ab dem 2. Dezember 2026 zaehlen dazu auch KI-Systeme, die Material des sexuellen Kindesmissbrauchs oder nicht einvernehmliche intime Aufnahmen erzeugen.",
     "high": "Das System wird in einem in Anhang III aufgefuehrten Hochrisikobereich oder als sicherheitsrelevante Produktkomponente eingesetzt und gilt daher als hochriskant. Es gelten saemtliche Hochrisikopflichten, darunter Risikomanagement, Daten-Governance, Dokumentation, menschliche Aufsicht sowie Genauigkeits- und Sicherheitspruefungen.",
     "limited": "Das System interagiert mit Menschen oder erzeugt Inhalte, sodass die Transparenzpflichten fuer begrenztes Risiko gelten (Art. 50). Sie muessen Menschen darueber informieren, dass sie es mit KI zu tun haben, und KI-generierte Inhalte kennzeichnen.",
     "minimal": "Es trafen keine Kriterien fuer ein hoeheres Risiko zu, daher wird dieses System als minimales Risiko eingestuft.",

@@ -6,15 +6,21 @@
     "whatYouMustDo": [
       "Erstellen Sie eine Liste aller KI-Systeme, die Sie entwickeln oder nutzen, und notieren Sie deren Zweck.",
       "Bestimmen Sie die Risikostufe jedes Systems: verboten, hoch, begrenzt oder minimal.",
-      "Fuer Hochrisiko-KI: fuehren Sie eine Risikobewertung durch, nutzen Sie gute Daten, fuehren Sie technische Dokumentation, ermoeglichen Sie menschliche Aufsicht und testen Sie auf Genauigkeit und Sicherheit.",
-      "Sagen Sie Menschen klar, wenn sie es mit KI zu tun haben, und kennzeichnen Sie KI-erzeugte Inhalte wie Deepfakes.",
-      "Schulen Sie Ihre Mitarbeitenden im Umgang mit der KI."
+      "Pruefen Sie die Verbotsliste erneut vor dem 2. Dezember 2026: Sie erfasst nun auch KI, die Material des sexuellen Kindesmissbrauchs oder nicht einvernehmliche sexuelle oder intime Aufnahmen erzeugt.",
+      "Fuer Hochrisiko-KI: fuehren Sie eine Risikobewertung durch, nutzen Sie gute Daten, fuehren Sie technische Dokumentation, ermoeglichen Sie menschliche Aufsicht und testen Sie auf Genauigkeit und Sicherheit. Dafuer haben Sie bis zum 2. Dezember 2027 (eigenstaendige Systeme nach Anhang III) bzw. bis zum 2. August 2028 (KI in regulierten Produkten) Zeit.",
+      "Sagen Sie Menschen klar, wenn sie es mit KI zu tun haben. Ab dem 2. Dezember 2026 muessen KI-erzeugte oder manipulierte Inhalte zusaetzlich maschinenlesbar gekennzeichnet sein.",
+      "Schulen Sie Ihre Mitarbeitenden im Umgang mit der KI.",
+      "Bei weniger als 750 Beschaeftigten und hoechstens 150 Millionen Euro Umsatz: pruefen Sie die neue Kategorie 'small mid-cap' mit vereinfachter Dokumentation und milderen Sanktionen."
     ],
     "keyDates": [
       "Verbotene KI-Praktiken: seit 2. Februar 2025 durchsetzbar.",
       "Regeln fuer KI-Modelle mit allgemeinem Verwendungszweck: seit 2. August 2025.",
-      "Regeln fuer Hochrisiko-KI: gelten ab 2. August 2026.",
-      "In Produkte eingebettete Hochrisiko-KI: verlaengert bis 2. Dezember 2027."
+      "Allgemeine Anwendung, einschliesslich der Transparenzpflichten (Art. 50): 2. August 2026.",
+      "Neue Verbote fuer KI-generiertes Material des sexuellen Kindesmissbrauchs und nicht einvernehmliche intime Aufnahmen sowie maschinenlesbare Kennzeichnung KI-generierter Inhalte (Art. 50 Abs. 2): 2. Dezember 2026.",
+      "Reallabore in jedem Mitgliedstaat eingerichtet: 2. August 2027.",
+      "Regeln fuer eigenstaendige Hochrisiko-Systeme nach Anhang III: 2. Dezember 2027 (durch den Digital Omnibus vom 2. August 2026 verschoben).",
+      "Regeln fuer in regulierte Produkte eingebettete Hochrisiko-KI (Anhang I, z. B. Medizinprodukte, Maschinen, Spielzeug): 2. August 2028.",
+      "Bestehende KI-Systeme oeffentlicher Stellen: 2. August 2030."
     ],
     "penalties": "Bis zu 35 Millionen Euro oder 7 % des weltweiten Jahresumsatzes bei verbotenen Praktiken; bis zu 15 Millionen Euro oder 3 % bei den meisten anderen Verstoessen.",
     "regulator": "Bundesnetzagentur (BNetzA) als Leitbehoerde, mit BaFin, BfArM und dem EU-Buero fuer KI"
@@ -30,7 +36,9 @@
       "Fuehren Sie fuer risikoreiche KI-Verarbeitung eine Datenschutz-Folgenabschaetzung durch.",
       "Nutzen Sie nur die noetigen Daten, halten Sie sie korrekt und speichern Sie sie nicht laenger als noetig."
     ],
-    "keyDates": ["EU-weit in Kraft seit 25. Mai 2018."],
+    "keyDates": [
+      "EU-weit in Kraft seit 25. Mai 2018."
+    ],
     "penalties": "Bis zu 20 Millionen Euro oder 4 % des weltweiten Jahresumsatzes, je nachdem, welcher Betrag hoeher ist.",
     "regulator": "Bundes- und Landesdatenschutzbehoerden (BfDI und die Landesbehoerden)"
   },
@@ -44,7 +52,9 @@
       "Entfernen Sie unfaire Datenklauseln aus Vertraegen mit kleineren Unternehmen.",
       "Ermoeglichen Sie Kunden den Wechsel zu einem anderen Cloud-Anbieter ohne grosse Huerden oder Gebuehren."
     ],
-    "keyDates": ["In Kraft; die Hauptregeln gelten seit 12. September 2025."],
+    "keyDates": [
+      "In Kraft; die Hauptregeln gelten seit 12. September 2025."
+    ],
     "penalties": "Von jedem EU-Land festgelegt; in Deutschland kann die Bundesnetzagentur Bussgelder verhaengen.",
     "regulator": "Bundesnetzagentur (BNetzA)"
   },
@@ -57,7 +67,9 @@
       "Befolgen Sie die Regeln bei der Weiterverwendung geschuetzter Daten des oeffentlichen Sektors.",
       "Wenn Sie Daten zu altruistischen Zwecken sammeln, erfuellen Sie die Transparenzpflichten."
     ],
-    "keyDates": ["Gilt seit 24. September 2023."],
+    "keyDates": [
+      "Gilt seit 24. September 2023."
+    ],
     "penalties": "Von jedem EU-Land festgelegt; Bussgelder und moeglicher Verlust der Registrierung.",
     "regulator": "Bundesministerium fuer Digitales und Verkehr sowie BNetzA"
   },
@@ -71,7 +83,9 @@
       "Testen Sie regelmaessig die Widerstandsfaehigkeit Ihrer kritischen Systeme.",
       "Steuern und dokumentieren Sie die Risiken externer IT- und KI-Lieferanten und halten Sie einen Ausstiegsplan bereit."
     ],
-    "keyDates": ["Gilt seit 17. Januar 2025."],
+    "keyDates": [
+      "Gilt seit 17. Januar 2025."
+    ],
     "penalties": "Aufsichtsmassnahmen und Bussgelder der nationalen Behoerden; in Deutschland die BaFin.",
     "regulator": "Bundesanstalt fuer Finanzdienstleistungsaufsicht (BaFin) mit der Bundesbank"
   },
@@ -85,7 +99,9 @@
       "Melden Sie erhebliche Vorfaelle an das BSI: Fruehwarnung binnen 24 Stunden, Meldung binnen 72 Stunden, Abschlussbericht binnen eines Monats.",
       "Pruefen Sie die Sicherheit Ihrer Lieferanten und Dienstleister."
     ],
-    "keyDates": ["Das deutsche Umsetzungsgesetz ist seit 5. Dezember 2025 in Kraft."],
+    "keyDates": [
+      "Das deutsche Umsetzungsgesetz ist seit 5. Dezember 2025 in Kraft."
+    ],
     "penalties": "Bis zu 10 Millionen Euro oder 2 % des weltweiten Umsatzes fuer besonders wichtige Einrichtungen.",
     "regulator": "Bundesamt fuer Sicherheit in der Informationstechnik (BSI)"
   },
@@ -99,7 +115,9 @@
       "Melden Sie aktiv ausgenutzte Schwachstellen und schwere Vorfaelle fristgerecht an die Behoerden.",
       "Fuehren Sie eine Konformitaetsbewertung durch und bringen Sie die CE-Kennzeichnung an, bevor Sie verkaufen."
     ],
-    "keyDates": ["In Kraft; Meldepflichten ab September 2026; Hauptpflichten ab 11. Dezember 2027."],
+    "keyDates": [
+      "In Kraft; Meldepflichten ab September 2026; Hauptpflichten ab 11. Dezember 2027."
+    ],
     "penalties": "Bis zu 15 Millionen Euro oder 2,5 % des weltweiten Umsatzes.",
     "regulator": "Bundesamt fuer Sicherheit in der Informationstechnik (BSI) und Marktueberwachungsbehoerden"
   },
@@ -112,7 +130,9 @@
       "Seien Sie bereit, technische Informationen offenzulegen, wenn jemand einen Schaden durch Ihr KI-Produkt geltend macht.",
       "Pruefen Sie Versicherung und Vertraege auf KI-bezogene Haftung."
     ],
-    "keyDates": ["In Kraft seit 9. Dezember 2024; Deutschland muss sie bis 9. Dezember 2026 in nationales Recht umsetzen."],
+    "keyDates": [
+      "In Kraft seit 9. Dezember 2024; Deutschland muss sie bis 9. Dezember 2026 in nationales Recht umsetzen."
+    ],
     "penalties": "Zivilrechtliche Haftung: Sie muessen ggf. Schadensersatz fuer ein fehlerhaftes Produkt zahlen.",
     "regulator": "Zivilgerichte; Umsetzung durch das Bundesministerium der Justiz"
   },
@@ -125,7 +145,9 @@
       "Bauen Sie Sicherheitsfunktionen ein und fuehren Sie technische Dokumentation.",
       "Fuehren Sie die Konformitaetsbewertung und CE-Kennzeichnung vor dem Verkauf durch."
     ],
-    "keyDates": ["Gilt ab 20. Januar 2027."],
+    "keyDates": [
+      "Gilt ab 20. Januar 2027."
+    ],
     "penalties": "Nationale Marktueberwachungsmassnahmen, Bussgelder und Marktruecknahme.",
     "regulator": "Marktueberwachungsbehoerden der Laender, mit Hinweisen der BAuA"
   },
@@ -139,7 +161,9 @@
       "Seien Sie transparent bei der Moderation und begruenden Sie Ihre Entscheidungen.",
       "Groessere Plattformen muessen systemische Risiken ihrer Algorithmen bewerten und mindern."
     ],
-    "keyDates": ["Vollstaendig anwendbar seit 17. Februar 2024."],
+    "keyDates": [
+      "Vollstaendig anwendbar seit 17. Februar 2024."
+    ],
     "penalties": "Bis zu 6 % des weltweiten Jahresumsatzes bei sehr grossen Plattformen.",
     "regulator": "Bundesnetzagentur (BNetzA) als Koordinator; EU-Kommission fuer sehr grosse Plattformen"
   },
@@ -152,7 +176,9 @@
       "Nutzen Sie Daten der Geschaeftsnutzer nicht, um gegen sie zu konkurrieren.",
       "Halten Sie das Ranking fair und diskriminierungsfrei."
     ],
-    "keyDates": ["Gilt seit 2. Mai 2023; Gatekeeper-Pflichten ab Maerz 2024."],
+    "keyDates": [
+      "Gilt seit 2. Mai 2023; Gatekeeper-Pflichten ab Maerz 2024."
+    ],
     "penalties": "Bis zu 10 % des weltweiten Umsatzes, bei Wiederholung bis zu 20 %.",
     "regulator": "Europaeische Kommission, unterstuetzt vom Bundeskartellamt"
   },
@@ -165,7 +191,9 @@
       "Wenn Sie elektronische Identitaet oder die EU-Brieftasche fuer KYC nutzen, verwenden Sie konforme Anbieter.",
       "Halten Sie Ihre KI zur Identitaetspruefung nachvollziehbar."
     ],
-    "keyDates": ["Urspruengliche Regeln ab 2014; eIDAS 2.0 in Kraft 2024; EU-Brieftaschen bis 2026."],
+    "keyDates": [
+      "Urspruengliche Regeln ab 2014; eIDAS 2.0 in Kraft 2024; EU-Brieftaschen bis 2026."
+    ],
     "penalties": "Aufsichtsmassnahmen, nationale Bussgelder und Verlust des Vertrauensdienste-Status.",
     "regulator": "Bundesnetzagentur (BNetzA) und BSI"
   },
@@ -178,7 +206,9 @@
       "Bereiten Sie sich auf Marktueberwachungspruefungen nach der EU-KI-Verordnung vor.",
       "Erwaegen Sie ein Reallabor, wenn Sie neue KI entwickeln."
     ],
-    "keyDates": ["Regierungsentwurf am 10. Februar 2026 beschlossen; noch im parlamentarischen Verfahren."],
+    "keyDates": [
+      "Regierungsentwurf am 10. Februar 2026 beschlossen; noch im parlamentarischen Verfahren."
+    ],
     "penalties": "Folgt nach Inkrafttreten den Bussgeldstufen der EU-KI-Verordnung.",
     "regulator": "Benennt BNetzA als Leitbehoerde, zudem BaFin, BfArM und BAuA"
   },
@@ -191,7 +221,9 @@
       "Seien Sie vorsichtig bei KI-Profiling von Mitarbeitenden bei Einstellung und Leistung.",
       "Melden Sie Datenpannen wie vorgeschrieben."
     ],
-    "keyDates": ["In Kraft seit 25. Mai 2018; regelmaessig aktualisiert."],
+    "keyDates": [
+      "In Kraft seit 25. Mai 2018; regelmaessig aktualisiert."
+    ],
     "penalties": "Wie die DSGVO: bis zu 20 Millionen Euro oder 4 % des Umsatzes.",
     "regulator": "Bundes- und Landesdatenschutzbehoerden"
   },
@@ -204,7 +236,9 @@
       "Nutzen Sie KI-Profiling oder Tracking nicht ohne gueltige Rechtsgrundlage.",
       "Halten Sie Ihr Cookie-Banner und Ihre Einwilligungsnachweise konform."
     ],
-    "keyDates": ["In Kraft seit 1. Dezember 2021; am 14. Mai 2024 in TDDDG umbenannt."],
+    "keyDates": [
+      "In Kraft seit 1. Dezember 2021; am 14. Mai 2024 in TDDDG umbenannt."
+    ],
     "penalties": "Bussgelder bis zu 300.000 Euro fuer bestimmte Verstoesse, zusaetzlich DSGVO-Bussgelder.",
     "regulator": "Bundes- und Landesdatenschutzbehoerden sowie BNetzA"
   },
@@ -217,7 +251,9 @@
       "Treffen Sie angemessene Massnahmen zur Geheimhaltung, etwa Zugriffskontrollen und Vertraulichkeitsklauseln.",
       "Nutzen Sie Vertraege, wenn Sie vertrauliche Daten mit Partnern teilen."
     ],
-    "keyDates": ["In Kraft seit 26. April 2019."],
+    "keyDates": [
+      "In Kraft seit 26. April 2019."
+    ],
     "penalties": "Zivilrechtliche Ansprueche auf Schadensersatz und Unterlassung; in schweren Faellen strafbar.",
     "regulator": "Zivilgerichte"
   },
@@ -230,7 +266,9 @@
       "Beachten Sie maschinenlesbare Widersprueche von Rechteinhabern.",
       "Achten Sie auf Eigentum und Verletzungen, wenn Sie KI-Inhalte gewerblich erzeugen."
     ],
-    "keyDates": ["Regeln zum Text- und Data-Mining in Kraft seit 7. Juni 2021."],
+    "keyDates": [
+      "Regeln zum Text- und Data-Mining in Kraft seit 7. Juni 2021."
+    ],
     "penalties": "Zivilrechtliche Ansprueche und Unterlassung; bei schwerer Verletzung strafbar.",
     "regulator": "Zivilgerichte und Verwertungsgesellschaften"
   },
@@ -243,7 +281,9 @@
       "Kennzeichnen Sie automatisierte gewerbliche Inhalte, wo noetig.",
       "Nutzen Sie KI nicht so, dass Wettbewerber oder Verbraucher unfair geschaedigt werden."
     ],
-    "keyDates": ["In Kraft; haeufig aktualisiert."],
+    "keyDates": [
+      "In Kraft; haeufig aktualisiert."
+    ],
     "penalties": "Unterlassung, Gewinnabschoepfung und Schadensersatz; Bussgelder bei bestimmten Verbraucherverstoessen.",
     "regulator": "Zivilgerichte, Wettbewerber und Verbraucherverbaende"
   },
@@ -256,7 +296,9 @@
       "Missbrauchen Sie keine Daten, um Wettbewerber zu blockieren.",
       "Achten Sie auf Marktmacht durch Daten und Netzwerkeffekte."
     ],
-    "keyDates": ["Die Befugnisse nach Paragraf 19a sind seit 19. Januar 2021 in Kraft."],
+    "keyDates": [
+      "Die Befugnisse nach Paragraf 19a sind seit 19. Januar 2021 in Kraft."
+    ],
     "penalties": "Bis zu 10 % des weltweiten Jahresumsatzes.",
     "regulator": "Bundeskartellamt"
   },
@@ -269,7 +311,9 @@
       "Nutzen Sie KI nicht, um Deepfakes zu erstellen, die Persoenlichkeitsrechte verletzen.",
       "Sagen Sie Verbrauchern, wenn Preise oder Bedingungen von KI gesetzt werden."
     ],
-    "keyDates": ["In Kraft seit 1900; laufend aktualisiert."],
+    "keyDates": [
+      "In Kraft seit 1900; laufend aktualisiert."
+    ],
     "penalties": "Zivilrechtliche Haftung: Schadensersatz, Unterlassung und vertragliche Rechtsbehelfe.",
     "regulator": "Zivilgerichte"
   },
@@ -282,7 +326,9 @@
       "Stellen Sie sicher, dass KI niemanden wegen geschuetzter Merkmale benachteiligt.",
       "Fuehren Sie Nachweise, dass Ihre KI-Entscheidungen fair sind."
     ],
-    "keyDates": ["In Kraft seit 18. August 2006."],
+    "keyDates": [
+      "In Kraft seit 18. August 2006."
+    ],
     "penalties": "Entschaedigungs- und Schadensersatzansprueche; die Beweislast kann sich umkehren.",
     "regulator": "Antidiskriminierungsstelle des Bundes und die Gerichte"
   },
@@ -295,7 +341,9 @@
       "Holen Sie eine Mitbestimmungsvereinbarung fuer KI zur Leistungsueberwachung oder Personalauswahl ein.",
       "Geben Sie dem Betriebsrat die noetigen Informationen und bei Bedarf Sachverstaendigenunterstuetzung."
     ],
-    "keyDates": ["KI-Regelungen durch das Betriebsraetemodernisierungsgesetz 2021 klargestellt."],
+    "keyDates": [
+      "KI-Regelungen durch das Betriebsraetemodernisierungsgesetz 2021 klargestellt."
+    ],
     "penalties": "Ohne Vereinbarung eingefuehrte Massnahmen koennen von Arbeitsgerichten gestoppt werden.",
     "regulator": "Betriebsraete und Arbeitsgerichte"
   },
@@ -307,7 +355,9 @@
       "Beziehen Sie KI in Ihre Gefaehrdungsbeurteilung ein, auch Belastungen durch Ueberwachung und algorithmisches Management.",
       "Verringern Sie die festgestellten Risiken und ueberpruefen Sie sie regelmaessig."
     ],
-    "keyDates": ["In Kraft seit 1996; zuletzt 2024 aktualisiert."],
+    "keyDates": [
+      "In Kraft seit 1996; zuletzt 2024 aktualisiert."
+    ],
     "penalties": "Bussgelder und in schweren Faellen strafrechtliche Verantwortung des Arbeitgebers.",
     "regulator": "Bundesanstalt fuer Arbeitsschutz und Arbeitsmedizin (BAuA) und Landesbehoerden"
   },
@@ -319,7 +369,9 @@
       "Erstellen oder betreiben Sie keine KI, die illegale Inhalte wie schaedliche Deepfakes, Verleumdung oder Volksverhetzung erzeugt.",
       "Treffen Sie Schutzmassnahmen, damit Ihre KI nicht fuer Betrug oder Belaestigung genutzt wird."
     ],
-    "keyDates": ["In Kraft; ein eigener Deepfake-Straftatbestand ist 2026 in Vorbereitung."],
+    "keyDates": [
+      "In Kraft; ein eigener Deepfake-Straftatbestand ist 2026 in Vorbereitung."
+    ],
     "penalties": "Strafrechtlich: Geld- oder Freiheitsstrafe je nach Tat.",
     "regulator": "Staatsanwaltschaften und Strafgerichte"
   },
@@ -331,7 +383,9 @@
       "Legen Sie offen, wenn ein Konto oder Inhalt automatisiert ist, etwa ein Bot, der wie eine echte Person wirkt.",
       "Halten Sie Empfehlungssysteme auf Medienplattformen transparent und diskriminierungsfrei."
     ],
-    "keyDates": ["In Kraft seit 7. November 2020."],
+    "keyDates": [
+      "In Kraft seit 7. November 2020."
+    ],
     "penalties": "Massnahmen und Bussgelder der Landesmedienanstalten.",
     "regulator": "Landesmedienanstalten"
   },
@@ -344,7 +398,9 @@
       "Halten Sie klare Verantwortung und Dokumentation fuer algorithmische Entscheidungen.",
       "Befolgen Sie die Erwartungen der BaFin zu Auslagerung und Risikomanagement."
     ],
-    "keyDates": ["In Kraft; BaFin-Prinzipien zu Big Data und KI seit 2021."],
+    "keyDates": [
+      "In Kraft; BaFin-Prinzipien zu Big Data und KI seit 2021."
+    ],
     "penalties": "Aufsichtsmassnahmen und Bussgelder der BaFin.",
     "regulator": "Bundesanstalt fuer Finanzdienstleistungsaufsicht (BaFin) und die Bundesbank"
   },
@@ -357,7 +413,9 @@
       "Dokumentieren und validieren Sie die genutzten Modelle.",
       "Halten Sie menschliche Aufsicht ueber automatisierte Versicherungsentscheidungen."
     ],
-    "keyDates": ["In Kraft (VAG 2016)."],
+    "keyDates": [
+      "In Kraft (VAG 2016)."
+    ],
     "penalties": "Aufsichtsmassnahmen und Bussgelder der BaFin.",
     "regulator": "Bundesanstalt fuer Finanzdienstleistungsaufsicht (BaFin)"
   },
@@ -370,7 +428,9 @@
       "Weisen Sie einen positiven Versorgungseffekt nach.",
       "Erfuellen Sie Datenschutz-, Sicherheits- und Medizinprodukteanforderungen."
     ],
-    "keyDates": ["DiGA-Schnellverfahren seit 2020 verfuegbar."],
+    "keyDates": [
+      "DiGA-Schnellverfahren seit 2020 verfuegbar."
+    ],
     "penalties": "Streichung aus dem DiGA-Verzeichnis und Verlust der Erstattung; Medizinprodukte-Sanktionen.",
     "regulator": "Bundesinstitut fuer Arzneimittel und Medizinprodukte (BfArM)"
   },
@@ -383,7 +443,9 @@
       "Fuehren Sie die Konformitaetsbewertung durch und erhalten Sie die CE-Kennzeichnung.",
       "Fuehren Sie Marktueberwachung durch und melden Sie Vorfaelle."
     ],
-    "keyDates": ["Gilt seit 26. Mai 2021, mit Uebergangsfristen."],
+    "keyDates": [
+      "Gilt seit 26. Mai 2021, mit Uebergangsfristen."
+    ],
     "penalties": "Nationale Bussgelder, Marktruecknahme und Verlust der CE-Kennzeichnung.",
     "regulator": "Bundesinstitut fuer Arzneimittel und Medizinprodukte (BfArM) und benannte Stellen"
   },
@@ -396,7 +458,9 @@
       "Erfuellen Sie die Betriebs- und Aufsichtsregeln der Verordnung.",
       "Fuehren Sie Sicherheitsdokumentation fuer das Fahrsystem."
     ],
-    "keyDates": ["Stufe-3-Rahmen 2017; Stufe-4-Aenderung 28. Juli 2021; Verordnung in Kraft 1. Juli 2022."],
+    "keyDates": [
+      "Stufe-3-Rahmen 2017; Stufe-4-Aenderung 28. Juli 2021; Verordnung in Kraft 1. Juli 2022."
+    ],
     "penalties": "Verweigerung oder Entzug der Zulassung, Bussgelder und Haftung fuer Unfaelle.",
     "regulator": "Kraftfahrt-Bundesamt (KBA)"
   },
@@ -409,7 +473,9 @@
       "Stellen Sie sicher, dass automatisierte Entscheidungen erklaerbar und anfechtbar sind.",
       "Geben Sie eine Begruendung und das Recht auf Anhoerung."
     ],
-    "keyDates": ["Die Regel zur automatisierten Entscheidung (Paragraf 35a) ist seit 2017 in Kraft."],
+    "keyDates": [
+      "Die Regel zur automatisierten Entscheidung (Paragraf 35a) ist seit 2017 in Kraft."
+    ],
     "penalties": "Entscheidungen koennen von Verwaltungsgerichten aufgehoben werden; Folgen in der Vergabe.",
     "regulator": "Verwaltungsgerichte und Behoerden"
   },
@@ -421,7 +487,9 @@
       "Behandeln Sie KI-integrierte Produkte als moeglicherweise fehlerhaft und bewahren Sie Sicherheitsnachweise auf.",
       "Bereiten Sie sich auf die weiteren Regeln der neuen EU-Richtlinie bis Dezember 2026 vor."
     ],
-    "keyDates": ["In Kraft; eine Aktualisierung ist bis Dezember 2026 faellig."],
+    "keyDates": [
+      "In Kraft; eine Aktualisierung ist bis Dezember 2026 faellig."
+    ],
     "penalties": "Verschuldensunabhaengige Haftung: Schadensersatz fuer ein fehlerhaftes Produkt.",
     "regulator": "Zivilgerichte und das Bundesministerium der Justiz"
   },
@@ -434,7 +502,9 @@
       "Befolgen Sie die Regeln zur Sekundaernutzung von Gesundheitsdaten fuer Forschung und Training.",
       "Beachten Sie dies zusaetzlich zu Ihren DSGVO-Pflichten."
     ],
-    "keyDates": ["In Kraft 2025; schrittweise Anwendung."],
+    "keyDates": [
+      "In Kraft 2025; schrittweise Anwendung."
+    ],
     "penalties": "Nationale Bussgelder und Verlust des Datenzugangs.",
     "regulator": "BfArM und nationale Gesundheitsdaten-Zugangsstellen, mit den Datenschutzbehoerden"
   },
@@ -447,7 +517,9 @@
       "Schuetzen Sie Personen, die Rechtsverstoesse melden, auch unsichere oder unzulaessige KI-Nutzung, vor Benachteiligung.",
       "Leiten Sie Bedenken zur KI-Governance ueber diese Stellen."
     ],
-    "keyDates": ["In Kraft; Meldestellen fuer Organisationen mit 50 oder mehr Beschaeftigten erforderlich."],
+    "keyDates": [
+      "In Kraft; Meldestellen fuer Organisationen mit 50 oder mehr Beschaeftigten erforderlich."
+    ],
     "penalties": "Bussgelder bis zu 50.000 Euro fuer fehlende Meldestellen oder Benachteiligung.",
     "regulator": "Bundesamt fuer Justiz (externe Meldestelle)"
   },
@@ -461,7 +533,9 @@
       "Validieren Sie Modelle vor dem Einsatz und regelmaessig erneut.",
       "Ueberwachen Sie die Leistung und halten Sie sinnvolle menschliche Aufsicht."
     ],
-    "keyDates": ["Beruht auf BaFin-Hinweisen von 2021; die Erwartungen entwickeln sich weiter."],
+    "keyDates": [
+      "Beruht auf BaFin-Hinweisen von 2021; die Erwartungen entwickeln sich weiter."
+    ],
     "penalties": "Aufsichtsmassnahmen und Bussgelder der BaFin.",
     "regulator": "Bundesanstalt fuer Finanzdienstleistungsaufsicht (BaFin)"
   },
@@ -472,7 +546,9 @@
     "whatYouMustDo": [
       "Beobachten Sie den Gesetzgebungsstand und bereiten Sie Richtlinien gegen schaedliche Deepfakes vor."
     ],
-    "keyDates": ["Noch nicht in Kraft; in Vorbereitung 2026."],
+    "keyDates": [
+      "Noch nicht in Kraft; in Vorbereitung 2026."
+    ],
     "penalties": "Noch nicht festgelegt; voraussichtlich strafrechtlich.",
     "regulator": "Bundesministerium der Justiz (geplant); Staatsanwaltschaften"
   },
@@ -483,7 +559,9 @@
     "whatYouMustDo": [
       "Beobachten Sie den Entwurf und pruefen Sie Ihre Praxis zur KI-gestuetzten Verarbeitung von Beschaeftigtendaten."
     ],
-    "keyDates": ["Noch nicht in Kraft; im Entwurfsstadium."],
+    "keyDates": [
+      "Noch nicht in Kraft; im Entwurfsstadium."
+    ],
     "penalties": "Noch nicht festgelegt.",
     "regulator": "Bundes- und Landesdatenschutzbehoerden (geplant)"
   }

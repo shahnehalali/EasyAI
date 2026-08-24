@@ -11,7 +11,7 @@ const contentDir = path.join(__dirname, '..', '..', 'content');
 const readJson = (name) => JSON.parse(fs.readFileSync(path.join(contentDir, name), 'utf8'));
 
 // Date the catalog content was last reviewed (shown per framework).
-const REVIEWED_AT = new Date('2026-06-10T00:00:00.000Z');
+const REVIEWED_AT = new Date('2026-08-24T00:00:00.000Z');
 
 async function seedFrameworks() {
   const frameworks = readJson('frameworks.seed.json');
