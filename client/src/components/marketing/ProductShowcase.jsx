@@ -1,10 +1,11 @@
-import { CheckCircle2, Circle, Clock, FileText, Lock } from 'lucide-react';
+import { CheckCircle2, Circle, Clock, FileText, Lock, Check } from 'lucide-react';
 import { useLangStore } from '@/store/langStore';
+import { FEATURE_ROWS } from '@/data/marketingContent';
 
 // Five stylised previews of real screens, built from the app's own design
 // tokens rather than screenshots, so they never go stale when the UI
-// changes. All shown at once, side by side, nothing to click through:
-// labelled clearly as previews, not presented as literal screenshots.
+// changes. Labelled clearly as previews, not presented as literal
+// screenshots. Shown alongside real copy, alternating sides row by row.
 
 function DashboardMock({ lang }) {
   const tiles = [
@@ -108,38 +109,56 @@ function TeamMock({ lang }) {
   );
 }
 
-const PANELS = [
-  { id: 'dashboard', label: { en: 'Dashboard', de: 'Dashboard' }, Panel: DashboardMock },
-  { id: 'checklist', label: { en: 'Checklist', de: 'Checkliste' }, Panel: ChecklistMock },
-  { id: 'explorer', label: { en: 'Law Explorer', de: 'Gesetzes-Explorer' }, Panel: ExplorerMock },
-  { id: 'documents', label: { en: 'Documents', de: 'Dokumente' }, Panel: DocumentsMock },
-  { id: 'team', label: { en: 'Team & roles', de: 'Team & Rollen' }, Panel: TeamMock },
-];
+const MOCKS = {
+  dashboard: DashboardMock,
+  checklist: ChecklistMock,
+  explorer: ExplorerMock,
+  documents: DocumentsMock,
+  team: TeamMock,
+};
 
+function FrameFor({ id, lang }) {
+  const Panel = MOCKS[id];
+  return (
+    <div className="mkt-showcase-frame mkt-showcase-frame-lg" data-testid={`showcase-panel-${id}`}>
+      <div className="mkt-showcase-chrome">
+        <span className="mkt-showcase-dot" /><span className="mkt-showcase-dot" /><span className="mkt-showcase-dot" />
+      </div>
+      <div className="mkt-showcase-body mkt-showcase-body-lg">
+        <Panel lang={lang} />
+      </div>
+    </div>
+  );
+}
+
+// Alternating text/screenshot rows, one per feature, the way a product deep
+// dive page usually presents them: a real (mocked) screen, paired with the
+// concrete detail a small feature-grid card never has room for.
 export default function ProductShowcase() {
   const lang = useLangStore((s) => s.lang);
 
   return (
     <div data-testid="product-showcase">
-      <div className="mkt-showcase-grid">
-        {PANELS.map((p, i) => (
-          <div
-            key={p.id}
-            className="mkt-showcase-frame"
-            style={{ animationDelay: `${i * 90}ms` }}
-            data-testid={`showcase-panel-${p.id}`}
-          >
-            <div className="mkt-showcase-chrome">
-              <span className="mkt-showcase-dot" /><span className="mkt-showcase-dot" /><span className="mkt-showcase-dot" />
-              <span className="mkt-showcase-chrome-label">{p.label[lang]}</span>
+      <div className="mkt-rows">
+        {FEATURE_ROWS.map((row, i) => (
+          <div key={row.id} className={`mkt-row${i % 2 === 1 ? ' mkt-row-reverse' : ''}`} data-testid={`feature-row-${row.id}`}>
+            <div className="mkt-row-text">
+              <div className="eyebrow">{row.eyebrow[lang]}</div>
+              <h3 className="mkt-row-title">{row.title[lang]}</h3>
+              <p className="mkt-row-body">{row.body[lang]}</p>
+              <ul className="mkt-row-points">
+                {row.points.map((p) => (
+                  <li key={p.en}><Check size={14} aria-hidden="true" /><span>{p[lang]}</span></li>
+                ))}
+              </ul>
             </div>
-            <div className="mkt-showcase-body">
-              <p.Panel lang={lang} />
+            <div className="mkt-row-visual">
+              <FrameFor id={row.id} lang={lang} />
             </div>
           </div>
         ))}
       </div>
-      <p className="muted small" style={{ textAlign: 'center', marginTop: 16 }}>
+      <p className="muted small" style={{ textAlign: 'center', marginTop: 20 }}>
         {lang === 'de' ? 'Stilisierte Vorschauen, keine tatsaechlichen Screenshots.' : 'Stylised previews, not literal screenshots.'}
       </p>
     </div>
