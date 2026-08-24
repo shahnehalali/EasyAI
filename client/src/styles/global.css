@@ -209,7 +209,7 @@ hr { border: none; border-top: 1px solid var(--border); margin: 16px 0; }
   transition: max-width 0.3s cubic-bezier(0.4, 0, 0.2, 1), opacity 0.18s ease;
 }
 .nav-link {
-  display: flex; align-items: center; gap: 11px; padding: 7px 10px; border-radius: 12px;
+  display: flex; align-items: center; gap: 11px; padding: 5px 10px; border-radius: 12px;
   color: var(--ink-soft); font-weight: 500; font-size: 13.5px;
   transition: background 0.14s ease, color 0.14s ease, padding 0.3s cubic-bezier(0.4, 0, 0.2, 1), gap 0.3s cubic-bezier(0.4, 0, 0.2, 1);
 }
@@ -267,7 +267,7 @@ hr { border: none; border-top: 1px solid var(--border); margin: 16px 0; }
    its items, with a short tick connecting the rule to each item (monochrome). */
 .nav-group-items {
   position: relative; padding-left: 11px;
-  display: flex; flex-direction: column; gap: 2px;
+  display: flex; flex-direction: column; gap: 0;
 }
 .nav-group-items::before {
   content: ''; position: absolute; left: 2px; top: 2px; bottom: 9px;
@@ -1472,4 +1472,376 @@ body.reply-dock-open [data-feedback-trigger="true"] { display: none !important; 
   .theme-switch .ts-label { display: none; }
   .theme-switch.day .ts-knob { left: calc(100% - 27px); }
   .theme-switch.night .ts-knob { left: 3px; }
+}
+
+/* ============================================================
+   Marketing site (public landing page, about page, footer, and
+   the draft legal pages). Reuses the app's design tokens so it
+   reads as one product, not a bolted-on brochure site.
+   ============================================================ */
+.mkt-page { min-height: 100vh; display: flex; flex-direction: column; background: var(--bg); }
+
+.mkt-nav {
+  position: sticky; top: 0; z-index: 40;
+  background: var(--topbar-bg); backdrop-filter: blur(10px);
+  border-bottom: 1px solid var(--border);
+}
+.mkt-nav-inner {
+  max-width: 1200px; margin: 0 auto; padding: 14px 24px;
+  display: flex; align-items: center; justify-content: space-between; gap: 20px;
+}
+.mkt-brand {
+  display: flex; align-items: center; gap: 9px;
+  font-size: 16px; font-weight: 700; color: var(--ink); letter-spacing: -0.02em;
+  text-decoration: none;
+}
+.mkt-nav-links { display: flex; align-items: center; gap: 22px; }
+.mkt-nav-link { font-size: 13.5px; font-weight: 550; color: var(--ink-soft); text-decoration: none; }
+.mkt-nav-link:hover { color: var(--ink); }
+.mkt-nav-actions { display: flex; align-items: center; gap: 8px; }
+.mkt-nav-burger { display: none; }
+.mkt-nav-mobile { display: none; }
+
+@media (max-width: 860px) {
+  .mkt-nav-links { display: none; }
+  .mkt-nav-burger { display: inline-flex; }
+  .mkt-nav-actions .btn:not(.mkt-nav-burger) { display: none; }
+  .mkt-nav-mobile {
+    display: flex; flex-direction: column; gap: 4px;
+    padding: 10px 24px 16px; border-top: 1px solid var(--border-2);
+  }
+  .mkt-nav-mobile .mkt-nav-link { padding: 8px 0; }
+}
+
+.mkt-hero {
+  position: relative; overflow: hidden;
+  padding: 96px 24px 84px; text-align: center;
+}
+.mkt-hero-inner { position: relative; z-index: 2; max-width: 760px; margin: 0 auto; }
+.mkt-h1 {
+  font-family: var(--serif); font-weight: 700; letter-spacing: -0.02em;
+  font-size: clamp(32px, 5vw, 50px); line-height: 1.12; color: var(--ink);
+  text-align: center;
+}
+.mkt-lead { font-size: 16.5px; line-height: 1.65; color: var(--ink-soft); margin-top: 16px; text-align: center; }
+.mkt-lead-sm { font-size: 14.5px; line-height: 1.6; color: var(--ink-soft); max-width: 560px; }
+
+.mkt-section { padding: 68px 24px; }
+.mkt-section-alt { background: var(--surface-subtle); border-top: 1px solid var(--border-2); border-bottom: 1px solid var(--border-2); }
+.mkt-section-head { text-align: center; max-width: 640px; margin: 0 auto 36px; }
+.mkt-section-head h2 { font-size: clamp(22px, 3vw, 30px); font-weight: 700; letter-spacing: -0.015em; margin-top: 8px; }
+.mkt-section-head .mkt-lead-sm { margin: 10px auto 0; text-align: center; }
+
+.mkt-badge-grid { display: flex; flex-wrap: wrap; gap: 10px; justify-content: center; max-width: 900px; margin: 0 auto; }
+.mkt-badge {
+  font-size: 12.5px; font-weight: 600; padding: 7px 14px; border-radius: 999px;
+  background: var(--accent-soft); color: var(--accent-ink); border: 1px solid var(--border);
+}
+.mkt-badge-more { background: transparent; color: var(--muted); border-style: dashed; }
+
+.mkt-steps { margin-top: 8px; }
+.mkt-step { text-align: left; }
+.mkt-step-n {
+  width: 30px; height: 30px; border-radius: 9px; background: var(--accent); color: var(--accent-contrast);
+  display: flex; align-items: center; justify-content: center; font-weight: 700; font-size: 13px; margin-bottom: 12px;
+}
+.mkt-step h3 { font-size: 14.5px; margin-bottom: 4px; }
+
+.mkt-feature-grid { margin-top: 8px; }
+.mkt-feature-card .card-body { padding: 22px; }
+.mkt-feature-icon {
+  width: 38px; height: 38px; border-radius: 10px; background: var(--accent-soft); color: var(--accent-ink);
+  display: flex; align-items: center; justify-content: center;
+}
+.mkt-feature-card h3 { font-size: 15px; }
+
+.mkt-security-list { max-width: 640px; margin: 0 auto; display: flex; flex-direction: column; gap: 14px; }
+.mkt-security-item { display: flex; align-items: flex-start; gap: 10px; font-size: 14px; color: var(--ink-soft); }
+.mkt-security-check { color: var(--green); flex-shrink: 0; margin-top: 1px; }
+
+.mkt-cta-band { padding: 72px 24px; text-align: center; border-top: 1px solid var(--border-2); }
+.mkt-cta-band h2 { font-size: clamp(22px, 3vw, 30px); font-weight: 700; letter-spacing: -0.015em; }
+
+.mkt-footer { border-top: 1px solid var(--border); background: var(--surface-subtle); margin-top: auto; }
+.mkt-footer-inner {
+  max-width: 1200px; margin: 0 auto; padding: 48px 24px 28px;
+  display: grid; grid-template-columns: 1.6fr repeat(3, 1fr); gap: 32px;
+}
+.mkt-footer-name { font-size: 14.5px; font-weight: 700; color: var(--ink); letter-spacing: -0.01em; }
+.mkt-footer-heading { font-size: 11px; text-transform: uppercase; letter-spacing: 0.06em; color: var(--muted); font-weight: 700; margin-bottom: 12px; }
+.mkt-footer-col { display: flex; flex-direction: column; gap: 9px; }
+.mkt-footer-link { font-size: 13px; color: var(--ink-soft); text-decoration: none; }
+.mkt-footer-link:hover { color: var(--ink); }
+.mkt-footer-bottom {
+  max-width: 1200px; margin: 0 auto; padding: 18px 24px 24px;
+  border-top: 1px solid var(--border-2);
+  display: flex; align-items: center; justify-content: space-between; gap: 12px; flex-wrap: wrap;
+  font-size: 12.5px; color: var(--muted);
+}
+
+@media (max-width: 760px) {
+  .mkt-footer-inner { grid-template-columns: 1fr 1fr; }
+  .mkt-hero { padding: 72px 20px 56px; }
+  .mkt-section { padding: 52px 20px; }
+}
+@media (max-width: 560px) {
+  .mkt-footer-inner { grid-template-columns: 1fr; }
+}
+
+.mkt-footer-rit { display: inline-flex; align-items: center; gap: 4px; margin-top: 12px; font-weight: 600; color: var(--ink-soft); }
+.mkt-footer-rit:hover { color: var(--ink); }
+
+/* Proof band directly under the hero. */
+.mkt-stats-band { border-top: 1px solid var(--border-2); border-bottom: 1px solid var(--border-2); background: var(--surface-subtle); }
+.mkt-stats-row { display: flex; flex-wrap: wrap; justify-content: center; gap: 0; padding: 26px 24px; }
+.mkt-stat { padding: 0 34px; text-align: center; border-right: 1px solid var(--border-2); }
+.mkt-stat:last-child { border-right: none; }
+.mkt-stat-value { font-family: var(--serif); font-size: 26px; font-weight: 700; color: var(--ink); letter-spacing: -0.01em; }
+.mkt-stat-label { font-size: 12px; color: var(--muted); margin-top: 2px; }
+@media (max-width: 620px) {
+  .mkt-stat { padding: 6px 18px; border-right: none; }
+}
+
+/* Interactive risk-classification demo. */
+.mkt-demo { max-width: 780px; margin: 0 auto; }
+.mkt-demo-tabs { display: flex; flex-wrap: wrap; gap: 8px; justify-content: center; margin-bottom: 16px; }
+.mkt-demo-tab { background: none; border: none; padding: 3px; cursor: pointer; border-radius: 999px; opacity: 0.55; transition: opacity 0.15s; }
+.mkt-demo-tab:hover { opacity: 0.85; }
+.mkt-demo-tab.active { opacity: 1; box-shadow: 0 0 0 2px var(--accent) inset; border-radius: 999px; }
+.mkt-demo-card .card-body { padding: 22px 24px; min-height: 90px; }
+
+/* Product showcase: every preview shown at once, side by side, nothing to
+   click through. A soft-tinted band behind the grid gives it its own
+   background rather than floating on the section colour, and each frame
+   fades in on load with a short stagger (guarded by prefers-reduced-motion,
+   so with motion reduced everything is simply visible immediately). */
+.mkt-showcase-grid {
+  display: grid; grid-template-columns: repeat(auto-fit, minmax(230px, 1fr)); gap: 16px;
+  background: var(--surface-subtle); border: 1px solid var(--border-2); border-radius: 16px; padding: 18px;
+}
+.mkt-showcase-frame {
+  background: var(--surface); border: 1px solid var(--border); border-radius: 14px; overflow: hidden; box-shadow: var(--shadow);
+  opacity: 0; animation: mkt-showcase-in 0.5s ease forwards;
+}
+@keyframes mkt-showcase-in { from { opacity: 0; transform: translateY(8px); } to { opacity: 1; transform: none; } }
+@media (prefers-reduced-motion: reduce) {
+  .mkt-showcase-frame { animation: none; opacity: 1; }
+}
+.mkt-showcase-chrome { display: flex; align-items: center; gap: 6px; padding: 10px 14px; border-bottom: 1px solid var(--border-2); background: var(--surface-subtle); }
+.mkt-showcase-dot { width: 8px; height: 8px; border-radius: 50%; background: var(--border); }
+.mkt-showcase-chrome-label { margin-left: 6px; font-size: 11.5px; font-weight: 650; color: var(--ink-soft); }
+.mkt-showcase-body { padding: 18px; min-height: 160px; }
+.mkt-mock-avatar {
+  width: 22px; height: 22px; border-radius: 50%; background: var(--accent-soft); color: var(--accent-ink);
+  display: inline-flex; align-items: center; justify-content: center; font-size: 10px; font-weight: 700; flex-shrink: 0;
+}
+
+.mkt-mock-grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: 12px; }
+.mkt-mock-tile { background: var(--surface-subtle); border: 1px solid var(--border-2); border-radius: 10px; padding: 14px; }
+.mkt-mock-tile-value { font-size: 20px; font-weight: 700; color: var(--ink); }
+.mkt-mock-tile-label { font-size: 11px; color: var(--muted); margin-top: 2px; }
+.mkt-mock-bar-row { grid-column: 1 / -1; }
+.mkt-mock-bar { height: 8px; border-radius: 999px; background: var(--progress-track); overflow: hidden; }
+.mkt-mock-bar-fill { height: 100%; background: var(--accent); border-radius: 999px; }
+
+.mkt-mock-list { display: flex; flex-direction: column; gap: 12px; }
+.mkt-mock-item { display: flex; align-items: center; gap: 10px; font-size: 13.5px; color: var(--ink-soft); }
+.mkt-mock-item-done { color: var(--ink-soft); }
+.mkt-mock-item-done svg { color: var(--green); }
+.mkt-mock-item-progress svg { color: var(--amber); }
+.mkt-mock-item-open svg { color: var(--muted); }
+.mkt-mock-row { display: flex; align-items: center; justify-content: space-between; gap: 10px; padding: 8px 0; border-bottom: 1px solid var(--border-2); font-size: 13.5px; }
+.mkt-mock-row:last-child { border-bottom: none; }
+/* Narrow showcase columns: truncate the label instead of overflowing, keep
+   the trailing chip/icon fixed size instead of getting squeezed. */
+.mkt-mock-row > :first-child { min-width: 0; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+.mkt-mock-row > :last-child { flex-shrink: 0; }
+.mkt-mock-file { gap: 7px; min-width: 0; }
+.mkt-mock-filename { font-weight: 600; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+
+/* Framework directory: search + tier filter + grouped grid. */
+.mkt-directory-controls { display: flex; flex-wrap: wrap; gap: 14px; align-items: center; justify-content: space-between; max-width: 980px; margin: 0 auto; }
+.mkt-search {
+  display: flex; align-items: center; gap: 8px; padding: 8px 14px; border-radius: 10px;
+  background: var(--surface); border: 1px solid var(--border); color: var(--muted); flex: 1; min-width: 200px; max-width: 320px;
+}
+.mkt-search input { border: none; background: none; outline: none; font-size: 13.5px; color: var(--ink); width: 100%; }
+.mkt-search input::placeholder { color: var(--placeholder); }
+.mkt-directory-tier-head { font-size: 11px; text-transform: uppercase; letter-spacing: 0.06em; color: var(--muted); font-weight: 700; margin-bottom: 12px; }
+.mkt-directory-grid { max-width: 980px; margin: 0 auto; }
+.mkt-directory-item { background: var(--surface); border: 1px solid var(--border-2); border-radius: 10px; padding: 14px 16px; }
+.mkt-directory-name { font-size: 13.5px; font-weight: 650; color: var(--ink); }
+
+@media (max-width: 860px) {
+  .mkt-stats-row { gap: 4px; }
+}
+
+/* Highlighted key terms (encryption standards, article numbers, vendor
+   names, exact retention counts, honesty markers). Overrides the browser's
+   default yellow <mark>. Colour carries meaning (see highlightTerms.jsx),
+   reusing the exact same hex pairs as the .chip-* classes so it reads as one
+   system rather than a second palette. */
+.mkt-term {
+  padding: 1px 6px; border-radius: 5px; font-weight: 650; white-space: nowrap;
+}
+.mkt-term-crypto  { background: #e2f4ea; color: #1b7a4b; }
+.mkt-term-legal   { background: #e6effd; color: #175cd3; }
+.mkt-term-vendor  { background: #fef6da; color: #8a6516; }
+.mkt-term-honesty { background: #fdf0db; color: #b45309; }
+[data-theme='dark'] .mkt-term-crypto  { background: #16301f; color: #7fd3a1; }
+[data-theme='dark'] .mkt-term-legal   { background: #16233a; color: #8fb8f2; }
+[data-theme='dark'] .mkt-term-vendor  { background: #322c14; color: #e5cf7a; }
+[data-theme='dark'] .mkt-term-honesty { background: #2c2110; color: #e0a64a; }
+
+/* GDPR / security page: pillar grid of concrete, positive facts. Each pillar
+   carries a colour: green for a protective measure (encryption, backups,
+   your rights), navy for a structural fact (roles, hosting, retention), gold
+   for a named third party (sub-processors). Same palette as .mkt-term above. */
+.mkt-pillar-grid { margin-top: 4px; }
+.mkt-pillar { border-top: 3px solid transparent; }
+.mkt-pillar.mkt-pillar-green { border-top-color: #4cc38a; }
+.mkt-pillar.mkt-pillar-navy { border-top-color: #175cd3; }
+.mkt-pillar.mkt-pillar-gold { border-top-color: #d4a72c; }
+[data-theme='dark'] .mkt-pillar.mkt-pillar-green { border-top-color: #4cc38a; }
+[data-theme='dark'] .mkt-pillar.mkt-pillar-navy { border-top-color: #8fb8f2; }
+[data-theme='dark'] .mkt-pillar.mkt-pillar-gold { border-top-color: #e5cf7a; }
+.mkt-pillar .card-body { padding: 24px; }
+.mkt-pillar-icon {
+  width: 36px; height: 36px; border-radius: 10px;
+  display: flex; align-items: center; justify-content: center; margin-bottom: 14px;
+}
+.mkt-pillar-stat { font-size: 12px; font-weight: 700; text-transform: uppercase; letter-spacing: 0.04em; margin-bottom: 8px; }
+.mkt-pillar-q { font-size: 15px; font-weight: 650; margin-bottom: 8px; color: var(--ink); }
+.mkt-pillar-a { font-size: 13.5px; line-height: 1.65; color: var(--ink-soft); margin: 0; }
+
+/* Icon badge: tinted background + matching icon colour. */
+.mkt-pillar-icon-green { background: #e2f4ea; color: #1b7a4b; }
+.mkt-pillar-icon-navy  { background: #e6effd; color: #175cd3; }
+.mkt-pillar-icon-gold  { background: #fef6da; color: #8a6516; }
+[data-theme='dark'] .mkt-pillar-icon-green { background: #16301f; color: #7fd3a1; }
+[data-theme='dark'] .mkt-pillar-icon-navy  { background: #16233a; color: #8fb8f2; }
+[data-theme='dark'] .mkt-pillar-icon-gold  { background: #322c14; color: #e5cf7a; }
+/* Stat headline: same foreground colour, no background, reads as an accent
+   line rather than a second chip stacked under the icon. */
+.mkt-pillar-stat-green { color: #1b7a4b; }
+.mkt-pillar-stat-navy  { color: #175cd3; }
+.mkt-pillar-stat-gold  { color: #8a6516; }
+[data-theme='dark'] .mkt-pillar-stat-green { color: #7fd3a1; }
+[data-theme='dark'] .mkt-pillar-stat-navy  { color: #8fb8f2; }
+[data-theme='dark'] .mkt-pillar-stat-gold  { color: #e5cf7a; }
+
+/* "Straight answers": visible (not collapsed), deliberately plainer than the
+   pillar cards, with a muted amber icon, the same "open item" signal the
+   rest of the app already uses, since these are the gaps, not the wins. */
+.mkt-straight-row {
+  display: flex; gap: 14px; align-items: flex-start;
+  padding: 18px 4px; border-bottom: 1px solid var(--border-2);
+}
+.mkt-straight-row:last-child { border-bottom: none; }
+.mkt-straight-icon {
+  width: 30px; height: 30px; border-radius: 8px;
+  display: flex; align-items: center; justify-content: center; flex-shrink: 0; margin-top: 1px;
+}
+.mkt-straight-icon-amber { background: #fdf0db; color: #b45309; }
+[data-theme='dark'] .mkt-straight-icon-amber { background: #2c2110; color: #e0a64a; }
+.mkt-straight-q { font-size: 14px; font-weight: 650; margin-bottom: 5px; color: var(--ink); }
+.mkt-straight-a { font-size: 13.5px; line-height: 1.6; color: var(--ink-soft); margin: 0; max-width: 620px; }
+
+/* About page: "part of RIT Services" badge, and the founder card. */
+.mkt-rit-badge {
+  display: inline-flex; align-items: center; gap: 9px; margin-top: 22px; padding: 8px 14px 8px 10px;
+  border: 1px solid var(--border); border-radius: 999px; background: var(--surface);
+  font-size: 13px; font-weight: 600; color: var(--ink-soft); text-decoration: none;
+}
+.mkt-rit-badge:hover { color: var(--ink); border-color: var(--outline-border-hover); }
+.mkt-rit-badge-logo { width: 20px; height: 20px; object-fit: contain; }
+
+.mkt-founder-card { display: flex; align-items: stretch; overflow: hidden; }
+.mkt-founder-photo-wrap { flex: 0 0 220px; background: var(--surface-subtle); }
+.mkt-founder-photo { width: 100%; height: 100%; object-fit: cover; display: block; }
+.mkt-founder-body { flex: 1; display: flex; flex-direction: column; justify-content: center; padding: 28px 30px; }
+.mkt-founder-title { font-size: 13.5px; color: var(--ink-soft); font-weight: 600; margin-top: 2px; }
+.mkt-founder-bio { font-size: 15px; line-height: 1.6; color: var(--ink); font-style: italic; margin: 16px 0; max-width: 440px; }
+.mkt-founder-link { font-size: 13px; font-weight: 650; color: var(--accent-ink); text-decoration: none; }
+.mkt-founder-link:hover { text-decoration: underline; }
+
+@media (max-width: 620px) {
+  .mkt-founder-card { flex-direction: column; }
+  .mkt-founder-photo-wrap { flex: 0 0 auto; height: 260px; }
+}
+
+/* Interactive process flow ("how it works"): a vertical connected timeline.
+   Every step's detail is always on the page, nothing needs a click. Step 2
+   additionally shows the real branch into the four classification outcomes,
+   so it reads as an actual flowchart, not four static boxes.
+
+   Animation, two layers, both gated behind .mkt-flow-ready (only added by JS
+   when prefers-reduced-motion is NOT set, same convention as
+   NeuralBackground.jsx): each step fades/slides in as it scrolls into view,
+   and a small pulse travels down each connector on a loop. Without JS, or
+   with reduced motion requested, everything just renders fully visible and
+   static, no animation classes ever apply. */
+.mkt-flow-card { max-width: 740px; margin: 0 auto; }
+.mkt-flow-card .card-body { padding: 32px 34px; }
+.mkt-flow { max-width: 100%; }
+.mkt-flow-step {
+  display: flex; gap: 20px;
+  opacity: 1; transform: none;
+  transition: opacity 0.55s ease, transform 0.55s ease;
+}
+.mkt-flow.mkt-flow-ready .mkt-flow-step { opacity: 0; transform: translateY(18px); }
+.mkt-flow.mkt-flow-ready .mkt-flow-step.in-view { opacity: 1; transform: none; }
+
+.mkt-flow-rail { display: flex; flex-direction: column; align-items: center; flex-shrink: 0; }
+.mkt-flow-node {
+  width: 34px; height: 34px; border-radius: 50%; flex-shrink: 0;
+  border: 1.5px solid var(--accent); background: var(--accent); color: var(--accent-contrast);
+  font-weight: 700; font-size: 13px;
+  display: flex; align-items: center; justify-content: center;
+}
+.mkt-flow-line { position: relative; width: 1.5px; flex: 1; min-height: 28px; background: var(--border); margin: 2px 0; }
+/* The travelling pulse: an invisible dot by default, only animated once
+   .mkt-flow-ready is present (motion allowed). */
+.mkt-flow-line::after {
+  content: ''; position: absolute; left: 50%; top: 0; width: 5px; height: 5px;
+  border-radius: 50%; background: var(--accent); transform: translate(-50%, -50%);
+  opacity: 0;
+}
+.mkt-flow.mkt-flow-ready .mkt-flow-line::after {
+  animation: mkt-flow-pulse 2.4s ease-in-out infinite;
+  animation-delay: inherit;
+}
+@keyframes mkt-flow-pulse {
+  0% { top: 0%; opacity: 0; }
+  12% { opacity: 1; }
+  88% { opacity: 1; }
+  100% { top: 100%; opacity: 0; }
+}
+
+.mkt-flow-content { flex: 1; padding-bottom: 30px; min-width: 0; }
+.mkt-flow-content h3 { font-size: 15.5px; font-weight: 650; color: var(--ink); margin-bottom: 3px; }
+.mkt-flow-content p.muted { margin-top: 2px; }
+.mkt-flow-list {
+  margin: 12px 0 0; padding: 14px 16px 14px 30px; display: flex; flex-direction: column; gap: 7px;
+  background: var(--surface-subtle); border: 1px solid var(--border-2); border-radius: 10px;
+}
+.mkt-flow-list li { font-size: 13.5px; line-height: 1.55; color: var(--ink-soft); }
+
+.mkt-flow-branch { margin-top: 16px; padding-top: 16px; border-top: 1px dashed var(--border); }
+.mkt-flow-branch-label {
+  display: flex; align-items: center; gap: 7px; font-size: 12px; font-weight: 700;
+  text-transform: uppercase; letter-spacing: 0.04em; color: var(--muted); margin-bottom: 12px;
+}
+.mkt-flow-branch-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; }
+.mkt-flow-branch-card {
+  background: var(--surface-subtle); border: 1px solid var(--border-2); border-radius: 9px; padding: 12px 13px;
+  opacity: 1; transform: none; transition: opacity 0.45s ease, transform 0.45s ease;
+}
+.mkt-flow-branch-card p { font-size: 12.5px; line-height: 1.5; color: var(--ink-soft); margin: 8px 0 0; }
+.mkt-flow.mkt-flow-ready .mkt-flow-branch-card { opacity: 0; transform: translateY(10px); }
+.mkt-flow.mkt-flow-ready .mkt-flow-step.in-view .mkt-flow-branch-card { opacity: 1; transform: none; }
+
+@media (max-width: 560px) {
+  .mkt-flow-branch-grid { grid-template-columns: 1fr; }
+  .mkt-flow-step { gap: 14px; }
 }

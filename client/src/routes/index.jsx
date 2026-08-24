@@ -1,6 +1,13 @@
 import { Routes, Route } from 'react-router-dom';
 import AuthLayout from '@/layouts/AuthLayout';
 import AppLayout from '@/layouts/AppLayout';
+import MarketingLayout from '@/layouts/MarketingLayout';
+
+import Landing from '@/views/marketing/Landing';
+import About from '@/views/marketing/About';
+import Security from '@/views/marketing/Security';
+import PrivacyDraft from '@/views/marketing/PrivacyDraft';
+import ImprintDraft from '@/views/marketing/ImprintDraft';
 
 import Login from '@/views/auth/Login';
 import Register from '@/views/auth/Register';
@@ -35,6 +42,15 @@ import NotFound from '@/views/NotFound';
 export default function AppRoutes() {
   return (
     <Routes>
+      {/* Public marketing site. Not gated by auth, reachable by anyone. */}
+      <Route element={<MarketingLayout />}>
+        <Route path="/welcome" element={<Landing />} />
+        <Route path="/about" element={<About />} />
+        <Route path="/security" element={<Security />} />
+        <Route path="/privacy" element={<PrivacyDraft />} />
+        <Route path="/impressum" element={<ImprintDraft />} />
+      </Route>
+
       <Route element={<AuthLayout />}>
         <Route path="/login" element={<Login />} />
         <Route path="/register" element={<Register />} />
