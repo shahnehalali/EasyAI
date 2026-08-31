@@ -35,7 +35,10 @@ function FaqAccordion() {
                 <span>{item.q[lang]}</span>
                 <ChevronDown size={17} className="faq-chevron" style={{ transform: isOpen ? 'rotate(180deg)' : 'none' }} aria-hidden="true" />
               </button>
-              {isOpen && <p className="faq-a" data-testid={`mkt-faq-a-${item.id}`}>{item.a[lang]}</p>}
+              {/* Always in the DOM, CSS-collapsed when closed: a crawler that
+                  never runs JS (curl, most AI answer engines) still gets the
+                  full text in the response bytes, not just the open item. */}
+              <p className={`faq-a${isOpen ? '' : ' faq-a-collapsed'}`} data-testid={`mkt-faq-a-${item.id}`}>{item.a[lang]}</p>
             </div>
           );
         })}

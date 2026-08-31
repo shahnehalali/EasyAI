@@ -8,7 +8,7 @@
 // period, or the word "to" instead.
 
 export const HERO = {
-  eyebrow: { en: 'AI compliance for Germany', de: 'KI-Compliance fuer Deutschland' },
+  eyebrow: { en: 'GDPR and German national law AI compliance', de: 'DSGVO- und Bundesrecht-Compliance fuer KI' },
   title: {
     en: 'Know exactly what German and EU AI law asks of you',
     de: 'Wissen Sie genau, was das deutsche und EU-Recht von Ihrer KI verlangt',
@@ -305,6 +305,38 @@ export const PUBLIC_FAQ = [
     a: {
       en: 'The EU AI Act and GDPR at the core, plus 35 more EU regulations and German national laws: DORA, NIS2, the Data Act, the CRA, sector rules for finance and healthcare, and more. New laws are added as data, not code, so the library keeps growing.',
       de: 'Im Kern der EU AI Act und die DSGVO, dazu 35 weitere EU-Verordnungen und deutsche Gesetze: DORA, NIS2, der Data Act, der CRA, Branchenregeln fuer Finanzwesen und Gesundheitswesen und mehr. Neue Gesetze werden als Daten ergaenzt, nicht als Code, die Bibliothek waechst also stetig.',
+    },
+  },
+  {
+    id: 'german-national-law',
+    q: { en: 'Does it cover German national AI law, or only the EU AI Act?', de: 'Deckt ihr deutsches Bundesrecht ab, oder nur den EU AI Act?' },
+    a: {
+      en: 'Both. Of the 37 laws in the library, 16 are German national law rather than EU regulation: the KI-MIG (Germany\'s law implementing the AI Act), the BDSG (German data protection law that supplements GDPR), the TDDDG (cookies and tracking), the Hinweisgeberschutzgesetz (whistleblower protection), and more.',
+      de: 'Beides. Von den 37 Gesetzen in der Bibliothek sind 16 deutsches Bundesrecht statt EU-Verordnung: das KI-MIG (Deutschlands Gesetz zur Durchfuehrung des AI Act), das BDSG (deutsches Datenschutzrecht, ergaenzend zur DSGVO), das TDDDG (Cookies und Tracking), das Hinweisgeberschutzgesetz und mehr.',
+    },
+  },
+  {
+    id: 'ki-mig-vs-ai-act',
+    q: { en: 'What is the difference between the EU AI Act and the KI-MIG?', de: 'Was unterscheidet den EU AI Act vom KI-MIG?' },
+    a: {
+      en: 'The EU AI Act is the underlying EU regulation, the same text across all member states. The KI-MIG is Germany\'s national implementing law: it names the Bundesnetzagentur as lead German authority for the AI Act, alongside BaFin and BfArM for their sectors, and sets the national procedure and penalties. Both apply together, one does not replace the other.',
+      de: 'Der EU AI Act ist die zugrunde liegende EU-Verordnung, in allen Mitgliedstaaten wortgleich. Das KI-MIG ist Deutschlands nationales Durchfuehrungsgesetz: Es benennt die Bundesnetzagentur als federfuehrende deutsche Behoerde fuer den AI Act, neben BaFin und BfArM fuer ihre Sektoren, und regelt Verfahren und Sanktionen auf nationaler Ebene. Beide gelten gemeinsam, keines ersetzt das andere.',
+    },
+  },
+  {
+    id: 'gdpr-compliant-software',
+    q: { en: 'Is Compliance Check GDPR compliant AI governance software?', de: 'Ist Compliance Check DSGVO-konforme KI-Governance-Software?' },
+    a: {
+      en: 'Strictly speaking, software cannot be "compliant", only how it processes data can. Compliance Check helps you document and work through your own GDPR obligations for each AI system, and the platform itself is held to the same standard: AES-256-GCM field encryption per organisation, EU-only hosting, and self-service data rights under Art. 15, 17 and 20 GDPR. The full detail is on the Security and GDPR page.',
+      de: 'Streng genommen kann Software nicht "konform" sein, nur die Art, wie sie Daten verarbeitet. Compliance Check hilft Ihnen, Ihre eigenen DSGVO-Pflichten je KI-System zu dokumentieren und abzuarbeiten, und die Plattform selbst haelt denselben Massstab ein: Feldverschluesselung mit AES-256-GCM pro Organisation, ausschliesslich EU-Hosting und Betroffenenrechte im Selbstbedienungsprinzip nach Art. 15, 17 und 20 DSGVO. Alle Details stehen auf der Seite Sicherheit und DSGVO.',
+    },
+  },
+  {
+    id: 'who-its-for',
+    q: { en: 'Is this for a small company, or only large enterprises?', de: 'Ist das fuer kleine Unternehmen, oder nur fuer Konzerne?' },
+    a: {
+      en: 'Either. It works for a five-person startup registering its first AI system just as well as a larger company managing dozens. What it is not is a general enterprise GRC platform: if you need broad ISO 27001 or SOC 2 programme management across all of IT, a dedicated GRC tool is the better fit. Compliance Check is scoped specifically to EU and German AI and data protection law.',
+      de: 'Beides. Es funktioniert fuer ein fuenfkoepfiges Startup, das sein erstes KI-System registriert, ebenso wie fuer ein groesseres Unternehmen mit Dutzenden Systemen. Was es nicht ist: eine allgemeine Enterprise-GRC-Plattform. Wer umfassendes ISO-27001- oder SOC-2-Programmmanagement fuer die gesamte IT braucht, ist mit einem dedizierten GRC-Werkzeug besser bedient. Compliance Check ist gezielt auf EU- und deutsches KI- und Datenschutzrecht zugeschnitten.',
     },
   },
   {

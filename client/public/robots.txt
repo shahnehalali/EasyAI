@@ -1,0 +1,50 @@
+# compliance.rit.services
+# Public marketing pages are open to crawling. Everything else requires a
+# signed-in session, so there is nothing for a crawler to index there; it is
+# excluded anyway so no crawl budget is spent on 401/redirect responses.
+
+User-agent: *
+Allow: /
+Allow: /welcome
+Allow: /about
+Allow: /security
+Allow: /privacy
+Allow: /impressum
+Disallow: /login
+Disallow: /register
+Disallow: /forgot-password
+Disallow: /reset-password
+Disallow: /verify-email
+Disallow: /accept-invite
+Disallow: /ai-systems
+Disallow: /assessments
+Disallow: /documents
+Disallow: /notifications
+Disallow: /settings
+Disallow: /admin
+Disallow: /audit
+Disallow: /community
+Disallow: /law-explorer
+Disallow: /frameworks
+Disallow: /timeline
+Disallow: /faq
+
+# Explicitly allowed, by deliberate decision, not by omission: these are the
+# AI answer-engine crawlers that retrieve content for generative answers
+# (as distinct from the model-training crawlers, a separate decision).
+User-agent: GPTBot
+Allow: /
+
+User-agent: OAI-SearchBot
+Allow: /
+
+User-agent: ClaudeBot
+Allow: /
+
+User-agent: PerplexityBot
+Allow: /
+
+User-agent: Google-Extended
+Allow: /
+
+Sitemap: https://compliance.rit.services/sitemap.xml

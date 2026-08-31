@@ -1,0 +1,27 @@
+# Compliance Check
+
+> GDPR and German national law AI compliance software. Turns the EU AI Act,
+> GDPR and 35 more EU and German national and sector laws (37 total, 16 of
+> them German national law) into a plain-language checklist: classify each AI
+> system by risk, work through the matching requirements, document evidence,
+> get reminded before a review is due. Built by RIT Services, hosted entirely
+> in the EU.
+
+Not legal advice. For binding interpretation of the law, consult a qualified
+lawyer.
+
+## Pages
+
+- [Home](https://compliance.rit.services/): Overview, the four AI Act risk
+  outcomes explained, the full 37-law directory, and FAQ covering GDPR and
+  German national law coverage specifically.
+- [About](https://compliance.rit.services/about): Who built it (RIT Services)
+  and why.
+- [Security and GDPR](https://compliance.rit.services/security): Encryption,
+  hosting, backups, retention periods, sub-processors, and what is not yet in
+  place (no SOC 2 or ISO 27001 certification, stated plainly).
+
+## Notes
+
+- Registration is open; there is no published pricing.
+- The platform is bilingual, German and English.
