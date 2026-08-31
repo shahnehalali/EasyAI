@@ -6,6 +6,7 @@ import MarketingLayout from '@/layouts/MarketingLayout';
 import Landing from '@/views/marketing/Landing';
 import About from '@/views/marketing/About';
 import Security from '@/views/marketing/Security';
+import Documentation from '@/views/marketing/Documentation';
 import PrivacyDraft from '@/views/marketing/PrivacyDraft';
 import ImprintDraft from '@/views/marketing/ImprintDraft';
 
@@ -47,6 +48,7 @@ export default function AppRoutes() {
         <Route path="/welcome" element={<Landing />} />
         <Route path="/about" element={<About />} />
         <Route path="/security" element={<Security />} />
+        <Route path="/docs" element={<Documentation />} />
         <Route path="/privacy" element={<PrivacyDraft />} />
         <Route path="/impressum" element={<ImprintDraft />} />
       </Route>
