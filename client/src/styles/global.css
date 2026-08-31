@@ -990,6 +990,10 @@ body.reply-dock-open [data-feedback-trigger="true"] { display: none !important; 
 .faq-q:hover { color: var(--accent-ink); }
 .faq-chevron { color: var(--muted); flex-shrink: 0; transition: transform 0.15s; }
 .faq-a { margin: 0; padding: 0 0 16px; color: var(--ink-soft); font-size: 13.5px; line-height: 1.6; max-width: 760px; }
+/* Marketing FAQ only (see Landing.jsx): the answer stays in the DOM even when
+   collapsed, so it is present in the raw HTML response for a crawler that
+   does not run JavaScript, not just the item that happens to be open. */
+.faq-a-collapsed { display: none; }
 
 /* Language switch (EN / DE) */
 /* Language switch: a segmented pill with a sliding indicator, mirroring the
