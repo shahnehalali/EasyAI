@@ -27,6 +27,7 @@ export default function MarketingLayout({ children }) {
     { to: '/welcome#faq', label: { en: 'FAQ', de: 'FAQ' } },
   ];
   const routeLinks = [
+    { to: '/docs', label: { en: 'Documentation', de: 'Dokumentation' } },
     { to: '/security', label: { en: 'Security', de: 'Sicherheit' } },
     { to: '/about', label: { en: 'About', de: 'Ueber uns' } },
   ];

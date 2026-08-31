@@ -449,6 +449,7 @@ export const FOOTER = {
       links: [
         { label: { en: 'Overview', de: 'Uebersicht' }, to: '/welcome' },
         { label: { en: 'How it works', de: 'So funktioniert es' }, to: '/welcome#how-it-works' },
+        { label: { en: 'Documentation', de: 'Dokumentation' }, to: '/docs' },
         { label: { en: 'Frameworks', de: 'Regelwerke' }, to: '/welcome#frameworks' },
         { label: { en: 'Security', de: 'Sicherheit' }, to: '/security' },
         { label: { en: 'GDPR', de: 'DSGVO' }, to: '/security#gdpr' },
@@ -690,3 +691,399 @@ export const GDPR_INTRO = {
   en: 'Compliance Check exists to help other companies meet regulatory obligations, so it has to hold itself to at least the same standard with your data. What follows is what is actually true today, not a statement of intent. Where something is still in progress, this page says so, in the section below marked Straight answers.',
   de: 'Compliance Check hilft anderen Unternehmen dabei, regulatorische Pflichten zu erfuellen, und muss deshalb selbst mindestens den gleichen Massstab an Ihre Daten anlegen. Im Folgenden steht, was heute tatsaechlich zutrifft, keine Absichtserklaerung. Wo etwas noch in Arbeit ist, steht das im Abschnitt Ehrliche Antworten weiter unten.',
 };
+
+// The Documentation page (Documentation.jsx). One section per feature of the
+// authenticated app, each paired with a real screenshot from the live
+// product (client/public/docs/), not a stylised mock like FEATURE_ROWS
+// above. Body and point text may contain **bold** markers, parsed by
+// utils/renderBold.jsx into real <strong> elements for the words that
+// genuinely need emphasis, a feature name, a hard number, a required
+// action, not decoration.
+export const DOCS_HERO = {
+  eyebrow: { en: 'Documentation', de: 'Dokumentation' },
+  title: {
+    en: 'Every feature of Compliance Check, explained in detail',
+    de: 'Jede Funktion von Compliance Check, im Detail erklaert',
+  },
+  subtitle: {
+    en: 'This page walks through the product screen by screen: what each part does, why it exists, and how it maps back to the EU AI Act, GDPR, and the rest of the 37 laws in the library. Every screenshot below is real, taken directly from the live application, not a mockup.',
+    de: 'Diese Seite fuehrt Bildschirm fuer Bildschirm durch das Produkt: was jeder Teil tut, warum es ihn gibt, und wie er sich auf den EU AI Act, die DSGVO und die uebrigen 37 Gesetze in der Bibliothek zurueckfuehren laesst. Jeder Screenshot unten ist echt, direkt aus der laufenden Anwendung, kein Mockup.',
+  },
+};
+
+export const DOCS_SECTIONS = [
+  {
+    id: 'dashboard',
+    eyebrow: { en: 'Overview', de: 'Uebersicht' },
+    title: { en: 'Dashboard: your compliance standing at a glance', de: 'Dashboard: Ihr Compliance-Stand auf einen Blick' },
+    body: {
+      en: 'The dashboard is the first thing you see after signing in, and it answers one question immediately: where does your organisation actually stand. A single **compliance standing** percentage sits next to your system count, your open checklist items, and how many reviews are due, so there is nothing to reconstruct from memory or a side spreadsheet.',
+      de: 'Das Dashboard ist das Erste, was Sie nach der Anmeldung sehen, und es beantwortet sofort eine Frage: Wo steht Ihre Organisation tatsaechlich. Eine einzelne **Compliance-Stand**-Prozentzahl steht direkt neben Ihrer Systemanzahl, den offenen Checklistenpunkten und den faelligen Pruefungen, sodass nichts aus dem Gedaechtnis oder einer separaten Tabelle rekonstruiert werden muss.',
+    },
+    points: [
+      {
+        en: '**Risk overview**: how many of your AI systems are high, limited, or minimal risk, at a glance.',
+        de: '**Risikouebersicht**: wie viele Ihrer KI-Systeme hohes, begrenztes oder minimales Risiko haben, auf einen Blick.',
+      },
+      {
+        en: '**Framework progress**: a percentage bar per law, EU AI Act, GDPR, NIS2, CRA and more, showing how far you have worked through each one.',
+        de: '**Fortschritt je Regelwerk**: ein Prozentbalken pro Gesetz, EU AI Act, DSGVO, NIS2, CRA und mehr, der zeigt, wie weit Sie jeweils sind.',
+      },
+      {
+        en: '**Open items by severity**: mandatory, recommended, and informational items, counted separately so you know what actually blocks compliance.',
+        de: '**Offene Punkte nach Schweregrad**: verpflichtend, empfohlen und informativ, getrennt gezaehlt, damit klar ist, was tatsaechlich blockiert.',
+      },
+      {
+        en: '**Recent activity**: a live feed of who did what and when, pulled straight from the audit log.',
+        de: '**Letzte Aktivitaeten**: ein laufender Verlauf, wer was wann getan hat, direkt aus dem Audit-Log.',
+      },
+    ],
+    shots: [
+      { src: '/docs/dashboard.png', alt: { en: 'The Compliance Check dashboard, showing compliance standing, AI system counts, framework progress and recent activity', de: 'Das Compliance Check Dashboard mit Compliance-Stand, Anzahl der KI-Systeme, Fortschritt je Regelwerk und letzten Aktivitaeten' } },
+    ],
+  },
+  {
+    id: 'ai-systems',
+    eyebrow: { en: 'AI system inventory', de: 'KI-System-Inventar' },
+    title: { en: 'AI Systems: register everything you build or use', de: 'KI-Systeme: alles registrieren, was Sie bauen oder nutzen' },
+    body: {
+      en: 'Every AI system your company builds in-house or buys from a vendor gets its own record here: name, purpose, vendor, and lifecycle stage. This inventory is the starting point for everything else in the product. A system cannot be classified or checked off until it exists here.',
+      de: 'Jedes KI-System, das Ihr Unternehmen selbst entwickelt oder bei einem Anbieter einkauft, erhaelt hier einen eigenen Datensatz: Name, Zweck, Anbieter und Lebenszyklusphase. Dieses Inventar ist der Ausgangspunkt fuer alles Weitere im Produkt. Ein System kann erst eingestuft oder abgearbeitet werden, wenn es hier existiert.',
+    },
+    points: [
+      {
+        en: '**Works the same for both**: an in-house model and a third-party tool are registered the same way.',
+        de: '**Funktioniert fuer beides gleich**: ein intern entwickeltes Modell und ein Werkzeug eines Anbieters werden gleich registriert.',
+      },
+      {
+        en: '**Risk level and stage shown at a glance**: high, limited, or minimal risk, alongside whether the system is planned, deployed, or retired.',
+        de: '**Risikostufe und Phase auf einen Blick**: hohes, begrenztes oder minimales Risiko, dazu ob das System geplant, im Einsatz oder ausgemustert ist.',
+      },
+      {
+        en: '**A minute to register**: name, purpose and a short description is enough to get started. Classification comes next.',
+        de: '**In einer Minute registriert**: Name, Zweck und eine kurze Beschreibung reichen zum Start. Die Einstufung folgt danach.',
+      },
+    ],
+    shots: [
+      { src: '/docs/ai-systems-list.png', alt: { en: 'The AI Systems inventory list, showing three registered systems with their risk levels, vendor and deployment stage', de: 'Die Liste der registrierten KI-Systeme mit Risikostufe, Anbieter und Einsatzphase' } },
+    ],
+  },
+  {
+    id: 'classification',
+    eyebrow: { en: 'Risk classification', de: 'Risikoeinstufung' },
+    title: { en: 'Classification: the EU AI Act questionnaire, made concrete', de: 'Einstufung: der EU AI Act als konkreter Fragebogen' },
+    body: {
+      en: 'Instead of asking you to interpret Article 5 and Annex III of the AI Act yourself, Compliance Check asks a series of plain **yes or no questions**, grouped into banned-use checks, high-risk checks, and transparency checks. Each question links back to the exact article that triggers it, and the system is classified the moment you submit your answers.',
+      de: 'Statt Sie Artikel 5 und Anhang III des AI Act selbst auslegen zu lassen, stellt Compliance Check eine Reihe klarer **Ja- oder Nein-Fragen**, gegliedert in Verbotspruefungen, Hochrisikopruefungen und Transparenzpruefungen. Jede Frage verweist auf den genauen Artikel, der sie ausloest, und das System wird direkt nach dem Absenden der Antworten eingestuft.',
+    },
+    points: [
+      {
+        en: '**Banned-use checks come first**: including the newer prohibitions on AI-generated child sexual abuse material and non-consensual intimate imagery, added by the Digital Omnibus.',
+        de: '**Verbotspruefungen zuerst**: einschliesslich der neueren Verbote fuer KI-generiertes Material zu sexuellem Kindesmissbrauch und nicht einvernehmliche intime Aufnahmen, ergaenzt durch den Digital Omnibus.',
+      },
+      {
+        en: '**High-risk checks**: cover Annex III areas such as recruitment, credit scoring, education, law enforcement, and safety components in products.',
+        de: '**Hochrisikopruefungen**: decken Anhang-III-Bereiche wie Personalauswahl, Kreditwuerdigkeitspruefung, Bildung, Strafverfolgung und Sicherheitsbauteile in Produkten ab.',
+      },
+      {
+        en: '**Transparency checks**: catch chatbots and content-generating systems that trigger the lighter Article 50 duties instead.',
+        de: '**Transparenzpruefungen**: erfassen Chatbots und inhaltserzeugende Systeme, fuer die stattdessen die leichteren Pflichten aus Art. 50 gelten.',
+      },
+      {
+        en: '**Answered once, explained clearly**: the result comes with a plain-language reason, not just a label, and the right checklists are built automatically.',
+        de: '**Einmal beantwortet, klar erklaert**: das Ergebnis kommt mit einer verstaendlichen Begruendung, nicht nur mit einem Etikett, und die passenden Checklisten werden automatisch erstellt.',
+      },
+    ],
+    shots: [
+      { src: '/docs/classification-wizard.png', alt: { en: 'The AI system classification questionnaire, showing banned-use, high-risk and transparency check questions with EU AI Act article references', de: 'Der Einstufungsfragebogen mit Verbots-, Hochrisiko- und Transparenzpruefungen samt Verweisen auf den EU AI Act' } },
+    ],
+  },
+  {
+    id: 'ai-system-detail',
+    eyebrow: { en: 'AI system profile', de: 'KI-System-Profil' },
+    title: { en: 'AI System Profile: one record, every obligation', de: 'KI-System-Profil: ein Datensatz, alle Pflichten' },
+    body: {
+      en: 'Open a single AI system and you see its full compliance picture in one place: its risk level, the plain-language reason it was classified that way, and every assessment attached to it, across every applicable framework. A high-risk recruitment tool and a limited-risk chat assistant look genuinely different here, because their legal obligations are genuinely different.',
+      de: 'Oeffnen Sie ein einzelnes KI-System und Sie sehen sein vollstaendiges Compliance-Bild an einem Ort: Risikostufe, die verstaendliche Begruendung der Einstufung und jede zugehoerige Bewertung, ueber alle anwendbaren Regelwerke hinweg. Ein Hochrisiko-Werkzeug fuer die Personalauswahl und ein Chat-Assistent mit begrenztem Risiko sehen hier wirklich unterschiedlich aus, weil ihre rechtlichen Pflichten wirklich unterschiedlich sind.',
+    },
+    points: [
+      {
+        en: '**The classification reason is never hidden**: a short paragraph explains exactly which rule applied, on the same page as the checklists it produced.',
+        de: '**Die Einstufungsbegruendung bleibt sichtbar**: ein kurzer Absatz erklaert genau, welche Regel gegriffen hat, auf derselben Seite wie die daraus entstandenen Checklisten.',
+      },
+      {
+        en: '**Every linked assessment in one table**: EU AI Act, GDPR, and any other framework the system triggers, with live status and progress.',
+        de: '**Alle verknuepften Bewertungen in einer Tabelle**: EU AI Act, DSGVO und jedes weitere ausgeloeste Regelwerk, mit aktuellem Status und Fortschritt.',
+      },
+      {
+        en: '**Re-classify at any time**: if a system\'s purpose changes, run the questionnaire again.',
+        de: '**Jederzeit neu einstufen**: aendert sich der Zweck eines Systems, wird der Fragebogen einfach erneut beantwortet.',
+      },
+    ],
+    shots: [
+      { src: '/docs/ai-system-detail-high-risk.png', alt: { en: 'A high-risk AI system profile, showing its classification reason and four linked compliance assessments', de: 'Ein Hochrisiko-KI-System-Profil mit Einstufungsbegruendung und vier verknuepften Bewertungen' } },
+      { src: '/docs/ai-system-detail-limited-risk.png', alt: { en: 'A limited-risk AI system profile, showing the lighter transparency obligation that applies instead', de: 'Ein Profil eines KI-Systems mit begrenztem Risiko und der stattdessen geltenden, leichteren Transparenzpflicht' } },
+    ],
+  },
+  {
+    id: 'checklist',
+    eyebrow: { en: 'Checklists', de: 'Checklisten' },
+    title: { en: 'Checklists: work through the law, one item at a time', de: 'Checklisten: das Gesetz Punkt fuer Punkt abarbeiten' },
+    body: {
+      en: 'Every requirement a framework imposes becomes one checklist item you can actually act on. Mark it **done**, **in progress**, or leave it open, write the documentation that proves it, assign it to a teammate, and attach evidence. A progress bar and a step tracker on the side keep the whole checklist visible while you work through it point by point.',
+      de: 'Jede Anforderung eines Regelwerks wird zu einem Checklistenpunkt, den Sie wirklich abarbeiten koennen. Markieren Sie ihn als **erledigt**, **in Bearbeitung** oder lassen Sie ihn offen, schreiben Sie die belegende Dokumentation, weisen Sie ihn einer Kollegin oder einem Kollegen zu, und haengen Sie Nachweise an. Ein Fortschrittsbalken und eine Schrittanzeige daneben halten die ganze Checkliste sichtbar, waehrend Sie sie Punkt fuer Punkt abarbeiten.',
+    },
+    points: [
+      {
+        en: '**Required items are marked clearly**: so you always know what is mandatory versus recommended.',
+        de: '**Pflichtpunkte sind klar markiert**: Sie sehen jederzeit, was verpflichtend und was nur empfohlen ist.',
+      },
+      {
+        en: '**Autosave**: your documentation text saves automatically as you write it, with a visible confirmation.',
+        de: '**Automatisches Speichern**: Ihr Dokumentationstext wird beim Schreiben automatisch gespeichert, mit sichtbarer Bestaetigung.',
+      },
+      {
+        en: '**Comment on any item**: discuss a specific requirement with a teammate without leaving the page.',
+        de: '**Jeden Punkt kommentieren**: eine konkrete Anforderung mit einer Kollegin oder einem Kollegen besprechen, ohne die Seite zu verlassen.',
+      },
+    ],
+    shots: [
+      { src: '/docs/assessment-checklist.png', alt: { en: 'A High-Risk AI Obligations checklist at 40 percent progress, with two items marked Done and a step tracker on the right', de: 'Eine Checkliste zu Hochrisiko-Pflichten bei 40 Prozent Fortschritt, mit zwei erledigten Punkten und einer Schrittanzeige rechts' } },
+    ],
+  },
+  {
+    id: 'assessments-overview',
+    eyebrow: { en: 'Assessments', de: 'Bewertungen' },
+    title: { en: 'Assessments: every checklist, across every system, in one view', de: 'Bewertungen: alle Checklisten, ueber alle Systeme, in einer Ansicht' },
+    body: {
+      en: 'Zoom out from a single checklist and the Assessments page groups every checklist you have, by AI system, plus an **organisation-wide** group for obligations that are not tied to one specific system, such as your NIS2 cybersecurity measures. Filter by system, see how many checklists are in progress, completed, or need review, and jump straight into any of them.',
+      de: 'Zoomen Sie aus einer einzelnen Checkliste heraus, und die Seite Bewertungen gruppiert alle Ihre Checklisten nach KI-System, dazu eine **organisationsweite** Gruppe fuer Pflichten, die nicht an ein bestimmtes System gebunden sind, etwa Ihre NIS2-Cybersicherheitsmassnahmen. Filtern Sie nach System, sehen Sie, wie viele Checklisten in Bearbeitung, abgeschlossen oder pruefungsbeduerftig sind, und springen Sie direkt in jede von ihnen.',
+    },
+    points: [
+      {
+        en: '**Grouped by system, and by framework within each system**: EU AI Act, GDPR, NIS2, and CRA checklists never get mixed together.',
+        de: '**Gruppiert nach System, und je System nach Regelwerk**: Checklisten zu EU AI Act, DSGVO, NIS2 und CRA werden nie vermischt.',
+      },
+      {
+        en: '**Next review date on every row**: see what is coming due without opening each one.',
+        de: '**Naechstes Pruefdatum in jeder Zeile**: erkennen, was faellig wird, ohne jede einzelne zu oeffnen.',
+      },
+      {
+        en: '**Organisation-wide checklists**: obligations that apply to your company as a whole, not to a single AI system.',
+        de: '**Organisationsweite Checklisten**: Pflichten, die fuer Ihr gesamtes Unternehmen gelten, nicht nur fuer ein einzelnes KI-System.',
+      },
+    ],
+    shots: [
+      { src: '/docs/assessments-overview.png', alt: { en: 'The Assessments overview page, grouping checklists by AI system and by organisation-wide obligations, with status and progress for each', de: 'Die Uebersicht der Bewertungen, gruppiert nach KI-System und organisationsweiten Pflichten, mit Status und Fortschritt' } },
+    ],
+  },
+  {
+    id: 'law-explorer',
+    eyebrow: { en: 'Law Explorer', de: 'Gesetzes-Explorer' },
+    title: { en: 'Law Explorer: know exactly which laws apply to you', de: 'Gesetzes-Explorer: genau wissen, welche Gesetze gelten' },
+    body: {
+      en: 'The Law Explorer starts with a different question, not "is this AI system high-risk" but "what does your company actually do". Answer a short set of checkboxes, whether you process personal data, use AI in recruitment, run an online platform, or fall under a regulated sector like finance or healthcare, and the tool highlights which of the **37 laws** in the library likely apply, organised into EU-wide, German national, and sector-specific tiers.',
+      de: 'Der Gesetzes-Explorer beginnt mit einer anderen Frage, nicht "ist dieses KI-System Hochrisiko", sondern "was macht Ihr Unternehmen eigentlich". Beantworten Sie einige kurze Kontrollkaestchen, etwa ob Sie personenbezogene Daten verarbeiten, KI in der Personalauswahl einsetzen, eine Online-Plattform betreiben oder einem regulierten Sektor wie Finanzwesen oder Gesundheitswesen angehoeren, und das Werkzeug zeigt, welche der **37 Gesetze** in der Bibliothek voraussichtlich gelten, gegliedert in EU-weite, deutsche nationale und branchenspezifische Ebenen.',
+    },
+    points: [
+      {
+        en: '**Guided, not a wall of text**: your selections are saved, and a short summary explains what applies before you read a single law.',
+        de: '**Gefuehrt, keine Textwueste**: Ihre Auswahl wird gespeichert, eine kurze Zusammenfassung erklaert die Anwendbarkeit, bevor Sie ein einziges Gesetz lesen.',
+      },
+      {
+        en: '**Free-text search too**: describe your company in your own words and the tool suggests likely laws.',
+        de: '**Auch als Freitextsuche**: beschreiben Sie Ihr Unternehmen in eigenen Worten, das Werkzeug schlaegt passende Gesetze vor.',
+      },
+      {
+        en: '**A full timeline included**: every key compliance date for every law, from bans already in force to deadlines still years away.',
+        de: '**Mit vollstaendiger Zeitleiste**: jedes wichtige Compliance-Datum jedes Gesetzes, von bereits geltenden Verboten bis zu Fristen, die noch Jahre entfernt sind.',
+      },
+    ],
+    shots: [
+      { src: '/docs/law-explorer.png', alt: { en: 'The Law Explorer page, showing the guided applicability questionnaire above a tiered directory of EU, German national and sector-specific laws', de: 'Der Gesetzes-Explorer mit dem gefuehrten Anwendbarkeitsfragebogen ueber einem gestuften Verzeichnis von EU-, deutschen und branchenspezifischen Gesetzen' } },
+    ],
+  },
+  {
+    id: 'frameworks',
+    eyebrow: { en: 'Frameworks library', de: 'Regelwerk-Bibliothek' },
+    title: { en: 'Frameworks: 37 laws, explained in plain language', de: 'Regelwerke: 37 Gesetze, verstaendlich erklaert' },
+    body: {
+      en: 'Every law in the catalogue, EU regulation or German national law, gets its own page: what you must do, who has to comply, who enforces it in Germany, the key dates, the penalties for getting it wrong, and every requirement written in plain language with its article number attached. Nothing here replaces legal advice, but it replaces the hours it would take to find this out from the regulation text itself.',
+      de: 'Jedes Gesetz im Katalog, EU-Verordnung oder deutsches Bundesrecht, erhaelt eine eigene Seite: was zu tun ist, wer es einhalten muss, wer es in Deutschland durchsetzt, die wichtigsten Fristen, die Sanktionen bei Verstoessen, und jede Anforderung verstaendlich formuliert mit dem zugehoerigen Artikel. Nichts davon ersetzt eine Rechtsberatung, aber es erspart die Stunden, die man braucht, um das aus dem Verordnungstext selbst herauszufinden.',
+    },
+    points: [
+      {
+        en: '**Requirements in plain language, cited by article**: Article 9 becomes "run a risk management process across the system\'s whole life", not a paragraph of legal text.',
+        de: '**Anforderungen verstaendlich formuliert, mit Artikelangabe**: aus Artikel 9 wird "einen Risikomanagementprozess ueber das gesamte Systemleben betreiben", kein Absatz Gesetzestext.',
+      },
+      {
+        en: '**Start a checklist directly from the law page**: no need to go back to an AI system first.',
+        de: '**Checkliste direkt von der Gesetzesseite starten**: kein Umweg mehr ueber ein KI-System.',
+      },
+      {
+        en: '**A discussion thread on every law**: ask a question or share how you documented a specific requirement.',
+        de: '**Ein Diskussionsstrang je Gesetz**: eine Frage stellen oder teilen, wie eine bestimmte Anforderung dokumentiert wurde.',
+      },
+    ],
+    shots: [
+      { src: '/docs/frameworks-library.png', alt: { en: 'The Frameworks library, a paginated table of 34 laws with their tier, requirement count and available checklists', de: 'Die Regelwerk-Bibliothek, eine paginierte Tabelle von 34 Gesetzen mit Ebene, Anzahl der Anforderungen und verfuegbaren Checklisten' } },
+      { src: '/docs/framework-detail.png', alt: { en: 'The EU AI Act framework page, showing what you must do, key dates, penalties, and requirements in plain language with article citations', de: 'Die Seite zum EU AI Act mit Pflichten, wichtigen Fristen, Sanktionen und verstaendlich formulierten Anforderungen mit Artikelangaben' } },
+    ],
+  },
+  {
+    id: 'timeline',
+    eyebrow: { en: 'Compliance timeline', de: 'Compliance-Zeitleiste' },
+    title: { en: 'Timeline: every deadline in one place', de: 'Zeitleiste: alle Fristen an einem Ort' },
+    body: {
+      en: 'AI regulation in Germany does not arrive on one date. The AI Act alone has phased deadlines stretching from 2025 to 2030, and every other framework in the library adds its own. The Compliance Timeline lists them all, grouped by year, alongside your own assessment review dates, so a milestone that already passed, a deadline three months away, and a review you scheduled yourself all live on the same page.',
+      de: 'KI-Regulierung in Deutschland kommt nicht an einem einzigen Datum. Allein der AI Act hat gestaffelte Fristen von 2025 bis 2030, und jedes weitere Regelwerk in der Bibliothek bringt eigene mit. Die Compliance-Zeitleiste listet sie alle, gruppiert nach Jahr, zusammen mit Ihren eigenen Pruefterminen, sodass ein bereits vergangener Meilenstein, eine Frist in drei Monaten und eine selbst geplante Pruefung auf derselben Seite stehen.',
+    },
+    points: [
+      {
+        en: '**Regulatory milestones and your own reviews, together**: not two lists to check separately.',
+        de: '**Regulatorische Meilensteine und eigene Pruefungen zusammen**: keine zwei getrennten Listen mehr.',
+      },
+      {
+        en: '**Done, upcoming, and overdue, counted clearly**: at the top of the page, before you scroll.',
+        de: '**Erledigt, anstehend und ueberfaellig klar gezaehlt**: oben auf der Seite, noch vor dem Scrollen.',
+      },
+      {
+        en: '**Add to calendar**: export the dates that matter to you.',
+        de: '**Zum Kalender hinzufuegen**: die fuer Sie wichtigen Termine exportieren.',
+      },
+    ],
+    shots: [
+      { src: '/docs/compliance-timeline.png', alt: { en: 'The Compliance Timeline page with 2026 expanded, showing regulatory milestones such as the Cyber Resilience Act reporting duty start date', de: 'Die Compliance-Zeitleiste mit aufgeklapptem Jahr 2026, mit Meilensteinen wie dem Start der Meldepflicht des Cyber Resilience Act' } },
+    ],
+  },
+  {
+    id: 'documents',
+    eyebrow: { en: 'Evidence', de: 'Nachweise' },
+    title: { en: 'Documents: an encrypted evidence library', de: 'Dokumente: eine verschluesselte Nachweisbibliothek' },
+    body: {
+      en: 'Every file you attach to a checklist item also appears here, in one evidence library for the whole organisation. Nothing is stored in plaintext, not even temporarily: a document is encrypted with your organisation\'s own key before it is written to disk, and the same key decrypts it again the moment you download it.',
+      de: 'Jede Datei, die Sie an einen Checklistenpunkt anhaengen, erscheint auch hier, in einer Nachweisbibliothek fuer die gesamte Organisation. Nichts wird im Klartext gespeichert, auch nicht voruebergehend: ein Dokument wird mit dem eigenen Schluessel Ihrer Organisation verschluesselt, bevor es gespeichert wird, und derselbe Schluessel entschluesselt es beim Herunterladen wieder.',
+    },
+    points: [
+      {
+        en: '**Encrypted before it touches disk**: not after, and not optionally.',
+        de: '**Verschluesselt, bevor es gespeichert wird**: nicht danach, und nicht optional.',
+      },
+      {
+        en: '**Attached to the requirement it proves**: a file lives next to the checklist item it supports, not in a generic folder.',
+        de: '**An die belegte Anforderung angehaengt**: eine Datei liegt beim zugehoerigen Checklistenpunkt, nicht in einem allgemeinen Ordner.',
+      },
+      {
+        en: '**Delete at any time**: removing a document removes it for good, consistent with the data rights described in Settings.',
+        de: '**Jederzeit loeschbar**: das Entfernen eines Dokuments loescht es endgueltig, konsistent mit den Betroffenenrechten in den Einstellungen.',
+      },
+    ],
+    shots: [
+      { src: '/docs/documents.png', alt: { en: 'The Documents evidence library, listing uploaded compliance files with their type, size and upload date', de: 'Die Nachweisbibliothek mit hochgeladenen Compliance-Dateien, Typ, Groesse und Uploaddatum' } },
+    ],
+  },
+  {
+    id: 'community',
+    eyebrow: { en: 'Community', de: 'Community' },
+    title: { en: 'Community: ask people solving the same problem', de: 'Community: fragen, wer dasselbe Problem loest' },
+    body: {
+      en: 'A compliance question rarely has one textbook answer, especially when the underlying law is new. The Community section is a place to ask other users how they documented a specific requirement, or to answer someone else\'s question, organised as public discussions or company-private ones, and anchored to a specific law when it helps to be precise.',
+      de: 'Eine Compliance-Frage hat selten eine einzige Lehrbuchantwort, vor allem wenn das zugrunde liegende Gesetz neu ist. Die Community ist ein Ort, um andere Nutzerinnen und Nutzer zu fragen, wie sie eine bestimmte Anforderung dokumentiert haben, oder um die Frage einer anderen Person zu beantworten, oeffentlich oder unternehmensintern, und bei Bedarf an ein konkretes Gesetz angebunden.',
+    },
+    points: [
+      {
+        en: '**Public or company-only**: choose whether a discussion is visible to everyone or kept inside your own organisation.',
+        de: '**Oeffentlich oder nur intern**: waehlen, ob eine Diskussion fuer alle sichtbar ist oder in der eigenen Organisation bleibt.',
+      },
+      {
+        en: '**Anchored to a law**: start a discussion from a framework\'s own page and it stays linked to that context.',
+        de: '**An ein Gesetz angebunden**: eine Diskussion direkt von der Regelwerkseite starten, sie bleibt mit diesem Kontext verknuepft.',
+      },
+      {
+        en: '**Not legal advice**: clearly labelled as peer guidance, the same honesty standard the rest of the product holds to.',
+        de: '**Keine Rechtsberatung**: klar als Erfahrungsaustausch gekennzeichnet, derselbe ehrliche Massstab wie im ganzen Produkt.',
+      },
+    ],
+    shots: [
+      { src: '/docs/community.png', alt: { en: 'The Community page showing public discussion threads about GDPR documentation and human oversight practices', de: 'Die Community-Seite mit oeffentlichen Diskussionen zu DSGVO-Dokumentation und menschlicher Aufsicht' } },
+    ],
+  },
+  {
+    id: 'audit-log',
+    eyebrow: { en: 'Accountability', de: 'Nachvollziehbarkeit' },
+    title: { en: 'Audit Log: a record of who did what, and when', de: 'Audit-Log: ein Protokoll, wer was wann getan hat' },
+    body: {
+      en: 'Every meaningful action in your organisation, a checklist item updated, an AI system created or classified, a document deleted, is written to an audit log you can filter, search, and export as CSV. This is the same kind of log an auditor or a regulator would expect to see, kept automatically rather than assembled after the fact.',
+      de: 'Jede relevante Aktion in Ihrer Organisation, ein aktualisierter Checklistenpunkt, ein angelegtes oder eingestuftes KI-System, ein geloeschtes Dokument, wird in ein Audit-Log geschrieben, das sich filtern, durchsuchen und als CSV exportieren laesst. Genau diese Art von Protokoll erwarten Pruefer oder Aufsichtsbehoerden, automatisch gefuehrt statt nachtraeglich zusammengestellt.',
+    },
+    points: [
+      {
+        en: '**Every entry has a who, a what, and a when**: no anonymous changes.',
+        de: '**Jeder Eintrag hat ein Wer, ein Was und ein Wann**: keine anonymen Aenderungen.',
+      },
+      {
+        en: '**Filterable by action type**: find every classification, every deletion, or every document upload on its own.',
+        de: '**Filterbar nach Aktionstyp**: jede Einstufung, jede Loeschung oder jeden Dokumenten-Upload einzeln finden.',
+      },
+      {
+        en: '**Exportable**: download the full log as CSV when you need it outside the product.',
+        de: '**Exportierbar**: das vollstaendige Protokoll als CSV herunterladen, wenn es ausserhalb des Produkts gebraucht wird.',
+      },
+    ],
+    shots: [
+      { src: '/docs/audit-log.png', alt: { en: 'The Audit Log page, listing actions such as checklist item updates and AI system classifications with who performed them and when', de: 'Das Audit-Log mit Aktionen wie aktualisierten Checklistenpunkten und KI-System-Einstufungen samt Person und Zeitpunkt' } },
+    ],
+  },
+  {
+    id: 'notifications',
+    eyebrow: { en: 'Staying on track', de: 'Am Ball bleiben' },
+    title: { en: 'Notifications: reminders before anything falls due', de: 'Benachrichtigungen: Erinnerungen, bevor etwas faellig wird' },
+    body: {
+      en: 'A scheduled job checks every organisation\'s assessments every day, not once a year by hand, and raises a notification when an annual review is coming due. Notifications appear in-app and, per the schedule you set, by email as well, so a review date does not go quietly unnoticed.',
+      de: 'Ein geplanter Job prueft taeglich die Bewertungen jeder Organisation, nicht einmal im Jahr von Hand, und erzeugt eine Benachrichtigung, wenn eine jaehrliche Pruefung ansteht. Benachrichtigungen erscheinen in der App und, je nach eingestelltem Vorlauf, auch per E-Mail, damit ein Pruefdatum nicht unbemerkt verstreicht.',
+    },
+    points: [
+      {
+        en: '**Checked daily, not annually**: the review window is a setting, not a manual reminder someone has to remember to send.',
+        de: '**Taeglich geprueft, nicht jaehrlich**: der Pruefvorlauf ist eine Einstellung, keine manuelle Erinnerung, die jemand verschicken muss.',
+      },
+      {
+        en: '**Tied to a specific checklist**: a notification opens directly to the assessment it concerns.',
+        de: '**An eine konkrete Checkliste gebunden**: eine Benachrichtigung oeffnet direkt die betroffene Bewertung.',
+      },
+      {
+        en: '**Mark as read individually or all at once**: keep the list clean without losing the history.',
+        de: '**Einzeln oder gesammelt als gelesen markieren**: die Liste uebersichtlich halten, ohne den Verlauf zu verlieren.',
+      },
+    ],
+    shots: [
+      { src: '/docs/notifications.png', alt: { en: 'The Notifications page, listing annual review reminders for NIS2, BaFin AI and EU AI Act checklists', de: 'Die Benachrichtigungsseite mit jaehrlichen Erinnerungen zu NIS2-, BaFin-KI- und EU-AI-Act-Checklisten' } },
+    ],
+  },
+  {
+    id: 'team-settings',
+    eyebrow: { en: 'Team and data rights', de: 'Team und Betroffenenrechte' },
+    title: { en: 'Settings: your team, your roles, and your own data rights', de: 'Einstellungen: Ihr Team, Ihre Rollen, Ihre eigenen Betroffenenrechte' },
+    body: {
+      en: 'Settings covers three things that usually live in three different places: organisation and team management, role-based permissions, and the data rights Compliance Check asks every AI system to respect, applied to your own account. Invite a teammate, set their role, and see exactly what each role can and cannot do, all on one page.',
+      de: 'Die Einstellungen decken drei Dinge ab, die sonst an drei verschiedenen Orten liegen: Organisations- und Teamverwaltung, rollenbasierte Berechtigungen und die Betroffenenrechte, die Compliance Check von jedem KI-System einfordert, angewendet auf das eigene Konto. Eine Kollegin oder einen Kollegen einladen, die Rolle festlegen, und genau sehen, was jede Rolle darf und was nicht, alles auf einer Seite.',
+    },
+    points: [
+      {
+        en: '**Four roles, clearly scoped**: owner, admin, member, and viewer, each with a plain description of what it allows.',
+        de: '**Vier klar abgegrenzte Rollen**: Inhaber, Admin, Mitglied und Betrachter, jeweils mit klarer Beschreibung der Berechtigungen.',
+      },
+      {
+        en: '**Annual review reminders, per checklist**: turn a specific reminder on or off, or see its cadence and next date.',
+        de: '**Jaehrliche Erinnerungen je Checkliste**: eine bestimmte Erinnerung ein- oder ausschalten, oder Rhythmus und naechsten Termin einsehen.',
+      },
+      {
+        en: '**Your data and privacy, built in, not promised**: download a full export of everything held about your account, or permanently delete your account or your entire organisation, in the same page you manage your team.',
+        de: '**Ihre Daten und Ihr Datenschutz, eingebaut statt nur versprochen**: einen vollstaendigen Export aller Kontodaten herunterladen, oder das eigene Konto beziehungsweise die gesamte Organisation endgueltig loeschen, auf derselben Seite, auf der Sie Ihr Team verwalten.',
+      },
+    ],
+    shots: [
+      { src: '/docs/settings-team.png', alt: { en: 'The Settings page, showing organisation profile, team members with roles, annual review reminders and data export and deletion controls', de: 'Die Einstellungsseite mit Organisationsprofil, Teammitgliedern mit Rollen, jaehrlichen Erinnerungen sowie Datenexport und Loeschung' } },
+    ],
+  },
+];

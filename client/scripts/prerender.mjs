@@ -59,6 +59,13 @@ const PAGES = [
     canonical: `${SITE}/security`,
   },
   {
+    route: '/docs',
+    outFile: 'docs.html',
+    title: 'Documentation | Compliance Check Features Explained',
+    description: 'Every feature of Compliance Check explained in detail with real screenshots: AI system inventory, EU AI Act risk classification, checklists, the Law Explorer, the frameworks library, compliance timeline, encrypted documents, audit log, and team settings.',
+    canonical: `${SITE}/docs`,
+  },
+  {
     route: '/privacy',
     outFile: 'privacy.html',
     title: 'Privacy Notice (Draft) | Compliance Check',

@@ -15,6 +15,7 @@ import MarketingLayout from '@/layouts/MarketingLayout';
 import Landing from '@/views/marketing/Landing';
 import About from '@/views/marketing/About';
 import Security from '@/views/marketing/Security';
+import Documentation from '@/views/marketing/Documentation';
 import PrivacyDraft from '@/views/marketing/PrivacyDraft';
 import ImprintDraft from '@/views/marketing/ImprintDraft';
 
@@ -23,6 +24,7 @@ const PAGES = {
   '/welcome': Landing,
   '/about': About,
   '/security': Security,
+  '/docs': Documentation,
   '/privacy': PrivacyDraft,
   '/impressum': ImprintDraft,
 };
