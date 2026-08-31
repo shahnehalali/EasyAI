@@ -4,10 +4,12 @@
 // ClaudeBot, PerplexityBot, etc., per the geo-content-optimization skill)
 // sees real content in the response bytes, not an empty <div id="root">.
 //
-// Nginx already serves index.html as each directory's index (see
-// client/nginx.conf: `index index.html;`), so writing dist/welcome/index.html
-// means a request for /welcome is answered with the prerendered file
-// directly, no server-side routing change needed.
+// Written as flat files (dist/welcome.html), not dist/welcome/index.html:
+// nginx treats a real subdirectory as a directory request and issues a 301
+// to add the trailing slash before try_files ever runs, which most non-JS
+// crawlers either skip or follow to a URL that no longer matches the page's
+// own <link rel="canonical">. client/nginx.conf's `try_files $uri $uri.html
+// ...` serves the flat file directly instead, no redirect, no extra hop.
 //
 // Real browsers are unaffected: main.jsx still does a normal client-side
 // `ReactDOM.createRoot(...).render(...)`, which replaces the prerendered
@@ -35,7 +37,7 @@ const PAGES = [
   },
   {
     route: '/welcome',
-    outFile: 'welcome/index.html',
+    outFile: 'welcome.html',
     title: 'Compliance Check | GDPR and German National Law AI Compliance',
     description: 'GDPR and German national law AI compliance software: 12 EU-wide laws, 16 German national laws and 9 sector rules (37 total), including the EU AI Act, GDPR, BDSG and KI-MIG, as one plain-language checklist. Classify AI systems by risk, document evidence, get reminded before reviews are due.',
     // Identical content to "/": canonicalise here rather than duplicate it.
@@ -44,21 +46,21 @@ const PAGES = [
   },
   {
     route: '/about',
-    outFile: 'about/index.html',
+    outFile: 'about.html',
     title: 'About Compliance Check | Built by RIT Services',
     description: 'Compliance Check is built by RIT Services, a software team based in Germany. Why it exists, and how it protects your data.',
     canonical: `${SITE}/about`,
   },
   {
     route: '/security',
-    outFile: 'security/index.html',
+    outFile: 'security.html',
     title: 'GDPR Compliance for AI Software | Compliance Check Security',
     description: 'How Compliance Check protects your data under GDPR: AES-256-GCM field encryption per organisation, EU-only hosting, daily encrypted backups, and self-service data rights under Art. 15, 17 and 20 GDPR.',
     canonical: `${SITE}/security`,
   },
   {
     route: '/privacy',
-    outFile: 'privacy/index.html',
+    outFile: 'privacy.html',
     title: 'Privacy Notice (Draft) | Compliance Check',
     description: 'Draft privacy notice for Compliance Check, pending final legal review.',
     canonical: `${SITE}/privacy`,
@@ -68,7 +70,7 @@ const PAGES = [
   },
   {
     route: '/impressum',
-    outFile: 'impressum/index.html',
+    outFile: 'impressum.html',
     title: 'Impressum (Draft) | Compliance Check',
     description: 'Draft Impressum for Compliance Check, pending final legal review.',
     canonical: `${SITE}/impressum`,
