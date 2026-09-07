@@ -468,7 +468,7 @@ export const FOOTER = {
       title: { en: 'Legal', de: 'Rechtliches' },
       links: [
         { label: { en: 'Privacy', de: 'Datenschutz' }, to: '/privacy' },
-        { label: { en: 'Data Processing Agreement', de: 'AVV' }, to: '/dpa' },
+        { label: { en: 'Data Processing Agreement', de: 'Auftragsverarbeitungsvertrag' }, to: '/avv' },
         { label: { en: 'Imprint', de: 'Impressum' }, to: '/impressum' },
       ],
     },
@@ -613,8 +613,8 @@ export const GDPR_SECTIONS = [
     stat: { en: 'EU only, always', de: 'Ausschliesslich EU' },
     q: { en: 'Where is data hosted?', de: 'Wo werden die Daten gehostet?' },
     a: {
-      en: 'Entirely within the European Union, on infrastructure from Hetzner, IONOS, and Strato, all German hosting providers, across data centres in Germany and Finland. No customer data leaves the EU for storage or processing.',
-      de: 'Vollstaendig innerhalb der Europaeischen Union, auf Infrastruktur von Hetzner, IONOS und Strato, allesamt deutsche Hosting-Anbieter, in Rechenzentren in Deutschland und Finnland. Keine Kundendaten verlassen die EU zur Speicherung oder Verarbeitung.',
+      en: 'Compliance Check runs on our own Kubernetes cluster. The cluster nodes are dedicated servers rented from Hetzner Online GmbH, IONOS SE and STRATO GmbH, in data centers in Germany and Finland, entirely within the European Union. These providers supply hardware, data center and network only, and STRATO additionally manages our DNS, none of them have logical access to our systems or data. All disks and databases are encrypted.',
+      de: 'Compliance Check laeuft auf einem eigenen Kubernetes-Cluster. Die Cluster-Knoten sind dedizierte Server, gemietet bei der Hetzner Online GmbH, der IONOS SE und der STRATO GmbH, in Rechenzentren in Deutschland und Finnland, vollstaendig innerhalb der Europaeischen Union. Diese Anbieter stellen ausschliesslich Hardware, Rechenzentrum und Netzanbindung bereit, STRATO verwaltet zusaetzlich unser DNS, keiner von ihnen hat logischen Zugriff auf unsere Systeme oder Daten. Alle Datentraeger und Datenbanken sind verschluesselt.',
     },
   },
   {
@@ -659,10 +659,10 @@ export const GDPR_SECTIONS = [
     group: 'pillar',
     icon: 'Share2',
     stat: { en: 'Four, named, kept short', de: 'Vier, namentlich, bewusst kurz' },
-    q: { en: 'Who are the sub-processors?', de: 'Wer sind die Auftragsverarbeiter?' },
+    q: { en: 'Who are the sub-processors?', de: 'Wer sind die Unterauftragsverarbeiter?' },
     a: {
-      en: 'Hetzner, IONOS, and Strato for hosting (Germany, Finland), each with no access to your content, and Plus Five Five, Inc. (Resend, USA) for transactional email delivery (account verification, password reset, review reminders), under the EU-US Data Privacy Framework. We keep this list short on purpose.',
-      de: 'Hetzner, IONOS und Strato fuer das Hosting (Deutschland, Finnland), jeweils ohne Zugriff auf Ihre Inhalte, sowie Plus Five Five, Inc. (Resend, USA) fuer den Versand transaktionaler E-Mails (Kontoverifizierung, Passwort-Reset, Erinnerungen an Pruefungen), im Rahmen des EU-US Data Privacy Framework. Diese Liste halten wir bewusst kurz.',
+      en: 'Hetzner Online GmbH, IONOS SE and STRATO GmbH (dedicated server hosting, no data access), and Resend (Plus Five Five, Inc., USA) for sending transactional emails (account verification, password reset, review reminders), certified under the EU-U.S. Data Privacy Framework. The complete list with addresses and tasks is Annex 3 of our Data Processing Agreement.',
+      de: 'Hetzner Online GmbH, IONOS SE und STRATO GmbH (dediziertes Server-Hosting, kein Datenzugriff), sowie Resend (Plus Five Five, Inc., USA) fuer den Versand transaktionaler E-Mails (Kontoverifizierung, Passwort-Reset, Erinnerungen an Pruefungen), zertifiziert nach dem EU-US Data Privacy Framework. Die vollstaendige Liste mit Anschriften und Aufgaben ist Anlage 3 unseres Auftragsverarbeitungsvertrags.',
     },
   },
   {
@@ -679,10 +679,17 @@ export const GDPR_SECTIONS = [
     id: 'dpa',
     group: 'straight',
     icon: 'FileText',
-    q: { en: 'Can we get a Data Processing Agreement?', de: 'Koennen wir eine Auftragsverarbeitungsvereinbarung erhalten?' },
+    q: { en: 'Can we get a Data Processing Agreement?', de: 'Koennen wir einen Auftragsverarbeitungsvertrag erhalten?' },
+    // {LINK} is replaced with a real <Link> to `link.to`, rendered as
+    // `link.text[lang]`, by StraightRow in Security.jsx. Kept as a token
+    // here rather than JSX so this file stays plain, serialisable content.
     a: {
-      en: 'Yes, and it is not a separate request: our Art. 28 GDPR Data Processing Agreement (AVV) is accepted automatically during registration, and the version your organisation accepted is downloadable at any time from Settings. You can read the current template before signing up on the AVV page.',
-      de: 'Ja, und das ist keine gesonderte Anfrage: Unsere Auftragsverarbeitungsvereinbarung (AVV) nach Art. 28 DSGVO wird automatisch bei der Registrierung akzeptiert, und die von Ihrer Organisation akzeptierte Fassung kann jederzeit in den Einstellungen heruntergeladen werden. Die aktuelle Vorlage koennen Sie schon vor der Anmeldung auf der AVV-Seite lesen.',
+      en: 'Our Data Processing Agreement pursuant to Art. 28 GDPR is publicly available at {LINK}, including a PDF download. Every organization concludes it during registration, and the signed version can be downloaded at any time in the organization settings.',
+      de: 'Unser Auftragsverarbeitungsvertrag nach Art. 28 DSGVO ist oeffentlich verfuegbar unter {LINK}, einschliesslich PDF-Download. Jede Organisation schliesst ihn bei der Registrierung ab, und die unterzeichnete Fassung kann jederzeit in den Organisationseinstellungen heruntergeladen werden.',
+    },
+    link: {
+      to: '/avv',
+      text: { en: 'Data Processing Agreement', de: 'Auftragsverarbeitungsvertrag' },
     },
   },
   {

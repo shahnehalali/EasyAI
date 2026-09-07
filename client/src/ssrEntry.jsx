@@ -16,7 +16,7 @@ import Landing from '@/views/marketing/Landing';
 import About from '@/views/marketing/About';
 import Security from '@/views/marketing/Security';
 import Documentation from '@/views/marketing/Documentation';
-import Dpa from '@/views/marketing/Dpa';
+import Avv from '@/views/marketing/Avv';
 import PrivacyDraft from '@/views/marketing/PrivacyDraft';
 import ImprintDraft from '@/views/marketing/ImprintDraft';
 
@@ -26,7 +26,7 @@ const PAGES = {
   '/about': About,
   '/security': Security,
   '/docs': Documentation,
-  '/dpa': Dpa,
+  '/avv': Avv,
   '/privacy': PrivacyDraft,
   '/impressum': ImprintDraft,
 };

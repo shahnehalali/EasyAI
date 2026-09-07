@@ -26,6 +26,22 @@ function PillarCard({ section, lang }) {
   );
 }
 
+// Splits the answer on the {LINK} token (see marketingContent.js's 'dpa'
+// entry) and substitutes a real react-router <Link>, so a data-driven
+// straight answer can still contain a genuine hyperlink instead of only
+// plain text.
+function renderWithLink(text, link, lang) {
+  if (!link) return highlightTerms(text);
+  const [before, after] = text.split('{LINK}');
+  return (
+    <>
+      {highlightTerms(before)}
+      <Link to={link.to}>{link.text[lang]}</Link>
+      {highlightTerms(after)}
+    </>
+  );
+}
+
 function StraightRow({ section, lang }) {
   const Icon = ICONS[section.icon];
   return (
@@ -33,7 +49,7 @@ function StraightRow({ section, lang }) {
       <div className="mkt-straight-icon mkt-straight-icon-amber"><Icon size={16} /></div>
       <div>
         <div className="mkt-straight-q">{section.q[lang]}</div>
-        <p className="mkt-straight-a">{highlightTerms(section.a[lang])}</p>
+        <p className="mkt-straight-a">{renderWithLink(section.a[lang], section.link, lang)}</p>
       </div>
     </div>
   );
@@ -82,6 +98,10 @@ export default function Security() {
               {straight.map((s) => <StraightRow key={s.id} section={s} lang={lang} />)}
             </div>
           </div>
+          <p className="muted small" style={{ marginTop: 20 }} data-testid="gdpr-privacy-crosslink">
+            {lang === 'de' ? 'Details dazu, wie wir Ihre personenbezogenen Daten verarbeiten: ' : 'Details on how we process your personal data: '}
+            <Link to="/privacy">{lang === 'de' ? 'Datenschutzerklaerung' : 'Privacy Notice'}</Link>.
+          </p>
         </div>
       </section>
 
@@ -90,11 +110,11 @@ export default function Security() {
           <h2>{lang === 'de' ? 'Weitere Fragen zur Sicherheit?' : 'More security questions?'}</h2>
           <p className="mkt-lead-sm" style={{ margin: '10px auto 22px' }}>
             {lang === 'de'
-              ? 'Fuer eine Auftragsverarbeitungsvereinbarung oder weitere Unterlagen kontaktieren Sie uns.'
-              : 'For a Data Processing Agreement or further documentation, contact us.'}
+              ? 'Lesen Sie unseren Auftragsverarbeitungsvertrag, oder kontaktieren Sie uns fuer weitere Unterlagen.'
+              : 'Read our Data Processing Agreement, or contact us for further documentation.'}
           </p>
           <div className="row" style={{ gap: 12, justifyContent: 'center' }}>
-            <Link to="/about" className="btn btn-outline">{lang === 'de' ? 'Ueber uns' : 'About'}</Link>
+            <Link to="/avv" className="btn btn-outline">{lang === 'de' ? 'AVV' : 'AVV'}</Link>
             <Link to="/register" className="btn btn-primary">
               {lang === 'de' ? 'Kostenlos starten' : 'Start for free'} <ArrowRight size={16} />
             </Link>
