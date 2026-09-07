@@ -468,6 +468,7 @@ export const FOOTER = {
       title: { en: 'Legal', de: 'Rechtliches' },
       links: [
         { label: { en: 'Privacy', de: 'Datenschutz' }, to: '/privacy' },
+        { label: { en: 'Data Processing Agreement', de: 'AVV' }, to: '/dpa' },
         { label: { en: 'Imprint', de: 'Impressum' }, to: '/impressum' },
       ],
     },
@@ -680,8 +681,8 @@ export const GDPR_SECTIONS = [
     icon: 'FileText',
     q: { en: 'Can we get a Data Processing Agreement?', de: 'Koennen wir eine Auftragsverarbeitungsvereinbarung erhalten?' },
     a: {
-      en: 'Yes, contact us and we will provide one. It is not yet an automatic step in account creation.',
-      de: 'Ja, kontaktieren Sie uns, wir stellen eine bereit. Das ist noch kein automatischer Schritt bei der Kontoerstellung.',
+      en: 'Yes, and it is not a separate request: our Art. 28 GDPR Data Processing Agreement (AVV) is accepted automatically during registration, and the version your organisation accepted is downloadable at any time from Settings. You can read the current template before signing up on the AVV page.',
+      de: 'Ja, und das ist keine gesonderte Anfrage: Unsere Auftragsverarbeitungsvereinbarung (AVV) nach Art. 28 DSGVO wird automatisch bei der Registrierung akzeptiert, und die von Ihrer Organisation akzeptierte Fassung kann jederzeit in den Einstellungen heruntergeladen werden. Die aktuelle Vorlage koennen Sie schon vor der Anmeldung auf der AVV-Seite lesen.',
     },
   },
   {

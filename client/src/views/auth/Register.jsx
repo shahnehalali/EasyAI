@@ -51,6 +51,20 @@ export default function Register() {
           <input className="input" data-testid="organizationName" placeholder={t('auth.companyPlaceholder')} {...register('organizationName')} />
         </div>
         <div className="field">
+          <label className="label">{t('auth.legalForm')}</label>
+          <input className="input" data-testid="organizationLegalForm" placeholder={t('auth.legalFormPlaceholder')} {...register('organizationLegalForm')} />
+        </div>
+        <div className="field">
+          <label className="label">{t('auth.address')}</label>
+          <input
+            className="input"
+            data-testid="organizationAddress"
+            placeholder={t('auth.addressPlaceholder')}
+            {...register('organizationAddress', { required: t('auth.addressRequired') })}
+          />
+          {errors.organizationAddress && <div className="error-text">{errors.organizationAddress.message}</div>}
+        </div>
+        <div className="field">
           <label className="label">{t('auth.email')}</label>
           <input className="input" type="email" data-testid="email" {...register('email', { required: t('auth.emailRequired') })} />
           {errors.email && <div className="error-text">{errors.email.message}</div>}
@@ -64,6 +78,17 @@ export default function Register() {
           error={errors.password?.message}
           field={register('password', { required: t('auth.passwordRequired'), minLength: { value: 8, message: t('auth.min8') } })}
         />
+        <div className="field">
+          <label className="row" style={{ gap: 8, alignItems: 'flex-start', cursor: 'pointer', fontWeight: 400 }}>
+            <input type="checkbox" data-testid="avvAccepted" style={{ marginTop: 3 }} {...register('avvAccepted', { required: t('auth.avvRequired') })} />
+            <span className="small">
+              {t('auth.avvLabelBefore')}{' '}
+              <a href="/dpa" target="_blank" rel="noreferrer" data-testid="avv-link">{t('auth.avvLinkText')}</a>
+              {' '}{t('auth.avvLabelAfter')}
+            </span>
+          </label>
+          {errors.avvAccepted && <div className="error-text">{errors.avvAccepted.message}</div>}
+        </div>
         <button className="btn btn-primary btn-block" type="submit" data-testid="submit" disabled={busy}>
           {busy ? t('auth.creating') : t('auth.create')}
         </button>

@@ -16,6 +16,7 @@ const { startReminderScheduler } = require('./services/reminders/reminderSchedul
 const { startSnapshotScheduler } = require('./services/trends/snapshotService');
 const { startMonthlyReportScheduler } = require('./services/reports/reportScheduler');
 const { startRetentionScheduler } = require('./services/retention/retentionScheduler');
+const { startSupportAccessScheduler } = require('./services/support/supportAccessScheduler');
 
 const app = express();
 
@@ -62,6 +63,7 @@ async function start() {
   startSnapshotScheduler();
   startMonthlyReportScheduler();
   startRetentionScheduler();
+  startSupportAccessScheduler();
   app.listen(config.port, () => {
     logger.info(`server listening on http://localhost:${config.port} (${config.env})`);
   });

@@ -7,6 +7,8 @@ const { recordAudit } = require('../../utils/audit');
 const { signSession, signMfaChallenge, createOpaqueToken, hashToken } = require('../../services/auth/tokenService');
 const emailService = require('../../services/email/emailService');
 const { permissionsFor } = require('../../utils/permissions');
+const { clientIp } = require('../../utils/clientIp');
+const { CURRENT_AVV_VERSION, getAvvPdfBuffer } = require('../../services/avv/avvService');
 
 const VERIFY_TTL_MS = 24 * 60 * 60 * 1000; // 24h
 const RESET_TTL_MS = 60 * 60 * 1000; // 1h
@@ -55,30 +57,76 @@ async function issueVerification(user) {
 
 // POST /api/auth/register
 async function register(req, res) {
-  const { fullName, email, password, organizationName } = req.body;
+  const {
+    fullName, email, password, organizationName,
+    organizationLegalForm, organizationAddress, avvAccepted,
+  } = req.body;
+
+  // Belt and braces: the schema already requires avvAccepted === true
+  // (Zod literal), but the AVV itself (Section 5.1) calls this a mandatory,
+  // blocking condition for creating an organisation at all, so it is checked
+  // again here rather than trusted to validation alone.
+  if (!avvAccepted) throw new ErrorResponse('You must accept the Data Processing Agreement (AVV) to create an account', 422);
 
   const existing = await prisma.user.findUnique({ where: { email } });
   if (existing) throw new ErrorResponse('An account with that email already exists', 409);
 
   const passwordHash = await bcrypt.hash(password, 12);
+  const orgName = organizationName?.trim() || `${fullName.split(' ')[0]}'s Organization`;
 
-  // First user owns a new organization (or one they named).
-  const org = await prisma.organization.create({
-    data: { name: organizationName?.trim() || `${fullName.split(' ')[0]}'s Organization` },
-  });
-
-  const user = await prisma.user.create({
-    data: {
-      fullName,
-      email,
-      passwordHash,
-      role: 'owner',
-      organizationId: org.id,
-    },
+  // Organisation, owning user, and the AVV acceptance record are created
+  // together: an organisation should never exist without either a user or a
+  // recorded AVV acceptance (previously org and user creation were two
+  // unguarded sequential writes, so a failure between them could orphan an
+  // organisation with no owner; the transaction closes that gap too).
+  const { org, user } = await prisma.$transaction(async (tx) => {
+    const createdOrg = await tx.organization.create({
+      data: {
+        name: orgName,
+        legalForm: organizationLegalForm?.trim() || null,
+        address: organizationAddress.trim(),
+      },
+    });
+    const createdUser = await tx.user.create({
+      data: {
+        fullName,
+        email,
+        passwordHash,
+        role: 'owner',
+        organizationId: createdOrg.id,
+      },
+    });
+    await tx.avvAcceptance.create({
+      data: {
+        organizationId: createdOrg.id,
+        version: CURRENT_AVV_VERSION,
+        acceptedByUserId: createdUser.id,
+        acceptedByName: fullName,
+        acceptedByRole: 'owner',
+        acceptedByEmail: email,
+        companyName: createdOrg.name,
+        companyLegalForm: createdOrg.legalForm,
+        companyAddress: createdOrg.address,
+        ip: clientIp(req),
+        userAgent: req.headers?.['user-agent'] || null,
+      },
+    });
+    return { org: createdOrg, user: createdUser };
   });
 
   await issueVerification(user);
   await recordAudit({ req, action: 'auth.register', entityType: 'User', entityId: user.id });
+  await recordAudit({ req, action: 'avv.accepted', entityType: 'Organization', entityId: org.id, after: { version: CURRENT_AVV_VERSION } });
+
+  // Best-effort, matching issueVerification's own pattern: a failed email
+  // here must not fail registration, the acceptance is already durably
+  // recorded and downloadable from Settings regardless.
+  try {
+    const pdfBuffer = getAvvPdfBuffer(CURRENT_AVV_VERSION);
+    if (pdfBuffer) await emailService.sendAvvSignedEmail(user, org, CURRENT_AVV_VERSION, pdfBuffer);
+  } catch (err) {
+    logger.warn('AVV signed-copy email failed to send', err.message);
+  }
 
   res.status(201).json({
     message: 'Account created. Check your email to verify your address before logging in.',
