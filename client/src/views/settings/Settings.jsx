@@ -1,6 +1,7 @@
 import { useState, useEffect } from 'react';
 import { useQuery, useQueryClient } from '@tanstack/react-query';
 import { organizationApi } from '@/apis/organizationApi';
+import { supportAccessApi } from '@/apis/supportAccessApi';
 import { reminderApi } from '@/apis/reminderApi';
 import { invitationApi } from '@/apis/invitationApi';
 import { userApi } from '@/apis/userApi';
@@ -29,14 +30,25 @@ export default function Settings() {
   const { data: members = [] } = useQuery({ queryKey: ['members'], queryFn: organizationApi.members });
   const { data: reminders = [] } = useQuery({ queryKey: ['reminders'], queryFn: reminderApi.list });
   const { data: invitations = [] } = useQuery({ queryKey: ['invitations'], queryFn: invitationApi.list, enabled: canManage });
+  const { data: avv } = useQuery({ queryKey: ['avv'], queryFn: organizationApi.avv, retry: false });
+  const { data: grants = [] } = useQuery({ queryKey: ['support-access'], queryFn: supportAccessApi.list, enabled: canManage });
 
-  const [form, setForm] = useState({ name: '', industry: '', sizeBand: '' });
+  const [form, setForm] = useState({ name: '', legalForm: '', address: '', industry: '', sizeBand: '' });
   const [saved, setSaved] = useState('');
   const [memberError, setMemberError] = useState('');
   const [invite, setInvite] = useState({ email: '', role: 'member' });
   const [inviteLink, setInviteLink] = useState('');
+  const [grantForm, setGrantForm] = useState({ caseReference: '', durationHours: 72 });
+  const [grantError, setGrantError] = useState('');
 
-  useEffect(() => { if (org) setForm({ name: org.name || '', industry: org.industry || '', sizeBand: org.sizeBand || '' }); }, [org]);
+  useEffect(() => {
+    if (org) {
+      setForm({
+        name: org.name || '', legalForm: org.legalForm || '', address: org.address || '',
+        industry: org.industry || '', sizeBand: org.sizeBand || '',
+      });
+    }
+  }, [org]);
 
   const membersPage = usePagination(members, 8);
   const remindersPage = usePagination(reminders, 8);
@@ -81,6 +93,26 @@ export default function Settings() {
 
   const revokeInvite = async (id) => { await invitationApi.revoke(id); refreshMembers(); };
 
+  const toggleNonEuSupport = async (checked) => {
+    await organizationApi.update({ allowNonEuSupportAccess: checked });
+    qc.invalidateQueries({ queryKey: ['organization'] });
+  };
+
+  const submitGrant = async (e) => {
+    e.preventDefault();
+    setGrantError('');
+    try {
+      await supportAccessApi.create(grantForm);
+      setGrantForm({ caseReference: '', durationHours: 72 });
+      qc.invalidateQueries({ queryKey: ['support-access'] });
+    } catch (err) { setGrantError(err.message); }
+  };
+
+  const revokeGrant = async (id) => {
+    await supportAccessApi.revoke(id);
+    qc.invalidateQueries({ queryKey: ['support-access'] });
+  };
+
   const roleOptions = user?.role === 'owner' ? ['owner', 'admin', 'member', 'viewer'] : ['admin', 'member', 'viewer'];
 
   return (
@@ -95,6 +127,16 @@ export default function Settings() {
             <div className="field">
               <label className="label" htmlFor="org-name">{t('set.orgName')}</label>
               <input id="org-name" className="input" data-testid="org-name-input" value={form.name} onChange={(e) => setForm({ ...form, name: e.target.value })} disabled={!canManage} />
+            </div>
+            <div className="grid grid-2">
+              <div className="field">
+                <label className="label" htmlFor="org-legal-form">{t('set.legalForm')}</label>
+                <input id="org-legal-form" className="input" data-testid="org-legal-form-input" value={form.legalForm} onChange={(e) => setForm({ ...form, legalForm: e.target.value })} disabled={!canManage} />
+              </div>
+              <div className="field">
+                <label className="label" htmlFor="org-address">{t('set.address')}</label>
+                <input id="org-address" className="input" data-testid="org-address-input" value={form.address} onChange={(e) => setForm({ ...form, address: e.target.value })} disabled={!canManage} />
+              </div>
             </div>
             <div className="grid grid-2">
               <div className="field">
@@ -115,6 +157,107 @@ export default function Settings() {
             {canManage && <button className="btn btn-primary" type="submit" data-testid="save-org">{t('set.saveProfile')}</button>}
           </form>
         </Card>
+
+        <Card title={t('set.avvTitle')} variant="ruled" data-testid="avv-card">
+          {avv ? (
+            <p className="small">
+              {t('set.avvVersion')} {avv.version} · {t('set.avvAcceptedBy')} {avv.acceptedByName} ({roleLabel(avv.acceptedByRole)}) · {t('set.avvAcceptedOn')} {formatDate(avv.acceptedAt)}
+            </p>
+          ) : (
+            <p className="muted small" data-testid="avv-not-found">{t('set.avvNotFound')}</p>
+          )}
+          <div className="row" style={{ gap: 10, marginTop: 4, flexWrap: 'wrap' }}>
+            {avv && (
+              <a className="btn btn-outline btn-sm" href={organizationApi.avvPdfUrl()} data-testid="avv-download">
+                {t('set.avvDownload')}
+              </a>
+            )}
+            <a className="btn btn-ghost btn-sm" href="/dpa" target="_blank" rel="noreferrer">{t('set.avvReadTemplate')}</a>
+          </div>
+        </Card>
+
+        {canManage && (
+          <Card title={t('set.supportAccess')} variant="ruled" data-testid="support-access-card">
+            <label className="row" style={{ gap: 10, alignItems: 'flex-start', cursor: 'pointer' }}>
+              <input
+                type="checkbox"
+                data-testid="allow-non-eu-support"
+                checked={Boolean(org?.allowNonEuSupportAccess)}
+                onChange={(e) => toggleNonEuSupport(e.target.checked)}
+                style={{ marginTop: 3 }}
+              />
+              <span>
+                <strong className="small">{t('set.allowNonEuSupport')}</strong>
+                <div className="muted small">{t('set.allowNonEuSupportHint')}</div>
+              </span>
+            </label>
+
+            {grantError && <Banner kind="error">{grantError}</Banner>}
+            <form onSubmit={submitGrant} className="row" style={{ gap: 10, alignItems: 'flex-end', flexWrap: 'wrap', marginTop: 16 }}>
+              <div className="field" style={{ flex: 1, minWidth: 220, marginBottom: 0 }}>
+                <label className="label" htmlFor="grant-case">{t('set.caseReference')}</label>
+                <input
+                  id="grant-case"
+                  className="input"
+                  data-testid="grant-case-reference"
+                  placeholder={t('set.caseReferencePlaceholder')}
+                  value={grantForm.caseReference}
+                  onChange={(e) => setGrantForm({ ...grantForm, caseReference: e.target.value })}
+                  required
+                />
+              </div>
+              <div className="field" style={{ width: 190, marginBottom: 0 }}>
+                <label className="label" htmlFor="grant-duration">{t('set.duration')}</label>
+                <select
+                  id="grant-duration"
+                  className="select"
+                  data-testid="grant-duration"
+                  value={grantForm.durationHours}
+                  onChange={(e) => setGrantForm({ ...grantForm, durationHours: Number(e.target.value) })}
+                >
+                  <option value={72}>{t('set.duration72h')}</option>
+                  <option value={168}>{t('set.duration7d')}</option>
+                  <option value={336}>{t('set.duration14d')}</option>
+                </select>
+              </div>
+              <button className="btn btn-primary" type="submit" data-testid="grant-submit">{t('set.grant')}</button>
+            </form>
+
+            {grants.length === 0 ? (
+              <p className="muted small" style={{ marginTop: 16 }}>{t('set.noActiveGrants')}</p>
+            ) : (
+              <table className="table" style={{ marginTop: 16 }}>
+                <thead>
+                  <tr>
+                    <th>{t('set.colCase')}</th><th>{t('set.colStatusGrant')}</th>
+                    <th>{t('set.colGrantedBy')}</th><th>{t('set.colWindow')}</th><th></th>
+                  </tr>
+                </thead>
+                <tbody>
+                  {grants.map((g) => (
+                    <tr key={g.id} data-testid="grant-row">
+                      <td>{g.caseReference}</td>
+                      <td>
+                        {g.status === 'active' && <Chip className="chip-green">{t('set.grantStatusActive')}</Chip>}
+                        {g.status === 'revoked' && <Chip className="chip-grey">{t('set.grantStatusRevoked')}</Chip>}
+                        {g.status === 'expired' && <Chip className="chip-amber">{t('set.grantStatusExpired')}</Chip>}
+                      </td>
+                      <td className="muted small">{g.grantedBy?.fullName}</td>
+                      <td className="muted small">{formatDate(g.createdAt)} - {formatDate(g.expiresAt)}</td>
+                      <td style={{ textAlign: 'right' }}>
+                        {g.status === 'active' && (
+                          <button className="btn btn-danger btn-sm" data-testid="grant-revoke" onClick={() => revokeGrant(g.id)}>
+                            {t('set.revokeGrant')}
+                          </button>
+                        )}
+                      </td>
+                    </tr>
+                  ))}
+                </tbody>
+              </table>
+            )}
+          </Card>
+        )}
 
         {canManage && (
           <Card title={t('set.invite')} variant="ruled">

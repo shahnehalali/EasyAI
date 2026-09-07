@@ -58,6 +58,14 @@ const config = {
     // Read notifications the user has already seen.
     notificationDays: parseInt(process.env.RETENTION_NOTIFICATION_DAYS || '180', 10),
   },
+
+  // AVV (Art. 28 GDPR data processing agreement) support-access grants:
+  // Section 9.2 (Anlage 2) sets a default 72-hour window, capped at 14 days.
+  supportAccess: {
+    cron: process.env.SUPPORT_ACCESS_CRON || '*/15 * * * *', // every 15 minutes
+    defaultHours: parseInt(process.env.SUPPORT_ACCESS_DEFAULT_HOURS || '72', 10),
+    maxHours: parseInt(process.env.SUPPORT_ACCESS_MAX_HOURS || '336', 10), // 14 days
+  },
 };
 
 module.exports = config;

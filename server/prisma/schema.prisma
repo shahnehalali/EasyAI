@@ -21,12 +21,17 @@ model Organization {
   id        String   @id @default(uuid())
   name      String
   legalForm String?
+  address   String? // captured at registration for the AVV (Art. 28 GDPR data processing agreement)
   industry  String?
   country   String   @default("DE")
   sizeBand  String?
   selectedFunctions Json? // saved "what does your company do?" answers (Law Explorer)
   encKeyWrapped String? // per-org data key, AES-256-GCM wrapped by the master key (field encryption)
   lastMonthlyReportAt DateTime?
+  // AVV Section 16.2: support access from outside the EU (Anlage 3 Nr. 5) is
+  // pseudonymised regardless, but the org can refuse it outright. Default
+  // "no", matching the AVV's own stated default.
+  allowNonEuSupportAccess Boolean @default(false)
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt
 
@@ -42,6 +47,8 @@ model Organization {
   snapshots     ComplianceSnapshot[]
   threads       Thread[]
   threadPosts   ThreadPost[]
+  avvAcceptances      AvvAcceptance[]
+  supportAccessGrants SupportAccessGrant[]
 }
 
 model User {
@@ -71,6 +78,9 @@ model User {
   threadPosts       ThreadPost[]
   threadVotes       ThreadVote[]
   threadReports     ThreadReport[]
+  avvAcceptances        AvvAcceptance[]
+  supportAccessGranted  SupportAccessGrant[] @relation("SupportAccessGrantedBy")
+  supportAccessRevoked  SupportAccessGrant[] @relation("SupportAccessRevokedBy")
 
   @@index([organizationId])
 }
@@ -416,6 +426,71 @@ model AuditLog {
 
   @@index([organizationId])
   @@index([entityId])
+}
+
+// One row per Art. 28 GDPR data processing agreement (AVV) acceptance.
+// Append-only: a re-acceptance of a newer version creates a new row and sets
+// supersededAt on the previous one, rather than overwriting it, so an older
+// accepted version stays fully reconstructable (the AVV itself promises this
+// under Section 18(a), "Fruehere Fassungen bleiben abrufbar"). The document
+// body itself is a static, versioned PDF (server/legal/avv-v<version>.pdf,
+// see reportService's AVV_VERSIONS map), not regenerated per organisation:
+// only the identity of who accepted it, on behalf of which company, is
+// per-organisation data.
+model AvvAcceptance {
+  id               String    @id @default(uuid())
+  organizationId   String
+  version          String // e.g. "1.0", matches a key in AVV_VERSIONS
+  acceptedByUserId String
+  acceptedByName   String
+  acceptedByRole   String // role at the moment of acceptance (always "owner" today, registration is the only path)
+  acceptedByEmail  String
+  companyName      String
+  companyLegalForm String?
+  companyAddress   String?
+  ip               String?
+  userAgent        String?
+  acceptedAt       DateTime  @default(now())
+  supersededAt     DateTime?
+
+  organization Organization @relation(fields: [organizationId], references: [id], onDelete: Cascade)
+  acceptedBy   User         @relation(fields: [acceptedByUserId], references: [id])
+
+  @@index([organizationId])
+}
+
+// The authorisation record the AVV requires before RIT support staff may
+// access an organisation's data for a named case (Anlage 2, "Support-
+// Zugriff"): who approved it, for how long, and that it is fully revocable.
+// This models the AUTHORISATION itself, self-service, granted by the
+// organisation's own Owner/Admin, exactly as the AVV describes. It does not
+// model a staff-facing "view this org's data" console: no such cross-tenant
+// surface exists anywhere in this codebase (platform_admin is scoped only to
+// catalog authoring and community moderation), and the actual pseudonymised
+// support gateway described in the AVV (Anlage 3 Nr. 5) is separate
+// infrastructure outside this application. What this table gives the
+// customer is exactly what the AVV promises them: visibility into whether
+// support access is currently open, for what, until when, and a one-click
+// way to revoke it.
+model SupportAccessGrant {
+  id               String    @id @default(uuid())
+  organizationId   String
+  caseReference    String // free text: what the grant is for (e.g. a support ticket reference)
+  requestedByStaff String? // free text, e.g. "RIT Support" or a named staff member
+  grantedByUserId  String
+  status           String    @default("active") // active | revoked | expired
+  createdAt        DateTime  @default(now())
+  expiresAt        DateTime
+  revokedAt        DateTime?
+  revokedByUserId  String?
+  reportSentAt     DateTime?
+
+  organization Organization @relation(fields: [organizationId], references: [id], onDelete: Cascade)
+  grantedBy    User         @relation("SupportAccessGrantedBy", fields: [grantedByUserId], references: [id])
+  revokedBy    User?        @relation("SupportAccessRevokedBy", fields: [revokedByUserId], references: [id])
+
+  @@index([organizationId])
+  @@index([status, expiresAt])
 }
 
 model Invitation {

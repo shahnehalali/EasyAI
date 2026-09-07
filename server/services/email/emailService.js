@@ -51,7 +51,9 @@ async function getTransporter() {
   return transporterPromise;
 }
 
-async function sendMail({ to, subject, html, text }) {
+// `attachments`, when given, is an array of { filename, content: Buffer }.
+// Resend wants base64 content; nodemailer accepts a Buffer directly.
+async function sendMail({ to, subject, html, text, attachments }) {
   // Primary path: Resend.
   const resend = getResend();
   if (resend) {
@@ -61,6 +63,7 @@ async function sendMail({ to, subject, html, text }) {
       subject,
       html,
       text,
+      attachments: attachments?.map((a) => ({ filename: a.filename, content: a.content.toString('base64') })),
     });
     if (error) {
       logger.error(`email: Resend failed for ${to} (${subject})`, error.message || error);
@@ -78,6 +81,7 @@ async function sendMail({ to, subject, html, text }) {
     subject,
     text,
     html,
+    attachments,
   });
 
   const preview = nodemailer.getTestMessageUrl(info);
@@ -168,6 +172,96 @@ async function sendMonthlyReportEmail(user, org, summary, link) {
   });
 }
 
+// AVV Section 5.2: "Nach Abschluss uebermittelt der Anbieter dem Kunden
+// zusaetzlich ein vollstaendiges Exemplar (einschliesslich aller Anlagen) an
+// die E-Mail-Adresse der abschliessenden Person." The PDF is the static,
+// versioned template file (see reportService's AVV_VERSIONS), attached
+// as-is; nothing about it is customer-specific, the acceptance record
+// (who, when, on behalf of which company) lives in the database, not in
+// the document body.
+async function sendAvvSignedEmail(user, org, version, pdfBuffer) {
+  return sendMail({
+    to: user.email,
+    subject: `Your Data Processing Agreement (AVV) - Compliance Check`,
+    text: `Thank you for accepting the Art. 28 GDPR Data Processing Agreement (AVV) for Compliance Check on behalf of ${org.name}, version ${version}. A full copy is attached to this email, and you can download it again at any time from Settings.`,
+    html: emailShell(
+      'Your Data Processing Agreement (AVV)',
+      `<p>Thank you for accepting the Art. 28 GDPR Data Processing Agreement (AVV) for Compliance Check on behalf of <strong>${org.name}</strong>.</p>
+       <p style="color:#5b6373;font-size:13px;">Version ${version}. A full copy, including all annexes, is attached to this email as a PDF, and you can download it again at any time from your organisation's Settings page.</p>`,
+    ),
+    attachments: [{ filename: `avv-compliance-check-v${version}.pdf`, content: pdfBuffer }],
+  });
+}
+
+async function sendSupportAccessGrantedEmail(user, org, grant) {
+  return sendMail({
+    to: user.email,
+    subject: `Support access granted - ${org.name}`,
+    text: `A support access grant was created for ${org.name}: "${grant.caseReference}", active until ${grant.expiresAt.toISOString()}. You can revoke it at any time from Settings.`,
+    html: emailShell(
+      'Support access granted',
+      `<p>A support access grant was created for <strong>${org.name}</strong>.</p>
+       <p style="color:#5b6373;font-size:13px;">Case: ${grant.caseReference}<br>Active until: ${grant.expiresAt.toUTCString()}</p>
+       <p style="color:#5b6373;font-size:13px;">You can revoke this grant at any time from Settings.</p>`,
+    ),
+  });
+}
+
+async function sendSupportAccessReportEmail(user, org, grant) {
+  const statusLabel = grant.status === 'revoked' ? 'revoked' : 'expired';
+  return sendMail({
+    to: user.email,
+    subject: `Support access ${statusLabel} - ${org.name}`,
+    text: `The support access grant for ${org.name} ("${grant.caseReference}") has ${statusLabel}. It was active from ${grant.createdAt.toISOString()} to ${(grant.revokedAt || grant.expiresAt).toISOString()}.`,
+    html: emailShell(
+      `Support access ${statusLabel}`,
+      `<p>The support access grant for <strong>${org.name}</strong> has ${statusLabel}.</p>
+       <p style="color:#5b6373;font-size:13px;">Case: ${grant.caseReference}<br>Active: ${grant.createdAt.toUTCString()} to ${(grant.revokedAt || grant.expiresAt).toUTCString()}</p>`,
+    ),
+  });
+}
+
+// AVV Section 15.3: a sub-processor change must be notified in advance, by
+// email, to every Owner-role user, naming the firm, address, task and
+// transfer basis. Sent by an operator running scripts/notifySubprocessorChange.js
+// when a real change happens, not triggered automatically by product code.
+async function sendSubprocessorChangeEmail(user, details) {
+  return sendMail({
+    to: user.email,
+    subject: 'Upcoming change to a Compliance Check sub-processor',
+    text: `We are ${details.action} a sub-processor: ${details.name}, ${details.address}. Task: ${details.task}. Location: ${details.location}. This takes effect on ${details.effectiveDate} unless you object within 28 days by replying to this email.`,
+    html: emailShell(
+      'Upcoming sub-processor change',
+      `<p>We are ${details.action} a sub-processor used to run Compliance Check.</p>
+       <p style="color:#5b6373;font-size:13px;">
+         Firm: ${details.name}<br>Address: ${details.address}<br>Task: ${details.task}<br>
+         Location: ${details.location}<br>Transfer basis: ${details.transferBasis || 'n/a'}
+       </p>
+       <p>This takes effect on <strong>${details.effectiveDate}</strong>. Under Section 15.4 of the Data Processing Agreement, you may object within 28 days of this notice by replying to this email.</p>`,
+    ),
+  });
+}
+
+// AVV Section 11.2 / Art. 33-34 GDPR: sent by an operator running
+// scripts/notifyBreach.js for a specific, real incident, not automated.
+async function sendBreachNotificationEmail(user, org, details) {
+  return sendMail({
+    to: user.email,
+    subject: `Data breach notification - ${org.name}`,
+    text: `We are notifying you, as required by Art. 33/34 GDPR, of a personal data breach affecting ${org.name}. Nature: ${details.nature}. Likely consequences: ${details.consequences}. Measures taken: ${details.measures}.`,
+    html: emailShell(
+      'Data breach notification',
+      `<p>We are notifying you, as required by Art. 33 and 34 GDPR, of a personal data breach affecting <strong>${org.name}</strong>.</p>
+       <p style="color:#5b6373;font-size:13px;">
+         Nature of the breach: ${details.nature}<br>
+         Likely consequences: ${details.consequences}<br>
+         Measures taken or proposed: ${details.measures}
+       </p>
+       <p>Contact info@rit.services with any questions.</p>`,
+    ),
+  });
+}
+
 function emailShell(heading, bodyHtml) {
   return `<!doctype html><html><body style="margin:0;background:#f7f4ee;padding:24px;font-family:Arial,Helvetica,sans-serif;color:#1c2733;">
     <table role="presentation" width="100%" cellpadding="0" cellspacing="0"><tr><td align="center">
@@ -191,4 +285,9 @@ module.exports = {
   sendReviewReminderEmail,
   sendInvitationEmail,
   sendMonthlyReportEmail,
+  sendAvvSignedEmail,
+  sendSupportAccessGrantedEmail,
+  sendSupportAccessReportEmail,
+  sendSubprocessorChangeEmail,
+  sendBreachNotificationEmail,
 };

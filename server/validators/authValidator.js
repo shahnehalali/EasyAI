@@ -5,6 +5,16 @@ const registerSchema = z.object({
   email: z.string().trim().toLowerCase().email('A valid email is required'),
   password: z.string().min(8, 'Password must be at least 8 characters').max(200),
   organizationName: z.string().trim().min(2).max(160).optional(),
+  organizationLegalForm: z.string().trim().max(80).optional(),
+  // Required: the Art. 28 AVV (Section 18, "Abschluss der Vereinbarung" table)
+  // captures the customer's address as part of the mandatory registration-time
+  // acceptance, not as an optional profile field filled in later.
+  organizationAddress: z.string().trim().min(4, 'Address is required to accept the Data Processing Agreement').max(300),
+  // A plain boolean the client can only send as `true`; z.literal rejects
+  // false/missing outright, so "not accepted" is a validation error, not a
+  // silently-ignored field, matching the AVV's own "zwingender Abschluss"
+  // (Section 5.1): an organisation cannot be created without acceptance.
+  avvAccepted: z.literal(true, { errorMap: () => ({ message: 'You must accept the Data Processing Agreement (AVV) to create an account' }) }),
 });
 
 const loginSchema = z.object({
