@@ -591,8 +591,8 @@ export const GDPR_SECTIONS = [
     stat: { en: 'EU only, always', de: 'Ausschliesslich EU' },
     q: { en: 'Where is data hosted?', de: 'Wo werden die Daten gehostet?' },
     a: {
-      en: 'Entirely within the European Union, on infrastructure from Hetzner and Strato, both German hosting providers, across data centres in Germany and Finland. No customer data leaves the EU for storage or processing.',
-      de: 'Vollstaendig innerhalb der Europaeischen Union, auf Infrastruktur von Hetzner und Strato, beides deutsche Hosting-Anbieter, in Rechenzentren in Deutschland und Finnland. Keine Kundendaten verlassen die EU zur Speicherung oder Verarbeitung.',
+      en: 'Entirely within the European Union, on infrastructure from Hetzner, IONOS, and Strato, all German hosting providers, across data centres in Germany and Finland. No customer data leaves the EU for storage or processing.',
+      de: 'Vollstaendig innerhalb der Europaeischen Union, auf Infrastruktur von Hetzner, IONOS und Strato, allesamt deutsche Hosting-Anbieter, in Rechenzentren in Deutschland und Finnland. Keine Kundendaten verlassen die EU zur Speicherung oder Verarbeitung.',
     },
   },
   {
@@ -636,11 +636,11 @@ export const GDPR_SECTIONS = [
     color: 'gold',
     group: 'pillar',
     icon: 'Share2',
-    stat: { en: 'Three, named, kept short', de: 'Drei, namentlich, bewusst kurz' },
+    stat: { en: 'Four, named, kept short', de: 'Vier, namentlich, bewusst kurz' },
     q: { en: 'Who are the sub-processors?', de: 'Wer sind die Auftragsverarbeiter?' },
     a: {
-      en: 'Hetzner and Strato for hosting (Germany, Finland), and Resend for transactional email delivery (account verification, password reset, review reminders). We keep this list short on purpose.',
-      de: 'Hetzner und Strato fuer das Hosting (Deutschland, Finnland), sowie Resend fuer den Versand transaktionaler E-Mails (Kontoverifizierung, Passwort-Reset, Erinnerungen an Pruefungen). Diese Liste halten wir bewusst kurz.',
+      en: 'Hetzner, IONOS, and Strato for hosting (Germany, Finland), each with no access to your content, and Plus Five Five, Inc. (Resend, USA) for transactional email delivery (account verification, password reset, review reminders), under the EU-US Data Privacy Framework. We keep this list short on purpose.',
+      de: 'Hetzner, IONOS und Strato fuer das Hosting (Deutschland, Finnland), jeweils ohne Zugriff auf Ihre Inhalte, sowie Plus Five Five, Inc. (Resend, USA) fuer den Versand transaktionaler E-Mails (Kontoverifizierung, Passwort-Reset, Erinnerungen an Pruefungen), im Rahmen des EU-US Data Privacy Framework. Diese Liste halten wir bewusst kurz.',
     },
   },
   {
