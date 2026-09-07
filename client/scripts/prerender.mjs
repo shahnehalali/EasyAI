@@ -78,10 +78,9 @@ const PAGES = [
   {
     route: '/impressum',
     outFile: 'impressum.html',
-    title: 'Impressum (Draft) | Compliance Check',
-    description: 'Draft Impressum for Compliance Check, pending final legal review.',
+    title: 'Impressum | Compliance Check',
+    description: 'Legal provider identification for Compliance Check under Section 5 DDG: RIT Services GmbH, Cologne, register entry, VAT ID, and named data processors.',
     canonical: `${SITE}/impressum`,
-    noindex: true,
   },
 ];
 

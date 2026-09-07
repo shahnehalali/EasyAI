@@ -1,8 +1,12 @@
 import { useLangStore } from '@/store/langStore';
 import { Banner } from '@/components/ui/Ui';
 
-// Draft only. Placeholders in [brackets] need real company detail and a
-// lawyer's sign off (GDPR Art. 13) before this page is treated as final.
+// Draft. Controller identity and the sub-processor list are the real,
+// current facts (sourced from rit.services' own imprint and its Art. 28
+// GDPR data processing agreements), not placeholders. The rest of this page
+// (legal basis per processing activity, full data subject rights procedure,
+// retention detail) is still a stub and needs a lawyer's sign off before it
+// is treated as a finished GDPR Art. 13 notice.
 export default function PrivacyDraft() {
   const lang = useLangStore((s) => s.lang);
   const de = lang === 'de';
@@ -24,8 +28,8 @@ export default function PrivacyDraft() {
         <div className="stack" style={{ gap: 22, marginTop: 22, color: 'var(--ink-soft)', lineHeight: 1.7 }}>
           <p>
             {de
-              ? 'Verantwortlich fuer die Datenverarbeitung im Sinne der DSGVO ist [Firmenname], [Adresse], vertreten durch [Geschaeftsfuehrung]. Kontakt fuer Datenschutzfragen: [E-Mail-Adresse].'
-              : 'The party responsible for data processing under the GDPR is [company name], [address], represented by [management]. Contact for data protection questions: [email address].'}
+              ? 'Verantwortlich fuer die Datenverarbeitung im Sinne der DSGVO ist die RIT Services GmbH, Am alten Gueterbahnhof 57, 50825 Koeln, vertreten durch Matthias Wessner. Kontakt fuer Datenschutzfragen: info@rit.services.'
+              : 'The party responsible for data processing under the GDPR is RIT Services GmbH, Am alten Gueterbahnhof 57, 50825 Koeln, Germany, represented by Matthias Wessner. Contact for data protection questions: info@rit.services.'}
           </p>
           <p>
             {de
@@ -39,13 +43,13 @@ export default function PrivacyDraft() {
           </p>
           <p>
             {de
-              ? 'Eingesetzte Auftragsverarbeiter und deren Standorte werden hier aufgefuehrt, sobald die Liste final ist. [Auftragsverarbeiter-Liste ausstehend]'
-              : 'The list of sub-processors we use and their locations will appear here once finalised. [Sub-processor list pending]'}
+              ? 'Eingesetzte Auftragsverarbeiter: Hetzner Online GmbH, IONOS SE und STRATO GmbH fuer das Hosting (Rechenzentren in Deutschland und Finnland, kein Zugriff auf Inhalte), sowie Plus Five Five, Inc. (Resend, USA) fuer den Versand transaktionaler E-Mails, im Rahmen des EU-US Data Privacy Framework.'
+              : 'Sub-processors in use: Hetzner Online GmbH, IONOS SE and STRATO GmbH for hosting (data centres in Germany and Finland, no access to content), and Plus Five Five, Inc. (Resend, USA) for transactional email delivery, under the EU-US Data Privacy Framework.'}
           </p>
           <p>
             {de
-              ? 'Bei Fragen oder zur Ausuebung Ihrer Betroffenenrechte wenden Sie sich an [E-Mail-Adresse]. Sie haben zudem das Recht, sich bei einer Datenschutzaufsichtsbehoerde zu beschweren.'
-              : 'For questions or to exercise your data subject rights, contact [email address]. You also have the right to lodge a complaint with a data protection supervisory authority.'}
+              ? 'Bei Fragen oder zur Ausuebung Ihrer Betroffenenrechte wenden Sie sich an info@rit.services. Sie haben zudem das Recht, sich bei einer Datenschutzaufsichtsbehoerde zu beschweren.'
+              : 'For questions or to exercise your data subject rights, contact info@rit.services. You also have the right to lodge a complaint with a data protection supervisory authority.'}
           </p>
         </div>
       </div>
