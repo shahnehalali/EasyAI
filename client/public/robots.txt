@@ -9,7 +9,7 @@ Allow: /welcome
 Allow: /about
 Allow: /security
 Allow: /docs
-Allow: /dpa
+Allow: /avv
 Allow: /privacy
 Allow: /impressum
 Disallow: /login

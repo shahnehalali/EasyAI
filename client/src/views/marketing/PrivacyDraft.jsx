@@ -43,8 +43,8 @@ export default function PrivacyDraft() {
           </p>
           <p>
             {de
-              ? 'Eingesetzte Auftragsverarbeiter: Hetzner Online GmbH, IONOS SE und STRATO GmbH fuer das Hosting (Rechenzentren in Deutschland und Finnland, kein Zugriff auf Inhalte), sowie Plus Five Five, Inc. (Resend, USA) fuer den Versand transaktionaler E-Mails, im Rahmen des EU-US Data Privacy Framework.'
-              : 'Sub-processors in use: Hetzner Online GmbH, IONOS SE and STRATO GmbH for hosting (data centres in Germany and Finland, no access to content), and Plus Five Five, Inc. (Resend, USA) for transactional email delivery, under the EU-US Data Privacy Framework.'}
+              ? 'Eingesetzte Unterauftragsverarbeiter: Hetzner Online GmbH, IONOS SE und STRATO GmbH fuer das Hosting (Rechenzentren in Deutschland und Finnland, kein Zugriff auf Inhalte), sowie Resend (Plus Five Five, Inc., USA) fuer den Versand transaktionaler E-Mails, im Rahmen des EU-US Data Privacy Framework.'
+              : 'Sub-processors in use: Hetzner Online GmbH, IONOS SE and STRATO GmbH for hosting (data centres in Germany and Finland, no access to content), and Resend (Plus Five Five, Inc., USA) for transactional email delivery, under the EU-US Data Privacy Framework.'}
           </p>
           <p>
             {de

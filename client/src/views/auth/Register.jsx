@@ -83,7 +83,7 @@ export default function Register() {
             <input type="checkbox" data-testid="avvAccepted" style={{ marginTop: 3 }} {...register('avvAccepted', { required: t('auth.avvRequired') })} />
             <span className="small">
               {t('auth.avvLabelBefore')}{' '}
-              <a href="/dpa" target="_blank" rel="noreferrer" data-testid="avv-link">{t('auth.avvLinkText')}</a>
+              <a href="/avv" target="_blank" rel="noreferrer" data-testid="avv-link">{t('auth.avvLinkText')}</a>
               {' '}{t('auth.avvLabelAfter')}
             </span>
           </label>

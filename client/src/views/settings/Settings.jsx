@@ -172,7 +172,7 @@ export default function Settings() {
                 {t('set.avvDownload')}
               </a>
             )}
-            <a className="btn btn-ghost btn-sm" href="/dpa" target="_blank" rel="noreferrer">{t('set.avvReadTemplate')}</a>
+            <a className="btn btn-ghost btn-sm" href="/avv" target="_blank" rel="noreferrer">{t('set.avvReadTemplate')}</a>
           </div>
         </Card>
 

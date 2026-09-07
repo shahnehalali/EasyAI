@@ -56,10 +56,10 @@ export default function ImprintDraft() {
             Am alten Gueterbahnhof 57, 50825 Koeln
           </p>
           <p style={{ marginTop: 16 }}>
-            <strong>{de ? 'Auftragsverarbeiter' : 'Data processors'}</strong><br />
+            <strong>{de ? 'Unterauftragsverarbeiter' : 'Sub-processors'}</strong><br />
             {de
-              ? 'Hetzner Online GmbH, IONOS SE und STRATO GmbH (Rechenzentren, kein Datenzugriff auf Inhalte), sowie Plus Five Five, Inc. (Resend, USA, E-Mail-Versand im Rahmen des EU-US Data Privacy Framework).'
-              : 'Hetzner Online GmbH, IONOS SE and STRATO GmbH (data centres, no access to content), and Plus Five Five, Inc. (Resend, USA, email delivery under the EU-US Data Privacy Framework).'}
+              ? 'Hetzner Online GmbH, IONOS SE und STRATO GmbH (Rechenzentren, kein Datenzugriff auf Inhalte), sowie Resend (Plus Five Five, Inc., USA, E-Mail-Versand im Rahmen des EU-US Data Privacy Framework).'
+              : 'Hetzner Online GmbH, IONOS SE and STRATO GmbH (data centres, no access to content), and Resend (Plus Five Five, Inc., USA, email delivery under the EU-US Data Privacy Framework).'}
           </p>
         </div>
       </div>

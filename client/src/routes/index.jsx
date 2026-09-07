@@ -7,7 +7,7 @@ import Landing from '@/views/marketing/Landing';
 import About from '@/views/marketing/About';
 import Security from '@/views/marketing/Security';
 import Documentation from '@/views/marketing/Documentation';
-import Dpa from '@/views/marketing/Dpa';
+import Avv from '@/views/marketing/Avv';
 import PrivacyDraft from '@/views/marketing/PrivacyDraft';
 import ImprintDraft from '@/views/marketing/ImprintDraft';
 
@@ -50,7 +50,7 @@ export default function AppRoutes() {
         <Route path="/about" element={<About />} />
         <Route path="/security" element={<Security />} />
         <Route path="/docs" element={<Documentation />} />
-        <Route path="/dpa" element={<Dpa />} />
+        <Route path="/avv" element={<Avv />} />
         <Route path="/privacy" element={<PrivacyDraft />} />
         <Route path="/impressum" element={<ImprintDraft />} />
       </Route>
