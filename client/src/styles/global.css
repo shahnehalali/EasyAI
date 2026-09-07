@@ -1853,6 +1853,14 @@ body.reply-dock-open [data-feedback-trigger="true"] { display: none !important; 
 .mkt-rit-badge:hover { color: var(--ink); border-color: var(--outline-border-hover); }
 .mkt-rit-badge-logo { width: 20px; height: 20px; object-fit: contain; }
 
+/* The "Powered by RIT Services" badge button (PoweredByRit.jsx). Not scoped
+   to .mkt-page, it also appears on the auth pages, so it stays visually
+   self-contained (the badge image already carries its own border and
+   colour) rather than reusing marketing-only tokens. */
+.powered-by-rit { display: inline-block; line-height: 0; transition: opacity 0.15s ease, transform 0.15s ease; }
+.powered-by-rit:hover { opacity: 0.85; transform: translateY(-1px); }
+.powered-by-rit img { display: block; width: 148px; height: auto; }
+
 .mkt-founder-card { display: flex; align-items: stretch; overflow: hidden; }
 .mkt-founder-photo-wrap { flex: 0 0 220px; background: var(--surface-subtle); }
 .mkt-founder-photo { width: 100%; height: 100%; object-fit: cover; display: block; }
