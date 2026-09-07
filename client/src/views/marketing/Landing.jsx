@@ -6,12 +6,13 @@ import {
 } from 'lucide-react';
 import { useLangStore } from '@/store/langStore';
 import NeuralBackground from '@/components/NeuralBackground';
+import PoweredByRit from '@/components/PoweredByRit';
 import ClassificationDemo from '@/components/marketing/ClassificationDemo';
 import ProductShowcase from '@/components/marketing/ProductShowcase';
 import FrameworkDirectory from '@/components/marketing/FrameworkDirectory';
 import ProcessFlow from '@/components/marketing/ProcessFlow';
 import {
-  HERO, STATS, FEATURES, SECURITY_POINTS, PUBLIC_FAQ,
+  HERO, STATS, FEATURES, SECURITY_POINTS, PUBLIC_FAQ, HOME_ABOUT,
 } from '@/data/marketingContent';
 
 const ICONS = { ShieldCheck, ListChecks, Compass, CalendarClock, Users, Lock };
@@ -65,6 +66,7 @@ export default function Landing() {
             <Link to="/login" className="btn btn-outline" data-testid="mkt-cta-secondary">{HERO.ctaSecondary[lang]}</Link>
           </div>
           <p className="muted small" style={{ marginTop: 18 }}>{HERO.trustLine[lang]}</p>
+          <PoweredByRit style={{ marginTop: 20 }} />
         </div>
       </section>
 
@@ -78,6 +80,23 @@ export default function Landing() {
           ))}
         </div>
       </div>
+
+      <section className="mkt-section mkt-section-alt" data-testid="mkt-home-about">
+        <div className="content" style={{ maxWidth: 820 }}>
+          <div className="mkt-section-head" style={{ textAlign: 'left', margin: '0 0 24px' }}>
+            <div className="eyebrow">{HOME_ABOUT.eyebrow[lang]}</div>
+            <h2 style={{ marginTop: 8 }}>{HOME_ABOUT.title[lang]}</h2>
+          </div>
+          <div className="stack" style={{ gap: 18 }}>
+            <p className="muted" style={{ lineHeight: 1.7 }}>{HOME_ABOUT.toolParagraph[lang]}</p>
+            <p className="muted" style={{ lineHeight: 1.7 }}>{HOME_ABOUT.ritParagraph[lang]}</p>
+          </div>
+          <div className="row" style={{ gap: 14, marginTop: 22, flexWrap: 'wrap', alignItems: 'center' }}>
+            <Link to="/about" className="btn btn-outline" data-testid="mkt-home-about-link">{HOME_ABOUT.cta[lang]}</Link>
+            <PoweredByRit />
+          </div>
+        </div>
+      </section>
 
       <section id="how-it-works" className="mkt-section">
         <div className="content">

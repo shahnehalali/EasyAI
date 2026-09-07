@@ -478,6 +478,27 @@ export const FOOTER = {
   },
 };
 
+// A short "what this is, who built it" section shown near the top of the
+// homepage, right after the stats band. Deliberately not a duplicate of
+// ABOUT above: this is a condensed teaser with a link to the full About
+// page, ABOUT itself carries the longer "why we built this" story.
+export const HOME_ABOUT = {
+  eyebrow: { en: 'About', de: 'Ueber uns' },
+  title: {
+    en: 'Built by RIT Services, for teams who actually have to comply',
+    de: 'Entwickelt von RIT Services, fuer Teams, die tatsaechlich compliant sein muessen',
+  },
+  toolParagraph: {
+    en: 'Compliance Check exists because AI regulation in Germany is not something you read once and are done with. Every AI system your company builds or uses gets its own record, a short questionnaire classifies it against the EU AI Act, and the right checklist from the 37 EU and German laws in the catalogue is built automatically. You document evidence as you work, and the app tells you when a review is coming due, in German and English, so nothing depends on one person remembering.',
+    de: 'Compliance Check gibt es, weil KI-Regulierung in Deutschland nichts ist, das man einmal liest und dann erledigt hat. Jedes KI-System, das Ihr Unternehmen entwickelt oder nutzt, erhaelt einen eigenen Datensatz, ein kurzer Fragebogen stuft es nach dem EU AI Act ein, und die passende Checkliste aus den 37 EU- und deutschen Gesetzen im Katalog wird automatisch erstellt. Sie dokumentieren Nachweise waehrend der Arbeit, und die App sagt Ihnen, wann eine Pruefung ansteht, auf Deutsch und Englisch, sodass nichts vom Gedaechtnis einer einzelnen Person abhaengt.',
+  },
+  ritParagraph: {
+    en: 'The product is built and maintained by RIT Services GmbH, a software team based in Cologne, Germany. RIT builds practical software for teams that have to meet real regulatory requirements, not marketing material about compliance, the same standard the product itself is held to on the Security page.',
+    de: 'Das Produkt wird von der RIT Services GmbH entwickelt und betrieben, einem Softwareteam mit Sitz in Koeln. RIT baut praktische Software fuer Teams, die echte regulatorische Anforderungen erfuellen muessen, keine Marketingmaterialien ueber Compliance, denselben Massstab, den das Produkt selbst auf der Sicherheitsseite einhaelt.',
+  },
+  cta: { en: 'More about RIT Services', de: 'Mehr ueber RIT Services' },
+};
+
 // A small proof band under the hero. Every number here is real and checkable
 // from the catalogue or the codebase, not a rounded marketing guess.
 export const STATS = [

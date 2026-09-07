@@ -3,6 +3,7 @@ import { useT } from '@/hooks/useT';
 import { useLangStore } from '@/store/langStore';
 import NeuralBackground from '@/components/NeuralBackground';
 import LanguageSwitch from '@/components/ui/LanguageSwitch';
+import PoweredByRit from '@/components/PoweredByRit';
 
 export default function AuthLayout() {
   const { t } = useT();
@@ -30,6 +31,7 @@ export default function AuthLayout() {
           <span aria-hidden="true">&middot;</span>
           <Link to="/welcome#faq" className="small">FAQ</Link>
         </div>
+        <PoweredByRit style={{ marginTop: 2 }} />
       </div>
     </div>
   );
