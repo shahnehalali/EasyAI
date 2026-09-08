@@ -7,13 +7,22 @@ import { useT } from '@/hooks/useT';
 import { SkeletonPage, ErrorState, Banner } from '@/components/ui/Ui';
 import {
   ComplianceStandingCard, RiskOverviewPanel, UpcomingReviewsWidget,
-  ActiveFrameworksWidget, OpenItemsList, RecentActivityFeed,
+  ActiveFrameworksWidget, OpenItemsList, RecentActivityFeed, ComplianceTrendWidget,
 } from '@/components/dashboard/widgets';
 
 export default function Dashboard() {
   const { can } = useAuth();
   const { t } = useT();
   const { data, isLoading, error, refetch } = useQuery({ queryKey: ['dashboard'], queryFn: dashboardApi.summary });
+  // Own query: the 90-day trend is a separate, slightly heavier read (one row
+  // per day) from a daily-cron-populated table, no reason to block the rest
+  // of the dashboard on it or refetch it as often as the summary.
+  const { data: trends } = useQuery({
+    queryKey: ['dashboard', 'trends'],
+    queryFn: () => dashboardApi.trends(90),
+    enabled: !isLoading && !error,
+    staleTime: 5 * 60 * 1000,
+  });
 
   if (isLoading) return <SkeletonPage rows={3} />;
   if (error) return <ErrorState error={error} onRetry={refetch} />;
@@ -47,6 +56,8 @@ export default function Dashboard() {
 
       <div className="stack">
         <ComplianceStandingCard overall={data.overall} counts={data.counts} />
+
+        {!empty && <ComplianceTrendWidget trends={trends || []} />}
 
         <div className="grid grid-3">
           <RiskOverviewPanel riskOverview={data.riskOverview} />
