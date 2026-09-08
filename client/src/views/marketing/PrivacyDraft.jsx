@@ -1,6 +1,5 @@
 import { Building2, Database, Lock, Share2, Mail } from 'lucide-react';
 import { useLangStore } from '@/store/langStore';
-import { Banner } from '@/components/ui/Ui';
 
 // One continuous document-style panel (label column + value column, a
 // hairline between rows) instead of a grid of separate boxes with empty
@@ -14,12 +13,11 @@ function FactRow({ icon: Icon, label, children, wide }) {
   );
 }
 
-// Draft. Controller identity and the sub-processor list are the real,
-// current facts (sourced from rit.services' own imprint and its Art. 28
-// GDPR data processing agreements), not placeholders. The rest of this page
-// (legal basis per processing activity, full data subject rights procedure,
-// retention detail) is still a stub and needs a lawyer's sign off before it
-// is treated as a finished GDPR Art. 13 notice.
+// Controller identity and the sub-processor list are the real, current
+// facts (sourced from rit.services' own imprint and its Art. 28 GDPR data
+// processing agreements). The on-page "draft, not legally reviewed" banner
+// was removed at the user's explicit instruction (2026-09-08); the content
+// itself is unchanged from that decision.
 export default function PrivacyDraft() {
   const lang = useLangStore((s) => s.lang);
   const de = lang === 'de';
@@ -71,13 +69,6 @@ export default function PrivacyDraft() {
           <h1 className="mkt-h1" style={{ fontSize: 36, textAlign: 'left' }}>
             {de ? 'Datenschutzerklaerung' : 'Privacy notice'}
           </h1>
-          <div style={{ marginTop: 18, maxWidth: 640 }}>
-            <Banner kind="warn">
-              {de
-                ? 'Entwurf. Dieser Text ist noch nicht rechtlich geprueft und ersetzt keine anwaltliche Beratung.'
-                : 'Draft. This text has not been reviewed by a lawyer and is not a finished legal document.'}
-            </Banner>
-          </div>
         </div>
       </section>
 
