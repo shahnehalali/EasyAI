@@ -2,7 +2,12 @@
 <html lang="en">
   <head>
     <meta charset="UTF-8" />
-    <link rel="icon" type="image/png" href="/trial.png" />
+    <!-- Versioned query string: browsers cache favicons far more stubbornly
+         than normal <img> requests (often ignoring a hard refresh), so a
+         plain re-upload of the same /trial.png is not enough to make an
+         already-visited browser pick up the new teal artwork. Bump this
+         version whenever the favicon image itself changes again. -->
+    <link rel="icon" type="image/png" href="/trial.png?v=2" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Compliance Check - Germany</title>
     <link rel="preconnect" href="https://fonts.googleapis.com" />

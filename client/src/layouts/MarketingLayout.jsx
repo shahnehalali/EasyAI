@@ -39,7 +39,7 @@ export default function MarketingLayout({ children }) {
       <header className="mkt-nav">
         <div className="mkt-nav-inner">
           <Link to="/welcome" className="mkt-brand" data-testid="mkt-logo">
-            <img src="/trial.png" alt="" width={26} height={26} style={{ borderRadius: 6 }} />
+            <img src="/trial.png?v=2" alt="" width={26} height={26} style={{ borderRadius: 6 }} />
             <span>Compliance Check</span>
           </Link>
 
@@ -97,7 +97,7 @@ export default function MarketingLayout({ children }) {
         <div className="mkt-footer-inner">
           <div className="mkt-footer-brand">
             <div className="row" style={{ gap: 9 }}>
-              <img src="/trial.png" alt="" width={24} height={24} style={{ borderRadius: 6 }} />
+              <img src="/trial.png?v=2" alt="" width={24} height={24} style={{ borderRadius: 6 }} />
               <span className="mkt-footer-name">Compliance Check</span>
             </div>
             <p className="muted small" style={{ maxWidth: 260, marginTop: 10 }}>{FOOTER.tagline[lang]}</p>

@@ -140,7 +140,7 @@ function headBlockFor(page, jsonLd) {
     `<meta property="og:title" content="${escapeAttr(page.title)}">`,
     `<meta property="og:description" content="${escapeAttr(page.description)}">`,
     `<meta property="og:url" content="${page.canonical}">`,
-    `<meta property="og:image" content="${SITE}/trial.png">`,
+    `<meta property="og:image" content="${SITE}/trial.png?v=2">`,
     `<meta name="twitter:card" content="summary">`,
     `<meta name="twitter:title" content="${escapeAttr(page.title)}">`,
     `<meta name="twitter:description" content="${escapeAttr(page.description)}">`,

@@ -147,7 +147,7 @@ export default function Sidebar({ open = false, onNavigate }) {
   return (
     <aside className={`sidebar${open ? ' open' : ''}${collapsed ? ' collapsed' : ''}`} aria-label={t('app.primaryNav')}>
       <div className="sidebar-brand">
-        <img src="/trial.png" alt="" width={30} height={30} style={{ borderRadius: 8, flexShrink: 0 }} />
+        <img src="/trial.png?v=2" alt="" width={30} height={30} style={{ borderRadius: 8, flexShrink: 0 }} />
         <span className="brand-name">Compliance Check</span>
         <button
           type="button"

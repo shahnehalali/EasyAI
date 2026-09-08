@@ -17,7 +17,7 @@ export default function AuthLayout() {
         <div className="auth-card" style={{ position: 'static' }}>
           <div className="auth-body">
             <Link to="/welcome" className="row" style={{ gap: 10, marginBottom: 4, textDecoration: 'none' }} data-testid="auth-brand-link">
-              <img src="/trial.png" alt="Compliance Check" width={30} height={30} style={{ borderRadius: 7 }} />
+              <img src="/trial.png?v=2" alt="Compliance Check" width={30} height={30} style={{ borderRadius: 7 }} />
               <span className="auth-brand">Compliance Check</span>
             </Link>
             <p className="muted small" style={{ marginBottom: 22 }}>{t('auth.tagline')}</p>
