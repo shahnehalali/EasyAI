@@ -182,8 +182,6 @@ hr { border: none; border-top: 1px solid var(--border); margin: 16px 0; }
   border-top: 1px solid var(--border);
 }
 .sidebar-brand .mark { width: 22px; height: 22px; background: var(--accent); border-radius: 7px; display: inline-block; }
-/* Keep the brand mark monochrome to match the theme. */
-.sidebar-brand img, .auth-body img { filter: grayscale(1) contrast(1.05); }
 /* Right padding is smaller than the left because `margin-right` below pulls the
    whole scroll column (and its scrollbar) in from the sidebar's rounded edge;
    the two together keep the content visually centred. */
