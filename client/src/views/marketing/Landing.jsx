@@ -2,7 +2,7 @@ import { useState } from 'react';
 import { Link } from 'react-router-dom';
 import {
   ShieldCheck, ListChecks, Compass, CalendarClock, Users, Lock,
-  ArrowRight, ChevronDown, CheckCircle2, ShieldQuestion,
+  ArrowRight, ChevronDown, CheckCircle2, ShieldQuestion, Check, Clock3,
 } from 'lucide-react';
 import { useLangStore } from '@/store/langStore';
 import NeuralBackground from '@/components/NeuralBackground';
@@ -16,6 +16,70 @@ import {
 } from '@/data/marketingContent';
 
 const ICONS = { ShieldCheck, ListChecks, Compass, CalendarClock, Users, Lock };
+
+// A browser-chrome-framed preview of the real dashboard, sitting under the
+// hero headline. Built from the app's own numbers (same figures as
+// ProductShowcase's DashboardMock), not a literal screenshot, so it never
+// goes stale when the UI changes.
+function HeroDashboardMock({ lang }) {
+  const nav = [
+    { label: { en: 'Dashboard', de: 'Uebersicht' }, active: true },
+    { label: { en: 'AI Systems', de: 'KI-Systeme' } },
+    { label: { en: 'Assessments', de: 'Bewertungen' } },
+    { label: { en: 'Frameworks', de: 'Rechtsrahmen' } },
+    { label: { en: 'Documents', de: 'Dokumente' } },
+  ];
+  const tiles = [
+    { label: { en: 'Overall standing', de: 'Gesamtstand' }, value: '78%' },
+    { label: { en: 'AI systems', de: 'KI-Systeme' }, value: '5' },
+    { label: { en: 'Open items', de: 'Offene Punkte' }, value: '12' },
+    { label: { en: 'Reviews due', de: 'Faellige Pruefungen' }, value: '2', accent: true },
+  ];
+  const rows = [
+    { status: 'done', text: { en: 'Recommender system: high risk, Art. 13 transparency documented', de: 'Recommender-System: Hochrisiko, Art. 13 Transparenz dokumentiert' } },
+    { status: 'progress', text: { en: 'Support chatbot: limited risk, Art. 50 disclosure open', de: 'Chatbot Kundenservice: begrenztes Risiko, Art. 50 Kennzeichnung offen' } },
+  ];
+  return (
+    <div className="mkt-hero-mock-wrap">
+      <div className="mkt-hero-mock">
+        <div className="mkt-hero-mock-bar">
+          <div className="mkt-hero-mock-dots"><span /><span /><span /></div>
+          <span className="mkt-hero-mock-url">compliance.rit.services / dashboard</span>
+          <span style={{ width: 60 }} />
+        </div>
+        <div className="mkt-hero-mock-body">
+          <div className="mkt-hero-mock-nav">
+            {nav.map((n) => (
+              <span key={n.label.en} className={n.active ? 'active' : ''}>{n.label[lang]}</span>
+            ))}
+          </div>
+          <div className="mkt-hero-mock-main">
+            <div className="mkt-hero-mock-tiles">
+              {tiles.map((t) => (
+                <div key={t.label.en} className="mkt-hero-mock-tile">
+                  <div className={`mkt-hero-mock-tile-value${t.accent ? ' accent' : ''}`}>{t.value}</div>
+                  <div className="mkt-hero-mock-tile-label">{t.label[lang]}</div>
+                </div>
+              ))}
+            </div>
+            <div className="mkt-hero-mock-bar-track"><div className="mkt-hero-mock-bar-fill" style={{ width: '78%' }} /></div>
+            <div className="mkt-hero-mock-rows">
+              {rows.map((r) => {
+                const Icon = r.status === 'done' ? Check : Clock3;
+                return (
+                  <div key={r.text.en} className="mkt-hero-mock-row">
+                    <span className={`mkt-hero-mock-row-ic ${r.status}`}><Icon size={11} /></span>
+                    {r.text[lang]}
+                  </div>
+                );
+              })}
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  );
+}
 
 function FaqAccordion() {
   const lang = useLangStore((s) => s.lang);
@@ -54,20 +118,32 @@ export default function Landing() {
   return (
     <div data-testid="marketing-landing">
       <section className="mkt-hero">
-        <NeuralBackground />
+        <NeuralBackground dark />
         <div className="mkt-hero-inner">
-          <div className="eyebrow" style={{ marginBottom: 14 }}>{HERO.eyebrow[lang]}</div>
-          <h1 className="mkt-h1">{HERO.title[lang]}</h1>
+          <div className="mkt-hero-badge" style={{ marginBottom: 0 }}>
+            <span className="mkt-hero-badge-tag">{HERO.badgeTag[lang]}</span>
+            <span>{HERO.badgeText[lang]}</span>
+          </div>
+          <h1 className="mkt-h1" style={{ marginTop: 22 }}>{HERO.title[lang]}</h1>
           <p className="mkt-lead">{HERO.subtitle[lang]}</p>
-          <div className="row" style={{ gap: 12, marginTop: 26, justifyContent: 'center', flexWrap: 'wrap' }}>
+          <div className="row" style={{ gap: 12, marginTop: 26, justifyContent: 'center', flexWrap: 'wrap', position: 'relative', zIndex: 2 }}>
             <Link to="/register" className="btn btn-primary" data-testid="mkt-cta-primary">
               {HERO.ctaPrimary[lang]} <ArrowRight size={16} />
             </Link>
             <Link to="/login" className="btn btn-outline" data-testid="mkt-cta-secondary">{HERO.ctaSecondary[lang]}</Link>
           </div>
-          <p className="muted small" style={{ marginTop: 18 }}>{HERO.trustLine[lang]}</p>
-          <PoweredByRit style={{ marginTop: 20 }} />
+          <div className="mkt-hero-trust">
+            {HERO.trustPoints.map((p, i) => (
+              <span key={p.en} style={{ display: 'contents' }}>
+                {i > 0 && <span className="dot" />}
+                <span>{p[lang]}</span>
+              </span>
+            ))}
+          </div>
+          <p className="muted small" style={{ marginTop: 14, position: 'relative', zIndex: 2, color: '#6f7788' }}>{HERO.trustLine[lang]}</p>
+          <PoweredByRit dark style={{ marginTop: 18, position: 'relative', zIndex: 2 }} />
         </div>
+        <HeroDashboardMock lang={lang} />
       </section>
 
       <div className="mkt-stats-band">

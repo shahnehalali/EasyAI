@@ -46,14 +46,25 @@ export default function About() {
       </section>
 
       <section className="mkt-section mkt-section-alt">
-        <div className="content" style={{ maxWidth: 760 }}>
-          <div className="stack" style={{ gap: 34 }}>
-            {ABOUT.whySections.map((s) => (
-              <div key={s.title.en}>
-                <h3 style={{ marginBottom: 8 }}>{s.title[lang]}</h3>
-                <p className="muted" style={{ lineHeight: 1.7 }}>{s.body[lang]}</p>
-              </div>
-            ))}
+        <div className="content">
+          <div className="card mkt-flow-card">
+            <div className="card-body mkt-flow">
+              {ABOUT.whySections.map((s, i) => {
+                const isLast = i === ABOUT.whySections.length - 1;
+                return (
+                  <div key={s.title.en} className="mkt-flow-step in-view">
+                    <div className="mkt-flow-rail">
+                      <div className="mkt-flow-node">{i + 1}</div>
+                      {!isLast && <div className="mkt-flow-line" />}
+                    </div>
+                    <div className="mkt-flow-content">
+                      <h3>{s.title[lang]}</h3>
+                      <p className="muted small">{s.body[lang]}</p>
+                    </div>
+                  </div>
+                );
+              })}
+            </div>
           </div>
         </div>
       </section>

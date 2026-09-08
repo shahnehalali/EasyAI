@@ -13,7 +13,10 @@ import { useThemeStore } from '@/store/themeStore';
 const LINK_DIST = 140; // px: nodes closer than this get a link
 const POINTER_DIST = 180; // px: nodes closer than this reach for the cursor
 
-export default function NeuralBackground() {
+// `dark`: force the light-ink-on-dark palette regardless of the site's
+// light/dark theme toggle. Used on the landing hero, which is a permanently
+// dark band independent of the toggle (see .mkt-hero in global.css).
+export default function NeuralBackground({ dark = false }) {
   const canvasRef = useRef(null);
   const theme = useThemeStore((s) => s.theme);
 
@@ -25,7 +28,7 @@ export default function NeuralBackground() {
 
     const reduced = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
     // Ink on paper in light mode, light ink on dark in night mode.
-    const rgb = theme === 'dark' ? '232, 236, 243' : '23, 25, 31';
+    const rgb = (dark || theme === 'dark') ? '232, 236, 243' : '23, 25, 31';
 
     let width = 0;
     let height = 0;
@@ -146,7 +149,7 @@ export default function NeuralBackground() {
       window.removeEventListener('pointerleave', onPointerLeave);
       document.removeEventListener('visibilitychange', onVisibility);
     };
-  }, [theme]);
+  }, [theme, dark]);
 
   return <canvas ref={canvasRef} className="auth-bg" aria-hidden="true" />;
 }

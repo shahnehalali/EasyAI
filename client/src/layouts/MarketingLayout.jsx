@@ -2,9 +2,10 @@ import { Link, Outlet, useLocation } from 'react-router-dom';
 import { Sun, Moon, Menu, X } from 'lucide-react';
 import { useState } from 'react';
 import LanguageSwitch from '@/components/ui/LanguageSwitch';
+import PoweredByRit from '@/components/PoweredByRit';
 import { useThemeStore } from '@/store/themeStore';
 import { useLangStore } from '@/store/langStore';
-import { FOOTER, RIT_SERVICES_URL } from '@/data/marketingContent';
+import { FOOTER } from '@/data/marketingContent';
 
 // Public layout for the marketing site: landing page, about page, and the
 // draft legal pages. Not gated by AppLayout's auth guard, reachable by anyone.
@@ -21,6 +22,7 @@ export default function MarketingLayout({ children }) {
   const [menuOpen, setMenuOpen] = useState(false);
   const year = new Date().getFullYear();
 
+  const homeLink = { to: '/welcome', label: { en: 'Home', de: 'Startseite' } };
   const anchorLinks = [
     { to: '/welcome#how-it-works', label: { en: 'How it works', de: 'So funktioniert es' } },
     { to: '/welcome#frameworks', label: { en: 'Frameworks', de: 'Regelwerke' } },
@@ -42,6 +44,7 @@ export default function MarketingLayout({ children }) {
           </Link>
 
           <nav className="mkt-nav-links" aria-label="Main">
+            <Link to={homeLink.to} className="mkt-nav-link">{homeLink.label[lang]}</Link>
             {anchorLinks.map((l) => (
               <a key={l.to} href={l.to} className="mkt-nav-link">{l.label[lang]}</a>
             ))}
@@ -75,6 +78,7 @@ export default function MarketingLayout({ children }) {
 
         {menuOpen && (
           <div className="mkt-nav-mobile">
+            <Link to={homeLink.to} className="mkt-nav-link" onClick={() => setMenuOpen(false)}>{homeLink.label[lang]}</Link>
             {anchorLinks.map((l) => (
               <a key={l.to} href={l.to} className="mkt-nav-link" onClick={() => setMenuOpen(false)}>{l.label[lang]}</a>
             ))}
@@ -97,15 +101,7 @@ export default function MarketingLayout({ children }) {
               <span className="mkt-footer-name">Compliance Check</span>
             </div>
             <p className="muted small" style={{ maxWidth: 260, marginTop: 10 }}>{FOOTER.tagline[lang]}</p>
-            <a
-              href={RIT_SERVICES_URL}
-              target="_blank"
-              rel="noreferrer"
-              className="mkt-footer-link mkt-footer-rit"
-              data-testid="footer-rit-services-link"
-            >
-              rit.services &#8599;
-            </a>
+            <PoweredByRit dark style={{ marginTop: 10 }} />
           </div>
 
           {FOOTER.columns.map((col) => (

@@ -23,6 +23,20 @@ export const HERO = {
     en: 'Built and hosted in the EU. Your data is encrypted, backed up, and yours to export or delete at any time.',
     de: 'Entwickelt und gehostet in der EU. Ihre Daten sind verschluesselt, werden gesichert und lassen sich jederzeit exportieren oder loeschen.',
   },
+  // "New" pill shown above the headline. 2 August 2026 is the real EU AI Act
+  // date (Regulation (EU) 2024/1689, Art. 113) on which most high-risk
+  // system obligations under Art. 8 to 15 start to apply.
+  badgeTag: { en: 'New', de: 'Neu' },
+  badgeText: {
+    en: 'EU AI Act: high-risk obligations apply from 2 August 2026',
+    de: 'EU AI Act: Pflichten fuer Hochrisiko-Systeme gelten ab 2. August 2026',
+  },
+  // Short, segmented trust points shown as a dotted row under the CTAs.
+  trustPoints: [
+    { en: 'Free', de: 'Kostenlos' },
+    { en: 'Own servers in the EU', de: 'Eigene Server in der EU' },
+    { en: 'DPA at registration', de: 'AVV bei Registrierung' },
+  ],
 };
 
 // A curated strip of the most recognisable frameworks in the catalogue. The
