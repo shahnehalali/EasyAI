@@ -23,7 +23,7 @@ const ICONS = { ShieldCheck, ListChecks, Compass, CalendarClock, Users, Lock };
 // goes stale when the UI changes.
 function HeroDashboardMock({ lang }) {
   const nav = [
-    { label: { en: 'Dashboard', de: 'Uebersicht' }, active: true },
+    { label: { en: 'Dashboard', de: 'Übersicht' }, active: true },
     { label: { en: 'AI Systems', de: 'KI-Systeme' } },
     { label: { en: 'Assessments', de: 'Bewertungen' } },
     { label: { en: 'Frameworks', de: 'Rechtsrahmen' } },
@@ -33,7 +33,7 @@ function HeroDashboardMock({ lang }) {
     { label: { en: 'Overall standing', de: 'Gesamtstand' }, value: '78%' },
     { label: { en: 'AI systems', de: 'KI-Systeme' }, value: '5' },
     { label: { en: 'Open items', de: 'Offene Punkte' }, value: '12' },
-    { label: { en: 'Reviews due', de: 'Faellige Pruefungen' }, value: '2', accent: true },
+    { label: { en: 'Reviews due', de: 'Fällige Prüfungen' }, value: '2', accent: true },
   ];
   const rows = [
     { status: 'done', text: { en: 'Recommender system: high risk, Art. 13 transparency documented', de: 'Recommender-System: Hochrisiko, Art. 13 Transparenz dokumentiert' } },
@@ -181,7 +181,7 @@ export default function Landing() {
             <h2>{lang === 'de' ? 'Von der Registrierung zur dokumentierten Compliance' : 'From registration to documented compliance'}</h2>
             <p className="mkt-lead-sm">
               {lang === 'de'
-                ? 'Schritt 2 zeigt, wohin die Einstufung tatsaechlich fuehrt, mit allen vier moeglichen Ergebnissen.'
+                ? 'Schritt 2 zeigt, wohin die Einstufung tatsächlich führt, mit allen vier möglichen Ergebnissen.'
                 : 'Step 2 shows exactly where the classification actually leads, with all four possible outcomes.'}
             </p>
           </div>
@@ -196,7 +196,7 @@ export default function Landing() {
             <h2>{lang === 'de' ? 'Wie ein KI-System eingestuft wird' : 'How an AI system gets classified'}</h2>
             <p className="mkt-lead-sm">
               {lang === 'de'
-                ? 'Waehlen Sie eine Kategorie. Der Text ist die echte Erklaerung, die die Anwendung nach der Einstufung anzeigt.'
+                ? 'Wählen Sie eine Kategorie. Der Text ist die echte Erklärung, die die Anwendung nach der Einstufung anzeigt.'
                 : 'Pick a category. The text is the real explanation the app shows once a system is classified.'}
             </p>
           </div>
@@ -244,7 +244,7 @@ export default function Landing() {
             <h2>{lang === 'de' ? '37 Gesetze, ein Ort' : '37 laws, one place'}</h2>
             <p className="mkt-lead-sm">
               {lang === 'de'
-                ? 'EU-Verordnungen und deutsches Recht, durchsuchbar. Dies ist die vollstaendige, echte Liste, keine Auswahl.'
+                ? 'EU-Verordnungen und deutsches Recht, durchsuchbar. Dies ist die vollständige, echte Liste, keine Auswahl.'
                 : 'EU regulations and German law, searchable. This is the complete, real list, not a highlight reel.'}
             </p>
           </div>
@@ -268,7 +268,7 @@ export default function Landing() {
           </div>
           <div style={{ textAlign: 'center', marginTop: 28 }}>
             <Link to="/security" className="btn btn-outline" data-testid="mkt-security-link">
-              <ShieldQuestion size={16} /> {lang === 'de' ? 'Vollstaendige Sicherheits- und DSGVO-Seite' : 'Full security and GDPR page'}
+              <ShieldQuestion size={16} /> {lang === 'de' ? 'Vollständige Sicherheits- und DSGVO-Seite' : 'Full security and GDPR page'}
             </Link>
           </div>
         </div>
@@ -278,7 +278,7 @@ export default function Landing() {
         <div className="content">
           <div className="mkt-section-head">
             <div className="eyebrow">FAQ</div>
-            <h2>{lang === 'de' ? 'Haeufig gestellte Fragen' : 'Frequently asked questions'}</h2>
+            <h2>{lang === 'de' ? 'Häufig gestellte Fragen' : 'Frequently asked questions'}</h2>
           </div>
           <FaqAccordion />
         </div>

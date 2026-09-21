@@ -27,7 +27,7 @@ export default function AuthLayout() {
         <div className="row small muted" style={{ gap: 14 }}>
           <Link to="/welcome" className="small">{lang === 'de' ? 'Startseite' : 'Home'}</Link>
           <span aria-hidden="true">&middot;</span>
-          <Link to="/about" className="small">{lang === 'de' ? 'Ueber uns' : 'About'}</Link>
+          <Link to="/about" className="small">{lang === 'de' ? 'Über uns' : 'About'}</Link>
           <span aria-hidden="true">&middot;</span>
           <Link to="/welcome#faq" className="small">FAQ</Link>
         </div>

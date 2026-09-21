@@ -41,7 +41,7 @@ export const STATUS_LABELS = {
     done: 'Erledigt',
     not_applicable: 'Nicht zutreffend',
     completed: 'Abgeschlossen',
-    needs_review: 'Pruefung noetig',
+    needs_review: 'Prüfung nötig',
   },
 };
 

@@ -13,7 +13,7 @@ function ClassifyBranches({ lang }) {
     <div className="mkt-flow-branch" data-testid="flow-classify-branches">
       <div className="mkt-flow-branch-label">
         <GitBranch size={14} aria-hidden="true" />
-        {lang === 'de' ? 'Fuehrt zu einem von vier Ergebnissen:' : 'Leads to one of four outcomes:'}
+        {lang === 'de' ? 'Führt zu einem von vier Ergebnissen:' : 'Leads to one of four outcomes:'}
       </div>
       <div className="mkt-flow-branch-grid">
         {CLASSIFICATION_DEMO.map((c, i) => (

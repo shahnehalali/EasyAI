@@ -15,7 +15,7 @@ const TERMS = [
   ['Art. 5', 'legal'], ['Art. 15', 'legal'], ['Art. 17', 'legal'], ['Art. 20', 'legal'],
   ['Art. 28', 'legal'], ['Art. 32', 'legal'], ['Art. 33', 'legal'], ['Art. 34', 'legal'],
   ['Hetzner', 'vendor'], ['IONOS', 'vendor'], ['Strato', 'vendor'], ['Resend', 'vendor'],
-  ['European Union', 'legal'], ['Europaeischen Union', 'legal'], ['EU-only', 'legal'], ['ausschliesslich EU', 'legal'],
+  ['European Union', 'legal'], ['Europäischen Union', 'legal'], ['EU-only', 'legal'], ['ausschließlich EU', 'legal'],
   ['365 days', 'legal'], ['365 Tagen', 'legal'], ['90 days', 'legal'], ['90 Tagen', 'legal'],
   ['180 days', 'legal'], ['180 Tagen', 'legal'], ['30 days', 'legal'], ['30 Tage', 'legal'],
   ['7 days', 'legal'], ['7 Tagen', 'legal'],

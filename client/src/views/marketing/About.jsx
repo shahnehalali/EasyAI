@@ -33,7 +33,7 @@ export default function About() {
               <img src={FOUNDER.photo} alt={FOUNDER.name} className="mkt-founder-photo" />
             </div>
             <div className="card-body mkt-founder-body">
-              <div className="eyebrow">{lang === 'de' ? 'Gruender' : 'Founder'}</div>
+              <div className="eyebrow">{lang === 'de' ? 'Gründer' : 'Founder'}</div>
               <h3 style={{ marginTop: 4 }}>{FOUNDER.name}</h3>
               <div className="mkt-founder-title">{FOUNDER.title[lang]}</div>
               <p className="mkt-founder-bio">&ldquo;{FOUNDER.bio[lang]}&rdquo;</p>
@@ -74,7 +74,7 @@ export default function About() {
           <h2>{lang === 'de' ? 'Fragen an uns?' : 'Questions for us?'}</h2>
           <p className="mkt-lead-sm" style={{ margin: '10px auto 22px' }}>
             {lang === 'de'
-              ? 'Schreiben Sie uns, oder sehen Sie sich die haeufig gestellten Fragen auf der Startseite an.'
+              ? 'Schreiben Sie uns, oder sehen Sie sich die häufig gestellten Fragen auf der Startseite an.'
               : 'Write to us, or check the frequently asked questions on the landing page.'}
           </p>
           <div className="row" style={{ gap: 12, justifyContent: 'center' }}>

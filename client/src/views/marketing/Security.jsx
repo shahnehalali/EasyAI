@@ -66,13 +66,13 @@ export default function Security() {
         <div className="content" style={{ maxWidth: 760 }}>
           <div className="eyebrow">{lang === 'de' ? 'Sicherheit und DSGVO' : 'Security and GDPR'}</div>
           <h1 className="mkt-h1" style={{ fontSize: 38, textAlign: 'left' }}>
-            {lang === 'de' ? 'Wie wir Ihre Daten schuetzen' : 'How we protect your data'}
+            {lang === 'de' ? 'Wie wir Ihre Daten schützen' : 'How we protect your data'}
           </h1>
           <p className="mkt-lead" style={{ textAlign: 'left', margin: '16px 0 0' }}>
             {highlightTerms(GDPR_INTRO[lang])}
           </p>
           <p className="muted small" style={{ marginTop: 12 }} data-testid="gdpr-last-reviewed">
-            {lang === 'de' ? 'Zuletzt geprueft am' : 'Last reviewed'}: {GDPR_LAST_REVIEWED[lang]}
+            {lang === 'de' ? 'Zuletzt geprüft am' : 'Last reviewed'}: {GDPR_LAST_REVIEWED[lang]}
           </p>
         </div>
       </section>
@@ -100,7 +100,7 @@ export default function Security() {
           </div>
           <p className="muted small" style={{ marginTop: 20 }} data-testid="gdpr-privacy-crosslink">
             {lang === 'de' ? 'Details dazu, wie wir Ihre personenbezogenen Daten verarbeiten: ' : 'Details on how we process your personal data: '}
-            <Link to="/privacy">{lang === 'de' ? 'Datenschutzerklaerung' : 'Privacy Notice'}</Link>.
+            <Link to="/privacy">{lang === 'de' ? 'Datenschutzerklärung' : 'Privacy Notice'}</Link>.
           </p>
         </div>
       </section>
@@ -110,7 +110,7 @@ export default function Security() {
           <h2>{lang === 'de' ? 'Weitere Fragen zur Sicherheit?' : 'More security questions?'}</h2>
           <p className="mkt-lead-sm" style={{ margin: '10px auto 22px' }}>
             {lang === 'de'
-              ? 'Lesen Sie unseren Auftragsverarbeitungsvertrag, oder kontaktieren Sie uns fuer weitere Unterlagen.'
+              ? 'Lesen Sie unseren Auftragsverarbeitungsvertrag, oder kontaktieren Sie uns für weitere Unterlagen.'
               : 'Read our Data Processing Agreement, or contact us for further documentation.'}
           </p>
           <div className="row" style={{ gap: 12, justifyContent: 'center' }}>

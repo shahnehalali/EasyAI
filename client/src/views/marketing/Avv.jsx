@@ -24,7 +24,7 @@ export default function Avv() {
           </h1>
           <p className="mkt-lead" style={{ textAlign: 'left', margin: '16px 0 0' }}>
             {de
-              ? highlightTerms('Dieser Vertrag nach Art. 28 DSGVO regelt, wie RIT Services personenbezogene Daten im Auftrag Ihres Unternehmens verarbeitet, wenn Sie Compliance Check nutzen. Er wird automatisch bei der Registrierung geschlossen, Sie muessen nichts gesondert unterschreiben. Nach der Anmeldung finden Sie Ihre eigene, unterzeichnete Fassung jederzeit zum Download in den Einstellungen.')
+              ? highlightTerms('Dieser Vertrag nach Art. 28 DSGVO regelt, wie RIT Services personenbezogene Daten im Auftrag Ihres Unternehmens verarbeitet, wenn Sie Compliance Check nutzen. Er wird automatisch bei der Registrierung geschlossen, Sie müssen nichts gesondert unterschreiben. Nach der Anmeldung finden Sie Ihre eigene, unterzeichnete Fassung jederzeit zum Download in den Einstellungen.')
               : highlightTerms('This Art. 28 GDPR contract sets out how RIT Services processes personal data on your company\'s behalf when you use Compliance Check. It is concluded automatically during registration, there is nothing separate to sign. Once you have an account, your own signed copy is always downloadable from Settings.')}
           </p>
           <p className="muted small" style={{ marginTop: 12 }} data-testid="avv-last-reviewed">
@@ -41,17 +41,17 @@ export default function Avv() {
               <ul className="mkt-row-points" style={{ marginTop: 12 }}>
                 <li><span>{de ? 'Gegenstand, Dauer, Art und Zweck der Verarbeitung Ihrer Compliance-Daten' : 'The subject, duration, nature and purpose of processing your compliance data'}</span></li>
                 <li><span>{de ? 'Weisungsbindung: RIT verarbeitet Daten nur nach Ihren dokumentierten Weisungen' : 'Instruction-bound processing: RIT only processes data on your documented instructions'}</span></li>
-                <li><span>{highlightTerms(de ? 'Technische und organisatorische Massnahmen nach Art. 32 DSGVO' : 'Technical and organisational measures under Art. 32 GDPR')}</span></li>
-                <li><span>{de ? 'Unterstuetzung bei Betroffenenrechten und bei Datenschutzverletzungen' : 'Support with data subject rights and personal data breaches'}</span></li>
-                <li><span>{de ? 'Loeschung und Rueckgabe Ihrer Daten nach Vertragsende' : 'Deletion and return of your data once processing ends'}</span></li>
-                <li><span>{de ? 'Die vollstaendige, namentliche Liste der Unterauftragsverarbeiter, mit Anschrift und Aufgabe je Anlage 3' : 'The complete, named list of sub-processors, with address and task, in Annex 3'}</span></li>
+                <li><span>{highlightTerms(de ? 'Technische und organisatorische Maßnahmen nach Art. 32 DSGVO' : 'Technical and organisational measures under Art. 32 GDPR')}</span></li>
+                <li><span>{de ? 'Unterstützung bei Betroffenenrechten und bei Datenschutzverletzungen' : 'Support with data subject rights and personal data breaches'}</span></li>
+                <li><span>{de ? 'Löschung und Rückgabe Ihrer Daten nach Vertragsende' : 'Deletion and return of your data once processing ends'}</span></li>
+                <li><span>{de ? 'Die vollständige, namentliche Liste der Unterauftragsverarbeiter, mit Anschrift und Aufgabe je Anlage 3' : 'The complete, named list of sub-processors, with address and task, in Annex 3'}</span></li>
               </ul>
             </div>
           </div>
 
           <div className="row" style={{ gap: 12, marginTop: 24, flexWrap: 'wrap' }}>
             <a className="btn btn-primary" href={AVV_PDF_URL} data-testid="avv-download">
-              {de ? 'Vollstaendigen AVV herunterladen (PDF)' : 'Download the full AVV (PDF)'}
+              {de ? 'Vollständigen AVV herunterladen (PDF)' : 'Download the full AVV (PDF)'}
             </a>
             <Link to="/security" className="btn btn-outline">
               {de ? 'Sicherheits- und DSGVO-Seite' : 'Security and GDPR page'}

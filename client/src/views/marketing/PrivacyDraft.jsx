@@ -28,35 +28,35 @@ export default function PrivacyDraft() {
       label: de ? 'Verantwortlicher' : 'Controller',
       wide: true,
       body: de
-        ? 'RIT Services GmbH, Am alten Gueterbahnhof 57, 50825 Koeln, vertreten durch Matthias Wessner. Kontakt fuer Datenschutzfragen: info@rit.services.'
-        : 'RIT Services GmbH, Am alten Gueterbahnhof 57, 50825 Koeln, Germany, represented by Matthias Wessner. Contact for data protection questions: info@rit.services.',
+        ? 'RIT Services GmbH, Am alten Güterbahnhof 57, 50825 Köln, vertreten durch Matthias Wessner. Kontakt für Datenschutzfragen: info@rit.services.'
+        : 'RIT Services GmbH, Am alten Güterbahnhof 57, 50825 Köln, Germany, represented by Matthias Wessner. Contact for data protection questions: info@rit.services.',
     },
     {
       icon: Database,
       label: de ? 'Was wir verarbeiten' : 'What we process',
       body: de
-        ? 'Kontodaten (Name, E-Mail, Rolle), Organisationsdaten und Ihre Compliance-Inhalte. Rechtsgrundlage: Erfuellung des Nutzungsvertrags (Art. 6 Abs. 1 lit. b DSGVO).'
+        ? 'Kontodaten (Name, E-Mail, Rolle), Organisationsdaten und Ihre Compliance-Inhalte. Rechtsgrundlage: Erfüllung des Nutzungsvertrags (Art. 6 Abs. 1 lit. b DSGVO).'
         : 'Account data (name, email, role), organisation data, and the compliance content you enter. Legal basis: performance of the service contract (Art. 6(1)(b) GDPR).',
     },
     {
       icon: Lock,
-      label: de ? 'Verschluesselung & Ihre Rechte' : 'Encryption & your rights',
+      label: de ? 'Verschlüsselung & Ihre Rechte' : 'Encryption & your rights',
       body: de
-        ? 'Sensible Inhalte sind mit einem organisationsspezifischen Schluessel verschluesselt. Einsehen, exportieren oder loeschen jederzeit in den Einstellungen (Art. 15, 17, 20 DSGVO).'
+        ? 'Sensible Inhalte sind mit einem organisationsspezifischen Schlüssel verschlüsselt. Einsehen, exportieren oder löschen jederzeit in den Einstellungen (Art. 15, 17, 20 DSGVO).'
         : 'Sensitive content is encrypted with a key unique to your organisation. View, export, or delete it any time from Settings (Art. 15, 17, and 20 GDPR).',
     },
     {
       icon: Share2,
       label: de ? 'Unterauftragsverarbeiter' : 'Sub-processors',
       body: de
-        ? 'Hetzner, IONOS und STRATO fuer das Hosting (DE/FI, kein Zugriff auf Inhalte), sowie Resend (USA) fuer transaktionale E-Mails, im Rahmen des EU-US Data Privacy Framework.'
+        ? 'Hetzner, IONOS und STRATO für das Hosting (DE/FI, kein Zugriff auf Inhalte), sowie Resend (USA) für transaktionale E-Mails, im Rahmen des EU-US Data Privacy Framework.'
         : 'Hetzner, IONOS and STRATO for hosting (DE/FI, no access to content), and Resend (USA) for transactional email, under the EU-US Data Privacy Framework.',
     },
     {
       icon: Mail,
       label: de ? 'Fragen & Beschwerden' : 'Questions & complaints',
       body: de
-        ? 'Bei Fragen oder zur Ausuebung Ihrer Betroffenenrechte wenden Sie sich an info@rit.services. Sie haben zudem das Recht, sich bei einer Datenschutzaufsichtsbehoerde zu beschweren.'
+        ? 'Bei Fragen oder zur Ausübung Ihrer Betroffenenrechte wenden Sie sich an info@rit.services. Sie haben zudem das Recht, sich bei einer Datenschutzaufsichtsbehörde zu beschweren.'
         : 'For questions or to exercise your data subject rights, contact info@rit.services. You also have the right to lodge a complaint with a data protection supervisory authority.',
     },
   ];
@@ -67,7 +67,7 @@ export default function PrivacyDraft() {
         <div className="content" style={{ maxWidth: 920 }}>
           <div className="eyebrow">{de ? 'Datenschutz' : 'Privacy'}</div>
           <h1 className="mkt-h1" style={{ fontSize: 36, textAlign: 'left' }}>
-            {de ? 'Datenschutzerklaerung' : 'Privacy notice'}
+            {de ? 'Datenschutzerklärung' : 'Privacy notice'}
           </h1>
         </div>
       </section>

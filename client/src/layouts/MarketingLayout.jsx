@@ -31,7 +31,7 @@ export default function MarketingLayout({ children }) {
   const routeLinks = [
     { to: '/docs', label: { en: 'Documentation', de: 'Dokumentation' } },
     { to: '/security', label: { en: 'Security', de: 'Sicherheit' } },
-    { to: '/about', label: { en: 'About', de: 'Ueber uns' } },
+    { to: '/about', label: { en: 'About', de: 'Über uns' } },
   ];
 
   return (

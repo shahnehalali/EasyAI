@@ -12,7 +12,7 @@ function DashboardMock({ lang }) {
     { label: { en: 'Overall standing', de: 'Gesamtstand' }, value: '78%' },
     { label: { en: 'AI systems', de: 'KI-Systeme' }, value: '5' },
     { label: { en: 'Open items', de: 'Offene Punkte' }, value: '12' },
-    { label: { en: 'Reviews due', de: 'Faellige Pruefungen' }, value: '2' },
+    { label: { en: 'Reviews due', de: 'Fällige Prüfungen' }, value: '2' },
   ];
   return (
     <div className="mkt-mock-grid">
@@ -32,9 +32,9 @@ function DashboardMock({ lang }) {
 function ChecklistMock({ lang }) {
   const items = [
     { status: 'done', text: { en: 'Register the AI system', de: 'KI-System registrieren' } },
-    { status: 'done', text: { en: 'Run risk classification', de: 'Risikoeinstufung durchfuehren' } },
-    { status: 'progress', text: { en: 'Document data governance measures', de: 'Massnahmen zur Daten-Governance dokumentieren' } },
-    { status: 'open', text: { en: 'Set up human oversight process', de: 'Prozess fuer menschliche Aufsicht einrichten' } },
+    { status: 'done', text: { en: 'Run risk classification', de: 'Risikoeinstufung durchführen' } },
+    { status: 'progress', text: { en: 'Document data governance measures', de: 'Maßnahmen zur Daten-Governance dokumentieren' } },
+    { status: 'open', text: { en: 'Set up human oversight process', de: 'Prozess für menschliche Aufsicht einrichten' } },
   ];
   const ICON = { done: CheckCircle2, progress: Clock, open: Circle };
   return (
@@ -56,7 +56,7 @@ function ExplorerMock({ lang }) {
   const rows = [
     { name: 'EU AI Act', tag: { en: 'Applies', de: 'Gilt' }, on: true },
     { name: 'GDPR', tag: { en: 'Applies', de: 'Gilt' }, on: true },
-    { name: 'DORA', tag: { en: 'Not applicable', de: 'Nicht einschlaegig' }, on: false },
+    { name: 'DORA', tag: { en: 'Not applicable', de: 'Nicht einschlägig' }, on: false },
     { name: 'NIS2', tag: { en: 'Applies', de: 'Gilt' }, on: true },
   ];
   return (
@@ -159,7 +159,7 @@ export default function ProductShowcase() {
         ))}
       </div>
       <p className="muted small" style={{ textAlign: 'center', marginTop: 20 }}>
-        {lang === 'de' ? 'Stilisierte Vorschauen, keine tatsaechlichen Screenshots.' : 'Stylised previews, not literal screenshots.'}
+        {lang === 'de' ? 'Stilisierte Vorschauen, keine tatsächlichen Screenshots.' : 'Stylised previews, not literal screenshots.'}
       </p>
     </div>
   );

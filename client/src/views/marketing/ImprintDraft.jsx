@@ -30,13 +30,13 @@ export default function ImprintDraft() {
       icon: Building2,
       label: de ? 'Anbieter' : 'Provider',
       body: (
-        <>RIT Services GmbH<br />Am alten Gueterbahnhof 57<br />50825 Koeln<br />{de ? 'Deutschland' : 'Germany'}</>
+        <>RIT Services GmbH<br />Am alten Güterbahnhof 57<br />50825 Köln<br />{de ? 'Deutschland' : 'Germany'}</>
       ),
     },
     {
       icon: UserRound,
       label: de ? 'Vertreten durch' : 'Represented by',
-      body: <>Matthias Wessner, {de ? 'Geschaeftsfuehrer' : 'Managing Director'}</>,
+      body: <>Matthias Wessner, {de ? 'Geschäftsführer' : 'Managing Director'}</>,
     },
     {
       icon: Mail,
@@ -48,7 +48,7 @@ export default function ImprintDraft() {
     {
       icon: Landmark,
       label: de ? 'Registereintrag' : 'Register entry',
-      body: de ? 'Amtsgericht Koeln, HRB 115067' : 'Cologne Local Court (Amtsgericht Koeln), HRB 115067',
+      body: de ? 'Amtsgericht Köln, HRB 115067' : 'Cologne Local Court (Amtsgericht Köln), HRB 115067',
     },
     {
       icon: Receipt,
@@ -64,7 +64,7 @@ export default function ImprintDraft() {
         <>
           {de ? 'Nach Paragraf 18 Abs. 2 MStV:' : 'Under Section 18(2) of the German Interstate Media Treaty (MStV):'}<br />
           Matthias Wessner<br />
-          Am alten Gueterbahnhof 57, 50825 Koeln
+          Am alten Güterbahnhof 57, 50825 Köln
         </>
       ),
     },

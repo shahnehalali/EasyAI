@@ -142,7 +142,7 @@ test.describe('Law Explorer module', () => {
     // Law content is German in the drawer.
     await page.getByTestId('law-card-gdpr').click();
     await expect(page.getByTestId('law-drawer')).toContainText('Datenschutz-Grundverordnung');
-    await expect(page.getByTestId('law-drawer')).toContainText('Was Sie tun muessen');
+    await expect(page.getByTestId('law-drawer')).toContainText('Was Sie tun müssen');
   });
 
   test('guided wizard produces a personalised result', async ({ page }) => {

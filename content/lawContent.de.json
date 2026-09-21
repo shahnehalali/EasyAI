@@ -1,296 +1,296 @@
 {
   "eu_ai_act": {
     "name": "EU-KI-Verordnung",
-    "shortDescription": "Das zentrale KI-Gesetz. Es teilt KI-Systeme in Risikostufen ein (verboten, hoch, begrenzt, minimal) und legt fuer jede Stufe Pflichten fest, etwa Dokumentation, menschliche Aufsicht und Transparenz.",
-    "appliesTo": "Jedes Unternehmen, das ein KI-System entwickelt, verkauft oder einsetzt, das Menschen in der EU betrifft. Fuer Anbieter von KI-Modellen mit allgemeinem Verwendungszweck gelten zusaetzliche Regeln.",
+    "shortDescription": "Das zentrale KI-Gesetz. Es teilt KI-Systeme in Risikostufen ein (verboten, hoch, begrenzt, minimal) und legt für jede Stufe Pflichten fest, etwa Dokumentation, menschliche Aufsicht und Transparenz.",
+    "appliesTo": "Jedes Unternehmen, das ein KI-System entwickelt, verkauft oder einsetzt, das Menschen in der EU betrifft. Für Anbieter von KI-Modellen mit allgemeinem Verwendungszweck gelten zusätzliche Regeln.",
     "whatYouMustDo": [
       "Erstellen Sie eine Liste aller KI-Systeme, die Sie entwickeln oder nutzen, und notieren Sie deren Zweck.",
       "Bestimmen Sie die Risikostufe jedes Systems: verboten, hoch, begrenzt oder minimal.",
-      "Pruefen Sie die Verbotsliste erneut vor dem 2. Dezember 2026: Sie erfasst nun auch KI, die Material des sexuellen Kindesmissbrauchs oder nicht einvernehmliche sexuelle oder intime Aufnahmen erzeugt.",
-      "Fuer Hochrisiko-KI: fuehren Sie eine Risikobewertung durch, nutzen Sie gute Daten, fuehren Sie technische Dokumentation, ermoeglichen Sie menschliche Aufsicht und testen Sie auf Genauigkeit und Sicherheit. Dafuer haben Sie bis zum 2. Dezember 2027 (eigenstaendige Systeme nach Anhang III) bzw. bis zum 2. August 2028 (KI in regulierten Produkten) Zeit.",
-      "Sagen Sie Menschen klar, wenn sie es mit KI zu tun haben. Ab dem 2. Dezember 2026 muessen KI-erzeugte oder manipulierte Inhalte zusaetzlich maschinenlesbar gekennzeichnet sein.",
+      "Prüfen Sie die Verbotsliste erneut vor dem 2. Dezember 2026: Sie erfasst nun auch KI, die Material des sexuellen Kindesmissbrauchs oder nicht einvernehmliche sexuelle oder intime Aufnahmen erzeugt.",
+      "Für Hochrisiko-KI: führen Sie eine Risikobewertung durch, nutzen Sie gute Daten, führen Sie technische Dokumentation, ermöglichen Sie menschliche Aufsicht und testen Sie auf Genauigkeit und Sicherheit. Dafür haben Sie bis zum 2. Dezember 2027 (eigenständige Systeme nach Anhang III) bzw. bis zum 2. August 2028 (KI in regulierten Produkten) Zeit.",
+      "Sagen Sie Menschen klar, wenn sie es mit KI zu tun haben. Ab dem 2. Dezember 2026 müssen KI-erzeugte oder manipulierte Inhalte zusätzlich maschinenlesbar gekennzeichnet sein.",
       "Schulen Sie Ihre Mitarbeitenden im Umgang mit der KI.",
-      "Bei weniger als 750 Beschaeftigten und hoechstens 150 Millionen Euro Umsatz: pruefen Sie die neue Kategorie 'small mid-cap' mit vereinfachter Dokumentation und milderen Sanktionen."
+      "Bei weniger als 750 Beschäftigten und höchstens 150 Millionen Euro Umsatz: prüfen Sie die neue Kategorie 'small mid-cap' mit vereinfachter Dokumentation und milderen Sanktionen."
     ],
     "keyDates": [
       "Verbotene KI-Praktiken: seit 2. Februar 2025 durchsetzbar.",
-      "Regeln fuer KI-Modelle mit allgemeinem Verwendungszweck: seit 2. August 2025.",
-      "Allgemeine Anwendung, einschliesslich der Transparenzpflichten (Art. 50): 2. August 2026.",
-      "Neue Verbote fuer KI-generiertes Material des sexuellen Kindesmissbrauchs und nicht einvernehmliche intime Aufnahmen sowie maschinenlesbare Kennzeichnung KI-generierter Inhalte (Art. 50 Abs. 2): 2. Dezember 2026.",
+      "Regeln für KI-Modelle mit allgemeinem Verwendungszweck: seit 2. August 2025.",
+      "Allgemeine Anwendung, einschließlich der Transparenzpflichten (Art. 50): 2. August 2026.",
+      "Neue Verbote für KI-generiertes Material des sexuellen Kindesmissbrauchs und nicht einvernehmliche intime Aufnahmen sowie maschinenlesbare Kennzeichnung KI-generierter Inhalte (Art. 50 Abs. 2): 2. Dezember 2026.",
       "Reallabore in jedem Mitgliedstaat eingerichtet: 2. August 2027.",
-      "Regeln fuer eigenstaendige Hochrisiko-Systeme nach Anhang III: 2. Dezember 2027 (durch den Digital Omnibus vom 2. August 2026 verschoben).",
-      "Regeln fuer in regulierte Produkte eingebettete Hochrisiko-KI (Anhang I, z. B. Medizinprodukte, Maschinen, Spielzeug): 2. August 2028.",
-      "Bestehende KI-Systeme oeffentlicher Stellen: 2. August 2030."
+      "Regeln für eigenständige Hochrisiko-Systeme nach Anhang III: 2. Dezember 2027 (durch den Digital Omnibus vom 2. August 2026 verschoben).",
+      "Regeln für in regulierte Produkte eingebettete Hochrisiko-KI (Anhang I, z. B. Medizinprodukte, Maschinen, Spielzeug): 2. August 2028.",
+      "Bestehende KI-Systeme öffentlicher Stellen: 2. August 2030."
     ],
-    "penalties": "Bis zu 35 Millionen Euro oder 7 % des weltweiten Jahresumsatzes bei verbotenen Praktiken; bis zu 15 Millionen Euro oder 3 % bei den meisten anderen Verstoessen.",
-    "regulator": "Bundesnetzagentur (BNetzA) als Leitbehoerde, mit BaFin, BfArM und dem EU-Buero fuer KI"
+    "penalties": "Bis zu 35 Millionen Euro oder 7 % des weltweiten Jahresumsatzes bei verbotenen Praktiken; bis zu 15 Millionen Euro oder 3 % bei den meisten anderen Verstößen.",
+    "regulator": "Bundesnetzagentur (BNetzA) als Leitbehörde, mit BaFin, BfArM und dem EU-Büro für KI"
   },
   "gdpr": {
     "name": "Datenschutz-Grundverordnung (DSGVO)",
-    "shortDescription": "Das zentrale Datenschutzgesetz. Es regelt, wie KI personenbezogene Daten nutzt, begrenzt voll automatisierte Entscheidungen ueber Menschen und verlangt eine Datenschutz-Folgenabschaetzung fuer risikoreiche KI.",
+    "shortDescription": "Das zentrale Datenschutzgesetz. Es regelt, wie KI personenbezogene Daten nutzt, begrenzt voll automatisierte Entscheidungen über Menschen und verlangt eine Datenschutz-Folgenabschätzung für risikoreiche KI.",
     "appliesTo": "Jedes Unternehmen, das mit KI personenbezogene Daten von Menschen in der EU verarbeitet.",
     "whatYouMustDo": [
       "Haben Sie eine klare Rechtsgrundlage, bevor Sie personenbezogene Daten in KI nutzen.",
       "Sagen Sie den Menschen in einfacher Sprache, wie ihre Daten genutzt werden.",
-      "Wenn die KI wichtige Entscheidungen allein trifft, geben Sie den Betroffenen das Recht auf menschliche Pruefung.",
-      "Fuehren Sie fuer risikoreiche KI-Verarbeitung eine Datenschutz-Folgenabschaetzung durch.",
-      "Nutzen Sie nur die noetigen Daten, halten Sie sie korrekt und speichern Sie sie nicht laenger als noetig."
+      "Wenn die KI wichtige Entscheidungen allein trifft, geben Sie den Betroffenen das Recht auf menschliche Prüfung.",
+      "Führen Sie für risikoreiche KI-Verarbeitung eine Datenschutz-Folgenabschätzung durch.",
+      "Nutzen Sie nur die nötigen Daten, halten Sie sie korrekt und speichern Sie sie nicht länger als nötig."
     ],
     "keyDates": [
       "EU-weit in Kraft seit 25. Mai 2018."
     ],
-    "penalties": "Bis zu 20 Millionen Euro oder 4 % des weltweiten Jahresumsatzes, je nachdem, welcher Betrag hoeher ist.",
-    "regulator": "Bundes- und Landesdatenschutzbehoerden (BfDI und die Landesbehoerden)"
+    "penalties": "Bis zu 20 Millionen Euro oder 4 % des weltweiten Jahresumsatzes, je nachdem, welcher Betrag höher ist.",
+    "regulator": "Bundes- und Landesdatenschutzbehörden (BfDI und die Landesbehörden)"
   },
   "eu_data_act": {
     "name": "EU-Datengesetz (Data Act)",
-    "shortDescription": "Legt faire Regeln fest, wer auf die Daten vernetzter Produkte und KI-gestuetzter Dienste zugreifen und sie nutzen darf. Es erleichtert auch den Wechsel des Cloud-Anbieters.",
-    "appliesTo": "Unternehmen, deren KI Daten aus vernetzten Geraeten oder zugehoerigen Diensten nutzt oder erzeugt, sowie Cloud-Anbieter.",
+    "shortDescription": "Legt faire Regeln fest, wer auf die Daten vernetzter Produkte und KI-gestützter Dienste zugreifen und sie nutzen darf. Es erleichtert auch den Wechsel des Cloud-Anbieters.",
+    "appliesTo": "Unternehmen, deren KI Daten aus vernetzten Geräten oder zugehörigen Diensten nutzt oder erzeugt, sowie Cloud-Anbieter.",
     "whatYouMustDo": [
       "Gestalten Sie vernetzte Produkte so, dass Nutzer leicht an die erzeugten Daten kommen.",
       "Teilen Sie die Daten auf Wunsch des Nutzers zu fairen Bedingungen mit Dritten.",
-      "Entfernen Sie unfaire Datenklauseln aus Vertraegen mit kleineren Unternehmen.",
-      "Ermoeglichen Sie Kunden den Wechsel zu einem anderen Cloud-Anbieter ohne grosse Huerden oder Gebuehren."
+      "Entfernen Sie unfaire Datenklauseln aus Verträgen mit kleineren Unternehmen.",
+      "Ermöglichen Sie Kunden den Wechsel zu einem anderen Cloud-Anbieter ohne große Hürden oder Gebühren."
     ],
     "keyDates": [
       "In Kraft; die Hauptregeln gelten seit 12. September 2025."
     ],
-    "penalties": "Von jedem EU-Land festgelegt; in Deutschland kann die Bundesnetzagentur Bussgelder verhaengen.",
+    "penalties": "Von jedem EU-Land festgelegt; in Deutschland kann die Bundesnetzagentur Bußgelder verhängen.",
     "regulator": "Bundesnetzagentur (BNetzA)"
   },
   "dga": {
     "name": "Datengovernance-Verordnung (DGA)",
-    "shortDescription": "Schafft vertrauenswuerdige Wege, um Daten zu teilen, die KI nutzen kann, einschliesslich der Weiterverwendung von Daten des oeffentlichen Sektors und der Registrierung von Datenvermittlungsdiensten.",
-    "appliesTo": "Datenvermittler, Datenplattformen und alle, die geschuetzte oeffentliche Daten zum Training von KI weiterverwenden.",
+    "shortDescription": "Schafft vertrauenswürdige Wege, um Daten zu teilen, die KI nutzen kann, einschließlich der Weiterverwendung von Daten des öffentlichen Sektors und der Registrierung von Datenvermittlungsdiensten.",
+    "appliesTo": "Datenvermittler, Datenplattformen und alle, die geschützte öffentliche Daten zum Training von KI weiterverwenden.",
     "whatYouMustDo": [
       "Wenn Sie einen Datenvermittlungsdienst betreiben, registrieren Sie ihn und bleiben Sie neutral.",
-      "Befolgen Sie die Regeln bei der Weiterverwendung geschuetzter Daten des oeffentlichen Sektors.",
-      "Wenn Sie Daten zu altruistischen Zwecken sammeln, erfuellen Sie die Transparenzpflichten."
+      "Befolgen Sie die Regeln bei der Weiterverwendung geschützter Daten des öffentlichen Sektors.",
+      "Wenn Sie Daten zu altruistischen Zwecken sammeln, erfüllen Sie die Transparenzpflichten."
     ],
     "keyDates": [
       "Gilt seit 24. September 2023."
     ],
-    "penalties": "Von jedem EU-Land festgelegt; Bussgelder und moeglicher Verlust der Registrierung.",
-    "regulator": "Bundesministerium fuer Digitales und Verkehr sowie BNetzA"
+    "penalties": "Von jedem EU-Land festgelegt; Bußgelder und möglicher Verlust der Registrierung.",
+    "regulator": "Bundesministerium für Digitales und Verkehr sowie BNetzA"
   },
   "dora": {
-    "name": "Verordnung ueber digitale operationale Resilienz (DORA)",
-    "shortDescription": "Verlangt von Finanzunternehmen, ihre Technologie- und KI-Risiken zu steuern, Vorfaelle zu melden und externe IT- und KI-Dienstleister zu beaufsichtigen.",
+    "name": "Verordnung über digitale operationale Resilienz (DORA)",
+    "shortDescription": "Verlangt von Finanzunternehmen, ihre Technologie- und KI-Risiken zu steuern, Vorfälle zu melden und externe IT- und KI-Dienstleister zu beaufsichtigen.",
     "appliesTo": "Banken, Versicherer, Wertpapierfirmen, Zahlungs- und Kryptodienstleister, Pensionsfonds und andere von der BaFin beaufsichtigte Einrichtungen.",
     "whatYouMustDo": [
-      "Richten Sie ein dokumentiertes Rahmenwerk fuer Technologie- und KI-Risiken ein, fuer das die Geschaeftsleitung verantwortlich ist.",
-      "Erkennen, klassifizieren und melden Sie schwere IT-Vorfaelle fristgerecht an Ihre Aufsichtsbehoerde.",
-      "Testen Sie regelmaessig die Widerstandsfaehigkeit Ihrer kritischen Systeme.",
+      "Richten Sie ein dokumentiertes Rahmenwerk für Technologie- und KI-Risiken ein, für das die Geschäftsleitung verantwortlich ist.",
+      "Erkennen, klassifizieren und melden Sie schwere IT-Vorfälle fristgerecht an Ihre Aufsichtsbehörde.",
+      "Testen Sie regelmäßig die Widerstandsfähigkeit Ihrer kritischen Systeme.",
       "Steuern und dokumentieren Sie die Risiken externer IT- und KI-Lieferanten und halten Sie einen Ausstiegsplan bereit."
     ],
     "keyDates": [
       "Gilt seit 17. Januar 2025."
     ],
-    "penalties": "Aufsichtsmassnahmen und Bussgelder der nationalen Behoerden; in Deutschland die BaFin.",
-    "regulator": "Bundesanstalt fuer Finanzdienstleistungsaufsicht (BaFin) mit der Bundesbank"
+    "penalties": "Aufsichtsmaßnahmen und Bußgelder der nationalen Behörden; in Deutschland die BaFin.",
+    "regulator": "Bundesanstalt für Finanzdienstleistungsaufsicht (BaFin) mit der Bundesbank"
   },
   "nis2": {
     "name": "NIS2-Richtlinie und deutsches NIS2-Gesetz",
-    "shortDescription": "Legt Cybersicherheitspflichten fuer wichtige und besonders wichtige Einrichtungen fest, auch fuer KI-gestuetzte Infrastruktur, und verlangt die Meldung von Vorfaellen an das BSI.",
-    "appliesTo": "Betreiber in Energie, Verkehr, Gesundheit, Wasser, digitaler Infrastruktur und anderen wichtigen Sektoren oberhalb von Groessenschwellen.",
+    "shortDescription": "Legt Cybersicherheitspflichten für wichtige und besonders wichtige Einrichtungen fest, auch für KI-gestützte Infrastruktur, und verlangt die Meldung von Vorfällen an das BSI.",
+    "appliesTo": "Betreiber in Energie, Verkehr, Gesundheit, Wasser, digitaler Infrastruktur und anderen wichtigen Sektoren oberhalb von Größenschwellen.",
     "whatYouMustDo": [
-      "Ergreifen Sie Cybersicherheitsmassnahmen, die zu Ihrem Risiko passen.",
-      "Lassen Sie die Massnahmen von der Geschaeftsleitung genehmigen und schulen Sie sie.",
-      "Melden Sie erhebliche Vorfaelle an das BSI: Fruehwarnung binnen 24 Stunden, Meldung binnen 72 Stunden, Abschlussbericht binnen eines Monats.",
-      "Pruefen Sie die Sicherheit Ihrer Lieferanten und Dienstleister."
+      "Ergreifen Sie Cybersicherheitsmaßnahmen, die zu Ihrem Risiko passen.",
+      "Lassen Sie die Maßnahmen von der Geschäftsleitung genehmigen und schulen Sie sie.",
+      "Melden Sie erhebliche Vorfälle an das BSI: Frühwarnung binnen 24 Stunden, Meldung binnen 72 Stunden, Abschlussbericht binnen eines Monats.",
+      "Prüfen Sie die Sicherheit Ihrer Lieferanten und Dienstleister."
     ],
     "keyDates": [
       "Das deutsche Umsetzungsgesetz ist seit 5. Dezember 2025 in Kraft."
     ],
-    "penalties": "Bis zu 10 Millionen Euro oder 2 % des weltweiten Umsatzes fuer besonders wichtige Einrichtungen.",
-    "regulator": "Bundesamt fuer Sicherheit in der Informationstechnik (BSI)"
+    "penalties": "Bis zu 10 Millionen Euro oder 2 % des weltweiten Umsatzes für besonders wichtige Einrichtungen.",
+    "regulator": "Bundesamt für Sicherheit in der Informationstechnik (BSI)"
   },
   "cra": {
     "name": "Cyberresilienz-Verordnung (CRA)",
     "shortDescription": "Verlangt, dass Produkte mit digitalen Bestandteilen, auch KI-Software und -Hardware, von Anfang an sicher sind, Sicherheitsupdates erhalten und ausgenutzte Schwachstellen gemeldet werden.",
-    "appliesTo": "Hersteller, Importeure und Haendler von KI-faehigen Produkten, die in der EU verkauft werden.",
+    "appliesTo": "Hersteller, Importeure und Händler von KI-fähigen Produkten, die in der EU verkauft werden.",
     "whatYouMustDo": [
-      "Bauen Sie Ihr Produkt von Anfang an sicher, ohne bekannte ausnutzbare Schwachstellen bei der Veroeffentlichung.",
-      "Stellen Sie Sicherheitsupdates fuer den Unterstuetzungszeitraum bereit.",
-      "Melden Sie aktiv ausgenutzte Schwachstellen und schwere Vorfaelle fristgerecht an die Behoerden.",
-      "Fuehren Sie eine Konformitaetsbewertung durch und bringen Sie die CE-Kennzeichnung an, bevor Sie verkaufen."
+      "Bauen Sie Ihr Produkt von Anfang an sicher, ohne bekannte ausnutzbare Schwachstellen bei der Veröffentlichung.",
+      "Stellen Sie Sicherheitsupdates für den Unterstützungszeitraum bereit.",
+      "Melden Sie aktiv ausgenutzte Schwachstellen und schwere Vorfälle fristgerecht an die Behörden.",
+      "Führen Sie eine Konformitätsbewertung durch und bringen Sie die CE-Kennzeichnung an, bevor Sie verkaufen."
     ],
     "keyDates": [
       "In Kraft; Meldepflichten ab September 2026; Hauptpflichten ab 11. Dezember 2027."
     ],
     "penalties": "Bis zu 15 Millionen Euro oder 2,5 % des weltweiten Umsatzes.",
-    "regulator": "Bundesamt fuer Sicherheit in der Informationstechnik (BSI) und Marktueberwachungsbehoerden"
+    "regulator": "Bundesamt für Sicherheit in der Informationstechnik (BSI) und Marktüberwachungsbehörden"
   },
   "pld": {
     "name": "Produkthaftungsrichtlinie (neu)",
-    "shortDescription": "Aktualisiert die Haftungsregeln, sodass fehlerhafte Software und KI klar erfasst sind und Geschaedigte leichter Schadensersatz verlangen koennen.",
-    "appliesTo": "Hersteller und Importeure von KI-gestuetzten Produkten und Software. Deutschland muss sie bis Dezember 2026 umsetzen.",
+    "shortDescription": "Aktualisiert die Haftungsregeln, sodass fehlerhafte Software und KI klar erfasst sind und Geschädigte leichter Schadensersatz verlangen können.",
+    "appliesTo": "Hersteller und Importeure von KI-gestützten Produkten und Software. Deutschland muss sie bis Dezember 2026 umsetzen.",
     "whatYouMustDo": [
-      "Behandeln Sie Software und KI als Produkte, die fehlerhaft sein koennen, und bewahren Sie Nachweise zu Sicherheit und Tests auf.",
+      "Behandeln Sie Software und KI als Produkte, die fehlerhaft sein können, und bewahren Sie Nachweise zu Sicherheit und Tests auf.",
       "Seien Sie bereit, technische Informationen offenzulegen, wenn jemand einen Schaden durch Ihr KI-Produkt geltend macht.",
-      "Pruefen Sie Versicherung und Vertraege auf KI-bezogene Haftung."
+      "Prüfen Sie Versicherung und Verträge auf KI-bezogene Haftung."
     ],
     "keyDates": [
       "In Kraft seit 9. Dezember 2024; Deutschland muss sie bis 9. Dezember 2026 in nationales Recht umsetzen."
     ],
-    "penalties": "Zivilrechtliche Haftung: Sie muessen ggf. Schadensersatz fuer ein fehlerhaftes Produkt zahlen.",
+    "penalties": "Zivilrechtliche Haftung: Sie müssen ggf. Schadensersatz für ein fehlerhaftes Produkt zahlen.",
     "regulator": "Zivilgerichte; Umsetzung durch das Bundesministerium der Justiz"
   },
   "machinery": {
     "name": "Maschinenverordnung",
-    "shortDescription": "Legt Sicherheitsregeln fuer KI-gestuetzte Maschinen und Roboter fest und verlangt ausdruecklich eine Risikobewertung fuer selbstlernendes Verhalten.",
+    "shortDescription": "Legt Sicherheitsregeln für KI-gestützte Maschinen und Roboter fest und verlangt ausdrücklich eine Risikobewertung für selbstlernendes Verhalten.",
     "appliesTo": "Hersteller von Industrie-KI, Robotik und automatisierten Produktionssystemen. Gilt ab Januar 2027.",
     "whatYouMustDo": [
-      "Fuehren Sie eine Sicherheitsbewertung fuer Ihre Maschine durch, auch fuer selbstlernendes Verhalten.",
-      "Bauen Sie Sicherheitsfunktionen ein und fuehren Sie technische Dokumentation.",
-      "Fuehren Sie die Konformitaetsbewertung und CE-Kennzeichnung vor dem Verkauf durch."
+      "Führen Sie eine Sicherheitsbewertung für Ihre Maschine durch, auch für selbstlernendes Verhalten.",
+      "Bauen Sie Sicherheitsfunktionen ein und führen Sie technische Dokumentation.",
+      "Führen Sie die Konformitätsbewertung und CE-Kennzeichnung vor dem Verkauf durch."
     ],
     "keyDates": [
       "Gilt ab 20. Januar 2027."
     ],
-    "penalties": "Nationale Marktueberwachungsmassnahmen, Bussgelder und Marktruecknahme.",
-    "regulator": "Marktueberwachungsbehoerden der Laender, mit Hinweisen der BAuA"
+    "penalties": "Nationale Marktüberwachungsmaßnahmen, Bußgelder und Marktrücknahme.",
+    "regulator": "Marktüberwachungsbehörden der Länder, mit Hinweisen der BAuA"
   },
   "dsa": {
-    "name": "Gesetz ueber digitale Dienste (DSA)",
+    "name": "Gesetz über digitale Dienste (DSA)",
     "shortDescription": "Verpflichtet Online-Plattformen, offenzulegen, wie ihre KI Inhalte einstuft und empfiehlt, transparent zu moderieren und Risiken ihrer Algorithmen zu bewerten.",
-    "appliesTo": "Online-Plattformen, Marktplaetze, Suchmaschinen und soziale Netzwerke, die in der EU taetig sind.",
+    "appliesTo": "Online-Plattformen, Marktplätze, Suchmaschinen und soziale Netzwerke, die in der EU tätig sind.",
     "whatYouMustDo": [
-      "Erklaeren Sie die wichtigsten Faktoren, die Ihr Empfehlungssystem zur Einstufung von Inhalten nutzt.",
+      "Erklären Sie die wichtigsten Faktoren, die Ihr Empfehlungssystem zur Einstufung von Inhalten nutzt.",
       "Bieten Sie, wo erforderlich, eine Option ohne Profiling an.",
-      "Seien Sie transparent bei der Moderation und begruenden Sie Ihre Entscheidungen.",
-      "Groessere Plattformen muessen systemische Risiken ihrer Algorithmen bewerten und mindern."
+      "Seien Sie transparent bei der Moderation und begründen Sie Ihre Entscheidungen.",
+      "Größere Plattformen müssen systemische Risiken ihrer Algorithmen bewerten und mindern."
     ],
     "keyDates": [
-      "Vollstaendig anwendbar seit 17. Februar 2024."
+      "Vollständig anwendbar seit 17. Februar 2024."
     ],
-    "penalties": "Bis zu 6 % des weltweiten Jahresumsatzes bei sehr grossen Plattformen.",
-    "regulator": "Bundesnetzagentur (BNetzA) als Koordinator; EU-Kommission fuer sehr grosse Plattformen"
+    "penalties": "Bis zu 6 % des weltweiten Jahresumsatzes bei sehr großen Plattformen.",
+    "regulator": "Bundesnetzagentur (BNetzA) als Koordinator; EU-Kommission für sehr große Plattformen"
   },
   "dma": {
-    "name": "Gesetz ueber digitale Maerkte (DMA)",
-    "shortDescription": "Hindert die groessten Gatekeeper-Plattformen daran, mit KI-Rankings die eigenen Dienste zu bevorzugen oder Daten der Geschaeftsnutzer unfair zu verwenden.",
-    "appliesTo": "Benannte Gatekeeper-Plattformen und die Unternehmen, die von ihnen abhaengen.",
+    "name": "Gesetz über digitale Märkte (DMA)",
+    "shortDescription": "Hindert die größten Gatekeeper-Plattformen daran, mit KI-Rankings die eigenen Dienste zu bevorzugen oder Daten der Geschäftsnutzer unfair zu verwenden.",
+    "appliesTo": "Benannte Gatekeeper-Plattformen und die Unternehmen, die von ihnen abhängen.",
     "whatYouMustDo": [
-      "Als Gatekeeper duerfen Sie eigene Dienste im Ranking nicht unfair bevorzugen.",
-      "Nutzen Sie Daten der Geschaeftsnutzer nicht, um gegen sie zu konkurrieren.",
+      "Als Gatekeeper dürfen Sie eigene Dienste im Ranking nicht unfair bevorzugen.",
+      "Nutzen Sie Daten der Geschäftsnutzer nicht, um gegen sie zu konkurrieren.",
       "Halten Sie das Ranking fair und diskriminierungsfrei."
     ],
     "keyDates": [
-      "Gilt seit 2. Mai 2023; Gatekeeper-Pflichten ab Maerz 2024."
+      "Gilt seit 2. Mai 2023; Gatekeeper-Pflichten ab März 2024."
     ],
     "penalties": "Bis zu 10 % des weltweiten Umsatzes, bei Wiederholung bis zu 20 %.",
-    "regulator": "Europaeische Kommission, unterstuetzt vom Bundeskartellamt"
+    "regulator": "Europäische Kommission, unterstützt vom Bundeskartellamt"
   },
   "eidas": {
     "name": "eIDAS und eIDAS 2.0",
-    "shortDescription": "Legt Regeln fuer elektronische Identitaet und Vertrauensdienste wie E-Signaturen fest und fuehrt die EU-Brieftasche fuer digitale Identitaet ein. Wichtig fuer KI-Identitaetspruefung und Betrugspraevention.",
-    "appliesTo": "Anbieter von Identitaets- und Vertrauensdiensten und Unternehmen, die auf elektronische Identitaet oder die EU-Brieftasche setzen.",
+    "shortDescription": "Legt Regeln für elektronische Identität und Vertrauensdienste wie E-Signaturen fest und führt die EU-Brieftasche für digitale Identität ein. Wichtig für KI-Identitätsprüfung und Betrugsprävention.",
+    "appliesTo": "Anbieter von Identitäts- und Vertrauensdiensten und Unternehmen, die auf elektronische Identität oder die EU-Brieftasche setzen.",
     "whatYouMustDo": [
-      "Wenn Sie Identitaets- oder Vertrauensdienste anbieten, erfuellen Sie die Sicherheits- und Registrierungsregeln.",
-      "Wenn Sie elektronische Identitaet oder die EU-Brieftasche fuer KYC nutzen, verwenden Sie konforme Anbieter.",
-      "Halten Sie Ihre KI zur Identitaetspruefung nachvollziehbar."
+      "Wenn Sie Identitäts- oder Vertrauensdienste anbieten, erfüllen Sie die Sicherheits- und Registrierungsregeln.",
+      "Wenn Sie elektronische Identität oder die EU-Brieftasche für KYC nutzen, verwenden Sie konforme Anbieter.",
+      "Halten Sie Ihre KI zur Identitätsprüfung nachvollziehbar."
     ],
     "keyDates": [
-      "Urspruengliche Regeln ab 2014; eIDAS 2.0 in Kraft 2024; EU-Brieftaschen bis 2026."
+      "Ursprüngliche Regeln ab 2014; eIDAS 2.0 in Kraft 2024; EU-Brieftaschen bis 2026."
     ],
-    "penalties": "Aufsichtsmassnahmen, nationale Bussgelder und Verlust des Vertrauensdienste-Status.",
+    "penalties": "Aufsichtsmaßnahmen, nationale Bußgelder und Verlust des Vertrauensdienste-Status.",
     "regulator": "Bundesnetzagentur (BNetzA) und BSI"
   },
   "ki_mig": {
-    "name": "KI-MIG (deutsches KI-Marktueberwachungsgesetz)",
-    "shortDescription": "Das deutsche Gesetz, das die EU-KI-Verordnung in die Praxis umsetzt. Es benennt die zustaendigen deutschen Behoerden, regelt Bussgeldverfahren und sieht Reallabore vor.",
+    "name": "KI-MIG (deutsches KI-Marktüberwachungsgesetz)",
+    "shortDescription": "Das deutsche Gesetz, das die EU-KI-Verordnung in die Praxis umsetzt. Es benennt die zuständigen deutschen Behörden, regelt Bußgeldverfahren und sieht Reallabore vor.",
     "appliesTo": "Alle Unternehmen, die in Deutschland der EU-KI-Verordnung unterliegen. Noch im Entwurf (Stand 2026).",
     "whatYouMustDo": [
-      "Klaeren Sie, welche deutsche Behoerde Ihre KI-Nutzung beaufsichtigt (oft die Bundesnetzagentur).",
-      "Bereiten Sie sich auf Marktueberwachungspruefungen nach der EU-KI-Verordnung vor.",
-      "Erwaegen Sie ein Reallabor, wenn Sie neue KI entwickeln."
+      "Klären Sie, welche deutsche Behörde Ihre KI-Nutzung beaufsichtigt (oft die Bundesnetzagentur).",
+      "Bereiten Sie sich auf Marktüberwachungsprüfungen nach der EU-KI-Verordnung vor.",
+      "Erwägen Sie ein Reallabor, wenn Sie neue KI entwickeln."
     ],
     "keyDates": [
       "Regierungsentwurf am 10. Februar 2026 beschlossen; noch im parlamentarischen Verfahren."
     ],
-    "penalties": "Folgt nach Inkrafttreten den Bussgeldstufen der EU-KI-Verordnung.",
-    "regulator": "Benennt BNetzA als Leitbehoerde, zudem BaFin, BfArM und BAuA"
+    "penalties": "Folgt nach Inkrafttreten den Bußgeldstufen der EU-KI-Verordnung.",
+    "regulator": "Benennt BNetzA als Leitbehörde, zudem BaFin, BfArM und BAuA"
   },
   "bdsg": {
     "name": "Bundesdatenschutzgesetz (BDSG)",
-    "shortDescription": "Ergaenzt die DSGVO um deutsche Besonderheiten, besonders fuer den Umgang mit Beschaeftigtendaten und KI-Profiling am Arbeitsplatz.",
+    "shortDescription": "Ergänzt die DSGVO um deutsche Besonderheiten, besonders für den Umgang mit Beschäftigtendaten und KI-Profiling am Arbeitsplatz.",
     "appliesTo": "Alle Unternehmen, die in Deutschland personenbezogene Daten verarbeiten.",
     "whatYouMustDo": [
-      "Befolgen Sie die deutschen Sonderregeln, wenn Sie Beschaeftigtendaten mit KI verarbeiten.",
+      "Befolgen Sie die deutschen Sonderregeln, wenn Sie Beschäftigtendaten mit KI verarbeiten.",
       "Seien Sie vorsichtig bei KI-Profiling von Mitarbeitenden bei Einstellung und Leistung.",
       "Melden Sie Datenpannen wie vorgeschrieben."
     ],
     "keyDates": [
-      "In Kraft seit 25. Mai 2018; regelmaessig aktualisiert."
+      "In Kraft seit 25. Mai 2018; regelmäßig aktualisiert."
     ],
     "penalties": "Wie die DSGVO: bis zu 20 Millionen Euro oder 4 % des Umsatzes.",
-    "regulator": "Bundes- und Landesdatenschutzbehoerden"
+    "regulator": "Bundes- und Landesdatenschutzbehörden"
   },
   "tdddg": {
     "name": "Telekommunikation-Digitale-Dienste-Datenschutz-Gesetz (TDDDG)",
-    "shortDescription": "Regelt Cookies, Tracking und Einwilligung auf Webseiten und Apps. Das betrifft KI, die Nutzer fuer Werbung oder Personalisierung profiliert.",
-    "appliesTo": "Jedes Unternehmen mit KI-gestuetzten Webseiten, Apps oder Diensten, die Cookies, Tracking oder Profiling nutzen.",
+    "shortDescription": "Regelt Cookies, Tracking und Einwilligung auf Webseiten und Apps. Das betrifft KI, die Nutzer für Werbung oder Personalisierung profiliert.",
+    "appliesTo": "Jedes Unternehmen mit KI-gestützten Webseiten, Apps oder Diensten, die Cookies, Tracking oder Profiling nutzen.",
     "whatYouMustDo": [
-      "Holen Sie klare Einwilligung ein, bevor Sie Cookies oder Tracking auf dem Geraet eines Nutzers setzen.",
-      "Nutzen Sie KI-Profiling oder Tracking nicht ohne gueltige Rechtsgrundlage.",
+      "Holen Sie klare Einwilligung ein, bevor Sie Cookies oder Tracking auf dem Gerät eines Nutzers setzen.",
+      "Nutzen Sie KI-Profiling oder Tracking nicht ohne gültige Rechtsgrundlage.",
       "Halten Sie Ihr Cookie-Banner und Ihre Einwilligungsnachweise konform."
     ],
     "keyDates": [
       "In Kraft seit 1. Dezember 2021; am 14. Mai 2024 in TDDDG umbenannt."
     ],
-    "penalties": "Bussgelder bis zu 300.000 Euro fuer bestimmte Verstoesse, zusaetzlich DSGVO-Bussgelder.",
-    "regulator": "Bundes- und Landesdatenschutzbehoerden sowie BNetzA"
+    "penalties": "Bußgelder bis zu 300.000 Euro für bestimmte Verstöße, zusätzlich DSGVO-Bußgelder.",
+    "regulator": "Bundes- und Landesdatenschutzbehörden sowie BNetzA"
   },
   "geschgehg": {
-    "name": "Geschaeftsgeheimnisgesetz (GeschGehG)",
-    "shortDescription": "Schuetzt vertrauliche Geschaeftsinformationen wie KI-Modelle, Datensaetze und Prompts als Geschaeftsgeheimnis, sofern Sie angemessene Schutzmassnahmen treffen.",
+    "name": "Geschäftsgeheimnisgesetz (GeschGehG)",
+    "shortDescription": "Schützt vertrauliche Geschäftsinformationen wie KI-Modelle, Datensätze und Prompts als Geschäftsgeheimnis, sofern Sie angemessene Schutzmaßnahmen treffen.",
     "appliesTo": "Unternehmen, deren KI-Modelle, Trainingsdaten oder Algorithmen wertvolle Geheimnisse sind.",
     "whatYouMustDo": [
-      "Bestimmen Sie, welche KI-Modelle, Datensaetze und Prompts wertvolle Geheimnisse sind.",
-      "Treffen Sie angemessene Massnahmen zur Geheimhaltung, etwa Zugriffskontrollen und Vertraulichkeitsklauseln.",
-      "Nutzen Sie Vertraege, wenn Sie vertrauliche Daten mit Partnern teilen."
+      "Bestimmen Sie, welche KI-Modelle, Datensätze und Prompts wertvolle Geheimnisse sind.",
+      "Treffen Sie angemessene Maßnahmen zur Geheimhaltung, etwa Zugriffskontrollen und Vertraulichkeitsklauseln.",
+      "Nutzen Sie Verträge, wenn Sie vertrauliche Daten mit Partnern teilen."
     ],
     "keyDates": [
       "In Kraft seit 26. April 2019."
     ],
-    "penalties": "Zivilrechtliche Ansprueche auf Schadensersatz und Unterlassung; in schweren Faellen strafbar.",
+    "penalties": "Zivilrechtliche Ansprüche auf Schadensersatz und Unterlassung; in schweren Fällen strafbar.",
     "regulator": "Zivilgerichte"
   },
   "urhg": {
     "name": "Urheberrechtsgesetz (UrhG)",
-    "shortDescription": "Regelt KI-Trainingsdaten ueber die Regeln zum Text- und Data-Mining, den Schutz von KI-Ergebnissen und die Haftung fuer Urheberrechtsverletzungen.",
-    "appliesTo": "Unternehmen, die KI mit urheberrechtlich geschuetztem Material trainieren oder gewerblich KI-Inhalte erzeugen.",
+    "shortDescription": "Regelt KI-Trainingsdaten über die Regeln zum Text- und Data-Mining, den Schutz von KI-Ergebnissen und die Haftung für Urheberrechtsverletzungen.",
+    "appliesTo": "Unternehmen, die KI mit urheberrechtlich geschütztem Material trainieren oder gewerblich KI-Inhalte erzeugen.",
     "whatYouMustDo": [
-      "Pruefen Sie, ob Ihre KI-Trainingsdaten unter die Regeln zum Text- und Data-Mining fallen.",
-      "Beachten Sie maschinenlesbare Widersprueche von Rechteinhabern.",
+      "Prüfen Sie, ob Ihre KI-Trainingsdaten unter die Regeln zum Text- und Data-Mining fallen.",
+      "Beachten Sie maschinenlesbare Widersprüche von Rechteinhabern.",
       "Achten Sie auf Eigentum und Verletzungen, wenn Sie KI-Inhalte gewerblich erzeugen."
     ],
     "keyDates": [
       "Regeln zum Text- und Data-Mining in Kraft seit 7. Juni 2021."
     ],
-    "penalties": "Zivilrechtliche Ansprueche und Unterlassung; bei schwerer Verletzung strafbar.",
+    "penalties": "Zivilrechtliche Ansprüche und Unterlassung; bei schwerer Verletzung strafbar.",
     "regulator": "Zivilgerichte und Verwertungsgesellschaften"
   },
   "uwg": {
     "name": "Gesetz gegen den unlauteren Wettbewerb (UWG)",
-    "shortDescription": "KI-erzeugte Werbung darf nicht irrefuehren. Wettbewerber koennen auch gegen Verstoesse gegen die KI-Verordnung als unlauteren Wettbewerb vorgehen.",
+    "shortDescription": "KI-erzeugte Werbung darf nicht irreführen. Wettbewerber können auch gegen Verstöße gegen die KI-Verordnung als unlauteren Wettbewerb vorgehen.",
     "appliesTo": "Alle Unternehmen, die KI in Marketing, Werbung, Preisgestaltung oder Empfehlungen nutzen.",
     "whatYouMustDo": [
-      "Stellen Sie sicher, dass KI-erzeugte Werbung nicht irrefuehrend ist.",
-      "Kennzeichnen Sie automatisierte gewerbliche Inhalte, wo noetig.",
-      "Nutzen Sie KI nicht so, dass Wettbewerber oder Verbraucher unfair geschaedigt werden."
+      "Stellen Sie sicher, dass KI-erzeugte Werbung nicht irreführend ist.",
+      "Kennzeichnen Sie automatisierte gewerbliche Inhalte, wo nötig.",
+      "Nutzen Sie KI nicht so, dass Wettbewerber oder Verbraucher unfair geschädigt werden."
     ],
     "keyDates": [
-      "In Kraft; haeufig aktualisiert."
+      "In Kraft; häufig aktualisiert."
     ],
-    "penalties": "Unterlassung, Gewinnabschoepfung und Schadensersatz; Bussgelder bei bestimmten Verbraucherverstoessen.",
-    "regulator": "Zivilgerichte, Wettbewerber und Verbraucherverbaende"
+    "penalties": "Unterlassung, Gewinnabschöpfung und Schadensersatz; Bußgelder bei bestimmten Verbraucherverstößen.",
+    "regulator": "Zivilgerichte, Wettbewerber und Verbraucherverbände"
   },
   "gwb": {
-    "name": "Gesetz gegen Wettbewerbsbeschraenkungen (GWB)",
-    "shortDescription": "Das deutsche Kartellrecht. Es prueft Marktmacht einschliesslich Datenmacht und erlaubt dem Bundeskartellamt, Selbstbevorzugung und datenbasierte Behinderung sehr grosser Firmen zu stoppen.",
-    "appliesTo": "Jedes Unternehmen, dessen KI Wettbewerb, Marktbeherrschung oder Datenzugang beeinflussen koennte.",
+    "name": "Gesetz gegen Wettbewerbsbeschränkungen (GWB)",
+    "shortDescription": "Das deutsche Kartellrecht. Es prüft Marktmacht einschließlich Datenmacht und erlaubt dem Bundeskartellamt, Selbstbevorzugung und datenbasierte Behinderung sehr großer Firmen zu stoppen.",
+    "appliesTo": "Jedes Unternehmen, dessen KI Wettbewerb, Marktbeherrschung oder Datenzugang beeinflussen könnte.",
     "whatYouMustDo": [
       "Wenn Sie Marktmacht haben, bevorzugen Sie eigene Dienste nicht unfair mit KI.",
       "Missbrauchen Sie keine Daten, um Wettbewerber zu blockieren.",
@@ -303,12 +303,12 @@
     "regulator": "Bundeskartellamt"
   },
   "bgb": {
-    "name": "Buergerliches Gesetzbuch (BGB)",
+    "name": "Bürgerliches Gesetzbuch (BGB)",
     "shortDescription": "Regelt Vertrags- und Verschuldenshaftung bei KI-Fehlern, den Schutz vor KI-Deepfakes und die Pflicht, Verbrauchern KI-gesetzte Preise mitzuteilen.",
     "appliesTo": "Alle Unternehmen, die KI im Kunden- oder Vertragskontext einsetzen.",
     "whatYouMustDo": [
-      "Schliessen Sie klare, faire Vertraege fuer KI-Dienste und regeln Sie, wer bei einem KI-Fehler haftet.",
-      "Nutzen Sie KI nicht, um Deepfakes zu erstellen, die Persoenlichkeitsrechte verletzen.",
+      "Schließen Sie klare, faire Verträge für KI-Dienste und regeln Sie, wer bei einem KI-Fehler haftet.",
+      "Nutzen Sie KI nicht, um Deepfakes zu erstellen, die Persönlichkeitsrechte verletzen.",
       "Sagen Sie Verbrauchern, wenn Preise oder Bedingungen von KI gesetzt werden."
     ],
     "keyDates": [
@@ -319,55 +319,55 @@
   },
   "agg": {
     "name": "Allgemeines Gleichbehandlungsgesetz (AGG)",
-    "shortDescription": "Verbietet KI-Systemen Diskriminierung bei Einstellung, Beschaeftigung oder Zugang zu Leistungen anhand geschuetzter Merkmale wie Geschlecht, Alter oder Herkunft.",
+    "shortDescription": "Verbietet KI-Systemen Diskriminierung bei Einstellung, Beschäftigung oder Zugang zu Leistungen anhand geschützter Merkmale wie Geschlecht, Alter oder Herkunft.",
     "appliesTo": "Alle Unternehmen, die KI in HR, Personalauswahl oder Kundenentscheidungen nutzen.",
     "whatYouMustDo": [
-      "Pruefen Sie KI in Einstellung oder Kundenentscheidungen auf Diskriminierung.",
-      "Stellen Sie sicher, dass KI niemanden wegen geschuetzter Merkmale benachteiligt.",
-      "Fuehren Sie Nachweise, dass Ihre KI-Entscheidungen fair sind."
+      "Prüfen Sie KI in Einstellung oder Kundenentscheidungen auf Diskriminierung.",
+      "Stellen Sie sicher, dass KI niemanden wegen geschützter Merkmale benachteiligt.",
+      "Führen Sie Nachweise, dass Ihre KI-Entscheidungen fair sind."
     ],
     "keyDates": [
       "In Kraft seit 18. August 2006."
     ],
-    "penalties": "Entschaedigungs- und Schadensersatzansprueche; die Beweislast kann sich umkehren.",
+    "penalties": "Entschädigungs- und Schadensersatzansprüche; die Beweislast kann sich umkehren.",
     "regulator": "Antidiskriminierungsstelle des Bundes und die Gerichte"
   },
   "betrvg": {
     "name": "Betriebsverfassungsgesetz (BetrVG)",
-    "shortDescription": "Der Betriebsrat muss beteiligt werden, bevor Sie KI-Werkzeuge einfuehren, die Mitarbeitende ueberwachen oder ihre Arbeit beeinflussen koennen.",
-    "appliesTo": "Jedes Unternehmen mit Betriebsrat, das KI einsetzt, die Beschaeftigte betrifft.",
+    "shortDescription": "Der Betriebsrat muss beteiligt werden, bevor Sie KI-Werkzeuge einführen, die Mitarbeitende überwachen oder ihre Arbeit beeinflussen können.",
+    "appliesTo": "Jedes Unternehmen mit Betriebsrat, das KI einsetzt, die Beschäftigte betrifft.",
     "whatYouMustDo": [
-      "Beteiligen Sie den Betriebsrat, bevor Sie KI einfuehren, die Mitarbeitende ueberwachen oder betreffen kann.",
-      "Holen Sie eine Mitbestimmungsvereinbarung fuer KI zur Leistungsueberwachung oder Personalauswahl ein.",
-      "Geben Sie dem Betriebsrat die noetigen Informationen und bei Bedarf Sachverstaendigenunterstuetzung."
+      "Beteiligen Sie den Betriebsrat, bevor Sie KI einführen, die Mitarbeitende überwachen oder betreffen kann.",
+      "Holen Sie eine Mitbestimmungsvereinbarung für KI zur Leistungsüberwachung oder Personalauswahl ein.",
+      "Geben Sie dem Betriebsrat die nötigen Informationen und bei Bedarf Sachverständigenunterstützung."
     ],
     "keyDates": [
-      "KI-Regelungen durch das Betriebsraetemodernisierungsgesetz 2021 klargestellt."
+      "KI-Regelungen durch das Betriebsrätemodernisierungsgesetz 2021 klargestellt."
     ],
-    "penalties": "Ohne Vereinbarung eingefuehrte Massnahmen koennen von Arbeitsgerichten gestoppt werden.",
-    "regulator": "Betriebsraete und Arbeitsgerichte"
+    "penalties": "Ohne Vereinbarung eingeführte Maßnahmen können von Arbeitsgerichten gestoppt werden.",
+    "regulator": "Betriebsräte und Arbeitsgerichte"
   },
   "arbschg": {
     "name": "Arbeitsschutzgesetz (ArbSchG)",
-    "shortDescription": "Arbeitgeber muessen alle Gefaehrdungen am Arbeitsplatz beurteilen, auch Belastungen durch KI-Ueberwachung und algorithmisches Management.",
-    "appliesTo": "Alle Arbeitgeber, die KI nutzen, die Arbeitsbedingungen, Ueberwachung oder Aufgabenverteilung betrifft.",
+    "shortDescription": "Arbeitgeber müssen alle Gefährdungen am Arbeitsplatz beurteilen, auch Belastungen durch KI-Überwachung und algorithmisches Management.",
+    "appliesTo": "Alle Arbeitgeber, die KI nutzen, die Arbeitsbedingungen, Überwachung oder Aufgabenverteilung betrifft.",
     "whatYouMustDo": [
-      "Beziehen Sie KI in Ihre Gefaehrdungsbeurteilung ein, auch Belastungen durch Ueberwachung und algorithmisches Management.",
-      "Verringern Sie die festgestellten Risiken und ueberpruefen Sie sie regelmaessig."
+      "Beziehen Sie KI in Ihre Gefährdungsbeurteilung ein, auch Belastungen durch Überwachung und algorithmisches Management.",
+      "Verringern Sie die festgestellten Risiken und überprüfen Sie sie regelmäßig."
     ],
     "keyDates": [
       "In Kraft seit 1996; zuletzt 2024 aktualisiert."
     ],
-    "penalties": "Bussgelder und in schweren Faellen strafrechtliche Verantwortung des Arbeitgebers.",
-    "regulator": "Bundesanstalt fuer Arbeitsschutz und Arbeitsmedizin (BAuA) und Landesbehoerden"
+    "penalties": "Bußgelder und in schweren Fällen strafrechtliche Verantwortung des Arbeitgebers.",
+    "regulator": "Bundesanstalt für Arbeitsschutz und Arbeitsmedizin (BAuA) und Landesbehörden"
   },
   "stgb": {
     "name": "Strafgesetzbuch (StGB)",
-    "shortDescription": "KI-Deepfakes und synthetische Medien koennen Straftaten sein, etwa Beleidigung, Verleumdung, Volksverhetzung oder Verletzung der Privatsphaere.",
-    "appliesTo": "Alle, die KI einsetzen, die schaedliche synthetische Medien erzeugen oder Betrug ermoeglichen kann.",
+    "shortDescription": "KI-Deepfakes und synthetische Medien können Straftaten sein, etwa Beleidigung, Verleumdung, Volksverhetzung oder Verletzung der Privatsphäre.",
+    "appliesTo": "Alle, die KI einsetzen, die schädliche synthetische Medien erzeugen oder Betrug ermöglichen kann.",
     "whatYouMustDo": [
-      "Erstellen oder betreiben Sie keine KI, die illegale Inhalte wie schaedliche Deepfakes, Verleumdung oder Volksverhetzung erzeugt.",
-      "Treffen Sie Schutzmassnahmen, damit Ihre KI nicht fuer Betrug oder Belaestigung genutzt wird."
+      "Erstellen oder betreiben Sie keine KI, die illegale Inhalte wie schädliche Deepfakes, Verleumdung oder Volksverhetzung erzeugt.",
+      "Treffen Sie Schutzmaßnahmen, damit Ihre KI nicht für Betrug oder Belästigung genutzt wird."
     ],
     "keyDates": [
       "In Kraft; ein eigener Deepfake-Straftatbestand ist 2026 in Vorbereitung."
@@ -377,7 +377,7 @@
   },
   "mstv": {
     "name": "Medienstaatsvertrag (MStV)",
-    "shortDescription": "Sie muessen offenlegen, wenn Konten oder Inhalte automatisiert sind, etwa ein Bot, der wie eine echte Person wirkt, und Empfehlungssysteme transparent halten.",
+    "shortDescription": "Sie müssen offenlegen, wenn Konten oder Inhalte automatisiert sind, etwa ein Bot, der wie eine echte Person wirkt, und Empfehlungssysteme transparent halten.",
     "appliesTo": "Unternehmen, die KI-Inhalte, Bots oder Empfehlungen auf sozialen Medien und Medienplattformen nutzen.",
     "whatYouMustDo": [
       "Legen Sie offen, wenn ein Konto oder Inhalt automatisiert ist, etwa ein Bot, der wie eine echte Person wirkt.",
@@ -386,7 +386,7 @@
     "keyDates": [
       "In Kraft seit 7. November 2020."
     ],
-    "penalties": "Massnahmen und Bussgelder der Landesmedienanstalten.",
+    "penalties": "Maßnahmen und Bußgelder der Landesmedienanstalten.",
     "regulator": "Landesmedienanstalten"
   },
   "kwg": {
@@ -395,156 +395,156 @@
     "appliesTo": "Banken, Kreditinstitute und Zahlungsdienstleister, die KI nutzen.",
     "whatYouMustDo": [
       "Steuern Sie die Risiken von KI in Kreditscoring, Handel und anderen Entscheidungen in Ihrem Risikorahmen.",
-      "Halten Sie klare Verantwortung und Dokumentation fuer algorithmische Entscheidungen.",
+      "Halten Sie klare Verantwortung und Dokumentation für algorithmische Entscheidungen.",
       "Befolgen Sie die Erwartungen der BaFin zu Auslagerung und Risikomanagement."
     ],
     "keyDates": [
       "In Kraft; BaFin-Prinzipien zu Big Data und KI seit 2021."
     ],
-    "penalties": "Aufsichtsmassnahmen und Bussgelder der BaFin.",
-    "regulator": "Bundesanstalt fuer Finanzdienstleistungsaufsicht (BaFin) und die Bundesbank"
+    "penalties": "Aufsichtsmaßnahmen und Bußgelder der BaFin.",
+    "regulator": "Bundesanstalt für Finanzdienstleistungsaufsicht (BaFin) und die Bundesbank"
   },
   "vag": {
     "name": "Versicherungsaufsichtsgesetz (VAG)",
     "shortDescription": "Die BaFin beaufsichtigt KI in der Versicherungszeichnung, der automatisierten Schadenbearbeitung und der Risikobewertung.",
-    "appliesTo": "Versicherungs- und Rueckversicherungsunternehmen, die KI in Zeichnung oder Schaden nutzen.",
+    "appliesTo": "Versicherungs- und Rückversicherungsunternehmen, die KI in Zeichnung oder Schaden nutzen.",
     "whatYouMustDo": [
       "Steuern Sie KI in Zeichnung und Schaden unter Ihrem Risikomanagementsystem.",
       "Dokumentieren und validieren Sie die genutzten Modelle.",
-      "Halten Sie menschliche Aufsicht ueber automatisierte Versicherungsentscheidungen."
+      "Halten Sie menschliche Aufsicht über automatisierte Versicherungsentscheidungen."
     ],
     "keyDates": [
       "In Kraft (VAG 2016)."
     ],
-    "penalties": "Aufsichtsmassnahmen und Bussgelder der BaFin.",
-    "regulator": "Bundesanstalt fuer Finanzdienstleistungsaufsicht (BaFin)"
+    "penalties": "Aufsichtsmaßnahmen und Bußgelder der BaFin.",
+    "regulator": "Bundesanstalt für Finanzdienstleistungsaufsicht (BaFin)"
   },
   "sgbv_diga": {
     "name": "SGB V und digitale Gesundheitsanwendungen (DiGA)",
-    "shortDescription": "KI-basierte Gesundheits-Apps muessen vom BfArM zugelassen sein, einen Nutzen nachweisen und Daten- und Geraeteregeln erfuellen, um von der Krankenkasse erstattet zu werden.",
+    "shortDescription": "KI-basierte Gesundheits-Apps müssen vom BfArM zugelassen sein, einen Nutzen nachweisen und Daten- und Geräteregeln erfüllen, um von der Krankenkasse erstattet zu werden.",
     "appliesTo": "Gesundheits-Technologie-Unternehmen und Entwickler medizinischer KI, die eine Erstattung anstreben.",
     "whatYouMustDo": [
-      "Holen Sie die BfArM-Zulassung fuer eine KI-basierte Gesundheits-App ein, die erstattet werden soll.",
+      "Holen Sie die BfArM-Zulassung für eine KI-basierte Gesundheits-App ein, die erstattet werden soll.",
       "Weisen Sie einen positiven Versorgungseffekt nach.",
-      "Erfuellen Sie Datenschutz-, Sicherheits- und Medizinprodukteanforderungen."
+      "Erfüllen Sie Datenschutz-, Sicherheits- und Medizinprodukteanforderungen."
     ],
     "keyDates": [
-      "DiGA-Schnellverfahren seit 2020 verfuegbar."
+      "DiGA-Schnellverfahren seit 2020 verfügbar."
     ],
     "penalties": "Streichung aus dem DiGA-Verzeichnis und Verlust der Erstattung; Medizinprodukte-Sanktionen.",
-    "regulator": "Bundesinstitut fuer Arzneimittel und Medizinprodukte (BfArM)"
+    "regulator": "Bundesinstitut für Arzneimittel und Medizinprodukte (BfArM)"
   },
   "mdr": {
     "name": "Medizinprodukteverordnung (MDR)",
-    "shortDescription": "KI, die als Medizinprodukt gilt, etwa Diagnose-KI, muss eine Konformitaetsbewertung durchlaufen, eine CE-Kennzeichnung tragen und nach dem Verkauf ueberwacht werden.",
+    "shortDescription": "KI, die als Medizinprodukt gilt, etwa Diagnose-KI, muss eine Konformitätsbewertung durchlaufen, eine CE-Kennzeichnung tragen und nach dem Verkauf überwacht werden.",
     "appliesTo": "Medizintechnik-Unternehmen mit KI-Diagnose- oder Therapiewerkzeugen.",
     "whatYouMustDo": [
       "Entscheiden Sie, ob Ihre KI als Medizinprodukt gilt.",
-      "Fuehren Sie die Konformitaetsbewertung durch und erhalten Sie die CE-Kennzeichnung.",
-      "Fuehren Sie Marktueberwachung durch und melden Sie Vorfaelle."
+      "Führen Sie die Konformitätsbewertung durch und erhalten Sie die CE-Kennzeichnung.",
+      "Führen Sie Marktüberwachung durch und melden Sie Vorfälle."
     ],
     "keyDates": [
-      "Gilt seit 26. Mai 2021, mit Uebergangsfristen."
+      "Gilt seit 26. Mai 2021, mit Übergangsfristen."
     ],
-    "penalties": "Nationale Bussgelder, Marktruecknahme und Verlust der CE-Kennzeichnung.",
-    "regulator": "Bundesinstitut fuer Arzneimittel und Medizinprodukte (BfArM) und benannte Stellen"
+    "penalties": "Nationale Bußgelder, Marktrücknahme und Verlust der CE-Kennzeichnung.",
+    "regulator": "Bundesinstitut für Arzneimittel und Medizinprodukte (BfArM) und benannte Stellen"
   },
   "stvg_autonomous": {
-    "name": "Strassenverkehrsgesetz und Gesetz zum autonomen Fahren",
-    "shortDescription": "Setzt den Rechtsrahmen fuer selbstfahrende Fahrzeuge der Stufen 3 und 4 auf oeffentlichen Strassen, einschliesslich Zulassung und der Rolle der technischen Aufsicht.",
-    "appliesTo": "Autohersteller, Mobilitaetsdienstleister und Entwickler von Logistik-KI.",
+    "name": "Straßenverkehrsgesetz und Gesetz zum autonomen Fahren",
+    "shortDescription": "Setzt den Rechtsrahmen für selbstfahrende Fahrzeuge der Stufen 3 und 4 auf öffentlichen Straßen, einschließlich Zulassung und der Rolle der technischen Aufsicht.",
+    "appliesTo": "Autohersteller, Mobilitätsdienstleister und Entwickler von Logistik-KI.",
     "whatYouMustDo": [
-      "Holen Sie die Zulassung des KBA fuer automatisierte Fahrfunktionen der Stufen 3 und 4 ein.",
-      "Erfuellen Sie die Betriebs- und Aufsichtsregeln der Verordnung.",
-      "Fuehren Sie Sicherheitsdokumentation fuer das Fahrsystem."
+      "Holen Sie die Zulassung des KBA für automatisierte Fahrfunktionen der Stufen 3 und 4 ein.",
+      "Erfüllen Sie die Betriebs- und Aufsichtsregeln der Verordnung.",
+      "Führen Sie Sicherheitsdokumentation für das Fahrsystem."
     ],
     "keyDates": [
-      "Stufe-3-Rahmen 2017; Stufe-4-Aenderung 28. Juli 2021; Verordnung in Kraft 1. Juli 2022."
+      "Stufe-3-Rahmen 2017; Stufe-4-Änderung 28. Juli 2021; Verordnung in Kraft 1. Juli 2022."
     ],
-    "penalties": "Verweigerung oder Entzug der Zulassung, Bussgelder und Haftung fuer Unfaelle.",
+    "penalties": "Verweigerung oder Entzug der Zulassung, Bußgelder und Haftung für Unfälle.",
     "regulator": "Kraftfahrt-Bundesamt (KBA)"
   },
   "vwvfg": {
     "name": "Verwaltungsverfahrensgesetz (VwVfG)",
-    "shortDescription": "Erlaubt voll automatisierte Behoerdenentscheidungen nur, wenn ein Gesetz es zulaesst, und solche Entscheidungen muessen erklaerbar und anfechtbar sein.",
-    "appliesTo": "GovTech-Unternehmen und Anbieter, die KI-Software an Behoerden verkaufen.",
+    "shortDescription": "Erlaubt voll automatisierte Behördenentscheidungen nur, wenn ein Gesetz es zulässt, und solche Entscheidungen müssen erklärbar und anfechtbar sein.",
+    "appliesTo": "GovTech-Unternehmen und Anbieter, die KI-Software an Behörden verkaufen.",
     "whatYouMustDo": [
       "Nutzen Sie voll automatisierte Entscheidungen nur, wo ein Gesetz es erlaubt.",
-      "Stellen Sie sicher, dass automatisierte Entscheidungen erklaerbar und anfechtbar sind.",
-      "Geben Sie eine Begruendung und das Recht auf Anhoerung."
+      "Stellen Sie sicher, dass automatisierte Entscheidungen erklärbar und anfechtbar sind.",
+      "Geben Sie eine Begründung und das Recht auf Anhörung."
     ],
     "keyDates": [
       "Die Regel zur automatisierten Entscheidung (Paragraf 35a) ist seit 2017 in Kraft."
     ],
-    "penalties": "Entscheidungen koennen von Verwaltungsgerichten aufgehoben werden; Folgen in der Vergabe.",
-    "regulator": "Verwaltungsgerichte und Behoerden"
+    "penalties": "Entscheidungen können von Verwaltungsgerichten aufgehoben werden; Folgen in der Vergabe.",
+    "regulator": "Verwaltungsgerichte und Behörden"
   },
   "prodhaftg": {
     "name": "Produkthaftungsgesetz (ProdHaftG)",
-    "shortDescription": "Gibt eine verschuldensunabhaengige Haftung fuer Schaeden durch fehlerhafte Produkte, auch KI-integrierte. Es wird nach Umsetzung der neuen EU-Richtlinie bis Dezember 2026 erweitert.",
-    "appliesTo": "Hersteller und Haendler von KI-integrierten Produkten.",
+    "shortDescription": "Gibt eine verschuldensunabhängige Haftung für Schäden durch fehlerhafte Produkte, auch KI-integrierte. Es wird nach Umsetzung der neuen EU-Richtlinie bis Dezember 2026 erweitert.",
+    "appliesTo": "Hersteller und Händler von KI-integrierten Produkten.",
     "whatYouMustDo": [
-      "Behandeln Sie KI-integrierte Produkte als moeglicherweise fehlerhaft und bewahren Sie Sicherheitsnachweise auf.",
+      "Behandeln Sie KI-integrierte Produkte als möglicherweise fehlerhaft und bewahren Sie Sicherheitsnachweise auf.",
       "Bereiten Sie sich auf die weiteren Regeln der neuen EU-Richtlinie bis Dezember 2026 vor."
     ],
     "keyDates": [
-      "In Kraft; eine Aktualisierung ist bis Dezember 2026 faellig."
+      "In Kraft; eine Aktualisierung ist bis Dezember 2026 fällig."
     ],
-    "penalties": "Verschuldensunabhaengige Haftung: Schadensersatz fuer ein fehlerhaftes Produkt.",
+    "penalties": "Verschuldensunabhängige Haftung: Schadensersatz für ein fehlerhaftes Produkt.",
     "regulator": "Zivilgerichte und das Bundesministerium der Justiz"
   },
   "ehds": {
-    "name": "Europaeischer Raum fuer Gesundheitsdaten (EHDS)",
-    "shortDescription": "Schafft EU-Regeln fuer die Nutzung elektronischer Gesundheitsdaten, sowohl fuer die Versorgung als auch, wichtig fuer KI, fuer Forschung und Training ueber nationale Zugangsstellen.",
+    "name": "Europäischer Raum für Gesundheitsdaten (EHDS)",
+    "shortDescription": "Schafft EU-Regeln für die Nutzung elektronischer Gesundheitsdaten, sowohl für die Versorgung als auch, wichtig für KI, für Forschung und Training über nationale Zugangsstellen.",
     "appliesTo": "Entwickler von Gesundheits-KI und alle, die elektronische EU-Gesundheitsdaten zum Aufbau medizinischer KI weiterverwenden.",
     "whatYouMustDo": [
-      "Greifen Sie auf Gesundheitsdaten nur ueber die richtigen nationalen Stellen und Genehmigungen zu.",
-      "Befolgen Sie die Regeln zur Sekundaernutzung von Gesundheitsdaten fuer Forschung und Training.",
-      "Beachten Sie dies zusaetzlich zu Ihren DSGVO-Pflichten."
+      "Greifen Sie auf Gesundheitsdaten nur über die richtigen nationalen Stellen und Genehmigungen zu.",
+      "Befolgen Sie die Regeln zur Sekundärnutzung von Gesundheitsdaten für Forschung und Training.",
+      "Beachten Sie dies zusätzlich zu Ihren DSGVO-Pflichten."
     ],
     "keyDates": [
       "In Kraft 2025; schrittweise Anwendung."
     ],
-    "penalties": "Nationale Bussgelder und Verlust des Datenzugangs.",
-    "regulator": "BfArM und nationale Gesundheitsdaten-Zugangsstellen, mit den Datenschutzbehoerden"
+    "penalties": "Nationale Bußgelder und Verlust des Datenzugangs.",
+    "regulator": "BfArM und nationale Gesundheitsdaten-Zugangsstellen, mit den Datenschutzbehörden"
   },
   "hinschg": {
     "name": "Hinweisgeberschutzgesetz (HinSchG)",
-    "shortDescription": "Unternehmen mit 50 oder mehr Beschaeftigten muessen interne Meldestellen betreiben und Personen schuetzen, die Rechtsverstoesse melden, auch unzulaessige KI-Nutzung.",
-    "appliesTo": "Arbeitgeber mit 50 oder mehr Beschaeftigten.",
+    "shortDescription": "Unternehmen mit 50 oder mehr Beschäftigten müssen interne Meldestellen betreiben und Personen schützen, die Rechtsverstöße melden, auch unzulässige KI-Nutzung.",
+    "appliesTo": "Arbeitgeber mit 50 oder mehr Beschäftigten.",
     "whatYouMustDo": [
-      "Bei 50 oder mehr Beschaeftigten: betreiben Sie eine vertrauliche interne Meldestelle.",
-      "Schuetzen Sie Personen, die Rechtsverstoesse melden, auch unsichere oder unzulaessige KI-Nutzung, vor Benachteiligung.",
-      "Leiten Sie Bedenken zur KI-Governance ueber diese Stellen."
+      "Bei 50 oder mehr Beschäftigten: betreiben Sie eine vertrauliche interne Meldestelle.",
+      "Schützen Sie Personen, die Rechtsverstöße melden, auch unsichere oder unzulässige KI-Nutzung, vor Benachteiligung.",
+      "Leiten Sie Bedenken zur KI-Governance über diese Stellen."
     ],
     "keyDates": [
-      "In Kraft; Meldestellen fuer Organisationen mit 50 oder mehr Beschaeftigten erforderlich."
+      "In Kraft; Meldestellen für Organisationen mit 50 oder mehr Beschäftigten erforderlich."
     ],
-    "penalties": "Bussgelder bis zu 50.000 Euro fuer fehlende Meldestellen oder Benachteiligung.",
-    "regulator": "Bundesamt fuer Justiz (externe Meldestelle)"
+    "penalties": "Bußgelder bis zu 50.000 Euro für fehlende Meldestellen oder Benachteiligung.",
+    "regulator": "Bundesamt für Justiz (externe Meldestelle)"
   },
   "bafin_ki": {
-    "name": "BaFin-Aufsichtsprinzipien fuer KI im Finanzwesen",
-    "shortDescription": "Die Erwartungen der BaFin an die Nutzung von KI und maschinellem Lernen im Finanzwesen. Im Fokus stehen klare Verantwortung, gute Daten, Modellvalidierung und laufende Aufsicht ueber algorithmische Entscheidungen.",
-    "appliesTo": "Banken, Versicherer, Vermoegensverwalter und andere von der BaFin beaufsichtigte Firmen, die KI in Entscheidungen wie Scoring, Preisbildung oder Handel nutzen.",
+    "name": "BaFin-Aufsichtsprinzipien für KI im Finanzwesen",
+    "shortDescription": "Die Erwartungen der BaFin an die Nutzung von KI und maschinellem Lernen im Finanzwesen. Im Fokus stehen klare Verantwortung, gute Daten, Modellvalidierung und laufende Aufsicht über algorithmische Entscheidungen.",
+    "appliesTo": "Banken, Versicherer, Vermögensverwalter und andere von der BaFin beaufsichtigte Firmen, die KI in Entscheidungen wie Scoring, Preisbildung oder Handel nutzen.",
     "whatYouMustDo": [
-      "Halten Sie klare menschliche Verantwortung fuer KI-gestuetzte Finanzentscheidungen.",
-      "Nutzen Sie gute Daten und pruefen Sie Modelle auf Verzerrungen.",
-      "Validieren Sie Modelle vor dem Einsatz und regelmaessig erneut.",
-      "Ueberwachen Sie die Leistung und halten Sie sinnvolle menschliche Aufsicht."
+      "Halten Sie klare menschliche Verantwortung für KI-gestützte Finanzentscheidungen.",
+      "Nutzen Sie gute Daten und prüfen Sie Modelle auf Verzerrungen.",
+      "Validieren Sie Modelle vor dem Einsatz und regelmäßig erneut.",
+      "Überwachen Sie die Leistung und halten Sie sinnvolle menschliche Aufsicht."
     ],
     "keyDates": [
       "Beruht auf BaFin-Hinweisen von 2021; die Erwartungen entwickeln sich weiter."
     ],
-    "penalties": "Aufsichtsmassnahmen und Bussgelder der BaFin.",
-    "regulator": "Bundesanstalt fuer Finanzdienstleistungsaufsicht (BaFin)"
+    "penalties": "Aufsichtsmaßnahmen und Bußgelder der BaFin.",
+    "regulator": "Bundesanstalt für Finanzdienstleistungsaufsicht (BaFin)"
   },
   "deepfake_law": {
     "name": "Gesetz gegen Deepfakes und digitale Gewalt (in Vorbereitung)",
-    "shortDescription": "Ein geplantes deutsches Gesetz, das eigene Straftatbestaende fuer schaedliche Deepfakes und digitale Gewalt schaffen wuerde. Noch nicht in Kraft, also beobachten statt handeln.",
-    "appliesTo": "Alle, die KI-erzeugte synthetische Medien erstellen oder teilen, die Menschen schaden koennten.",
+    "shortDescription": "Ein geplantes deutsches Gesetz, das eigene Straftatbestände für schädliche Deepfakes und digitale Gewalt schaffen würde. Noch nicht in Kraft, also beobachten statt handeln.",
+    "appliesTo": "Alle, die KI-erzeugte synthetische Medien erstellen oder teilen, die Menschen schaden könnten.",
     "whatYouMustDo": [
-      "Beobachten Sie den Gesetzgebungsstand und bereiten Sie Richtlinien gegen schaedliche Deepfakes vor."
+      "Beobachten Sie den Gesetzgebungsstand und bereiten Sie Richtlinien gegen schädliche Deepfakes vor."
     ],
     "keyDates": [
       "Noch nicht in Kraft; in Vorbereitung 2026."
@@ -553,16 +553,16 @@
     "regulator": "Bundesministerium der Justiz (geplant); Staatsanwaltschaften"
   },
   "besch_datengesetz": {
-    "name": "Beschaeftigtendatengesetz (Entwurf)",
-    "shortDescription": "Ein geplantes eigenstaendiges deutsches Gesetz fuer den Umgang mit Beschaeftigtendaten, auch KI-Ueberwachung und Entscheidungen am Arbeitsplatz. Es ginge ueber die heutigen BDSG-Regeln hinaus. Noch ein Entwurf.",
-    "appliesTo": "Alle Arbeitgeber, die Beschaeftigtendaten verarbeiten, besonders mit KI.",
+    "name": "Beschäftigtendatengesetz (Entwurf)",
+    "shortDescription": "Ein geplantes eigenständiges deutsches Gesetz für den Umgang mit Beschäftigtendaten, auch KI-Überwachung und Entscheidungen am Arbeitsplatz. Es ginge über die heutigen BDSG-Regeln hinaus. Noch ein Entwurf.",
+    "appliesTo": "Alle Arbeitgeber, die Beschäftigtendaten verarbeiten, besonders mit KI.",
     "whatYouMustDo": [
-      "Beobachten Sie den Entwurf und pruefen Sie Ihre Praxis zur KI-gestuetzten Verarbeitung von Beschaeftigtendaten."
+      "Beobachten Sie den Entwurf und prüfen Sie Ihre Praxis zur KI-gestützten Verarbeitung von Beschäftigtendaten."
     ],
     "keyDates": [
       "Noch nicht in Kraft; im Entwurfsstadium."
     ],
     "penalties": "Noch nicht festgelegt.",
-    "regulator": "Bundes- und Landesdatenschutzbehoerden (geplant)"
+    "regulator": "Bundes- und Landesdatenschutzbehörden (geplant)"
   }
 }
